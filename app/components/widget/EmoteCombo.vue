@@ -11,19 +11,10 @@ const numberEl = useTemplateRef<HTMLSpanElement>('number')
 
 const seen = new Map<string, number[]>()
 const urls = new Map<string, string>()
-const popAnimations = new WeakMap<Element, Animation>()
 let hideTimer: ReturnType<typeof setTimeout> | undefined
 
 function pop(el: Element | null, strength: number) {
-  if (!el) return
-  popAnimations.get(el)?.cancel()
-  const peak = 1 + (props.settings.popScale - 1) * strength
-  const deg = props.settings.popRotate * strength
-  popAnimations.set(el, el.animate([
-    { scale: 1, rotate: '0deg', easing: 'cubic-bezier(.2,.8,.3,1)' },
-    { scale: peak, rotate: `${deg}deg`, easing: 'cubic-bezier(.4,0,.5,1)', offset: 0.45 },
-    { scale: 1, rotate: '0deg' }
-  ], { duration: 180, easing: 'linear' }))
+  popElement(el, 1 + (props.settings.popScale - 1) * strength, props.settings.popRotate * strength)
 }
 
 async function show(url: string, hits: number) {

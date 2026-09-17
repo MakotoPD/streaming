@@ -28,6 +28,7 @@ export const chat: WidgetDefinition = {
     ...animationFields('slide-up', 'fade', 250),
     customCssField()
   ],
+  tests: ['chat'],
   cssTemplate: [
     { selector: '.chat', declarations: { 'font-family': '{font}', 'font-size': '{fontSize}', 'gap': '{gap}' } },
     { selector: '.chat-message', declarations: { 'color': '{textColor}', 'background': '{background}', 'border-color': '{borderColor}', 'border-radius': '{radius}', 'backdrop-filter': 'blur({blur})' } },

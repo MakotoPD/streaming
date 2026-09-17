@@ -81,6 +81,70 @@
     "scene": {
       "name": "Pantalla de escena",
       "description": "Pantallas de empezamos pronto, ahora vuelvo y final."
+    },
+    "emote-rain": {
+      "name": "Lluvia de emotes",
+      "description": "Los emotes del chat caen, suben o cruzan la pantalla."
+    },
+    "poll": {
+      "name": "Encuesta del chat",
+      "description": "Los espectadores votan con !1, !2… y los resultados se actualizan en vivo."
+    },
+    "counter": {
+      "name": "Contador de comandos",
+      "description": "Cuenta cosas como muertes con un comando, p. ej. !death."
+    },
+    "pinned": {
+      "name": "Mensaje fijado",
+      "description": "Haz clic en un mensaje del chat en el panel para mostrarlo en el directo."
+    },
+    "recent-events": {
+      "name": "Barra de eventos recientes",
+      "description": "Último seguidor, sub, regalo, raid y bits."
+    },
+    "leaderboard": {
+      "name": "Clasificación",
+      "description": "Los más activos del chat, regaladores o bits de la sesión."
+    },
+    "giveaway": {
+      "name": "Sorteo",
+      "description": "Los espectadores se apuntan con !join y un sorteo animado elige al ganador."
+    },
+    "first-message": {
+      "name": "Primer mensaje",
+      "description": "Da la bienvenida a quien escribe por primera vez en el chat."
+    },
+    "spotlight": {
+      "name": "Mensaje en pantalla",
+      "description": "Muestra mensajes destacados, bits o !msg en el centro de la pantalla."
+    },
+    "subathon": {
+      "name": "Temporizador de subathon",
+      "description": "Cuenta atrás que crece con subs, regalos, bits y follows."
+    },
+    "goal": {
+      "name": "Barra de meta",
+      "description": "Barra de progreso de follows, subs, regalos o bits durante el directo."
+    },
+    "clock": {
+      "name": "Reloj",
+      "description": "Hora, fecha, tiempo en directo o cuenta atrás."
+    },
+    "socials": {
+      "name": "Rotador de redes",
+      "description": "Tus redes, rotando o todas a la vez."
+    },
+    "marquee": {
+      "name": "Texto deslizante",
+      "description": "Barra con tus mensajes: horario, normas, anuncios."
+    },
+    "cam-frame": {
+      "name": "Marco de cámara",
+      "description": "Borde animado para tu cámara con etiqueta opcional."
+    },
+    "lower-third": {
+      "name": "Rótulo inferior",
+      "description": "Rótulo con nombre y subtítulo, fijo o por intervalos."
     }
   },
   "editor": {
@@ -117,6 +181,13 @@
       "detached": "Editado a mano: los cambios de la pestaña Estilo ya no se aplican aquí",
       "reset": "Reconstruir desde el estilo actual",
       "confirmReset": "¿Reemplazar tu CSS con los valores del estilo actual?"
+    },
+    "actions": "Acciones",
+    "pin": {
+      "title": "Chat en vivo",
+      "hint": "Haz clic en un mensaje para fijarlo en el directo.",
+      "waiting": "Esperando mensajes del chat…",
+      "pinned": "Mensaje fijado"
     }
   },
   "sections": {
@@ -129,7 +200,9 @@
     "gifts": "Regalos",
     "raid": "Raid",
     "bits": "Bits",
-    "socials": "Redes"
+    "socials": "Redes",
+    "triggers": "Activadores",
+    "time": "Tiempo"
   },
   "fields": {
     "maxMessages": "Máx. mensajes",
@@ -190,7 +263,106 @@
     "backgroundColor": "Color de fondo",
     "accent1": "Acento 1",
     "accent2": "Acento 2",
-    "italic": "Título en cursiva"
+    "italic": "Título en cursiva",
+    "rainMode": "Dirección",
+    "perMessage": "Emotes por mensaje",
+    "maxEmotes": "Máx. emotes en pantalla",
+    "rainDuration": "Duración del vuelo",
+    "opacity": "Opacidad",
+    "spin": "Girar",
+    "sway": "Balanceo",
+    "question": "Pregunta",
+    "pollOptions": "Opciones",
+    "commandPrefix": "Prefijo del voto",
+    "allowChange": "Permitir cambiar el voto",
+    "autoClose": "Cerrar automáticamente tras",
+    "showPercent": "Mostrar porcentajes",
+    "hideWhenClosed": "Ocultar al cerrar",
+    "barColor": "Color de la barra",
+    "barBackground": "Fondo de la barra",
+    "winnerColor": "Color del ganador",
+    "counterLabel": "Etiqueta",
+    "command": "Comando",
+    "permission": "Quién puede usarlo",
+    "step": "Paso",
+    "cooldown": "Tiempo de espera",
+    "popOnChange": "Rebote al cambiar",
+    "labelColor": "Color de la etiqueta",
+    "valueColor": "Color del número",
+    "layout": "Disposición",
+    "showLabel": "Mostrar etiqueta",
+    "autoHide": "Ocultar tras",
+    "accentColor": "Color de acento",
+    "showFollow": "Mostrar follows",
+    "showSub": "Mostrar subs",
+    "showGifts": "Mostrar regalos",
+    "showRaid": "Mostrar raids",
+    "showBits": "Mostrar bits",
+    "recentLayout": "Disposición",
+    "tickerInterval": "Cambiar cada",
+    "showIcons": "Mostrar iconos",
+    "leaderboardMode": "Clasificar por",
+    "leaderboardTitle": "Título",
+    "limit": "Número de puestos",
+    "showCount": "Mostrar cantidad",
+    "firstColor": "Color del primer puesto",
+    "giveawayTitle": "Título",
+    "keyword": "Comando para participar",
+    "eligibility": "Quién puede participar",
+    "showEntries": "Mostrar número de participantes",
+    "rollDuration": "Duración de la animación",
+    "firstMode": "Qué cuenta como primero",
+    "welcomeText": "Texto de bienvenida",
+    "showMessage": "Mostrar su mensaje",
+    "onHighlighted": "Mensajes destacados (puntos del canal)",
+    "onBits": "Mensajes con bits",
+    "minBits": "Mínimo de bits",
+    "spotlightCommand": "Comando del chat",
+    "subathonTitle": "Título",
+    "startMinutes": "Tiempo inicial",
+    "maxHours": "Límite de tiempo",
+    "showAdded": "Mostrar tiempo añadido",
+    "secondsPerSub": "Por sub",
+    "tierMultiplier": "Multiplicar por nivel",
+    "secondsPerGift": "Por sub regalado",
+    "secondsPer100Bits": "Por 100 bits",
+    "secondsPerFollow": "Por follow",
+    "secondsPerRaid": "Por raid",
+    "goalMetric": "Contar",
+    "goalTitle": "Título",
+    "target": "Meta",
+    "startValue": "Valor inicial",
+    "showNumbers": "Mostrar números",
+    "celebrate": "Celebrar al alcanzarla",
+    "barColor2": "Color de la barra 2",
+    "barHeight": "Altura de la barra",
+    "clockMode": "Mostrar",
+    "clockLabel": "Etiqueta",
+    "hour12": "Formato de 12 horas",
+    "showSeconds": "Mostrar segundos",
+    "socialsLayout": "Disposición",
+    "interval": "Cambiar cada",
+    "iconColor": "Color de los iconos",
+    "lines": "Textos",
+    "separator": "Separador",
+    "speed": "Velocidad",
+    "marqueeDirection": "Dirección",
+    "separatorColor": "Color del separador",
+    "frameLabel": "Etiqueta",
+    "animatedBorder": "Borde animado",
+    "cornerStyle": "Esquinas",
+    "borderWidth": "Grosor del borde",
+    "color1": "Color 1",
+    "color2": "Color 2",
+    "labelBackground": "Fondo de la etiqueta",
+    "thirdTitle": "Nombre",
+    "subtitle": "Subtítulo",
+    "align": "Alineación",
+    "showMode": "Visibilidad",
+    "showFor": "Mostrar durante",
+    "hideFor": "Ocultar durante",
+    "subtitleSize": "Tamaño del subtítulo",
+    "subtitleColor": "Color del subtítulo"
   },
   "hints": {
     "hideAfter": "0 mantiene los mensajes hasta que los nuevos los desplacen.",
@@ -202,7 +374,29 @@
     "minMessages": "El mismo emote en esta cantidad de mensajes distintos.",
     "countdownTo": "Hora local. Vacío = sin cuenta atrás.",
     "title": "Vacío = texto predeterminado del modo elegido.",
-    "sceneBackground": "El 3D se ve genial pero usa la GPU. Si el juego va a tirones, elige un fondo más ligero."
+    "sceneBackground": "El 3D se ve genial pero usa la GPU. Si el juego va a tirones, elige un fondo más ligero.",
+    "perMessage": "Los emotes extra de un mismo mensaje se ignoran.",
+    "maxEmotes": "Mantiene el overlay ligero si el chat hace spam.",
+    "commandPrefix": "El voto es prefijo + número, p. ej. !1. Vacío = solo números.",
+    "allowChange": "Si no, solo cuenta el primer voto.",
+    "autoClose": "Desde Iniciar. 0 = hasta pulsar Detener.",
+    "command": "También: comando+ comando- comando set 10 comando reset",
+    "cooldown": "Ignora el comando si se repite demasiado rápido.",
+    "autoHide": "0 = se queda hasta que lo desfijes.",
+    "tickerInterval": "Se usa en la disposición rotativa.",
+    "keyword": "Los espectadores escriben exactamente esto para participar.",
+    "firstMode": "Twitch marca los primeros mensajes reales. Kick no, así que usa el primero de esta sesión.",
+    "welcomeText": "Vacío = texto predeterminado.",
+    "onHighlighted": "Recompensa de Twitch «Destacar mi mensaje».",
+    "spotlightCommand": "p. ej. !msg Hola a todos. Vacío = desactivado.",
+    "startMinutes": "Se usa al reiniciar. Pulsa Iniciar en Acciones para empezar.",
+    "maxHours": "0 = sin límite.",
+    "tierMultiplier": "Nivel 2 suma el doble, nivel 3 el triple.",
+    "startValue": "Progreso que ya tenías antes del directo.",
+    "lines": "Pulsa Enter tras cada texto. Vacío = bienvenida por defecto.",
+    "frameLabel": "Vacío = nombre de tu canal.",
+    "thirdTitle": "Vacío = nombre de tu canal.",
+    "clockMode": "El tiempo en directo se lee de Twitch o Kick cada minuto."
   },
   "options": {
     "direction": {
@@ -232,6 +426,77 @@
       "gradient": "Degradado",
       "orbs": "Orbes brillantes",
       "3d": "Espacio 3D (pesado)"
+    },
+    "rainMode": {
+      "fall": "Caer",
+      "rise": "Subir",
+      "fly": "Cruzar"
+    },
+    "permission": {
+      "everyone": "Todos",
+      "subscribers": "Subs y superiores",
+      "vips": "VIP y superiores",
+      "moderators": "Moderadores",
+      "broadcaster": "Solo yo"
+    },
+    "layout": {
+      "row": "Fila",
+      "column": "Columna"
+    },
+    "recentLayout": {
+      "row": "Fila",
+      "column": "Columna",
+      "ticker": "Uno a uno"
+    },
+    "leaderboardMode": {
+      "chatters": "Mensajes del chat",
+      "gifters": "Subs regalados",
+      "bits": "Bits"
+    },
+    "eligibility": {
+      "everyone": "Todos",
+      "subscribers": "Solo subs"
+    },
+    "firstMode": {
+      "firstEver": "Primer mensaje de la historia (Twitch)",
+      "firstInSession": "Primer mensaje en este directo"
+    },
+    "goalMetric": {
+      "follows": "Follows",
+      "subs": "Subs (con regalos)",
+      "bits": "Bits",
+      "gifts": "Subs regalados"
+    },
+    "clockMode": {
+      "clock": "Hora",
+      "date": "Fecha",
+      "uptime": "Tiempo en directo",
+      "countdown": "Cuenta atrás"
+    },
+    "socialsLayout": {
+      "rotate": "Uno a uno",
+      "row": "Fila",
+      "column": "Columna"
+    },
+    "iconColor": {
+      "brand": "Colores de marca",
+      "text": "Color del texto"
+    },
+    "marqueeDirection": {
+      "left": "Hacia la izquierda",
+      "right": "Hacia la derecha"
+    },
+    "cornerStyle": {
+      "none": "Ninguna",
+      "brackets": "Corchetes"
+    },
+    "showMode": {
+      "always": "Siempre",
+      "interval": "Por intervalos"
+    },
+    "align": {
+      "left": "Izquierda",
+      "right": "Derecha"
     }
   },
   "animations": {
@@ -264,7 +529,15 @@
     "sunset": "Atardecer",
     "mint": "Menta",
     "mono": "Mono",
-    "space-3d": "Espacio 3D"
+    "space-3d": "Espacio 3D",
+    "classic": "Clásico",
+    "big": "Grande",
+    "subtle": "Sutil",
+    "party": "Fiesta",
+    "clean": "Limpio",
+    "bold": "Llamativo",
+    "broadcast": "Televisión",
+    "gold": "Dorado"
   },
   "tests": {
     "chat": "Mensaje",
@@ -273,7 +546,13 @@
     "sub": "Suscripción",
     "gifts": "Regalos",
     "raid": "Raid",
-    "bits": "Bits"
+    "bits": "Bits",
+    "vote": "Voto",
+    "command": "Comando",
+    "pin": "Fijar",
+    "join": "Participar",
+    "first": "Primer mensaje",
+    "highlight": "Destacado"
   },
   "sound": {
     "none": "Sin sonido",
@@ -327,6 +606,95 @@
     "sceneAccent": "Parte destacada del título",
     "sceneCountdown": "Cuenta atrás",
     "sceneSocials": "Fila de redes",
-    "sceneSocial": "Una red (icono + nombre)"
+    "sceneSocial": "Una red (icono + nombre)",
+    "emoteRain": "Área por la que vuelan los emotes",
+    "emoteDrop": "Un emote en vuelo",
+    "emoteDropImage": "Imagen del emote",
+    "poll": "Tarjeta de la encuesta",
+    "pollQuestion": "Pregunta",
+    "pollOption": "Una opción",
+    "pollBar": "Fondo de la barra",
+    "pollFill": "Relleno de la barra",
+    "pollLabel": "Nombre de la opción",
+    "pollCount": "Votos o porcentaje",
+    "pollWinner": "Opción ganadora al cerrar",
+    "pollFooter": "Pista y número de votos",
+    "counter": "Caja del contador",
+    "counterLabel": "Etiqueta",
+    "counterValue": "Número",
+    "pinnedCard": "Tarjeta del mensaje fijado",
+    "pinnedLabel": "Etiqueta «Fijado»",
+    "pinnedName": "Nombre del autor",
+    "pinnedText": "Texto del mensaje",
+    "recent": "Contenedor de todos los elementos",
+    "recentItem": "Un evento",
+    "recentIcon": "Icono del evento",
+    "recentLabel": "Etiqueta, p. ej. «Último sub»",
+    "recentName": "Nombre de la persona",
+    "leaderboard": "Tarjeta de la clasificación",
+    "leaderboardTitle": "Título",
+    "leaderboardRow": "Una fila",
+    "leaderboardRank": "Número de puesto",
+    "leaderboardName": "Nombre",
+    "leaderboardCount": "Cantidad",
+    "leaderboardFirst": "Fila del primer puesto",
+    "giveaway": "Tarjeta del sorteo",
+    "giveawayTitle": "Título",
+    "giveawayHint": "Cómo participar",
+    "giveawayCount": "Número de participantes",
+    "giveawayRoll": "Nombres que parpadean en el sorteo",
+    "giveawayWinner": "Nombre del ganador",
+    "firstCard": "Tarjeta de bienvenida",
+    "firstName": "Nombre del espectador",
+    "firstWelcome": "Texto de bienvenida",
+    "firstText": "Su mensaje",
+    "spotlightCard": "Tarjeta del mensaje",
+    "spotlightName": "Nombre del autor",
+    "spotlightBits": "Distintivo de bits",
+    "spotlightText": "Texto del mensaje",
+    "subathon": "Caja del temporizador",
+    "subathonTitle": "Título",
+    "subathonTime": "Tiempo restante",
+    "subathonStatus": "En pausa o terminado",
+    "subathonAdded": "«+60s» flotante",
+    "goal": "Caja de la meta",
+    "goalTitle": "Título",
+    "goalNumbers": "Actual / meta",
+    "goalBar": "Fondo de la barra",
+    "goalFill": "Relleno de la barra",
+    "goalReached": "Caja de la meta al alcanzarla",
+    "clock": "Caja del reloj",
+    "clockLabel": "Etiqueta",
+    "clockTime": "Hora",
+    "socials": "Contenedor de todas las redes",
+    "socialsItem": "Una red",
+    "socialsIcon": "Icono de la plataforma",
+    "socialsHandle": "Usuario",
+    "marquee": "Barra deslizante",
+    "marqueeTrack": "Tira de textos en movimiento",
+    "marqueeItem": "Un texto",
+    "marqueeSeparator": "Separador entre textos",
+    "camFrame": "Área del marco (brillo y colores)",
+    "camFrameBorder": "Borde",
+    "camFrameLabel": "Etiqueta con nombre",
+    "camFrameCorner": "Esquinas",
+    "lowerThird": "Rótulo",
+    "lowerThirdAccent": "Franja de acento",
+    "lowerThirdTitle": "Nombre",
+    "lowerThirdSubtitle": "Subtítulo"
+  },
+  "actions": {
+    "start": "Iniciar",
+    "stop": "Detener",
+    "reset": "Reiniciar",
+    "increment": "+1",
+    "decrement": "−1",
+    "unpin": "Desfijar",
+    "open": "Abrir inscripciones",
+    "close": "Cerrar inscripciones",
+    "draw": "Sortear ganador",
+    "pause": "Pausa",
+    "addMinute": "+1 min",
+    "removeMinute": "−1 min"
   }
 }

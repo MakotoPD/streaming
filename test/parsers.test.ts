@@ -2,8 +2,9 @@ import assert from 'node:assert/strict'
 import { readFileSync, readdirSync } from 'node:fs'
 import { test } from 'node:test'
 import { expandParts } from '../app/utils/emotes.ts'
-import { ircToEvents, parseIrc, twitchParts } from '../app/utils/twitch-irc.ts'
-import { kickParts } from '../app/utils/kick-chat.ts'
+import { ircToEvents, parseIrc, twitchParts, twitchRoles } from '../app/utils/twitch-irc.ts'
+import { kickParts, kickRoles } from '../app/utils/kick-chat.ts'
+import { hasPermission } from '../shared/utils/permissions.ts'
 import { fillTemplate } from '../shared/utils/template.ts'
 import { formatColor, parseColor } from '../app/utils/color.ts'
 import { tokenizeCss } from '../app/utils/css-highlight.ts'
@@ -109,4 +110,22 @@ test('tokenizeCss keeps the source intact and finds colors', () => {
   assert.ok(tokens.some(t => t.type === 'property' && t.text === 'border-radius'))
   assert.ok(tokens.some(t => t.type === 'number' && t.text === '12px'))
   assert.ok(tokens.some(t => t.type === 'variable' && t.text === '--gap'))
+})
+
+test('chat roles and permissions', () => {
+  assert.deepEqual(twitchRoles({ badges: 'vip/1,subscriber/12', mod: '0' }).sort(), ['subscriber', 'vip'])
+  assert.deepEqual(twitchRoles({ badges: 'founder/0', mod: '1' }).sort(), ['moderator', 'subscriber'])
+  assert.deepEqual(kickRoles([{ type: 'og' }, { type: 'moderator' }, { type: 'verified' }]).sort(), ['moderator', 'subscriber'])
+  assert.equal(hasPermission([], 'everyone'), true)
+  assert.equal(hasPermission(['subscriber'], 'subscribers'), true)
+  assert.equal(hasPermission(['subscriber'], 'moderators'), false)
+  assert.equal(hasPermission(['broadcaster'], 'moderators'), true)
+  assert.equal(hasPermission(['vip'], 'broadcaster'), false)
+})
+
+test('twitch chat flags first message, highlight and bits', () => {
+  const msg = parseIrc('@badges=;display-name=New;first-msg=1;msg-id=highlighted-message;bits=100;id=x;user-id=5 :new!new@new.tmi.twitch.tv PRIVMSG #chan :hello cheer100')
+  const [chat, bits] = ircToEvents(msg, () => undefined)
+  assert.ok(chat?.kind === 'chat' && chat.firstMessage && chat.highlighted && chat.bits === 100)
+  assert.ok(bits?.kind === 'alert' && bits.type === 'bits')
 })

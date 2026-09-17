@@ -1,4 +1,4 @@
-import type { ChatPart, StreamEvent } from '#shared/types'
+import type { ChatPart, ChatRole, StreamEvent } from '#shared/types'
 
 export interface IrcMessage {
   tags: Record<string, string>
@@ -61,6 +61,18 @@ export function twitchParts(text: string, emotesTag: string | undefined): ChatPa
 
 const TIERS: Record<string, number> = { 1000: 1, 2000: 2, 3000: 3, Prime: 1 }
 
+const ROLE_BADGES: Record<string, ChatRole> = { broadcaster: 'broadcaster', moderator: 'moderator', vip: 'vip', subscriber: 'subscriber', founder: 'subscriber' }
+
+export function twitchRoles(tags: Record<string, string>): ChatRole[] {
+  const roles = new Set<ChatRole>()
+  for (const badge of (tags.badges ?? '').split(',')) {
+    const role = ROLE_BADGES[badge.split('/')[0]!]
+    if (role) roles.add(role)
+  }
+  if (tags.mod === '1') roles.add('moderator')
+  return [...roles]
+}
+
 export function ircToEvents(msg: IrcMessage, badgeUrl: (key: string) => string | undefined): StreamEvent[] {
   const { tags } = msg
   const name = tags['display-name'] || tags.login || ''
@@ -78,8 +90,12 @@ export function ircToEvents(msg: IrcMessage, badgeUrl: (key: string) => string |
         name,
         color: tags.color || undefined,
         badges: (tags.badges ?? '').split(',').filter(Boolean).map(key => ({ url: badgeUrl(key) })).filter(b => b.url),
+        roles: twitchRoles(tags),
         parts: twitchParts(text, tags.emotes),
-        text
+        text,
+        firstMessage: tags['first-msg'] === '1',
+        highlighted: tags['msg-id'] === 'highlighted-message',
+        bits: Number(tags.bits) || undefined
       }]
       if (Number(tags.bits) > 0) {
         events.push({ kind: 'alert', type: 'bits', platform: 'twitch', name, count: Number(tags.bits) })

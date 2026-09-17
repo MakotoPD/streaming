@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { Settings } from '#shared/types'
-import { baseCss, sampleEvent, styleKeys, WIDGET_TESTS, WIDGETS, widgetTexts } from '#shared/widgets'
+import type { ChatMessage, Settings, StreamEvent } from '#shared/types'
+import { baseCss, sampleEvent, styleKeys, WIDGETS, widgetTexts } from '#shared/widgets'
 
 definePageMeta({ middleware: 'auth' })
 
@@ -37,7 +37,17 @@ function placeholderFor(key: string) {
   const scene = texts.value.scene[settings.value.mode as 'starting'] as [string, string] | undefined
   if (key === 'title') return scene?.[0]
   if (key === 'titleAccent') return scene?.[1]
-  return undefined
+  const text = texts.value
+  const placeholders: Record<string, string | undefined> = {
+    question: text.poll.question,
+    counterLabel: text.counter.label,
+    giveawayTitle: text.giveaway.title,
+    welcomeText: text.first.welcome,
+    subathonTitle: text.subathon.title,
+    goalTitle: text.goal[settings.value.goalMetric as 'subs'],
+    leaderboardTitle: text.leaderboard[settings.value.leaderboardMode as 'chatters']
+  }
+  return placeholders[key]
 }
 
 const saveState = ref<'saved' | 'saving' | 'error'>('saved')
@@ -90,9 +100,24 @@ async function deleteStyle(style: StyleRow) {
   await refreshStyles()
 }
 
-const preview = useTemplateRef<{ emit: (event: ReturnType<typeof sampleEvent>) => void, highlight: (selector?: string) => void }>('preview')
+const preview = useTemplateRef<{ emit: (event: StreamEvent) => void, highlight: (selector?: string) => void }>('preview')
 const live = ref(true)
-const tests = WIDGET_TESTS[def.type] ?? []
+const tests = def.tests
+const actions = def.actions ?? []
+
+function runTest(test: string) {
+  preview.value?.emit(sampleEvent(test, settings.value))
+}
+
+async function sendCommand(name: string, payload?: unknown) {
+  preview.value?.emit({ kind: 'command', name, payload })
+  await $fetch(`/api/widgets/${id}/command`, { method: 'POST', body: { name, payload } })
+}
+
+function pin(message: ChatMessage) {
+  sendCommand('pin', JSON.parse(JSON.stringify(message)))
+  toast.add({ title: t('editor.pin.pinned'), color: 'success', icon: 'i-lucide-pin' })
+}
 
 const generatedCss = computed(() => baseCss(def, settings.value))
 const cssSynced = computed(() => settings.value.customCss === generatedCss.value)
@@ -125,7 +150,7 @@ function onHighlightCount(count: number) {
   if (count || !hoveredSelector.value || !tests.length || Date.now() - lastAutoTest < cooldown) return
   lastAutoTest = Date.now()
   const repeat = def.type === 'emote-combo' ? settings.value.minMessages : 1
-  for (let i = 0; i < repeat; i++) preview.value?.emit(sampleEvent(tests[0]!))
+  for (let i = 0; i < repeat; i++) runTest(tests[0]!)
 }
 
 async function sendToObs(test: string) {
@@ -264,12 +289,27 @@ async function regenerateToken() {
           <div v-if="tests.length" class="flex flex-wrap items-center gap-2">
             <span class="text-sm text-muted">{{ t('editor.test') }}:</span>
             <UFieldGroup v-for="test in tests" :key="test" size="sm">
-              <UButton color="neutral" variant="outline" icon="i-lucide-play" :label="t(`tests.${test}`)" @click="preview?.emit(sampleEvent(test))" />
+              <UButton color="neutral" variant="outline" icon="i-lucide-play" :label="t(`tests.${test}`)" @click="runTest(test)" />
               <UTooltip :text="t('editor.sendToObs')">
                 <UButton color="neutral" variant="outline" icon="i-lucide-send" :aria-label="t('editor.sendToObs')" @click="sendToObs(test)" />
               </UTooltip>
             </UFieldGroup>
           </div>
+
+          <div v-if="actions.length" class="flex flex-wrap items-center gap-2">
+            <span class="text-sm text-muted">{{ t('editor.actions') }}:</span>
+            <UButton
+              v-for="action in actions"
+              :key="action"
+              size="sm"
+              color="primary"
+              variant="soft"
+              :label="t(`actions.${action}`)"
+              @click="sendCommand(action)"
+            />
+          </div>
+
+          <EditorPinPanel v-if="def.panel === 'pin'" @pin="pin" />
         </UCard>
 
         <UCard :ui="{ body: 'space-y-3' }">

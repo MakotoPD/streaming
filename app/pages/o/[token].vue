@@ -1,6 +1,27 @@
 <script setup lang="ts">
 import type { Channels, OverlayMessage, Settings } from '#shared/types'
-import { LazyWidgetAlerts, LazyWidgetChat, LazyWidgetEmoteCombo, LazyWidgetScene } from '#components'
+import {
+  LazyWidgetAlerts,
+  LazyWidgetCamFrame,
+  LazyWidgetChat,
+  LazyWidgetClock,
+  LazyWidgetCounter,
+  LazyWidgetEmoteCombo,
+  LazyWidgetEmoteRain,
+  LazyWidgetFirstMessage,
+  LazyWidgetGiveaway,
+  LazyWidgetGoal,
+  LazyWidgetLeaderboard,
+  LazyWidgetLowerThird,
+  LazyWidgetMarquee,
+  LazyWidgetPinned,
+  LazyWidgetPoll,
+  LazyWidgetRecentEvents,
+  LazyWidgetScene,
+  LazyWidgetSocials,
+  LazyWidgetSpotlight,
+  LazyWidgetSubathon
+} from '#components'
 
 definePageMeta({ layout: 'overlay' })
 
@@ -8,7 +29,23 @@ const COMPONENTS: Record<string, Component> = {
   'chat': LazyWidgetChat,
   'alerts': LazyWidgetAlerts,
   'emote-combo': LazyWidgetEmoteCombo,
-  'scene': LazyWidgetScene
+  'scene': LazyWidgetScene,
+  'emote-rain': LazyWidgetEmoteRain,
+  'poll': LazyWidgetPoll,
+  'counter': LazyWidgetCounter,
+  'pinned': LazyWidgetPinned,
+  'recent-events': LazyWidgetRecentEvents,
+  'leaderboard': LazyWidgetLeaderboard,
+  'giveaway': LazyWidgetGiveaway,
+  'first-message': LazyWidgetFirstMessage,
+  'spotlight': LazyWidgetSpotlight,
+  'subathon': LazyWidgetSubathon,
+  'goal': LazyWidgetGoal,
+  'clock': LazyWidgetClock,
+  'socials': LazyWidgetSocials,
+  'marquee': LazyWidgetMarquee,
+  'cam-frame': LazyWidgetCamFrame,
+  'lower-third': LazyWidgetLowerThird
 }
 
 const route = useRoute()
@@ -22,14 +59,17 @@ watch(data, (value) => {
   if (value) settings.value = value.settings
 }, { immediate: true })
 
+provideWidgetContext({ id: data.value?.id ?? token, preview, channels: computed(() => data.value?.channels) })
+
 const live = ref(!preview || route.query.live !== '0')
 const bus = createEventBus()
 useStreamEvents(() => data.value?.channels, bus, () => live.value && !!data.value)
 
 const highlight = ref<string>()
 
-function handle(msg: OverlayMessage | { kind: 'live', on: boolean } | { kind: 'highlight', selector?: string }) {
-  if (msg.kind === 'config') settings.value = msg.settings
+function handle(msg: OverlayMessage | { kind: 'live', on: boolean } | { kind: 'highlight', selector?: string } | { kind: 'ping' }) {
+  if (msg.kind === 'ping') parent.postMessage({ kind: 'ready' }, location.origin)
+  else if (msg.kind === 'config') settings.value = msg.settings
   else if (msg.kind === 'event') bus.emit(msg.event)
   else if (msg.kind === 'live') live.value = msg.on
   else if (msg.kind === 'highlight') highlight.value = msg.selector

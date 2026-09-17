@@ -27,6 +27,7 @@ export const scene: WidgetDefinition = {
     ...animationFields('rise', 'fade', 900),
     customCssField()
   ],
+  tests: [],
   cssTemplate: [
     { selector: '.scene', declarations: { 'font-family': '{font}' } },
     { selector: '.scene-title', declarations: { 'font-size': '{titleSize}', 'color': '{textColor}' } },

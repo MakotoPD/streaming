@@ -81,6 +81,70 @@
     "scene": {
       "name": "Szenen-Bildschirm",
       "description": "Bildschirme für gleich geht’s los, bin gleich zurück und Ende."
+    },
+    "emote-rain": {
+      "name": "Emote-Regen",
+      "description": "Emotes aus dem Chat fallen, steigen oder fliegen über den Bildschirm."
+    },
+    "poll": {
+      "name": "Chat-Umfrage",
+      "description": "Zuschauer stimmen mit !1, !2… ab, Ergebnisse aktualisieren sich live."
+    },
+    "counter": {
+      "name": "Befehlszähler",
+      "description": "Zählt z. B. Tode per Chatbefehl, etwa !death."
+    },
+    "pinned": {
+      "name": "Angeheftete Nachricht",
+      "description": "Klicke im Dashboard auf eine Nachricht, um sie im Stream zu zeigen."
+    },
+    "recent-events": {
+      "name": "Leiste der letzten Ereignisse",
+      "description": "Neuester Follower, Abo, Schenker, Raid und Bits."
+    },
+    "leaderboard": {
+      "name": "Rangliste",
+      "description": "Aktivste Chatter, Schenker oder Bits der Session."
+    },
+    "giveaway": {
+      "name": "Gewinnspiel",
+      "description": "Zuschauer machen mit !join mit, eine animierte Ziehung wählt den Gewinner."
+    },
+    "first-message": {
+      "name": "Erste Nachricht",
+      "description": "Begrüßt Zuschauer, die zum ersten Mal im Chat schreiben."
+    },
+    "spotlight": {
+      "name": "Nachricht auf dem Bildschirm",
+      "description": "Zeigt hervorgehobene Nachrichten, Bits oder !msg in der Bildschirmmitte."
+    },
+    "subathon": {
+      "name": "Subathon-Timer",
+      "description": "Countdown, der durch Abos, Geschenke, Bits und Follows wächst."
+    },
+    "goal": {
+      "name": "Zielleiste",
+      "description": "Fortschrittsleiste für Follows, Abos, Geschenke oder Bits im Stream."
+    },
+    "clock": {
+      "name": "Uhr",
+      "description": "Uhrzeit, Datum, Streamdauer oder Countdown."
+    },
+    "socials": {
+      "name": "Social-Rotator",
+      "description": "Deine Socials, wechselnd oder alle gleichzeitig."
+    },
+    "marquee": {
+      "name": "Laufschrift",
+      "description": "Laufband mit deinen Texten: Zeitplan, Regeln, Ankündigungen."
+    },
+    "cam-frame": {
+      "name": "Webcam-Rahmen",
+      "description": "Animierter Rahmen für deine Webcam mit optionalem Namensschild."
+    },
+    "lower-third": {
+      "name": "Bauchbinde",
+      "description": "Balken mit Name und Untertitel, dauerhaft oder in Intervallen."
     }
   },
   "editor": {
@@ -117,6 +181,13 @@
       "detached": "Manuell bearbeitet – Änderungen im Tab Stil wirken hier nicht mehr",
       "reset": "Aus aktuellem Stil neu erzeugen",
       "confirmReset": "Dein CSS durch die Werte des aktuellen Stils ersetzen?"
+    },
+    "actions": "Aktionen",
+    "pin": {
+      "title": "Live-Chat",
+      "hint": "Klicke auf eine Nachricht, um sie im Stream anzuheften.",
+      "waiting": "Warte auf Chatnachrichten…",
+      "pinned": "Nachricht angeheftet"
     }
   },
   "sections": {
@@ -129,7 +200,9 @@
     "gifts": "Geschenke",
     "raid": "Raid",
     "bits": "Bits",
-    "socials": "Socials"
+    "socials": "Socials",
+    "triggers": "Auslöser",
+    "time": "Zeit"
   },
   "fields": {
     "maxMessages": "Max. Nachrichten",
@@ -190,7 +263,106 @@
     "backgroundColor": "Hintergrundfarbe",
     "accent1": "Akzent 1",
     "accent2": "Akzent 2",
-    "italic": "Kursiver Titel"
+    "italic": "Kursiver Titel",
+    "rainMode": "Richtung",
+    "perMessage": "Emotes pro Nachricht",
+    "maxEmotes": "Max. Emotes auf dem Bildschirm",
+    "rainDuration": "Flugdauer",
+    "opacity": "Deckkraft",
+    "spin": "Drehen",
+    "sway": "Schwanken",
+    "question": "Frage",
+    "pollOptions": "Optionen",
+    "commandPrefix": "Abstimmungspräfix",
+    "allowChange": "Stimme ändern erlauben",
+    "autoClose": "Automatisch schließen nach",
+    "showPercent": "Prozent anzeigen",
+    "hideWhenClosed": "Nach dem Schließen ausblenden",
+    "barColor": "Balkenfarbe",
+    "barBackground": "Balkenhintergrund",
+    "winnerColor": "Gewinnerfarbe",
+    "counterLabel": "Beschriftung",
+    "command": "Befehl",
+    "permission": "Wer darf es nutzen",
+    "step": "Schritt",
+    "cooldown": "Abklingzeit",
+    "popOnChange": "Pop bei Änderung",
+    "labelColor": "Beschriftungsfarbe",
+    "valueColor": "Zahlenfarbe",
+    "layout": "Layout",
+    "showLabel": "Beschriftung anzeigen",
+    "autoHide": "Ausblenden nach",
+    "accentColor": "Akzentfarbe",
+    "showFollow": "Follows anzeigen",
+    "showSub": "Abos anzeigen",
+    "showGifts": "Geschenke anzeigen",
+    "showRaid": "Raids anzeigen",
+    "showBits": "Bits anzeigen",
+    "recentLayout": "Layout",
+    "tickerInterval": "Wechseln alle",
+    "showIcons": "Symbole anzeigen",
+    "leaderboardMode": "Rangliste nach",
+    "leaderboardTitle": "Titel",
+    "limit": "Anzahl der Plätze",
+    "showCount": "Anzahl anzeigen",
+    "firstColor": "Farbe für Platz 1",
+    "giveawayTitle": "Titel",
+    "keyword": "Teilnahmebefehl",
+    "eligibility": "Wer darf mitmachen",
+    "showEntries": "Teilnehmerzahl anzeigen",
+    "rollDuration": "Dauer der Ziehung",
+    "firstMode": "Was als erste zählt",
+    "welcomeText": "Begrüßungstext",
+    "showMessage": "Nachricht anzeigen",
+    "onHighlighted": "Hervorgehobene Nachrichten (Kanalpunkte)",
+    "onBits": "Nachrichten mit Bits",
+    "minBits": "Mindestanzahl Bits",
+    "spotlightCommand": "Chatbefehl",
+    "subathonTitle": "Titel",
+    "startMinutes": "Startzeit",
+    "maxHours": "Zeitlimit",
+    "showAdded": "Hinzugefügte Zeit anzeigen",
+    "secondsPerSub": "Pro Abo",
+    "tierMultiplier": "Mit Stufe multiplizieren",
+    "secondsPerGift": "Pro verschenktem Abo",
+    "secondsPer100Bits": "Pro 100 Bits",
+    "secondsPerFollow": "Pro Follow",
+    "secondsPerRaid": "Pro Raid",
+    "goalMetric": "Zählen",
+    "goalTitle": "Titel",
+    "target": "Ziel",
+    "startValue": "Startwert",
+    "showNumbers": "Zahlen anzeigen",
+    "celebrate": "Beim Erreichen feiern",
+    "barColor2": "Balkenfarbe 2",
+    "barHeight": "Balkenhöhe",
+    "clockMode": "Anzeigen",
+    "clockLabel": "Beschriftung",
+    "hour12": "12-Stunden-Format",
+    "showSeconds": "Sekunden anzeigen",
+    "socialsLayout": "Layout",
+    "interval": "Wechseln alle",
+    "iconColor": "Symbolfarbe",
+    "lines": "Texte",
+    "separator": "Trennzeichen",
+    "speed": "Geschwindigkeit",
+    "marqueeDirection": "Richtung",
+    "separatorColor": "Trennzeichenfarbe",
+    "frameLabel": "Beschriftung",
+    "animatedBorder": "Animierter Rahmen",
+    "cornerStyle": "Ecken",
+    "borderWidth": "Rahmenbreite",
+    "color1": "Farbe 1",
+    "color2": "Farbe 2",
+    "labelBackground": "Beschriftungshintergrund",
+    "thirdTitle": "Name",
+    "subtitle": "Untertitel",
+    "align": "Ausrichtung",
+    "showMode": "Sichtbarkeit",
+    "showFor": "Anzeigen für",
+    "hideFor": "Ausblenden für",
+    "subtitleSize": "Untertitelgröße",
+    "subtitleColor": "Untertitelfarbe"
   },
   "hints": {
     "hideAfter": "0 behält Nachrichten, bis neue sie verdrängen.",
@@ -202,7 +374,29 @@
     "minMessages": "Dasselbe Emote in so vielen verschiedenen Nachrichten.",
     "countdownTo": "Lokale Zeit. Leer = kein Countdown.",
     "title": "Leer = Standardtext für den gewählten Modus.",
-    "sceneBackground": "3D sieht toll aus, belastet aber die GPU. Wenn dein Spiel ruckelt, wähle einen leichteren Hintergrund."
+    "sceneBackground": "3D sieht toll aus, belastet aber die GPU. Wenn dein Spiel ruckelt, wähle einen leichteren Hintergrund.",
+    "perMessage": "Weitere Emotes derselben Nachricht werden übersprungen.",
+    "maxEmotes": "Hält das Overlay leicht, wenn der Chat spammt.",
+    "commandPrefix": "Stimme = Präfix + Zahl, z. B. !1. Leer = nur Zahlen.",
+    "allowChange": "Sonst zählt nur die erste Stimme.",
+    "autoClose": "Ab Start. 0 = bis du Stopp drückst.",
+    "command": "Auch: befehl+ befehl- befehl set 10 befehl reset",
+    "cooldown": "Ignoriert den Befehl, wenn er zu schnell wiederholt wird.",
+    "autoHide": "0 = bleibt, bis du es löst.",
+    "tickerInterval": "Gilt für das wechselnde Layout.",
+    "keyword": "Zuschauer schreiben genau das in den Chat.",
+    "firstMode": "Twitch markiert echte erste Nachrichten. Kick nicht, daher zählt dort die erste Nachricht dieser Session.",
+    "welcomeText": "Leer = Standardtext.",
+    "onHighlighted": "Twitch-Belohnung „Meine Nachricht hervorheben“.",
+    "spotlightCommand": "z. B. !msg Hallo zusammen. Leer = aus.",
+    "startMinutes": "Gilt beim Zurücksetzen. Starte mit Start in den Aktionen.",
+    "maxHours": "0 = kein Limit.",
+    "tierMultiplier": "Stufe 2 fügt doppelt, Stufe 3 dreifach hinzu.",
+    "startValue": "Fortschritt von vor diesem Stream.",
+    "lines": "Jeden Text mit Enter bestätigen. Leer = Standardbegrüßung.",
+    "frameLabel": "Leer = dein Kanalname.",
+    "thirdTitle": "Leer = dein Kanalname.",
+    "clockMode": "Die Streamdauer wird jede Minute von Twitch oder Kick gelesen."
   },
   "options": {
     "direction": {
@@ -232,6 +426,77 @@
       "gradient": "Verlauf",
       "orbs": "Leuchtende Kugeln",
       "3d": "3D-Weltraum (schwer)"
+    },
+    "rainMode": {
+      "fall": "Fallen",
+      "rise": "Steigen",
+      "fly": "Durchfliegen"
+    },
+    "permission": {
+      "everyone": "Alle",
+      "subscribers": "Abonnenten und höher",
+      "vips": "VIPs und höher",
+      "moderators": "Moderatoren",
+      "broadcaster": "Nur ich"
+    },
+    "layout": {
+      "row": "Zeile",
+      "column": "Spalte"
+    },
+    "recentLayout": {
+      "row": "Zeile",
+      "column": "Spalte",
+      "ticker": "Nacheinander"
+    },
+    "leaderboardMode": {
+      "chatters": "Chatnachrichten",
+      "gifters": "Verschenkte Abos",
+      "bits": "Bits"
+    },
+    "eligibility": {
+      "everyone": "Alle",
+      "subscribers": "Nur Abonnenten"
+    },
+    "firstMode": {
+      "firstEver": "Erste Nachricht überhaupt (Twitch)",
+      "firstInSession": "Erste Nachricht in diesem Stream"
+    },
+    "goalMetric": {
+      "follows": "Follows",
+      "subs": "Abos (inkl. Geschenke)",
+      "bits": "Bits",
+      "gifts": "Verschenkte Abos"
+    },
+    "clockMode": {
+      "clock": "Uhrzeit",
+      "date": "Datum",
+      "uptime": "Streamdauer",
+      "countdown": "Countdown"
+    },
+    "socialsLayout": {
+      "rotate": "Nacheinander",
+      "row": "Zeile",
+      "column": "Spalte"
+    },
+    "iconColor": {
+      "brand": "Markenfarben",
+      "text": "Textfarbe"
+    },
+    "marqueeDirection": {
+      "left": "Nach links",
+      "right": "Nach rechts"
+    },
+    "cornerStyle": {
+      "none": "Keine",
+      "brackets": "Klammern"
+    },
+    "showMode": {
+      "always": "Immer",
+      "interval": "In Intervallen"
+    },
+    "align": {
+      "left": "Links",
+      "right": "Rechts"
     }
   },
   "animations": {
@@ -264,7 +529,15 @@
     "sunset": "Sonnenuntergang",
     "mint": "Minze",
     "mono": "Mono",
-    "space-3d": "3D-Weltraum"
+    "space-3d": "3D-Weltraum",
+    "classic": "Klassisch",
+    "big": "Groß",
+    "subtle": "Dezent",
+    "party": "Party",
+    "clean": "Schlicht",
+    "bold": "Kräftig",
+    "broadcast": "Fernsehen",
+    "gold": "Gold"
   },
   "tests": {
     "chat": "Nachricht",
@@ -273,7 +546,13 @@
     "sub": "Abo",
     "gifts": "Geschenke",
     "raid": "Raid",
-    "bits": "Bits"
+    "bits": "Bits",
+    "vote": "Stimme",
+    "command": "Befehl",
+    "pin": "Anheften",
+    "join": "Teilnahme",
+    "first": "Erste Nachricht",
+    "highlight": "Hervorgehoben"
   },
   "sound": {
     "none": "Kein Sound",
@@ -327,6 +606,95 @@
     "sceneAccent": "Hervorgehobener Teil des Titels",
     "sceneCountdown": "Countdown",
     "sceneSocials": "Social-Leiste",
-    "sceneSocial": "Einzelnes Social (Symbol + Name)"
+    "sceneSocial": "Einzelnes Social (Symbol + Name)",
+    "emoteRain": "Bereich, in dem die Emotes fliegen",
+    "emoteDrop": "Einzelnes fliegendes Emote",
+    "emoteDropImage": "Emote-Bild",
+    "poll": "Umfragekarte",
+    "pollQuestion": "Frage",
+    "pollOption": "Einzelne Option",
+    "pollBar": "Balkenhintergrund",
+    "pollFill": "Balkenfüllung",
+    "pollLabel": "Optionsname",
+    "pollCount": "Stimmen oder Prozent",
+    "pollWinner": "Gewinneroption nach dem Schließen",
+    "pollFooter": "Hinweis und Stimmenanzahl",
+    "counter": "Zählerbox",
+    "counterLabel": "Beschriftung",
+    "counterValue": "Zahl",
+    "pinnedCard": "Karte der angehefteten Nachricht",
+    "pinnedLabel": "Markierung „Angeheftet“",
+    "pinnedName": "Name des Autors",
+    "pinnedText": "Nachrichtentext",
+    "recent": "Container aller Einträge",
+    "recentItem": "Einzelnes Ereignis",
+    "recentIcon": "Ereignissymbol",
+    "recentLabel": "Beschriftung, z. B. „Neuestes Abo“",
+    "recentName": "Name der Person",
+    "leaderboard": "Ranglistenkarte",
+    "leaderboardTitle": "Titel",
+    "leaderboardRow": "Einzelne Zeile",
+    "leaderboardRank": "Platznummer",
+    "leaderboardName": "Name",
+    "leaderboardCount": "Anzahl",
+    "leaderboardFirst": "Zeile für Platz 1",
+    "giveaway": "Gewinnspielkarte",
+    "giveawayTitle": "Titel",
+    "giveawayHint": "Wie man mitmacht",
+    "giveawayCount": "Teilnehmerzahl",
+    "giveawayRoll": "Namen während der Ziehung",
+    "giveawayWinner": "Name des Gewinners",
+    "firstCard": "Begrüßungskarte",
+    "firstName": "Name des Zuschauers",
+    "firstWelcome": "Begrüßungstext",
+    "firstText": "Ihre Nachricht",
+    "spotlightCard": "Nachrichtenkarte",
+    "spotlightName": "Name des Autors",
+    "spotlightBits": "Bits-Markierung",
+    "spotlightText": "Nachrichtentext",
+    "subathon": "Timerbox",
+    "subathonTitle": "Titel",
+    "subathonTime": "Verbleibende Zeit",
+    "subathonStatus": "Pausiert oder beendet",
+    "subathonAdded": "Aufsteigendes „+60s“",
+    "goal": "Zielbox",
+    "goalTitle": "Titel",
+    "goalNumbers": "Aktuell / Ziel",
+    "goalBar": "Balkenhintergrund",
+    "goalFill": "Balkenfüllung",
+    "goalReached": "Zielbox nach Erreichen",
+    "clock": "Uhrbox",
+    "clockLabel": "Beschriftung",
+    "clockTime": "Zeit",
+    "socials": "Container aller Socials",
+    "socialsItem": "Einzelnes Social",
+    "socialsIcon": "Plattformsymbol",
+    "socialsHandle": "Name",
+    "marquee": "Laufleiste",
+    "marqueeTrack": "Bewegter Textstreifen",
+    "marqueeItem": "Einzelner Text",
+    "marqueeSeparator": "Trennzeichen zwischen Texten",
+    "camFrame": "Ganzer Rahmenbereich (Leuchten und Farben)",
+    "camFrameBorder": "Rahmen",
+    "camFrameLabel": "Namensschild",
+    "camFrameCorner": "Eckklammern",
+    "lowerThird": "Balken",
+    "lowerThirdAccent": "Akzentstreifen",
+    "lowerThirdTitle": "Name",
+    "lowerThirdSubtitle": "Untertitel"
+  },
+  "actions": {
+    "start": "Start",
+    "stop": "Stopp",
+    "reset": "Zurücksetzen",
+    "increment": "+1",
+    "decrement": "−1",
+    "unpin": "Lösen",
+    "open": "Teilnahme öffnen",
+    "close": "Teilnahme schließen",
+    "draw": "Gewinner ziehen",
+    "pause": "Pause",
+    "addMinute": "+1 Min.",
+    "removeMinute": "−1 Min."
   }
 }

@@ -49,6 +49,7 @@ export const alerts: WidgetDefinition = {
     ...animationFields('rise', 'lift', 750),
     customCssField()
   ],
+  tests: ALERT_TYPES,
   cssTemplate: [
     { selector: '.alerts', declarations: { 'font-family': '{font}', 'font-size': '{fontSize}' } },
     { selector: '.alert', declarations: { '--bg': '{background}', 'color': '{textColor}', 'border-radius': '{radius}' } },

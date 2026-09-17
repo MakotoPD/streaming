@@ -37,6 +37,9 @@ export interface WidgetDefinition {
   presets: { id: string, values: Settings }[]
   cssClasses: { id: string, selector: string }[]
   cssTemplate: { selector: string, declarations: Record<string, string> }[]
+  tests: string[]
+  actions?: string[]
+  panel?: 'pin'
 }
 
 const COLOR = /^[#\w(),.%\s-]{1,80}$/
@@ -132,6 +135,12 @@ export function animationFields(inDefault: string, outDefault: string, duration:
     { key: 'animOut', section: 'animation', label: 'animOut', type: 'animation', kind: 'out', default: outDefault },
     { key: 'animDuration', section: 'animation', label: 'animDuration', type: 'number', default: duration, min: 0, max: 3000, step: 50, unit: 'ms', css: '--anim-duration' }
   ]
+}
+
+export const PERMISSIONS = ['everyone', 'subscribers', 'vips', 'moderators', 'broadcaster'] as const
+
+export function permissionField(key: string, fallback: typeof PERMISSIONS[number]): Field {
+  return { key, section: 'general', label: 'permission', type: 'select', default: fallback, options: PERMISSIONS }
 }
 
 export function customCssField(): Field {

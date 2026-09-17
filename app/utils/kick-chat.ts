@@ -1,4 +1,4 @@
-import type { Badge, ChatPart, StreamEvent } from '#shared/types'
+import type { Badge, ChatPart, ChatRole, StreamEvent } from '#shared/types'
 
 export interface KickChannel {
   channelId: number
@@ -49,6 +49,12 @@ function badges(list: { type: string, count?: number }[] | undefined, channel: K
   }).filter((b): b is Badge => !!b)
 }
 
+const ROLE_BADGES: Record<string, ChatRole> = { broadcaster: 'broadcaster', moderator: 'moderator', vip: 'vip', subscriber: 'subscriber', founder: 'subscriber', og: 'subscriber' }
+
+export function kickRoles(list: { type: string }[] | undefined): ChatRole[] {
+  return [...new Set((list ?? []).map(b => ROLE_BADGES[b.type]).filter((role): role is ChatRole => !!role))]
+}
+
 export function kickToEvents(eventName: string, data: any, channel: KickChannel): StreamEvent[] {
   switch (eventName) {
     case 'App\\Events\\ChatMessageEvent': {
@@ -61,6 +67,7 @@ export function kickToEvents(eventName: string, data: any, channel: KickChannel)
         name: data.sender?.username ?? '',
         color: data.sender?.identity?.color || undefined,
         badges: badges(data.sender?.identity?.badges, channel),
+        roles: kickRoles(data.sender?.identity?.badges),
         parts: kickParts(String(data.content ?? '')),
         text
       }]

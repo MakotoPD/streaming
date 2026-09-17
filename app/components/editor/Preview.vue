@@ -38,6 +38,7 @@ onMounted(() => {
     post({ kind: 'live', on: props.live })
   }
   addEventListener('message', onMessage)
+  frame.value?.contentWindow?.postMessage({ kind: 'ping' }, location.origin)
 })
 
 onBeforeUnmount(() => {

@@ -81,6 +81,70 @@
     "scene": {
       "name": "Scene screen",
       "description": "Starting soon, be right back and ending screens."
+    },
+    "emote-rain": {
+      "name": "Emote rain",
+      "description": "Emotes from chat fall, rise or fly across the screen."
+    },
+    "poll": {
+      "name": "Chat poll",
+      "description": "Viewers vote with !1, !2… and results update live."
+    },
+    "counter": {
+      "name": "Command counter",
+      "description": "Counts things like deaths with a chat command, e.g. !death."
+    },
+    "pinned": {
+      "name": "Pinned message",
+      "description": "Click a chat message in the dashboard to show it on stream."
+    },
+    "recent-events": {
+      "name": "Recent events bar",
+      "description": "Latest follower, sub, gifter, raid and cheer."
+    },
+    "leaderboard": {
+      "name": "Leaderboard",
+      "description": "Top chatters, gifters or cheerers of the session."
+    },
+    "giveaway": {
+      "name": "Giveaway",
+      "description": "Viewers join with !join, then an animated draw picks the winner."
+    },
+    "first-message": {
+      "name": "First message",
+      "description": "Welcomes viewers who write in chat for the first time."
+    },
+    "spotlight": {
+      "name": "Message on screen",
+      "description": "Shows highlighted messages, cheers or !msg in the middle of the screen."
+    },
+    "subathon": {
+      "name": "Subathon timer",
+      "description": "Countdown that grows with subs, gifts, bits and follows."
+    },
+    "goal": {
+      "name": "Goal bar",
+      "description": "Progress bar for follows, subs, gifts or bits during the stream."
+    },
+    "clock": {
+      "name": "Clock",
+      "description": "Time, date, stream uptime or countdown."
+    },
+    "socials": {
+      "name": "Socials rotator",
+      "description": "Your social handles, rotating or all at once."
+    },
+    "marquee": {
+      "name": "Scrolling text",
+      "description": "Ticker with your messages: schedule, rules, announcements."
+    },
+    "cam-frame": {
+      "name": "Webcam frame",
+      "description": "Animated border for your webcam with an optional name tag."
+    },
+    "lower-third": {
+      "name": "Lower third",
+      "description": "Name and subtitle bar, always on or shown on an interval."
     }
   },
   "editor": {
@@ -117,6 +181,13 @@
       "detached": "Edited manually — Style tab changes no longer apply here",
       "reset": "Rebuild from current style",
       "confirmReset": "Replace your CSS with values from the current style?"
+    },
+    "actions": "Actions",
+    "pin": {
+      "title": "Live chat",
+      "hint": "Click a message to pin it on stream.",
+      "waiting": "Waiting for chat messages…",
+      "pinned": "Message pinned"
     }
   },
   "sections": {
@@ -129,7 +200,9 @@
     "gifts": "Gifts",
     "raid": "Raid",
     "bits": "Bits",
-    "socials": "Socials"
+    "socials": "Socials",
+    "triggers": "Triggers",
+    "time": "Time"
   },
   "fields": {
     "maxMessages": "Max messages",
@@ -190,7 +263,106 @@
     "backgroundColor": "Background color",
     "accent1": "Accent 1",
     "accent2": "Accent 2",
-    "italic": "Italic title"
+    "italic": "Italic title",
+    "rainMode": "Direction",
+    "perMessage": "Emotes per message",
+    "maxEmotes": "Max emotes on screen",
+    "rainDuration": "Flight time",
+    "opacity": "Opacity",
+    "spin": "Spin",
+    "sway": "Sway",
+    "question": "Question",
+    "pollOptions": "Options",
+    "commandPrefix": "Vote prefix",
+    "allowChange": "Allow changing vote",
+    "autoClose": "Close automatically after",
+    "showPercent": "Show percentages",
+    "hideWhenClosed": "Hide when closed",
+    "barColor": "Bar color",
+    "barBackground": "Bar background",
+    "winnerColor": "Winner color",
+    "counterLabel": "Label",
+    "command": "Command",
+    "permission": "Who can use it",
+    "step": "Step",
+    "cooldown": "Cooldown",
+    "popOnChange": "Pop on change",
+    "labelColor": "Label color",
+    "valueColor": "Number color",
+    "layout": "Layout",
+    "showLabel": "Show label",
+    "autoHide": "Hide after",
+    "accentColor": "Accent color",
+    "showFollow": "Show follows",
+    "showSub": "Show subs",
+    "showGifts": "Show gifts",
+    "showRaid": "Show raids",
+    "showBits": "Show bits",
+    "recentLayout": "Layout",
+    "tickerInterval": "Switch every",
+    "showIcons": "Show icons",
+    "leaderboardMode": "Ranking by",
+    "leaderboardTitle": "Title",
+    "limit": "Number of places",
+    "showCount": "Show count",
+    "firstColor": "First place color",
+    "giveawayTitle": "Title",
+    "keyword": "Join command",
+    "eligibility": "Who can join",
+    "showEntries": "Show number of entries",
+    "rollDuration": "Draw animation length",
+    "firstMode": "What counts as first",
+    "welcomeText": "Welcome text",
+    "showMessage": "Show their message",
+    "onHighlighted": "Highlighted messages (channel points)",
+    "onBits": "Messages with bits",
+    "minBits": "Minimum bits",
+    "spotlightCommand": "Chat command",
+    "subathonTitle": "Title",
+    "startMinutes": "Starting time",
+    "maxHours": "Time limit",
+    "showAdded": "Show added time",
+    "secondsPerSub": "Per sub",
+    "tierMultiplier": "Multiply by tier",
+    "secondsPerGift": "Per gifted sub",
+    "secondsPer100Bits": "Per 100 bits",
+    "secondsPerFollow": "Per follow",
+    "secondsPerRaid": "Per raid",
+    "goalMetric": "Count",
+    "goalTitle": "Title",
+    "target": "Target",
+    "startValue": "Starting value",
+    "showNumbers": "Show numbers",
+    "celebrate": "Celebrate when reached",
+    "barColor2": "Bar color 2",
+    "barHeight": "Bar height",
+    "clockMode": "Show",
+    "clockLabel": "Label",
+    "hour12": "12-hour clock",
+    "showSeconds": "Show seconds",
+    "socialsLayout": "Layout",
+    "interval": "Switch every",
+    "iconColor": "Icon color",
+    "lines": "Texts",
+    "separator": "Separator",
+    "speed": "Speed",
+    "marqueeDirection": "Direction",
+    "separatorColor": "Separator color",
+    "frameLabel": "Label",
+    "animatedBorder": "Animated border",
+    "cornerStyle": "Corners",
+    "borderWidth": "Border width",
+    "color1": "Color 1",
+    "color2": "Color 2",
+    "labelBackground": "Label background",
+    "thirdTitle": "Name",
+    "subtitle": "Subtitle",
+    "align": "Alignment",
+    "showMode": "Visibility",
+    "showFor": "Show for",
+    "hideFor": "Hide for",
+    "subtitleSize": "Subtitle size",
+    "subtitleColor": "Subtitle color"
   },
   "hints": {
     "hideAfter": "0 keeps messages until new ones push them out.",
@@ -202,7 +374,29 @@
     "minMessages": "Same emote in this many different messages.",
     "countdownTo": "Local time. Leave empty to hide the countdown.",
     "title": "Leave empty for the default text for the selected mode.",
-    "sceneBackground": "3D looks great but uses the GPU. Pick a lighter background if your game stutters."
+    "sceneBackground": "3D looks great but uses the GPU. Pick a lighter background if your game stutters.",
+    "perMessage": "Extra emotes in one message are skipped.",
+    "maxEmotes": "Keeps the overlay light when chat spams.",
+    "commandPrefix": "Votes look like prefix + number, e.g. !1. Leave empty to accept plain numbers.",
+    "allowChange": "Otherwise only the first vote counts.",
+    "autoClose": "Counted from Start. 0 = until you press Stop.",
+    "command": "Also works: command+ command- command set 10 command reset",
+    "cooldown": "Ignores the command when used again too quickly.",
+    "autoHide": "0 = stays until you unpin it.",
+    "tickerInterval": "Used by the ticker layout.",
+    "keyword": "Viewers type exactly this in chat to join.",
+    "firstMode": "Twitch marks real first messages. Kick has no such flag, so it always uses the first message in this session.",
+    "welcomeText": "Leave empty for the default.",
+    "onHighlighted": "Twitch “Highlight my message” reward.",
+    "spotlightCommand": "e.g. !msg Hello everyone. Leave empty to turn it off.",
+    "startMinutes": "Used on Reset. Press Start in Actions to begin the countdown.",
+    "maxHours": "0 = no limit.",
+    "tierMultiplier": "Tier 2 adds twice as much, Tier 3 three times.",
+    "startValue": "Progress you already had before this stream.",
+    "lines": "Press Enter after each text. Empty = default welcome text.",
+    "frameLabel": "Empty = your channel name.",
+    "thirdTitle": "Empty = your channel name.",
+    "clockMode": "Uptime is read from Twitch or Kick every minute."
   },
   "options": {
     "direction": {
@@ -232,6 +426,77 @@
       "gradient": "Gradient",
       "orbs": "Glowing orbs",
       "3d": "3D space (heavy)"
+    },
+    "rainMode": {
+      "fall": "Fall",
+      "rise": "Rise",
+      "fly": "Fly across"
+    },
+    "permission": {
+      "everyone": "Everyone",
+      "subscribers": "Subscribers and up",
+      "vips": "VIPs and up",
+      "moderators": "Moderators",
+      "broadcaster": "Only me"
+    },
+    "layout": {
+      "row": "Row",
+      "column": "Column"
+    },
+    "recentLayout": {
+      "row": "Row",
+      "column": "Column",
+      "ticker": "One at a time"
+    },
+    "leaderboardMode": {
+      "chatters": "Chat messages",
+      "gifters": "Gifted subs",
+      "bits": "Bits"
+    },
+    "eligibility": {
+      "everyone": "Everyone",
+      "subscribers": "Subscribers only"
+    },
+    "firstMode": {
+      "firstEver": "First message ever (Twitch)",
+      "firstInSession": "First message this stream"
+    },
+    "goalMetric": {
+      "follows": "Follows",
+      "subs": "Subs (incl. gifts)",
+      "bits": "Bits",
+      "gifts": "Gifted subs"
+    },
+    "clockMode": {
+      "clock": "Time",
+      "date": "Date",
+      "uptime": "Stream uptime",
+      "countdown": "Countdown"
+    },
+    "socialsLayout": {
+      "rotate": "One at a time",
+      "row": "Row",
+      "column": "Column"
+    },
+    "iconColor": {
+      "brand": "Brand colors",
+      "text": "Text color"
+    },
+    "marqueeDirection": {
+      "left": "To the left",
+      "right": "To the right"
+    },
+    "cornerStyle": {
+      "none": "None",
+      "brackets": "Brackets"
+    },
+    "showMode": {
+      "always": "Always",
+      "interval": "On an interval"
+    },
+    "align": {
+      "left": "Left",
+      "right": "Right"
     }
   },
   "animations": {
@@ -264,7 +529,15 @@
     "sunset": "Sunset",
     "mint": "Mint",
     "mono": "Mono",
-    "space-3d": "3D space"
+    "space-3d": "3D space",
+    "classic": "Classic",
+    "big": "Big",
+    "subtle": "Subtle",
+    "party": "Party",
+    "clean": "Clean",
+    "bold": "Bold",
+    "broadcast": "Broadcast",
+    "gold": "Gold"
   },
   "tests": {
     "chat": "Message",
@@ -273,7 +546,13 @@
     "sub": "Sub",
     "gifts": "Gifts",
     "raid": "Raid",
-    "bits": "Bits"
+    "bits": "Bits",
+    "vote": "Vote",
+    "command": "Command",
+    "pin": "Pin",
+    "join": "Join",
+    "first": "First message",
+    "highlight": "Highlighted"
   },
   "sound": {
     "none": "No sound",
@@ -327,6 +606,95 @@
     "sceneAccent": "Highlighted part of the title",
     "sceneCountdown": "Countdown",
     "sceneSocials": "Socials row",
-    "sceneSocial": "Single social (icon + name)"
+    "sceneSocial": "Single social (icon + name)",
+    "emoteRain": "Area the emotes fly in",
+    "emoteDrop": "Single flying emote",
+    "emoteDropImage": "Emote image",
+    "poll": "Poll card",
+    "pollQuestion": "Question",
+    "pollOption": "Single option",
+    "pollBar": "Bar background",
+    "pollFill": "Bar fill",
+    "pollLabel": "Option name",
+    "pollCount": "Votes or percent",
+    "pollWinner": "Winning option after closing",
+    "pollFooter": "Hint and vote count",
+    "counter": "Counter box",
+    "counterLabel": "Label",
+    "counterValue": "Number",
+    "pinnedCard": "Pinned message card",
+    "pinnedLabel": "“Pinned” tag",
+    "pinnedName": "Author name",
+    "pinnedText": "Message text",
+    "recent": "Container of all items",
+    "recentItem": "Single event",
+    "recentIcon": "Event icon",
+    "recentLabel": "Label, e.g. “Latest sub”",
+    "recentName": "Name of the person",
+    "leaderboard": "Leaderboard card",
+    "leaderboardTitle": "Title",
+    "leaderboardRow": "Single row",
+    "leaderboardRank": "Place number",
+    "leaderboardName": "Name",
+    "leaderboardCount": "Count",
+    "leaderboardFirst": "First place row",
+    "giveaway": "Giveaway card",
+    "giveawayTitle": "Title",
+    "giveawayHint": "How to join",
+    "giveawayCount": "Number of entries",
+    "giveawayRoll": "Names flashing during the draw",
+    "giveawayWinner": "Winner name",
+    "firstCard": "Welcome card",
+    "firstName": "Viewer name",
+    "firstWelcome": "Welcome text",
+    "firstText": "Their message",
+    "spotlightCard": "Message card",
+    "spotlightName": "Author name",
+    "spotlightBits": "Bits badge",
+    "spotlightText": "Message text",
+    "subathon": "Timer box",
+    "subathonTitle": "Title",
+    "subathonTime": "Remaining time",
+    "subathonStatus": "Paused or ended",
+    "subathonAdded": "Floating “+60s”",
+    "goal": "Goal box",
+    "goalTitle": "Title",
+    "goalNumbers": "Current / target",
+    "goalBar": "Bar background",
+    "goalFill": "Bar fill",
+    "goalReached": "Goal box once reached",
+    "clock": "Clock box",
+    "clockLabel": "Label",
+    "clockTime": "Time",
+    "socials": "Container of all socials",
+    "socialsItem": "Single social",
+    "socialsIcon": "Platform icon",
+    "socialsHandle": "Handle",
+    "marquee": "Scrolling bar",
+    "marqueeTrack": "Moving strip of texts",
+    "marqueeItem": "Single text",
+    "marqueeSeparator": "Separator between texts",
+    "camFrame": "Whole frame area (holds glow and colors)",
+    "camFrameBorder": "Border",
+    "camFrameLabel": "Name tag",
+    "camFrameCorner": "Corner brackets",
+    "lowerThird": "Bar",
+    "lowerThirdAccent": "Accent stripe",
+    "lowerThirdTitle": "Name",
+    "lowerThirdSubtitle": "Subtitle"
+  },
+  "actions": {
+    "start": "Start",
+    "stop": "Stop",
+    "reset": "Reset",
+    "increment": "+1",
+    "decrement": "−1",
+    "unpin": "Unpin",
+    "open": "Open entries",
+    "close": "Close entries",
+    "draw": "Draw winner",
+    "pause": "Pause",
+    "addMinute": "+1 min",
+    "removeMinute": "−1 min"
   }
 }

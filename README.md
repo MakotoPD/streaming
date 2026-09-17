@@ -52,6 +52,7 @@ The overlay connects to Twitch and Kick directly from the OBS browser. The serve
 and pushes setting changes and follow alerts over SSE.
 
 Known limitations:
+- Widget state (poll votes, counters, giveaway entries, subathon time, goals, leaderboards) is stored in the OBS browser source (localStorage), so it is not shared between computers.
 - Kick follows only appear when Kick includes the username in the event.
 - Live updates work with a single app instance. For multiple replicas the SSE hub needs to move to Postgres LISTEN/NOTIFY.
 
@@ -59,9 +60,9 @@ Known limitations:
 
 Users only configure widgets; new ones are added through pull requests:
 
-1. `shared/widgets/<type>.ts`: settings fields with defaults, style presets (`presets`), animations and the CSS classes users can target (`cssClasses`).
-2. `shared/widgets/index.ts`: add it to `WIDGETS` and its test buttons to `WIDGET_TESTS`.
-3. `app/components/widget/<Type>.vue`: the component receives `settings` and `bus` (chat and alert events).
+1. `shared/widgets/<type>.ts`: settings fields with defaults, style presets (`presets`), animations, test buttons (`tests`), dashboard control buttons (`actions`), the CSS classes users can target (`cssClasses`) and the CSS generated from the current style (`cssTemplate`).
+2. `shared/widgets/index.ts`: add it to `WIDGETS`.
+3. `app/components/widget/<Type>.vue`: the component receives `settings` and `bus` (chat, alert and `command` events). Use `useWidgetState` for data that must survive an OBS source reload.
 4. `app/pages/o/[token].vue`: register the component in the `COMPONENTS` map.
 5. Translations in `i18n/locales/*.json` for all 5 languages, including a `cssClasses.<id>` description for every class (tests check both).
 
