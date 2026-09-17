@@ -32,6 +32,16 @@ async function logout() {
         >
           <span class="hidden sm:inline">{{ t('nav.dashboard') }}</span>
         </UButton>
+        <UButton
+          v-if="loggedIn"
+          to="/dashboard/library"
+          icon="i-lucide-folder-open"
+          :aria-label="t('nav.library')"
+          color="neutral"
+          variant="ghost"
+        >
+          <span class="hidden sm:inline">{{ t('nav.library') }}</span>
+        </UButton>
         <ULocaleSelect
           :model-value="locale"
           :locales="[en, pl, es, de, ru]"

@@ -15,6 +15,13 @@
       "when": 1789667267562,
       "tag": "0001_account_tokens",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1789668837642,
+      "tag": "0002_images",
+      "breakpoints": true
     }
   ]
 }

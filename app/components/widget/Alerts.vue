@@ -83,7 +83,25 @@ onBeforeUnmount(() => clearTimeout(holdTimer))
       @after-leave="next"
     >
       <div
-        v-if="current"
+        v-if="current && settings.alertLayout === 'image'"
+        :key="`image-${current.key}`"
+        class="alert alert-image-layout"
+        :class="[`alert-${current.type}`, { 'alert-glow': settings.glow }]"
+      >
+        <div v-if="settings[`${current.type}.image`]" class="alert-image">
+          <img :src="settings[`${current.type}.image`]" alt="">
+        </div>
+        <div class="alert-text">
+          <div class="alert-name">
+            {{ name }}
+          </div>
+          <div class="alert-message">
+            {{ message }}
+          </div>
+        </div>
+      </div>
+      <div
+        v-else-if="current"
         :key="current.key"
         class="alert"
         :class="[`alert-${current.type}`, { 'alert-glow': settings.glow }]"
@@ -141,6 +159,42 @@ onBeforeUnmount(() => clearTimeout(holdTimer))
       var(--bg);
     color: var(--text);
     backdrop-filter: blur(14px) saturate(1.3);
+  }
+
+  .alert-image-layout {
+    flex-direction: column;
+    gap: 0.4em;
+    padding: 0.8em 1.2em;
+    border: 0;
+    text-align: center;
+    background: var(--bg);
+    backdrop-filter: none;
+    overflow: visible;
+  }
+
+  .alert-image-layout.alert-glow {
+    box-shadow: none;
+  }
+
+  .alert-image-layout .alert-name,
+  .alert-image-layout .alert-message {
+    white-space: normal;
+    text-shadow: 0 2px 6px rgb(0 0 0 / 0.8), 0 0 0.8em color-mix(in srgb, var(--c) 60%, transparent);
+  }
+
+  .alert-image-layout .alert-message {
+    font-size: 0.9em;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .alert-image img {
+    display: block;
+    width: auto;
+    max-width: 100%;
+    max-height: var(--image-size);
+    margin: 0 auto;
+    object-fit: contain;
   }
 
   .alert-glow {

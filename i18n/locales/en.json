@@ -1,7 +1,8 @@
 {
   "nav": {
     "dashboard": "Dashboard",
-    "logout": "Log out"
+    "logout": "Log out",
+    "library": "Library"
   },
   "footer": {
     "tagline": "Lightweight stream widgets for OBS.",
@@ -423,7 +424,10 @@
     "showKick": "Show Kick",
     "combine": "Combine platforms",
     "hideWhenOffline": "Hide when offline",
-    "goalSource": "Count from"
+    "goalSource": "Count from",
+    "alertImage": "Image",
+    "alertLayout": "Layout",
+    "imageSize": "Image size"
   },
   "hints": {
     "hideAfter": "0 keeps messages until new ones push them out.",
@@ -464,7 +468,9 @@
     "rewards": "Exact reward titles. Press Enter after each one.",
     "goalSource": "“Channel total” uses real follower and sub counts from Twitch (login required) and Kick followers. Bits and gifts always count this stream.",
     "endHold": "How long the final level stays after the train ends.",
-    "combine": "Adds Twitch and Kick viewers into one number."
+    "combine": "Adds Twitch and Kick viewers into one number.",
+    "alertImage": "Shown above the text in the “Image on top” layout (Style tab).",
+    "alertLayout": "“Image on top” shows the image of each alert type with the text below it."
   },
   "options": {
     "direction": {
@@ -600,6 +606,10 @@
     "goalSource": {
       "session": "This stream",
       "total": "Channel total"
+    },
+    "alertLayout": {
+      "card": "Card with icon",
+      "image": "Image on top, text below"
     }
   },
   "animations": {
@@ -640,7 +650,8 @@
     "clean": "Clean",
     "bold": "Bold",
     "broadcast": "Broadcast",
-    "gold": "Gold"
+    "gold": "Gold",
+    "image": "Image"
   },
   "tests": {
     "chat": "Message",
@@ -821,7 +832,8 @@
     "viewersDot": "Live dot",
     "viewersIcon": "Platform icon",
     "viewersCount": "Number of viewers",
-    "viewersLabel": "“viewers” label"
+    "viewersLabel": "“viewers” label",
+    "alertImage": "Alert image (Image on top layout)"
   },
   "actions": {
     "start": "Start",
@@ -836,5 +848,39 @@
     "pause": "Pause",
     "addMinute": "+1 min",
     "removeMinute": "−1 min"
+  },
+  "image": {
+    "none": "No image",
+    "upload": "Upload an image (PNG, WebP, GIF)",
+    "loginToUpload": "Connect an account to upload images",
+    "hint": "PNG, WebP or GIF up to 10 MB. GIFs are converted to animated WebP.",
+    "errors": {
+      "login_required": "Connect an account to upload images",
+      "too_many_images": "You have reached the limit of 50 images",
+      "invalid_type": "Only PNG, WebP and GIF images are allowed",
+      "too_large": "The file is larger than 10 MB",
+      "too_many_frames": "The animation has too many frames",
+      "generic": "Upload failed"
+    }
+  },
+  "library": {
+    "title": "Library",
+    "subtitle": "Your uploaded images and sounds, and where they are used.",
+    "images": "Images",
+    "sounds": "Sounds",
+    "uploadImage": "Upload image",
+    "uploadSound": "Upload sound",
+    "loginToUpload": "Connect a Twitch or Kick account to upload files.",
+    "emptyImages": "No images yet.",
+    "emptySounds": "No sounds yet.",
+    "animated": "Animated",
+    "usedIn": "Used in:",
+    "unused": "Not used in any widget",
+    "replace": "Replace",
+    "replaced": "File replaced, widgets were updated",
+    "uploaded": "File uploaded",
+    "confirmDelete": "Delete this file?",
+    "confirmDeleteUsed": "This file is used in {count} widget(s). Delete it and remove it from them?",
+    "manage": "Manage in Library"
   }
 }

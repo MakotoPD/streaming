@@ -53,6 +53,8 @@ const items = computed(() => {
 
     <EditorSoundField v-else-if="field.type === 'sound'" v-model="model" />
 
+    <EditorImageField v-else-if="field.type === 'image'" v-model="model" />
+
     <UInputTags v-else-if="field.type === 'list'" v-model="model" class="w-full" />
 
     <div v-else-if="field.type === 'time'" class="flex gap-2">

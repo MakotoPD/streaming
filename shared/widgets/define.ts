@@ -25,6 +25,7 @@ export type Field = Base & (
   | { type: 'font', default: string }
   | { type: 'animation', default: string, kind: 'in' | 'out' }
   | { type: 'sound', default: string }
+  | { type: 'image', default: string }
   | { type: 'list', default: string[] }
   | { type: 'time', default: string }
   | { type: 'code', default: string }
@@ -51,6 +52,7 @@ export interface WidgetDefinition {
 const COLOR = /^[#\w(),.%\s-]{1,80}$/
 const SOUND = /^(\/sounds\/[\w.-]+|\/api\/sounds\/[\w-]+\/file|https?:\/\/\S{1,500})$/
 const TIME = /^([01]\d|2[0-3]):[0-5]\d$/
+const IMAGE = /^\/api\/images\/[\da-f-]{36}\/file$/
 
 function clean(field: Field, value: unknown): unknown {
   switch (field.type) {
@@ -76,6 +78,8 @@ function clean(field: Field, value: unknown): unknown {
       return typeof value === 'string' && COLOR.test(value) ? value : field.default
     case 'sound':
       return value === '' || (typeof value === 'string' && SOUND.test(value)) ? value : field.default
+    case 'image':
+      return value === '' || (typeof value === 'string' && IMAGE.test(value)) ? value : field.default
     case 'time':
       return value === '' || (typeof value === 'string' && TIME.test(value)) ? value : field.default
     case 'list':

@@ -9,10 +9,5 @@ export default defineEventHandler(async (event) => {
   if (!sound) throw createError({ statusCode: 404 })
   const data = await readFile(join(useRuntimeConfig().uploadDir, sound.file)).catch(() => undefined)
   if (!data) throw createError({ statusCode: 404 })
-  setHeaders(event, {
-    'Content-Type': sound.mime,
-    'Cache-Control': 'public, max-age=31536000, immutable',
-    'X-Content-Type-Options': 'nosniff'
-  })
-  return data
+  return sendCachedFile(event, { name: sound.file, mime: sound.mime, data })
 })

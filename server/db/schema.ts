@@ -1,4 +1,4 @@
-import { index, integer, jsonb, pgTable, text, timestamp, uniqueIndex, uuid } from 'drizzle-orm/pg-core'
+import { boolean, index, integer, jsonb, pgTable, text, timestamp, uniqueIndex, uuid } from 'drizzle-orm/pg-core'
 import type { Channels, Settings } from '../../shared/types'
 
 export const users = pgTable('users', {
@@ -52,5 +52,18 @@ export const sounds = pgTable('sounds', {
   file: text().notNull(),
   mime: text().notNull(),
   size: integer().notNull(),
+  createdAt: timestamp({ withTimezone: true }).notNull().defaultNow()
+}, t => [index().on(t.userId)])
+
+export const images = pgTable('images', {
+  id: uuid().primaryKey().defaultRandom(),
+  userId: uuid().notNull().references(() => users.id, { onDelete: 'cascade' }),
+  name: text().notNull(),
+  file: text().notNull(),
+  mime: text().notNull(),
+  size: integer().notNull(),
+  width: integer().notNull(),
+  height: integer().notNull(),
+  animated: boolean().notNull().default(false),
   createdAt: timestamp({ withTimezone: true }).notNull().defaultNow()
 }, t => [index().on(t.userId)])

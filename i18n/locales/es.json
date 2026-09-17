@@ -1,7 +1,8 @@
 {
   "nav": {
     "dashboard": "Panel",
-    "logout": "Cerrar sesión"
+    "logout": "Cerrar sesión",
+    "library": "Biblioteca"
   },
   "footer": {
     "tagline": "Widgets ligeros para streams en OBS.",
@@ -423,7 +424,10 @@
     "showKick": "Mostrar Kick",
     "combine": "Sumar plataformas",
     "hideWhenOffline": "Ocultar sin conexión",
-    "goalSource": "Contar desde"
+    "goalSource": "Contar desde",
+    "alertImage": "Imagen",
+    "alertLayout": "Disposición",
+    "imageSize": "Tamaño de la imagen"
   },
   "hints": {
     "hideAfter": "0 mantiene los mensajes hasta que los nuevos los desplacen.",
@@ -464,7 +468,9 @@
     "rewards": "Títulos exactos de las recompensas. Pulsa Enter tras cada uno.",
     "goalSource": "«Total del canal» usa los seguidores y subs reales de Twitch (requiere sesión) y los seguidores de Kick. Bits y regalos cuentan siempre este directo.",
     "endHold": "Cuánto se muestra el nivel final al terminar.",
-    "combine": "Suma los espectadores de Twitch y Kick en un número."
+    "combine": "Suma los espectadores de Twitch y Kick en un número.",
+    "alertImage": "Se muestra sobre el texto en la disposición «Imagen arriba» (pestaña Estilo).",
+    "alertLayout": "«Imagen arriba» muestra la imagen de cada tipo de alerta con el texto debajo."
   },
   "options": {
     "direction": {
@@ -600,6 +606,10 @@
     "goalSource": {
       "session": "Este directo",
       "total": "Total del canal"
+    },
+    "alertLayout": {
+      "card": "Tarjeta con icono",
+      "image": "Imagen arriba, texto debajo"
     }
   },
   "animations": {
@@ -640,7 +650,8 @@
     "clean": "Limpio",
     "bold": "Llamativo",
     "broadcast": "Televisión",
-    "gold": "Dorado"
+    "gold": "Dorado",
+    "image": "Imagen"
   },
   "tests": {
     "chat": "Mensaje",
@@ -821,7 +832,8 @@
     "viewersDot": "Punto en directo",
     "viewersIcon": "Icono de la plataforma",
     "viewersCount": "Número de espectadores",
-    "viewersLabel": "Etiqueta «espectadores»"
+    "viewersLabel": "Etiqueta «espectadores»",
+    "alertImage": "Imagen de la alerta (disposición con imagen)"
   },
   "actions": {
     "start": "Iniciar",
@@ -836,5 +848,39 @@
     "pause": "Pausa",
     "addMinute": "+1 min",
     "removeMinute": "−1 min"
+  },
+  "image": {
+    "none": "Sin imagen",
+    "upload": "Subir imagen (PNG, WebP, GIF)",
+    "loginToUpload": "Conecta una cuenta para subir imágenes",
+    "hint": "PNG, WebP o GIF hasta 10 MB. Los GIF se convierten a WebP animado.",
+    "errors": {
+      "login_required": "Conecta una cuenta para subir imágenes",
+      "too_many_images": "Has alcanzado el límite de 50 imágenes",
+      "invalid_type": "Solo se permiten imágenes PNG, WebP y GIF",
+      "too_large": "El archivo supera los 10 MB",
+      "too_many_frames": "La animación tiene demasiados fotogramas",
+      "generic": "Error al subir"
+    }
+  },
+  "library": {
+    "title": "Biblioteca",
+    "subtitle": "Tus imágenes y sonidos subidos y dónde se usan.",
+    "images": "Imágenes",
+    "sounds": "Sonidos",
+    "uploadImage": "Subir imagen",
+    "uploadSound": "Subir sonido",
+    "loginToUpload": "Conecta una cuenta de Twitch o Kick para subir archivos.",
+    "emptyImages": "Aún no hay imágenes.",
+    "emptySounds": "Aún no hay sonidos.",
+    "animated": "Animada",
+    "usedIn": "Se usa en:",
+    "unused": "No se usa en ningún widget",
+    "replace": "Reemplazar",
+    "replaced": "Archivo reemplazado, los widgets se actualizaron",
+    "uploaded": "Archivo subido",
+    "confirmDelete": "¿Eliminar este archivo?",
+    "confirmDeleteUsed": "Este archivo se usa en {count} widget(s). ¿Eliminarlo y quitarlo de ellos?",
+    "manage": "Gestionar en la Biblioteca"
   }
 }

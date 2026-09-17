@@ -8,6 +8,7 @@ export default defineEventHandler(async (event) => {
     .where(and(eq(tables.sounds.id, getRouterParam(event, 'id')!), eq(tables.sounds.userId, userId)))
     .returning()
     .catch(() => [])
+  if (sound) await clearUsages(userId, `/api/sounds/${sound.id}/file`)
   if (sound) await rm(join(useRuntimeConfig().uploadDir, sound.file), { force: true })
   return { ok: true }
 })

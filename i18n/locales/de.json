@@ -1,7 +1,8 @@
 {
   "nav": {
     "dashboard": "Dashboard",
-    "logout": "Abmelden"
+    "logout": "Abmelden",
+    "library": "Bibliothek"
   },
   "footer": {
     "tagline": "Leichtgewichtige Stream-Widgets für OBS.",
@@ -423,7 +424,10 @@
     "showKick": "Kick anzeigen",
     "combine": "Plattformen zusammenfassen",
     "hideWhenOffline": "Ausblenden, wenn offline",
-    "goalSource": "Zählen ab"
+    "goalSource": "Zählen ab",
+    "alertImage": "Bild",
+    "alertLayout": "Layout",
+    "imageSize": "Bildgröße"
   },
   "hints": {
     "hideAfter": "0 behält Nachrichten, bis neue sie verdrängen.",
@@ -464,7 +468,9 @@
     "rewards": "Exakte Belohnungstitel. Jeden mit Enter bestätigen.",
     "goalSource": "„Kanal gesamt“ nutzt echte Follower- und Abozahlen von Twitch (Login nötig) und Kick-Follower. Bits und Geschenke zählen immer diesen Stream.",
     "endHold": "Wie lange die Endstufe nach dem Zug sichtbar bleibt.",
-    "combine": "Addiert Zuschauer von Twitch und Kick zu einer Zahl."
+    "combine": "Addiert Zuschauer von Twitch und Kick zu einer Zahl.",
+    "alertImage": "Wird im Layout „Bild oben“ über dem Text angezeigt (Tab Stil).",
+    "alertLayout": "„Bild oben“ zeigt das Bild des Alert-Typs mit dem Text darunter."
   },
   "options": {
     "direction": {
@@ -600,6 +606,10 @@
     "goalSource": {
       "session": "Dieser Stream",
       "total": "Kanal gesamt"
+    },
+    "alertLayout": {
+      "card": "Karte mit Symbol",
+      "image": "Bild oben, Text darunter"
     }
   },
   "animations": {
@@ -640,7 +650,8 @@
     "clean": "Schlicht",
     "bold": "Kräftig",
     "broadcast": "Fernsehen",
-    "gold": "Gold"
+    "gold": "Gold",
+    "image": "Bild"
   },
   "tests": {
     "chat": "Nachricht",
@@ -821,7 +832,8 @@
     "viewersDot": "Live-Punkt",
     "viewersIcon": "Plattformsymbol",
     "viewersCount": "Zuschauerzahl",
-    "viewersLabel": "Beschriftung „Zuschauer“"
+    "viewersLabel": "Beschriftung „Zuschauer“",
+    "alertImage": "Alert-Bild (Layout mit Bild)"
   },
   "actions": {
     "start": "Start",
@@ -836,5 +848,39 @@
     "pause": "Pause",
     "addMinute": "+1 Min.",
     "removeMinute": "−1 Min."
+  },
+  "image": {
+    "none": "Kein Bild",
+    "upload": "Bild hochladen (PNG, WebP, GIF)",
+    "loginToUpload": "Verbinde ein Konto, um Bilder hochzuladen",
+    "hint": "PNG, WebP oder GIF bis 10 MB. GIFs werden in animiertes WebP umgewandelt.",
+    "errors": {
+      "login_required": "Verbinde ein Konto, um Bilder hochzuladen",
+      "too_many_images": "Limit von 50 Bildern erreicht",
+      "invalid_type": "Nur PNG-, WebP- und GIF-Bilder sind erlaubt",
+      "too_large": "Die Datei ist größer als 10 MB",
+      "too_many_frames": "Die Animation hat zu viele Frames",
+      "generic": "Upload fehlgeschlagen"
+    }
+  },
+  "library": {
+    "title": "Bibliothek",
+    "subtitle": "Deine hochgeladenen Bilder und Sounds und wo sie genutzt werden.",
+    "images": "Bilder",
+    "sounds": "Sounds",
+    "uploadImage": "Bild hochladen",
+    "uploadSound": "Sound hochladen",
+    "loginToUpload": "Verbinde ein Twitch- oder Kick-Konto, um Dateien hochzuladen.",
+    "emptyImages": "Noch keine Bilder.",
+    "emptySounds": "Noch keine Sounds.",
+    "animated": "Animiert",
+    "usedIn": "Verwendet in:",
+    "unused": "In keinem Widget verwendet",
+    "replace": "Ersetzen",
+    "replaced": "Datei ersetzt, Widgets wurden aktualisiert",
+    "uploaded": "Datei hochgeladen",
+    "confirmDelete": "Diese Datei löschen?",
+    "confirmDeleteUsed": "Diese Datei wird in {count} Widget(s) verwendet. Löschen und dort entfernen?",
+    "manage": "In der Bibliothek verwalten"
   }
 }

@@ -1,7 +1,8 @@
 {
   "nav": {
     "dashboard": "Panel",
-    "logout": "Wyloguj"
+    "logout": "Wyloguj",
+    "library": "Biblioteka"
   },
   "footer": {
     "tagline": "Lekkie widgety streamowe dla OBS.",
@@ -423,7 +424,10 @@
     "showKick": "Pokaż Kick",
     "combine": "Sumuj platformy",
     "hideWhenOffline": "Ukryj, gdy offline",
-    "goalSource": "Licz od"
+    "goalSource": "Licz od",
+    "alertImage": "Obrazek",
+    "alertLayout": "Układ",
+    "imageSize": "Rozmiar obrazka"
   },
   "hints": {
     "hideAfter": "0 = wiadomości znikają dopiero, gdy wypchną je nowe.",
@@ -464,7 +468,9 @@
     "rewards": "Dokładne nazwy nagród. Zatwierdź każdą Enterem.",
     "goalSource": "„Łącznie na kanale” używa prawdziwej liczby obserwujących i subów z Twitcha (wymaga logowania) oraz obserwujących z Kicka. Bity i gifty zawsze liczą ten stream.",
     "endHold": "Jak długo widać końcowy poziom po zakończeniu pociągu.",
-    "combine": "Dodaje widzów z Twitcha i Kicka w jedną liczbę."
+    "combine": "Dodaje widzów z Twitcha i Kicka w jedną liczbę.",
+    "alertImage": "Pokazywany nad tekstem w układzie „Obrazek na górze” (zakładka Styl).",
+    "alertLayout": "„Obrazek na górze” pokazuje obrazek danego typu alertu, a pod nim tekst."
   },
   "options": {
     "direction": {
@@ -600,6 +606,10 @@
     "goalSource": {
       "session": "Ten stream",
       "total": "Łącznie na kanale"
+    },
+    "alertLayout": {
+      "card": "Karta z ikoną",
+      "image": "Obrazek na górze, tekst pod spodem"
     }
   },
   "animations": {
@@ -640,7 +650,8 @@
     "clean": "Czysty",
     "bold": "Wyrazisty",
     "broadcast": "Telewizja",
-    "gold": "Złoty"
+    "gold": "Złoty",
+    "image": "Obrazek"
   },
   "tests": {
     "chat": "Wiadomość",
@@ -821,7 +832,8 @@
     "viewersDot": "Kropka „na żywo”",
     "viewersIcon": "Ikona platformy",
     "viewersCount": "Liczba widzów",
-    "viewersLabel": "Napis „widzów”"
+    "viewersLabel": "Napis „widzów”",
+    "alertImage": "Obrazek alertu (układ z obrazkiem)"
   },
   "actions": {
     "start": "Start",
@@ -836,5 +848,39 @@
     "pause": "Pauza",
     "addMinute": "+1 min",
     "removeMinute": "−1 min"
+  },
+  "image": {
+    "none": "Bez obrazka",
+    "upload": "Wgraj obrazek (PNG, WebP, GIF)",
+    "loginToUpload": "Połącz konto, żeby wgrywać obrazki",
+    "hint": "PNG, WebP albo GIF do 10 MB. GIF-y są zamieniane na animowany WebP.",
+    "errors": {
+      "login_required": "Połącz konto, żeby wgrywać obrazki",
+      "too_many_images": "Osiągnięto limit 50 obrazków",
+      "invalid_type": "Dozwolone są tylko obrazki PNG, WebP i GIF",
+      "too_large": "Plik jest większy niż 10 MB",
+      "too_many_frames": "Animacja ma za dużo klatek",
+      "generic": "Wgrywanie nie powiodło się"
+    }
+  },
+  "library": {
+    "title": "Biblioteka",
+    "subtitle": "Twoje wgrane obrazki i dźwięki oraz miejsca, w których są użyte.",
+    "images": "Obrazki",
+    "sounds": "Dźwięki",
+    "uploadImage": "Wgraj obrazek",
+    "uploadSound": "Wgraj dźwięk",
+    "loginToUpload": "Połącz konto Twitch albo Kick, żeby wgrywać pliki.",
+    "emptyImages": "Nie masz jeszcze obrazków.",
+    "emptySounds": "Nie masz jeszcze dźwięków.",
+    "animated": "Animowany",
+    "usedIn": "Użyty w:",
+    "unused": "Nieużywany w żadnym widgecie",
+    "replace": "Podmień",
+    "replaced": "Plik podmieniony, widgety zostały odświeżone",
+    "uploaded": "Plik wgrany",
+    "confirmDelete": "Usunąć ten plik?",
+    "confirmDeleteUsed": "Ten plik jest użyty w widgetach: {count}. Usunąć go i odpiąć od nich?",
+    "manage": "Zarządzaj w Bibliotece"
   }
 }
