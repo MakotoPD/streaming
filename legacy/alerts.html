@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Meld Alerts</title>
+<script src="https://elements.meldstudio.co/cdn/v2/firehose.js"></script>
+<style>
+  html, body { width:100%; height:100%; margin:0; padding:0; overflow:hidden; background:transparent;
+               pointer-events:none; }   /* nakładka nie przechwytuje kliknięć */
+  * { box-sizing:border-box; }
+
+  :root{
+    /* ——— USTAWIENIA ——— */
+    --hold: 5000ms;          /* jak długo alert wisi (zmień też HOLD w JS) */
+    --font: "Inter", "Segoe UI", system-ui, sans-serif;
+    --size: clamp(13px, 3vmin, 30px);   /* skala całości */
+    --card-bg: rgba(12,14,20,.72);
+    --radius: 1.1em;
+    --pad: 1em 1.6em;
+    --align: center;         /* center | flex-start | flex-end  (pion) */
+
+    /* kolory przewodnie */
+    --c-follow:   #22d3ee;
+    --c-sub:      #a855f7;
+    --c-gifts:    #ec4899;
+    --c-raid:     #fb923c;
+    --c-purchase: #fbbf24;
+    --c-generic:  #60a5fa;
+  }
+
+  body{
+    display:flex; align-items:var(--align); justify-content:center;
+    font-family:var(--font); font-size:var(--size);
+  }
+
+  #stage{ pointer-events:none; position:relative; display:flex; align-items:center; justify-content:center;
+          width:100%; max-width:100%; padding:2%; }
+
+  .alert{
+    --c: var(--c-generic);
+    position:relative; display:flex; align-items:center; gap:.9em;
+    max-width:100%; padding:var(--pad);
+    border-radius:var(--radius);
+    background:
+      linear-gradient(135deg, color-mix(in srgb, var(--c) 22%, transparent), transparent 55%),
+      var(--card-bg);
+    border:1px solid color-mix(in srgb, var(--c) 55%, transparent);
+    box-shadow:
+      0 0 0 1px rgba(255,255,255,.05) inset,
+      0 .6em 2em rgba(0,0,0,.45),
+      0 0 2.2em color-mix(in srgb, var(--c) 45%, transparent);
+    backdrop-filter: blur(14px) saturate(1.3);
+    -webkit-backdrop-filter: blur(14px) saturate(1.3);
+    overflow:hidden;
+    animation: slideIn .75s cubic-bezier(.16,1,.3,1) both;
+  }
+  .alert.out{ animation: slideOut .5s cubic-bezier(.6,0,.8,.2) both; }
+
+  /* przesuwający się połysk */
+  .alert::after{
+    content:""; position:absolute; top:0; left:-60%; width:40%; height:100%;
+    background:linear-gradient(100deg, transparent, color-mix(in srgb, var(--c) 35%, #fff 25%), transparent);
+    opacity:.55; transform:translateX(0); animation:sweep 1.4s .35s ease-in-out both;
+  }
+
+  .burst{
+    position:absolute; inset:0; margin:auto; width:8em; height:8em; border-radius:50%;
+    background:radial-gradient(circle, color-mix(in srgb, var(--c) 60%, transparent), transparent 65%);
+    pointer-events:none; animation:burst .9s ease-out both;
+  }
+
+  .icon{
+    flex:0 0 auto; display:grid; place-items:center;
+    width:2.4em; height:2.4em; border-radius:50%; font-size:1.15em; line-height:1;
+    background:radial-gradient(circle at 35% 30%, color-mix(in srgb, var(--c) 85%, #fff 20%), color-mix(in srgb, var(--c) 60%, #000 25%));
+    box-shadow:0 0 1.4em color-mix(in srgb, var(--c) 70%, transparent);
+    animation:iconPop .7s .1s cubic-bezier(.16,1.4,.3,1) both;
+  }
+  .icon svg{
+    width:1.25em; height:1.25em; color:#fff;
+    stroke-width:2.1;
+    filter:drop-shadow(0 .06em .18em rgba(0,0,0,.45));
+  }
+
+  .txt{ min-width:0; }
+  /* padding + ujemny margines = miejsce na poświatę wewnątrz overflow:hidden (bez wpływu na layout) */
+  .name, .sub{
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+    padding:.35em .5em; margin:-.35em -.5em;
+  }
+  .name{
+    font-weight:800; font-size:1.25em; letter-spacing:-.01em; line-height:1.15;
+    color:#fff; text-shadow:0 0 .7em color-mix(in srgb, var(--c) 80%, transparent);
+  }
+  .sub{
+    margin-top:-.2em; font-size:.85em; font-weight:500; line-height:1.25;
+    color:color-mix(in srgb, var(--c) 45%, #fff);
+  }
+
+  @keyframes slideIn{
+    0%  { opacity:0; transform:translateY(45%) scale(.86); filter:blur(10px); }
+    60% { opacity:1; transform:translateY(-3%)  scale(1.03); filter:blur(0); }
+    100%{ opacity:1; transform:translateY(0)    scale(1); }
+  }
+  @keyframes slideOut{ to{ opacity:0; transform:translateY(-28%) scale(.94); filter:blur(8px); } }
+  @keyframes sweep{ to{ transform:translateX(420%); } }
+  @keyframes burst{ 0%{opacity:.85; transform:scale(.3)} 100%{opacity:0; transform:scale(2.6)} }
+  @keyframes iconPop{ 0%{transform:scale(0) rotate(-45deg)} 60%{transform:scale(1.22) rotate(10deg)} 100%{transform:scale(1) rotate(0)} }
+</style>
+</head>
+<body>
+<div id="stage"></div>
+
+<script>
+const HOLD = 5000;      // ms — trzymaj zgodnie z --hold
+const OUT  = 500;       // czas animacji wyjścia
+
+/* ——— DŹWIĘKI ——— wklej URL assetu z Meld Studio; puste/brak = cisza */
+const VOLUME = 0.8;
+const SOUNDS = {
+  follow:   "https://user-assets.meldstudio.co/1e76e598adf04698b6ced02dc3ae108d/ua/ast_t3v9rw77g8k82r8q",
+  sub:      "https://user-assets.meldstudio.co/1e76e598adf04698b6ced02dc3ae108d/ua/ast_fmo6qq6n5zmnpc70",
+  gifts:    "https://user-assets.meldstudio.co/1e76e598adf04698b6ced02dc3ae108d/ua/ast_f7zsb15gnphc8cut",
+  raid:     "https://user-assets.meldstudio.co/1e76e598adf04698b6ced02dc3ae108d/ua/ast_ssyqyndyy842izun",
+  purchase: ""
+};
+const AUDIO = {};
+for (const [type, url] of Object.entries(SOUNDS)) {
+  if (!url) continue;
+  AUDIO[type] = Object.assign(new Audio(url), { preload:"auto", volume:VOLUME });
+}
+
+/* ——— IKONY (Lucide, via icones.js.org) ——— */
+const S = (body) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">${body}</svg>`;
+const ICON = {
+  heart:    S(`<path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676a.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"/>`),
+  star:     S(`<path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.12 2.12 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.12 2.12 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.12 2.12 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.12 2.12 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.12 2.12 0 0 0 1.597-1.16z"/>`),
+  gift:     S(`<path d="M12 7v14m8-10v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8m3.5-4a1 1 0 0 1 0-5A4.8 8 0 0 1 12 7a4.8 8 0 0 1 4.5-5a1 1 0 0 1 0 5"/><rect width="18" height="4" x="3" y="7" rx="1"/>`),
+  users:    S(`<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M16 3.128a4 4 0 0 1 0 7.744M22 21v-2a4 4 0 0 0-3-3.87"/><circle cx="9" cy="7" r="4"/>`),
+  gem:      S(`<path d="M10.5 3L8 9l4 13l4-13l-2.5-6"/><path d="M17 3a2 2 0 0 1 1.6.8l3 4a2 2 0 0 1 .013 2.382l-7.99 10.986a2 2 0 0 1-3.247 0l-7.99-10.986A2 2 0 0 1 2.4 7.8l2.998-3.997A2 2 0 0 1 7 3zM2 9h20"/>`),
+  sparkles: S(`<path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594zM20 2v4m2-2h-4"/><circle cx="4" cy="20" r="2"/>`)
+};
+
+/* ——— TEKSTY ——— */
+// pl: 1 / 2-4 / 5+  (22 → "subskrypcje", 25 → "subskrypcji")
+const plural = (n, one, few, many) =>
+  n === 1 ? one : (n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20)) ? few : many;
+// "TIER_2" → " (Tier 2)", TIER_1 i brak → ""
+const tier = (t) => (!t || t === "TIER_1") ? "" : ` (${t.replace("TIER_", "Tier ")})`;
+
+const TYPES = {
+  follow:   { icon:ICON.heart,    text:(e)=> "zaczyna obserwować!" },
+  sub:      { icon:ICON.star,     text:(e)=> (e.months > 1 ? `subskrybuje ${e.months}. miesiąc!` : "właśnie zasubskrybował!") + tier(e.level) },
+  gifts:    { icon:ICON.gift,     text:(e)=> `podarował ${e.count} ${plural(e.count,"subskrypcję","subskrypcje","subskrypcji")}!` + tier(e.level) },
+  raid:     { icon:ICON.users,    text:(e)=> `wpada z ${e.count} ${e.count===1?"widzem":"widzami"}!` },
+  purchase: { icon:ICON.gem,      text:(e)=> `wsparł kwotą ${e.amount}!` },
+  generic:  { icon:ICON.sparkles, text:(e)=> "nowe wydarzenie!" }
+};
+
+const stage = document.getElementById("stage");
+const queue = [];
+let busy = false;
+
+function push(type, data){
+  queue.push({ type: TYPES[type] ? type : "generic", data });
+  if (!busy) next();
+}
+
+function next(){
+  const item = queue.shift();
+  if (!item){ busy = false; return; }
+  busy = true;
+
+  const snd = AUDIO[item.type];
+  if (snd){
+    snd.currentTime = 0;
+    snd.play().catch(err => console.warn("[alerts] audio:", err));
+  }
+
+  const cfg = TYPES[item.type];
+  const el = document.createElement("div");
+  el.className = "alert";
+  el.style.setProperty("--c", `var(--c-${item.type})`);
+  el.innerHTML =
+    `<div class="burst"></div>` +
+    `<div class="icon">${cfg.icon}</div>` +
+    `<div class="txt"><div class="name"></div><div class="sub"></div></div>`;
+  el.querySelector(".name").textContent = item.data.name;
+  el.querySelector(".sub").textContent  = cfg.text(item.data);
+  stage.appendChild(el);
+
+  setTimeout(() => {
+    el.classList.add("out");
+    setTimeout(() => { el.remove(); next(); }, OUT);
+  }, HOLD);
+}
+
+/* ——— FIREHOSE ——— */
+/* Autor siedzi pod innym kluczem w każdym zdarzeniu — jedna funkcja obsługuje wszystkie */
+const getUserName = (e) => {
+  const user = e?.sender ?? e?.follower ?? e?.subscriber ?? e?.gifter ?? e?.host ?? e?.purchaser;
+  if (!user && e?.anonymous) return "Anonimowy Gifter";
+  return user?.displayname ?? user?.username ?? "Ktoś";
+};
+
+try {
+  const firehose = new Firehose();
+
+  firehose.on("follow",   e => push("follow",   { name:getUserName(e) }));
+  firehose.on("sub",      e => push("sub",      { name:getUserName(e), months:Number(e?.months_streak) || 0, level:e?.sub_level }));
+  firehose.on("gifts",    e => push("gifts",    { name:getUserName(e), count:Number(e?.count) || 1,          level:e?.sub_level }));
+  firehose.on("raid",     e => push("raid",     { name:getUserName(e), count:Number(e?.viewers) || 0 }));
+  firehose.on("purchase", e => push("purchase", { name:getUserName(e), amount:`${e?.total_amount ?? "?"} ${e?.currency ?? ""}`.trim() }));
+} catch (err) {
+  console.warn("[alerts] Firehose niedostępny — tryb podglądu.", err);
+}
+
+/* ——— PODGLĄD ———
+   Konsola:  testAlert("sub")
+   URL:      alerts.html?demo   → cyklicznie wszystkie typy            */
+window.testAlert = (t="follow") => push(t, { name:"TestowyWidz", months:6, count:5, amount:"50 PLN", level:"TIER_2" });
+
+if (location.search.includes("demo")) {
+  const types = Object.keys(TYPES);
+  let i = 0;
+  const tick = () => window.testAlert(types[i++ % types.length]);
+  tick();
+  setInterval(tick, HOLD + OUT + 400);
+}
+</script>
+</body>
+</html>

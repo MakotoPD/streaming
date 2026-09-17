@@ -1,0 +1,328 @@
+{
+  "nav": {
+    "dashboard": "Dashboard",
+    "logout": "Log out"
+  },
+  "footer": {
+    "tagline": "Lightweight stream widgets for OBS.",
+    "contribute": "Want a new widget? Contribute on GitHub."
+  },
+  "common": {
+    "soon": "Coming soon",
+    "saved": "Saved",
+    "save": "Save",
+    "delete": "Delete",
+    "back": "Back"
+  },
+  "platforms": {
+    "twitch": "Twitch",
+    "kick": "Kick",
+    "youtube": "YouTube"
+  },
+  "landing": {
+    "title": "Stream widgets for OBS",
+    "badge": "Twitch · Kick · 7TV · BetterTTV",
+    "headline": "Stream widgets that don't eat your CPU",
+    "description": "Chat, alerts, emote combos and scene screens. Pick a style, tweak animations and paste one link into OBS.",
+    "welcomeBack": "You're signed in. Your widgets are waiting.",
+    "guestTitle": "Start with your nickname",
+    "guestDescription": "No account needed. Your widgets are kept in this browser.",
+    "continue": "Continue",
+    "or": "or",
+    "loginDescription": "Sign in to keep your widgets on every device, upload sounds and get follow alerts.",
+    "loginWith": "Sign in with {platform}",
+    "loginError": "Sign-in failed. Please try again.",
+    "nickRequired": "Enter at least one nickname.",
+    "invalidNick": "That nickname doesn't look right.",
+    "features": {
+      "obs": {
+        "title": "One link per widget",
+        "text": "Add it as a Browser Source. Changes show up live, no refresh needed."
+      },
+      "emotes": {
+        "title": "7TV, BetterTTV and FFZ",
+        "text": "Third-party emotes work out of the box, including zero-width ones."
+      },
+      "styles": {
+        "title": "Styles and animations",
+        "text": "Start from a preset, make it yours and save it as your own style."
+      }
+    }
+  },
+  "dashboard": {
+    "title": "Your widgets",
+    "subtitle": "Edit a widget, then copy its link into OBS.",
+    "addWidget": "Add widget",
+    "edit": "Edit",
+    "copyUrl": "Copy link",
+    "confirmDelete": "Delete this widget? Its OBS link will stop working.",
+    "channels": "Channels",
+    "channelsHint": "Widgets read chat and events from these channels.",
+    "accounts": "Connected accounts",
+    "accountsHint": "Connecting an account keeps your data safe and enables follow alerts and sound uploads.",
+    "connected": "Connected",
+    "connect": "Connect {platform}",
+    "urlCopied": "Link copied",
+    "urlCopiedHint": "In OBS: Sources → + → Browser → paste the URL."
+  },
+  "widgets": {
+    "chat": {
+      "name": "Chat",
+      "description": "Twitch and Kick chat with badges and 7TV/BTTV emotes."
+    },
+    "alerts": {
+      "name": "Alerts",
+      "description": "Follows, subs, gifts, raids and bits with sounds."
+    },
+    "emote-combo": {
+      "name": "Emote combo",
+      "description": "Pops up when chat spams the same emote."
+    },
+    "scene": {
+      "name": "Scene screen",
+      "description": "Starting soon, be right back and ending screens."
+    }
+  },
+  "editor": {
+    "save": {
+      "saved": "Saved",
+      "saving": "Saving…",
+      "error": "Not saved"
+    },
+    "presets": "Styles",
+    "myStyles": "My styles",
+    "saveStyle": "Save as my style",
+    "styleName": "Style name",
+    "styleSaved": "Style saved",
+    "noStyles": "Tweak the fields below and save them as your own style.",
+    "preview": "Preview",
+    "liveChat": "Live chat",
+    "test": "Test",
+    "sendToObs": "Send test to OBS",
+    "testSent": "Test sent to OBS",
+    "obsTitle": "Add to OBS",
+    "regenerate": "Generate new link",
+    "confirmRegenerate": "Generate a new link? The old one will stop working in OBS.",
+    "obsStep1": "In OBS add a new source: Browser.",
+    "obsStep2": "Paste the link and set the size to {width} × {height}.",
+    "obsStep3": "For alert sounds, tick “Control audio via OBS”.",
+    "css": {
+      "intro": "Your CSS applies only to this widget. Click a class to add it to the editor, click a variable to copy it.",
+      "classes": "Classes",
+      "variables": "CSS variables (values from the Style tab)",
+      "insert": "Add to CSS",
+      "copy": "Copy",
+      "copied": "Copied {text}"
+    }
+  },
+  "sections": {
+    "general": "General",
+    "style": "Style",
+    "animation": "Animation",
+    "advanced": "Advanced",
+    "follow": "Follow",
+    "sub": "Sub",
+    "gifts": "Gifts",
+    "raid": "Raid",
+    "bits": "Bits",
+    "socials": "Socials"
+  },
+  "fields": {
+    "maxMessages": "Max messages",
+    "hideAfter": "Hide messages after",
+    "direction": "New messages",
+    "showBadges": "Show badges",
+    "showPlatform": "Show platform icon",
+    "hideCommands": "Hide commands",
+    "ignoredUsers": "Ignored users",
+    "font": "Font",
+    "fontSize": "Font size",
+    "emoteSize": "Emote size",
+    "textColor": "Text color",
+    "background": "Background",
+    "sceneBackground": "Background",
+    "borderColor": "Border color",
+    "radius": "Corner radius",
+    "blur": "Background blur",
+    "gap": "Spacing",
+    "nameColor": "Name color",
+    "fixedNameColor": "Fixed name color",
+    "animIn": "Enter animation",
+    "animOut": "Exit animation",
+    "animDuration": "Animation duration",
+    "customCss": "Custom CSS",
+    "language": "Widget language",
+    "holdTime": "Display time",
+    "volume": "Volume",
+    "position": "Position",
+    "enabled": "Enabled",
+    "text": "Text",
+    "textResub": "Text for resubs",
+    "min": "Minimum amount",
+    "sound": "Sound",
+    "color": "Color",
+    "showIcon": "Show icon",
+    "glow": "Glow",
+    "shine": "Shine sweep",
+    "minMessages": "Messages to trigger",
+    "window": "Time window",
+    "bounce": "Bouncing emote",
+    "popScale": "Pop size",
+    "popRotate": "Pop rotation",
+    "numberColor": "Number color",
+    "mode": "Mode",
+    "title": "Title",
+    "titleAccent": "Title highlight",
+    "status": "Status",
+    "countdownTo": "Countdown to",
+    "twitch": "Twitch",
+    "kick": "Kick",
+    "youtube": "YouTube",
+    "instagram": "Instagram",
+    "tiktok": "TikTok",
+    "x": "X",
+    "discord": "Discord",
+    "titleSize": "Title size",
+    "backgroundColor": "Background color",
+    "accent1": "Accent 1",
+    "accent2": "Accent 2",
+    "italic": "Italic title"
+  },
+  "hints": {
+    "hideAfter": "0 keeps messages until new ones push them out.",
+    "hideCommands": "Messages starting with “!”.",
+    "ignoredUsers": "Bots and users whose messages are hidden. Press Enter after each name.",
+    "text": "Leave empty for the default. Tokens: {'{name}'} {'{count}'} {'{months}'} {'{tier}'}. Plural: {'{count|sub|subs}'}.",
+    "textResub": "Used when months is greater than 1. Leave empty for the default.",
+    "min": "Smaller amounts don't trigger an alert.",
+    "minMessages": "Same emote in this many different messages.",
+    "countdownTo": "Local time. Leave empty to hide the countdown.",
+    "title": "Leave empty for the default text for the selected mode.",
+    "sceneBackground": "3D looks great but uses the GPU. Pick a lighter background if your game stutters."
+  },
+  "options": {
+    "direction": {
+      "bottom": "Stack from bottom",
+      "top": "Stack from top"
+    },
+    "nameColor": {
+      "user": "User's color",
+      "fixed": "Fixed color"
+    },
+    "position": {
+      "top": "Top",
+      "center": "Center",
+      "bottom": "Bottom",
+      "top-left": "Top left",
+      "top-right": "Top right",
+      "bottom-left": "Bottom left",
+      "bottom-right": "Bottom right"
+    },
+    "mode": {
+      "starting": "Starting soon",
+      "brb": "Be right back",
+      "ending": "Ending"
+    },
+    "sceneBackground": {
+      "none": "Transparent",
+      "gradient": "Gradient",
+      "orbs": "Glowing orbs",
+      "3d": "3D space (heavy)"
+    }
+  },
+  "animations": {
+    "none": "None",
+    "fade": "Fade",
+    "slide-up": "Slide up",
+    "slide-down": "Slide down",
+    "slide-left": "Slide left",
+    "slide-right": "Slide right",
+    "pop": "Pop",
+    "zoom": "Zoom",
+    "blur": "Blur",
+    "bounce": "Bounce",
+    "flip": "Flip",
+    "rise": "Rise",
+    "shrink": "Shrink",
+    "lift": "Lift away",
+    "swing": "Swing"
+  },
+  "presets": {
+    "glass": "Glass",
+    "minimal": "Minimal",
+    "bubble": "Bubble",
+    "neon": "Neon",
+    "terminal": "Terminal",
+    "glow": "Glow",
+    "flat": "Flat",
+    "retro": "Retro",
+    "fire": "Fire",
+    "sunset": "Sunset",
+    "mint": "Mint",
+    "mono": "Mono",
+    "space-3d": "3D space"
+  },
+  "tests": {
+    "chat": "Message",
+    "emote": "Emote",
+    "follow": "Follow",
+    "sub": "Sub",
+    "gifts": "Gifts",
+    "raid": "Raid",
+    "bits": "Bits"
+  },
+  "sound": {
+    "none": "No sound",
+    "builtin": "Built-in",
+    "mine": "My sounds",
+    "library": "Library",
+    "link": "Link",
+    "play": "Play",
+    "upload": "Upload a sound (max 3 MB)",
+    "loginToUpload": "Connect an account to upload sounds",
+    "invalidUrl": "Enter a link starting with https://",
+    "playError": "Can't play this sound",
+    "errors": {
+      "login_required": "Connect an account to upload sounds",
+      "too_many_sounds": "You've reached the limit of 30 sounds",
+      "invalid_type": "Unsupported file type",
+      "too_large": "The file is larger than 3 MB",
+      "generic": "Upload failed"
+    }
+  },
+  "cssClasses": {
+    "root": "Whole widget area (holds all CSS variables)",
+    "chat": "Message list container",
+    "chatMessage": "Single chat message (the bubble)",
+    "chatPlatformAttr": "Messages from one platform only (twitch or kick)",
+    "chatBadge": "User badges (sub, mod, VIP…)",
+    "chatPlatform": "Platform icon before the name",
+    "chatName": "Username",
+    "chatText": "Message text",
+    "emote": "Emotes (native, 7TV, BTTV, FFZ)",
+    "alerts": "Area that positions the alert",
+    "alert": "Alert card",
+    "alertType": "Alert of one type: .alert-follow, .alert-sub, .alert-gifts, .alert-raid, .alert-bits",
+    "alertIcon": "Round icon on the left",
+    "alertText": "Container for the name and message",
+    "alertName": "Name of the person (first line)",
+    "alertMessage": "Alert message (second line)",
+    "alertBurst": "Light burst behind the card",
+    "alertShine": "Shine sweeping across the card",
+    "combo": "Area that positions the counter",
+    "comboBox": "Counter card",
+    "comboEmote": "Emote image",
+    "comboCount": "The “x3” text",
+    "comboNumber": "The number only",
+    "scene": "Whole scene with background",
+    "sceneBackground": "Gradient or glowing orbs in the background",
+    "sceneStatusLabel": "“Status” label",
+    "sceneStatusText": "Status text",
+    "sceneCard": "Card behind the title",
+    "sceneTitle": "Title",
+    "sceneAccent": "Highlighted part of the title",
+    "sceneCountdown": "Countdown",
+    "sceneSocials": "Socials row",
+    "sceneSocial": "Single social (icon + name)"
+  }
+}

@@ -1,0 +1,117 @@
+.widget-root {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  pointer-events: none;
+  font-family: var(--font, system-ui, sans-serif);
+  color: var(--text, #fff);
+}
+
+.emote {
+  display: inline-grid;
+  vertical-align: middle;
+  margin: 0 0.1em;
+}
+
+.emote > img {
+  grid-area: 1 / 1;
+  justify-self: center;
+  align-self: center;
+  height: var(--emote-size, 1.6em);
+  width: auto;
+  object-fit: contain;
+}
+
+[class^="anim-in-"],
+[class*=" anim-in-"],
+[class^="anim-out-"],
+[class*=" anim-out-"] {
+  animation-duration: var(--anim-duration, 300ms);
+  animation-fill-mode: both;
+}
+
+[class^="anim-in-"],
+[class*=" anim-in-"] {
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[class^="anim-out-"],
+[class*=" anim-out-"] {
+  animation-timing-function: cubic-bezier(0.6, 0, 0.8, 0.2);
+}
+
+.anim-in-none,
+.anim-out-none {
+  animation: none;
+}
+
+.anim-in-fade { animation-name: in-fade; }
+.anim-in-slide-up { animation-name: in-slide-up; }
+.anim-in-slide-down { animation-name: in-slide-down; }
+.anim-in-slide-left { animation-name: in-slide-left; }
+.anim-in-slide-right { animation-name: in-slide-right; }
+.anim-in-pop { animation-name: in-pop; }
+.anim-in-zoom { animation-name: in-zoom; }
+.anim-in-blur { animation-name: in-blur; }
+.anim-in-bounce { animation-name: in-bounce; }
+.anim-in-flip { animation-name: in-flip; }
+.anim-in-rise { animation-name: in-rise; }
+
+.anim-out-fade { animation-name: out-fade; }
+.anim-out-slide-up { animation-name: out-slide-up; }
+.anim-out-slide-down { animation-name: out-slide-down; }
+.anim-out-slide-left { animation-name: out-slide-left; }
+.anim-out-slide-right { animation-name: out-slide-right; }
+.anim-out-shrink { animation-name: out-shrink; }
+.anim-out-zoom { animation-name: out-zoom; }
+.anim-out-blur { animation-name: out-blur; }
+.anim-out-lift { animation-name: out-lift; }
+.anim-out-swing { animation-name: out-swing; }
+
+@keyframes in-fade { from { opacity: 0; } }
+@keyframes in-slide-up { from { opacity: 0; transform: translateY(40px); } }
+@keyframes in-slide-down { from { opacity: 0; transform: translateY(-40px); } }
+@keyframes in-slide-left { from { opacity: 0; transform: translateX(60px); } }
+@keyframes in-slide-right { from { opacity: 0; transform: translateX(-60px); } }
+@keyframes in-pop {
+  0% { opacity: 0; transform: scale(0.5); }
+  70% { opacity: 1; transform: scale(1.08); }
+  100% { opacity: 1; transform: scale(1); }
+}
+@keyframes in-zoom { from { opacity: 0; transform: scale(1.4); } }
+@keyframes in-blur { from { opacity: 0; filter: blur(14px); } }
+@keyframes in-bounce {
+  0% { opacity: 0; transform: translateY(-60px); }
+  55% { opacity: 1; transform: translateY(12px); }
+  75% { transform: translateY(-5px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes in-flip { from { opacity: 0; transform: perspective(600px) rotateX(-90deg); } }
+@keyframes in-rise {
+  0% { opacity: 0; transform: translateY(45%) scale(0.86); filter: blur(10px); }
+  60% { opacity: 1; transform: translateY(-3%) scale(1.03); filter: blur(0); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes out-fade { to { opacity: 0; } }
+@keyframes out-slide-up { to { opacity: 0; transform: translateY(-40px); } }
+@keyframes out-slide-down { to { opacity: 0; transform: translateY(40px); } }
+@keyframes out-slide-left { to { opacity: 0; transform: translateX(-60px); } }
+@keyframes out-slide-right { to { opacity: 0; transform: translateX(60px); } }
+@keyframes out-shrink { to { opacity: 0; transform: scale(0.8); } }
+@keyframes out-zoom { to { opacity: 0; transform: scale(1.3); } }
+@keyframes out-blur { to { opacity: 0; filter: blur(14px); } }
+@keyframes out-lift { to { opacity: 0; transform: translateY(-28%) scale(0.94); filter: blur(8px); } }
+@keyframes out-swing {
+  0% { opacity: 1; transform: translateY(0) scale(1) rotate(0deg); }
+  30% { opacity: 1; transform: translateY(-8px) scale(1.06) rotate(-2.5deg); }
+  100% { opacity: 0; transform: translateY(30px) scale(0.78) rotate(5deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html:not(.overlay) [class*="anim-in-"],
+  html:not(.overlay) [class*="anim-out-"] {
+    animation-duration: 1ms;
+  }
+}

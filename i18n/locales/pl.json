@@ -1,0 +1,328 @@
+{
+  "nav": {
+    "dashboard": "Panel",
+    "logout": "Wyloguj"
+  },
+  "footer": {
+    "tagline": "Lekkie widgety streamowe dla OBS.",
+    "contribute": "Chcesz nowy widget? Dołącz na GitHubie."
+  },
+  "common": {
+    "soon": "Wkrótce",
+    "saved": "Zapisano",
+    "save": "Zapisz",
+    "delete": "Usuń",
+    "back": "Wróć"
+  },
+  "platforms": {
+    "twitch": "Twitch",
+    "kick": "Kick",
+    "youtube": "YouTube"
+  },
+  "landing": {
+    "title": "Widgety streamowe dla OBS",
+    "badge": "Twitch · Kick · 7TV · BetterTTV",
+    "headline": "Widgety, które nie zjadają procesora",
+    "description": "Czat, alerty, combo emotek i ekrany scen. Wybierz styl, ustaw animacje i wklej jeden link do OBS.",
+    "welcomeBack": "Jesteś zalogowany. Twoje widgety czekają.",
+    "guestTitle": "Zacznij od nicku",
+    "guestDescription": "Bez zakładania konta. Widgety zostają zapisane w tej przeglądarce.",
+    "continue": "Dalej",
+    "or": "lub",
+    "loginDescription": "Zaloguj się, żeby mieć widgety na każdym urządzeniu, wgrywać dźwięki i dostawać alerty o obserwacjach.",
+    "loginWith": "Zaloguj przez {platform}",
+    "loginError": "Logowanie nie powiodło się. Spróbuj ponownie.",
+    "nickRequired": "Wpisz przynajmniej jeden nick.",
+    "invalidNick": "Ten nick wygląda na nieprawidłowy.",
+    "features": {
+      "obs": {
+        "title": "Jeden link na widget",
+        "text": "Dodaj go jako źródło Przeglądarka. Zmiany widać od razu, bez odświeżania."
+      },
+      "emotes": {
+        "title": "7TV, BetterTTV i FFZ",
+        "text": "Emotki z rozszerzeń działają od razu, także te nakładane (zero-width)."
+      },
+      "styles": {
+        "title": "Style i animacje",
+        "text": "Zacznij od gotowego stylu, dopasuj go i zapisz jako własny."
+      }
+    }
+  },
+  "dashboard": {
+    "title": "Twoje widgety",
+    "subtitle": "Edytuj widget, a potem skopiuj jego link do OBS.",
+    "addWidget": "Dodaj widget",
+    "edit": "Edytuj",
+    "copyUrl": "Kopiuj link",
+    "confirmDelete": "Usunąć ten widget? Jego link w OBS przestanie działać.",
+    "channels": "Kanały",
+    "channelsHint": "Widgety czytają czat i zdarzenia z tych kanałów.",
+    "accounts": "Połączone konta",
+    "accountsHint": "Połączenie konta zabezpiecza dane oraz włącza alerty o obserwacjach i wgrywanie dźwięków.",
+    "connected": "Połączono",
+    "connect": "Połącz {platform}",
+    "urlCopied": "Link skopiowany",
+    "urlCopiedHint": "W OBS: Źródła → + → Przeglądarka → wklej adres URL."
+  },
+  "widgets": {
+    "chat": {
+      "name": "Czat",
+      "description": "Czat z Twitcha i Kicka z odznakami i emotkami 7TV/BTTV."
+    },
+    "alerts": {
+      "name": "Alerty",
+      "description": "Obserwacje, suby, gifty, raidy i bity z dźwiękami."
+    },
+    "emote-combo": {
+      "name": "Combo emotek",
+      "description": "Wyskakuje, gdy czat spamuje tę samą emotką."
+    },
+    "scene": {
+      "name": "Ekran sceny",
+      "description": "Ekrany: zaraz startujemy, zaraz wracam i koniec."
+    }
+  },
+  "editor": {
+    "save": {
+      "saved": "Zapisano",
+      "saving": "Zapisywanie…",
+      "error": "Nie zapisano"
+    },
+    "presets": "Style",
+    "myStyles": "Moje style",
+    "saveStyle": "Zapisz jako mój styl",
+    "styleName": "Nazwa stylu",
+    "styleSaved": "Styl zapisany",
+    "noStyles": "Zmień pola poniżej i zapisz je jako własny styl.",
+    "preview": "Podgląd",
+    "liveChat": "Czat na żywo",
+    "test": "Test",
+    "sendToObs": "Wyślij test do OBS",
+    "testSent": "Test wysłany do OBS",
+    "obsTitle": "Dodaj do OBS",
+    "regenerate": "Wygeneruj nowy link",
+    "confirmRegenerate": "Wygenerować nowy link? Stary przestanie działać w OBS.",
+    "obsStep1": "W OBS dodaj nowe źródło: Przeglądarka.",
+    "obsStep2": "Wklej link i ustaw rozmiar {width} × {height}.",
+    "obsStep3": "Dla dźwięków alertów zaznacz „Kontroluj dźwięk przez OBS”.",
+    "css": {
+      "intro": "Twój CSS działa tylko w tym widgecie. Kliknij klasę, żeby dodać ją do edytora, kliknij zmienną, żeby ją skopiować.",
+      "classes": "Klasy",
+      "variables": "Zmienne CSS (wartości z zakładki Styl)",
+      "insert": "Dodaj do CSS",
+      "copy": "Kopiuj",
+      "copied": "Skopiowano {text}"
+    }
+  },
+  "sections": {
+    "general": "Ogólne",
+    "style": "Styl",
+    "animation": "Animacja",
+    "advanced": "Zaawansowane",
+    "follow": "Obserwacja",
+    "sub": "Sub",
+    "gifts": "Gifty",
+    "raid": "Raid",
+    "bits": "Bity",
+    "socials": "Sociale"
+  },
+  "fields": {
+    "maxMessages": "Maks. wiadomości",
+    "hideAfter": "Ukryj wiadomości po",
+    "direction": "Nowe wiadomości",
+    "showBadges": "Pokaż odznaki",
+    "showPlatform": "Pokaż ikonę platformy",
+    "hideCommands": "Ukryj komendy",
+    "ignoredUsers": "Ignorowani użytkownicy",
+    "font": "Czcionka",
+    "fontSize": "Rozmiar czcionki",
+    "emoteSize": "Rozmiar emotek",
+    "textColor": "Kolor tekstu",
+    "background": "Tło",
+    "sceneBackground": "Tło",
+    "borderColor": "Kolor obramowania",
+    "radius": "Zaokrąglenie rogów",
+    "blur": "Rozmycie tła",
+    "gap": "Odstęp",
+    "nameColor": "Kolor nicku",
+    "fixedNameColor": "Stały kolor nicku",
+    "animIn": "Animacja wejścia",
+    "animOut": "Animacja wyjścia",
+    "animDuration": "Czas animacji",
+    "customCss": "Własny CSS",
+    "language": "Język widgetu",
+    "holdTime": "Czas wyświetlania",
+    "volume": "Głośność",
+    "position": "Pozycja",
+    "enabled": "Włączone",
+    "text": "Tekst",
+    "textResub": "Tekst dla kolejnego miesiąca",
+    "min": "Minimalna ilość",
+    "sound": "Dźwięk",
+    "color": "Kolor",
+    "showIcon": "Pokaż ikonę",
+    "glow": "Poświata",
+    "shine": "Połysk",
+    "minMessages": "Wiadomości do odpalenia",
+    "window": "Okno czasu",
+    "bounce": "Podskakująca emotka",
+    "popScale": "Siła powiększenia",
+    "popRotate": "Obrót przy podbiciu",
+    "numberColor": "Kolor liczby",
+    "mode": "Tryb",
+    "title": "Tytuł",
+    "titleAccent": "Wyróżnienie tytułu",
+    "status": "Status",
+    "countdownTo": "Odliczanie do",
+    "twitch": "Twitch",
+    "kick": "Kick",
+    "youtube": "YouTube",
+    "instagram": "Instagram",
+    "tiktok": "TikTok",
+    "x": "X",
+    "discord": "Discord",
+    "titleSize": "Rozmiar tytułu",
+    "backgroundColor": "Kolor tła",
+    "accent1": "Akcent 1",
+    "accent2": "Akcent 2",
+    "italic": "Tytuł kursywą"
+  },
+  "hints": {
+    "hideAfter": "0 = wiadomości znikają dopiero, gdy wypchną je nowe.",
+    "hideCommands": "Wiadomości zaczynające się od „!”.",
+    "ignoredUsers": "Boty i osoby, których wiadomości są ukryte. Zatwierdź każdy nick Enterem.",
+    "text": "Puste = tekst domyślny. Znaczniki: {'{name}'} {'{count}'} {'{months}'} {'{tier}'}. Liczba mnoga: {'{count|subskrypcję|subskrypcje|subskrypcji}'}.",
+    "textResub": "Używany, gdy liczba miesięcy jest większa niż 1. Puste = tekst domyślny.",
+    "min": "Mniejsze ilości nie odpalają alertu.",
+    "minMessages": "Ta sama emotka w tylu różnych wiadomościach.",
+    "countdownTo": "Czas lokalny. Puste = bez odliczania.",
+    "title": "Puste = domyślny tekst dla wybranego trybu.",
+    "sceneBackground": "3D wygląda świetnie, ale obciąża kartę graficzną. Jeśli gra się tnie, wybierz lżejsze tło."
+  },
+  "options": {
+    "direction": {
+      "bottom": "Układaj od dołu",
+      "top": "Układaj od góry"
+    },
+    "nameColor": {
+      "user": "Kolor użytkownika",
+      "fixed": "Stały kolor"
+    },
+    "position": {
+      "top": "Góra",
+      "center": "Środek",
+      "bottom": "Dół",
+      "top-left": "Lewy górny róg",
+      "top-right": "Prawy górny róg",
+      "bottom-left": "Lewy dolny róg",
+      "bottom-right": "Prawy dolny róg"
+    },
+    "mode": {
+      "starting": "Zaraz startujemy",
+      "brb": "Zaraz wracam",
+      "ending": "Koniec"
+    },
+    "sceneBackground": {
+      "none": "Przezroczyste",
+      "gradient": "Gradient",
+      "orbs": "Świecące kule",
+      "3d": "Kosmos 3D (ciężkie)"
+    }
+  },
+  "animations": {
+    "none": "Brak",
+    "fade": "Zanikanie",
+    "slide-up": "Wjazd w górę",
+    "slide-down": "Wjazd w dół",
+    "slide-left": "Wjazd w lewo",
+    "slide-right": "Wjazd w prawo",
+    "pop": "Wyskok",
+    "zoom": "Przybliżenie",
+    "blur": "Rozmycie",
+    "bounce": "Odbicie",
+    "flip": "Obrót",
+    "rise": "Wzniesienie",
+    "shrink": "Zmniejszenie",
+    "lift": "Odlot w górę",
+    "swing": "Zamach"
+  },
+  "presets": {
+    "glass": "Szkło",
+    "minimal": "Minimalny",
+    "bubble": "Dymek",
+    "neon": "Neon",
+    "terminal": "Terminal",
+    "glow": "Poświata",
+    "flat": "Płaski",
+    "retro": "Retro",
+    "fire": "Ogień",
+    "sunset": "Zachód słońca",
+    "mint": "Mięta",
+    "mono": "Mono",
+    "space-3d": "Kosmos 3D"
+  },
+  "tests": {
+    "chat": "Wiadomość",
+    "emote": "Emotka",
+    "follow": "Obserwacja",
+    "sub": "Sub",
+    "gifts": "Gifty",
+    "raid": "Raid",
+    "bits": "Bity"
+  },
+  "sound": {
+    "none": "Bez dźwięku",
+    "builtin": "Wbudowane",
+    "mine": "Moje dźwięki",
+    "library": "Biblioteka",
+    "link": "Link",
+    "play": "Odtwórz",
+    "upload": "Wgraj dźwięk (maks. 3 MB)",
+    "loginToUpload": "Połącz konto, żeby wgrywać dźwięki",
+    "invalidUrl": "Wpisz link zaczynający się od https://",
+    "playError": "Nie można odtworzyć tego dźwięku",
+    "errors": {
+      "login_required": "Połącz konto, żeby wgrywać dźwięki",
+      "too_many_sounds": "Osiągnięto limit 30 dźwięków",
+      "invalid_type": "Nieobsługiwany typ pliku",
+      "too_large": "Plik jest większy niż 3 MB",
+      "generic": "Wgrywanie nie powiodło się"
+    }
+  },
+  "cssClasses": {
+    "root": "Cały obszar widgetu (tu są wszystkie zmienne CSS)",
+    "chat": "Kontener listy wiadomości",
+    "chatMessage": "Pojedyncza wiadomość (dymek)",
+    "chatPlatformAttr": "Wiadomości tylko z jednej platformy (twitch lub kick)",
+    "chatBadge": "Odznaki użytkownika (sub, mod, VIP…)",
+    "chatPlatform": "Ikona platformy przed nickiem",
+    "chatName": "Nick",
+    "chatText": "Treść wiadomości",
+    "emote": "Emotki (natywne, 7TV, BTTV, FFZ)",
+    "alerts": "Obszar, który ustawia pozycję alertu",
+    "alert": "Karta alertu",
+    "alertType": "Alert jednego typu: .alert-follow, .alert-sub, .alert-gifts, .alert-raid, .alert-bits",
+    "alertIcon": "Okrągła ikona po lewej",
+    "alertText": "Kontener nicku i treści",
+    "alertName": "Nick osoby (pierwsza linia)",
+    "alertMessage": "Treść alertu (druga linia)",
+    "alertBurst": "Rozbłysk światła za kartą",
+    "alertShine": "Połysk przesuwający się po karcie",
+    "combo": "Obszar, który ustawia pozycję licznika",
+    "comboBox": "Karta licznika",
+    "comboEmote": "Obrazek emotki",
+    "comboCount": "Tekst „x3”",
+    "comboNumber": "Sama liczba",
+    "scene": "Cała scena z tłem",
+    "sceneBackground": "Gradient albo świecące kule w tle",
+    "sceneStatusLabel": "Napis „Status”",
+    "sceneStatusText": "Tekst statusu",
+    "sceneCard": "Karta za tytułem",
+    "sceneTitle": "Tytuł",
+    "sceneAccent": "Wyróżniona część tytułu",
+    "sceneCountdown": "Odliczanie",
+    "sceneSocials": "Rząd sociali",
+    "sceneSocial": "Pojedynczy social (ikona + nazwa)"
+  }
+}

@@ -1,0 +1,40 @@
+services:
+  app:
+    build: .
+    restart: unless-stopped
+    environment:
+      NUXT_DATABASE_URL: postgres://stream:${POSTGRES_PASSWORD}@db:5432/stream
+      NUXT_SESSION_PASSWORD: ${NUXT_SESSION_PASSWORD}
+      NUXT_PUBLIC_SITE_URL: ${NUXT_PUBLIC_SITE_URL}
+      NUXT_OAUTH_TWITCH_CLIENT_ID: ${NUXT_OAUTH_TWITCH_CLIENT_ID}
+      NUXT_OAUTH_TWITCH_CLIENT_SECRET: ${NUXT_OAUTH_TWITCH_CLIENT_SECRET}
+      NUXT_TWITCH_WEBHOOK_SECRET: ${NUXT_TWITCH_WEBHOOK_SECRET}
+      NUXT_OAUTH_KICK_CLIENT_ID: ${NUXT_OAUTH_KICK_CLIENT_ID}
+      NUXT_OAUTH_KICK_CLIENT_SECRET: ${NUXT_OAUTH_KICK_CLIENT_SECRET}
+      NUXT_UPLOAD_DIR: /app/data/uploads
+    volumes:
+      - uploads:/app/data/uploads
+    expose:
+      - "3000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: postgres:18-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: stream
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: stream
+    volumes:
+      - pgdata:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U stream -d stream"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  pgdata:
+  uploads:

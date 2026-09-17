@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Meld Studio - Emoji Counter</title>
+  <script src="https://elements.meldstudio.co/cdn/v2/firehose.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: rgba(18, 18, 26, 0.85);
+      --border: rgba(255, 255, 255, 0.12);
+      --text: #ffffff;
+      --accent: #7c5cff;
+      --radius: 20px;
+
+      /* ——— POP przy podbiciu licznika ——— */
+      --pop-scale: 1.2;     /* 120% */
+      --pop-rotate: 10deg;
+      --pop-time: 180;      /* ms — "bardzo szybka" */
+
+      /* ——— ZNIKANIE po uplywie okna ——— */
+      --out-time: 420;      /* ms — dlugosc animacji wyjscia */
+    }
+
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: transparent;
+      font-family: 'Outfit', system-ui, sans-serif;
+      pointer-events: none;   /* nakładka nie przechwytuje kliknięć */
+    }
+
+    #counter-container {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 24px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(10px);
+      opacity: 0;
+      transform: translateY(20px) scale(0.9);
+      transition: opacity 300ms ease, transform 300ms cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: none;
+    }
+
+    #counter-container.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .emote-img {
+      height: 48px;
+      width: auto;
+      object-fit: contain;
+      animation: bounce 0.4s ease infinite alternate;
+    }
+
+    /* bounce jedzie na `translate`, a nie `transform` — dzięki temu POP (scale + rotate)
+       nakłada się na niego zamiast go nadpisywać */
+    @keyframes bounce {
+      0% { translate: 0 0; }
+      100% { translate: 0 -4px; }
+    }
+
+    .counter-text {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: 1px;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    }
+
+    .counter-text span {
+      color: #ff5c97;
+      display: inline-block;   /* żeby scale działał na liczbie */
+    }
+
+    /* panel diagnostyczny — tylko przy ?debug */
+    #debug {
+      display: none;
+      position: absolute; top: 8px; left: 8px; right: 8px;
+      max-height: 45%; overflow: hidden;
+      font: 500 11px/1.45 ui-monospace, Consolas, monospace;
+      color: #b6f5c8; background: rgba(0,0,0,.78);
+      border: 1px solid rgba(182,245,200,.35); border-radius: 8px;
+      padding: 8px 10px; white-space: pre-wrap; word-break: break-all;
+    }
+    #debug.on { display: block; }
+  </style>
+</head>
+<body>
+
+  <div id="debug"></div>
+
+  <div id="counter-container">
+    <img id="counter-emote" class="emote-img" src="" alt="Emote">
+    <div class="counter-text" id="counter-label">x<span>3</span></div>
+  </div>
+
+  <script>
+    const container = document.getElementById("counter-container");
+    const emoteImg = document.getElementById("counter-emote");
+    const counterLabel = document.getElementById("counter-label").querySelector("span");
+
+    let hideTimeout = null;
+    const seen = new Map();   // emotka -> [znaczniki czasu wiadomosci, w ktorych wystapila]
+    const urls = new Map();   // emotka -> ostatni znany URL obrazka
+
+    // POP — skala + obrót i powrót. WAAPI zamiast klasy CSS: samo się restartuje
+    // przy każdym wywołaniu, więc seria szybkich wiadomości nie gubi animacji.
+    const css = getComputedStyle(document.documentElement);
+    const POP = {
+      scale:  css.getPropertyValue("--pop-scale").trim()  || "1.2",
+      rotate: css.getPropertyValue("--pop-rotate").trim() || "10deg",
+      time:   Number(css.getPropertyValue("--pop-time"))  || 180
+    };
+
+    // Jedna animacja popu na element. Bez tego szybki czat nakladal kilkanascie
+    // rownoleglych animacji na te same wlasciwosci i obraz sie zacinal.
+    const popAnims = new WeakMap();
+
+    function pop(el, strength = 1) {
+      popAnims.get(el)?.cancel();
+      const peak = 1 + (POP.scale - 1) * strength;
+      const deg  = parseFloat(POP.rotate) * strength;
+      const anim = el.animate(
+        [
+          // easing MUSI być na klatkach, nie w opcjach — w opcjach rozjeżdża offsety
+          { scale: 1,    rotate: "0deg",      easing: "cubic-bezier(.2,.8,.3,1)" },   // szarpnięcie w górę
+          { scale: peak, rotate: deg + "deg", easing: "cubic-bezier(.4,0,.5,1)", offset: 0.45 },
+          { scale: 1,    rotate: "0deg" }                                              // powrót
+        ],
+        { duration: POP.time, easing: "linear" }
+      );
+      popAnims.set(el, anim);
+    }
+
+    // Animacja wyjscia. WAAPI, bo cancel() da sie wywolac w polowie — gdy w trakcie
+    // znikania przyjdzie nowa wiadomosc, panel wraca zamiast dokonczyc zanik.
+    const OUT_TIME = Number(css.getPropertyValue("--out-time")) || 420;
+    let exitAnim = null;
+
+    function hideCounter() {
+      exitAnim = container.animate(
+        [
+          { opacity: 1, transform: "translateY(0) scale(1) rotate(0deg)",
+            easing: "cubic-bezier(.4,0,.6,1)" },
+          { opacity: 1, transform: "translateY(-8px) scale(1.06) rotate(-2.5deg)",  // zamach w gore
+            offset: 0.3, easing: "cubic-bezier(.5,0,.75,.1)" },
+          { opacity: 0, transform: "translateY(30px) scale(.78) rotate(5deg)" }      // zjazd i zwiniecie
+        ],
+        { duration: OUT_TIME, easing: "linear", fill: "forwards" }
+      );
+      exitAnim.onfinish = () => {
+        container.classList.remove("visible");
+        exitAnim.cancel();          // oddaj kontrole nad transformem z powrotem do CSS
+        exitAnim = null;
+        seen.clear();
+      };
+    }
+
+    function showCounter(imageUrl, count) {
+      if (exitAnim) { exitAnim.cancel(); exitAnim = null; }   // przerwij znikanie, jesli trwa
+      emoteImg.style.display = imageUrl ? "" : "none";
+      if (imageUrl && emoteImg.src !== imageUrl) emoteImg.src = imageUrl;
+      counterLabel.textContent = count;
+      container.classList.add("visible");
+
+      pop(emoteImg);
+      pop(counterLabel, 0.6);   // liczba podskakuje delikatniej
+
+      // Reset 15s cooldown timer
+      if (hideTimeout) clearTimeout(hideTimeout);
+      hideTimeout = setTimeout(hideCounter, WINDOW);
+    }
+
+    /* ——— DIAGNOSTYKA ——— dopisz ?debug do URL-a zrodla w Meld Studio */
+    const DEBUG = location.search.includes("debug");
+    const debugBox = document.getElementById("debug");
+    if (DEBUG) debugBox.classList.add("on");
+    const debugLines = [];
+
+    function debugLog(msg) {
+      if (!DEBUG) return;
+      let opis;
+      if (msg?.fragments) {
+        opis = msg.fragments.map((f, i) =>
+          `  [${i}] type=${JSON.stringify(f.type)} raw=${JSON.stringify(f.raw)}` +
+          ` imageLink=${f.imageLink ? "TAK" : "brak"} html=${f.html ? "TAK" : "brak"}` +
+          ` -> url=${emoteUrl(f) || "BRAK"}`
+        ).join("\n");
+      } else {
+        opis = "  brak msg.fragments — pola: " + Object.keys(msg ?? {}).join(", ");
+      }
+      debugLines.unshift(`${new Date().toLocaleTimeString()} fragmentów: ${msg?.fragments?.length ?? 0}\n${opis}`);
+      debugBox.textContent = debugLines.slice(0, 6).join("\n\n");
+    }
+
+    /* ——— PROG ———
+       Licznik zapala sie, gdy ta sama emotka pojawi sie w MIN_MESSAGES ROZNYCH
+       wiadomosciach w oknie WINDOW. Powtorzenia w obrebie jednej wiadomosci
+       licza sie jako JEDNA wiadomosc. */
+    const MIN_MESSAGES = 3;
+    const WINDOW = 15000;   // ms — okno zliczania i czas wygasniecia licznika
+
+    // Meld podaje emotke raz jako `imageLink`, raz jako gotowy `html` z <img src="...">.
+    // chatbox.html czyta najpierw `html` — licznik musi umiec to samo, inaczej nic nie pokaze.
+    const tmp = document.createElement("template");
+    function emoteUrl(frag) {
+      if (frag.imageLink) return frag.imageLink;
+      if (!frag.html) return "";
+      tmp.innerHTML = frag.html;
+      return tmp.content.querySelector("img")?.src || "";
+    }
+    function isEmote(frag) {
+      return String(frag.type).toUpperCase() === "EMOTE" || !!frag.imageLink || /<img/i.test(frag.html ?? "");
+    }
+
+    function handleChat(msg) {
+      debugLog(msg);
+      if (!msg.fragments) return;
+      const now = Date.now();
+
+      // Zbior UNIKALNYCH emotek w tej wiadomosci — 5x KEKW w jednej linii to nadal jedna wiadomosc
+      const wTej = new Set();
+      for (const frag of msg.fragments) {
+        if (!isEmote(frag)) continue;
+        const url = emoteUrl(frag);
+        const key = frag.raw || url;
+        if (!key) continue;
+        wTej.add(key);
+        if (url) urls.set(key, url);
+      }
+
+      for (const key of wTej) {
+        // zostaw tylko wiadomosci z ostatniego okna, dopisz biezaca
+        const hits = (seen.get(key) ?? []).filter(t => now - t < WINDOW);
+        hits.push(now);
+        seen.set(key, hits);
+
+        if (hits.length >= MIN_MESSAGES) {
+          showCounter(urls.get(key) ?? "", hits.length);
+        }
+      }
+
+      // sprzataj emotki, ktorych okno minelo
+      for (const [key, ts] of seen) {
+        if (!ts.some(t => now - t < WINDOW)) seen.delete(key);
+      }
+    }
+
+    try {
+      const firehose = new Firehose();
+      firehose.on("chat", handleChat);
+    } catch (err) {
+      console.warn("[emoji-counter] Firehose niedostepny:", err);
+      debugLog({ blad: String(err) });
+    }
+
+    /* testChat — wysyla n OSOBNYCH wiadomosci z ta sama emotka, przez prawdziwy handler */
+    window.testChat = (n = 3, raw = "KEKW", url = "https://static-cdn.jtvnw.net/emoticons/v2/425618/default/dark/3.0") => {
+      for (let i = 0; i < n; i++) handleChat({ fragments: [{ type: "EMOTE", raw, imageLink: url }] });
+    };
+
+    /* ——— PODGLĄD ——— konsola: testCounter()  |  URL: ?demo */
+    window.testCounter = () => window.testChat(1);
+
+    if (location.search.includes("demo")) setInterval(() => window.testChat(1), 900);
+  </script>
+</body>
+</html>

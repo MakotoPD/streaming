@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://elements.meldstudio.co/cdn/v2/firehose.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* Customize your chat message style here */
+      --msg-bg: rgba(18, 18, 26, 0.82);
+      --msg-border: rgba(255, 255, 255, 0.08);
+      --msg-radius: 12px;
+      --msg-padding: 10px 14px;
+      --msg-margin: 6px 0;
+      --text-color: #f1f1f6;
+      --name-weight: 600;
+      --font-size: 12px;
+      --shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+    }
+
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: transparent;
+      font-family: 'Outfit', system-ui, sans-serif;
+      font-size: var(--font-size);
+      color: var(--text-color);
+      display: flex;              /* brakowało — bez tego flex-direction i justify-content nic nie robiły */
+      flex-direction: column;
+      justify-content: flex-end; /* wiadomości dosuwają się od dołu */
+      box-sizing: border-box;
+      pointer-events: none;      /* nakładka nie przechwytuje kliknięć (gra / inne źródła pod spodem) */
+    }
+
+    #chat-container {
+      display: flex;
+      pointer-events: none;
+      width: 100%;
+      flex-direction: column;
+      justify-content: flex-end;
+      height: 100%;
+      padding: 12px;
+      overflow: hidden;
+      gap: 0;
+    }
+
+    .message {
+      background: var(--msg-bg);
+      border: 1px solid var(--msg-border);
+      border-radius: var(--msg-radius);
+      padding: var(--msg-padding);
+      margin: var(--msg-margin);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(8px);
+      word-break: break-word;
+      animation: slideIn 250ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      opacity: 0;
+      transform: translateY(12px);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+    }
+
+    @keyframes slideIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .message.fade-out {
+      animation: fadeOut 200ms ease-out forwards;
+    }
+
+    @keyframes fadeOut {
+      to {
+        opacity: 0;
+        transform: scale(0.95);
+        margin-top: 0;
+        margin-bottom: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+        max-height: 0;
+      }
+    }
+
+    .badge {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      vertical-align: middle;
+      margin-right: 2px;
+      border-radius: 3px;
+    }
+
+    .name {
+      font-weight: var(--name-weight);
+      cursor: pointer;
+    }
+
+    .emote {
+      display: inline-block;
+      height: 1.4em;
+      vertical-align: -0.3em;
+      margin: 0 2px;
+      object-fit: contain;
+    }
+
+    .text-content {
+      display: inline;
+      line-height: 1.4;
+    }
+
+    .donation-tag {
+      background: linear-gradient(135deg, #7c5cff, #ff5c97);
+      color: white;
+      font-size: 0.8em;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-left: 6px;
+    }
+  </style>
+</head>
+<body>
+  <div id="chat-container"></div>
+
+  <script>
+    const MAX_MESSAGES = 8;
+    const container = document.getElementById("chat-container");
+
+    function renderText(msg) {
+      const span = document.createElement("span");
+      span.className = "text-content";
+      if (msg.fragments) {
+        for (const frag of msg.fragments) {
+          if (frag.type === "EMOTE" && frag.html) {
+            const s = document.createElement("span");
+            s.innerHTML = frag.html;
+            span.appendChild(s);
+          } else if (frag.type === "EMOTE" && frag.imageLink) {
+            const img = document.createElement("img");
+            img.src = frag.imageLink;
+            img.alt = frag.raw;
+            img.className = "emote";
+            span.appendChild(img);
+          } else {
+            span.appendChild(document.createTextNode(frag.raw));
+          }
+        }
+      } else if (msg.html) {
+        span.innerHTML = msg.html;
+      } else {
+        span.textContent = msg.raw;
+      }
+      for (const attachment of msg.attachments ?? []) {
+        const s = document.createElement("span");
+        s.innerHTML = attachment.html;
+        span.appendChild(s);
+      }
+      return span;
+    }
+
+    // Liczymy tylko wiadomości, które NIE są w trakcie znikania — element z .fade-out
+    // jest usuwany dopiero po animacji, więc bez tego filtra pętla nigdy by się nie skończyła.
+    function trim() {
+      let live = container.querySelectorAll(".message:not(.fade-out)");
+      for (let i = 0; i < live.length - MAX_MESSAGES; i++) {
+        const oldest = live[i];
+        oldest.classList.add("fade-out");
+        oldest.addEventListener("animationend", () => oldest.remove(), { once: true });
+      }
+    }
+
+    try {
+      const firehose = new Firehose();
+
+    firehose.on("chat", (msg) => {
+      const el = document.createElement("div");
+      el.className = "message";
+      if (msg.meta_id) el.dataset.metaId = msg.meta_id;
+      el.dataset.senderUpid = msg.sender.UPID ?? "";
+
+      // Badges
+      if (msg.sender.badges && msg.sender.badges.length > 0) {
+        for (const badgeUrl of msg.sender.badges) {
+          const badgeImg = document.createElement("img");
+          badgeImg.src = badgeUrl;
+          badgeImg.className = "badge";
+          el.appendChild(badgeImg);
+        }
+      }
+
+      // Username
+      const who = document.createElement("span");
+      who.className = "name";
+      who.textContent = (msg.sender.displayname ?? msg.sender.username ?? "User") + ":";
+      if (msg.sender.color) {
+        who.style.color = msg.sender.color;
+      }
+      el.appendChild(who);
+
+      // Message content
+      el.appendChild(renderText(msg));
+
+      // Donations (Bits / Superchats / Kicks / Coins)
+      if (msg.donations && msg.donations.length > 0) {
+        for (const don of msg.donations) {
+          const tag = document.createElement("span");
+          tag.className = "donation-tag";
+          tag.textContent = `${don.type}: ${don.amount} ${don.currency ?? ''}`;
+          el.appendChild(tag);
+        }
+      }
+
+      container.appendChild(el);
+      trim();
+    });
+
+    firehose.on("meta", (meta) => {
+      if (!meta.is_visible) {
+        container.querySelector(`[data-meta-id="${CSS.escape(meta.meta_id)}"]`)?.remove();
+      }
+    });
+
+    firehose.on("clearchat", (e) => {
+      if (e.clear_type === "ALL") {
+        container.replaceChildren();
+      } else if (e.user_upid) {
+        container.querySelectorAll(`[data-sender-upid="${CSS.escape(e.user_upid)}"]`).forEach((el) => el.remove());
+      }
+    });
+    } catch (err) {
+      console.warn("[chatbox] Firehose niedostepny:", err);
+    }
+  </script>
+</body>
+</html>

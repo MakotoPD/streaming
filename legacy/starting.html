@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Starting Soon Overlay</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="/cdn/v1/firehose.js"></script>
+    <style>
+        body { margin: 0; overflow: hidden; background: transparent; font-family: 'Inter', sans-serif; }
+        canvas { display: block; }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@900&family=Outfit:wght@900&display=swap');
+    </style>
+</head>
+<body>
+    <div id="ui-overlay" class="absolute inset-0 z-10 flex flex-col items-center justify-between p-20 pointer-events-none">
+        <div class="w-full flex justify-between items-start">
+            <div class="flex flex-col">
+                <div class="text-white/20 text-sm uppercase tracking-[0.3em] font-bold">Status</div>
+                <div class="text-blue-400 text-2xl font-black uppercase tracking-wider">szybka kawa wlatuje</div>
+            </div>
+        </div>
+
+        <div class="flex flex-col items-center space-y-8">
+            <div class="relative group">
+                <div class="absolute -inset-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg blur opacity-25 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
+                <div class="relative px-20 py-10 bg-black/40 backdrop-blur-md rounded-xl border border-white/10">
+                    <h1 class="text-[7rem] font-black text-white tracking-tighter uppercase leading-none italic drop-shadow-[0_0_30px_rgba(59,130,246,0.5)]">
+                        zaraz <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">startujemy</span>
+                    </h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="w-full flex justify-center gap-12 text-white/60 text-lg font-bold tracking-widest uppercase">
+            <div class="flex items-center gap-3">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.332 3.608 1.308.975.975 1.245 2.242 1.308 3.608.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.332 2.633-1.308 3.608-.975.975-2.242 1.245-3.608 1.308-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.332-3.608-1.308-.975-.975-1.245-2.242-1.308-3.608-.058-1.266-.07-1.646-.07-4.85s.012-3.584.07-4.85c.062-1.366.332-2.633 1.308-3.608.975-.975 2.242-1.245 3.608-1.308 1.266-.058 1.646-.07 4.85-.07zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.358-.2 6.78-2.618 6.98-6.98.059-1.281.073-1.689.073-4.948s-.014-3.667-.072-4.947c-.2-4.358-2.618-6.78-6.98-6.98-1.281-.058-1.689-.072-4.948-.072zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.791-4-4s1.791-4 4-4 4 1.791 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                <span>makotopd</span>
+            </div>
+            <div class="flex items-center gap-3">
+                <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><!-- Icon from Simple Icons by Simple Icons Collaborators - https://github.com/simple-icons/simple-icons/blob/develop/LICENSE.md --><path fill="#888888" d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"/></svg>
+                <span>makotopd</span>
+            </div>
+            <div class="flex items-center gap-3">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 448 512"><path d="M448 209.91a210.06 210.06 0 0 1-122.77-39.25V349.38A162.55 162.55 0 1 1 185 188.31V278.2a74.62 74.62 0 1 0 52.23 71.18V0l88 0a121.18 121.18 0 0 0 1.86 22.17A122.18 122.18 0 0 0 381 102.39a121.43 121.43 0 0 0 67 20.14z"/></svg>
+                <span>makotopd</span>
+            </div>
+        </div>
+    </div>
+
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+            }
+        }
+    </script>
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+        import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+        import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+
+        let scene, camera, renderer, composer;
+        let cubes = [];
+
+        function init() {
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x050505);
+
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = 30;
+
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            document.body.appendChild(renderer.domElement);
+
+            // Lighting
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
+            scene.add(ambientLight);
+
+            const pointLight1 = new THREE.PointLight(0x3b82f6, 50, 100);
+            pointLight1.position.set(10, 10, 10);
+            scene.add(pointLight1);
+
+            const pointLight2 = new THREE.PointLight(0xa855f7, 50, 100);
+            pointLight2.position.set(-10, -10, 10);
+            scene.add(pointLight2);
+
+            // Grid
+            const grid = new THREE.GridHelper(200, 50, 0x444444, 0x222222);
+            grid.rotation.x = Math.PI / 2;
+            grid.position.z = -20;
+            scene.add(grid);
+
+            // Floating Shapes (representing the "pixels" or structural elements)
+            const sphereGeom = new THREE.SphereGeometry(0.7, 32, 32);
+            const pyramidGeom = new THREE.TetrahedronGeometry(1);
+
+            for (let i = 0; i < 120; i++) {
+                const isSphere = Math.random() > 0.5;
+                const geometry = isSphere ? sphereGeom : pyramidGeom;
+                
+                const material = new THREE.MeshStandardMaterial({
+                    color: Math.random() > 0.5 ? 0x3b82f6 : 0xa855f7,
+                    emissive: Math.random() > 0.5 ? 0x3b82f6 : 0xa855f7,
+                    emissiveIntensity: 0.6,
+                    metalness: 0.9,
+                    roughness: 0.1
+                });
+                const shape = new THREE.Mesh(geometry, material);
+                
+                shape.position.x = (Math.random() - 0.5) * 70;
+                shape.position.y = (Math.random() - 0.5) * 50;
+                shape.position.z = (Math.random() - 0.5) * 30;
+                
+                shape.rotation.x = Math.random() * Math.PI;
+                shape.rotation.y = Math.random() * Math.PI;
+                
+                const scale = Math.random() * 2 + 0.5;
+                shape.scale.set(scale, scale, scale);
+                
+                shape.userData = {
+                    isSphere: isSphere,
+                    rotationSpeed: (Math.random() - 0.5) * 0.03,
+                    floatSpeed: (Math.random() - 0.5) * 0.015,
+                    phase: Math.random() * Math.PI * 2
+                };
+                
+                scene.add(shape);
+                cubes.push(shape);
+            }
+
+            // Post-processing for Bloom
+            const renderScene = new RenderPass(scene, camera);
+            const bloomPass = new UnrealBloomPass(
+                new THREE.Vector2(window.innerWidth, window.innerHeight),
+                1.5, // strength
+                0.4, // radius
+                0.85 // threshold
+            );
+
+            composer = new EffectComposer(renderer);
+            composer.addPass(renderScene);
+            composer.addPass(bloomPass);
+
+            window.addEventListener('resize', onWindowResize, false);
+            animate();
+
+        }
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            composer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            const time = Date.now() * 0.001;
+            const pulse = Math.pow(Math.cos(time * Math.PI), 10);
+
+            cubes.forEach((shape, i) => {
+                shape.rotation.x += shape.userData.rotationSpeed;
+                shape.rotation.y += shape.userData.rotationSpeed;
+                shape.position.y += Math.sin(time + i) * shape.userData.floatSpeed;
+
+                if (shape.userData.isSphere) {
+                    shape.material.emissiveIntensity = 0.5 + pulse * 2.5;
+                }
+            });
+
+            camera.position.x = Math.sin(time * 0.2) * 5;
+            camera.position.y = Math.cos(time * 0.2) * 2;
+            camera.lookAt(0, 0, 0);
+
+            composer.render();
+        }
+
+        init();
+    </script>
+</body>
+</html>

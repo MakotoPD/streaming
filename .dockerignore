@@ -1,0 +1,10 @@
+node_modules
+.nuxt
+.output
+data
+legacy
+.env
+.env.*
+CLAUDE.md
+.claude
+.git

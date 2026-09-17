@@ -1,0 +1,328 @@
+{
+  "nav": {
+    "dashboard": "Dashboard",
+    "logout": "Abmelden"
+  },
+  "footer": {
+    "tagline": "Leichtgewichtige Stream-Widgets für OBS.",
+    "contribute": "Neues Widget gewünscht? Mach mit auf GitHub."
+  },
+  "common": {
+    "soon": "Demnächst",
+    "saved": "Gespeichert",
+    "save": "Speichern",
+    "delete": "Löschen",
+    "back": "Zurück"
+  },
+  "platforms": {
+    "twitch": "Twitch",
+    "kick": "Kick",
+    "youtube": "YouTube"
+  },
+  "landing": {
+    "title": "Stream-Widgets für OBS",
+    "badge": "Twitch · Kick · 7TV · BetterTTV",
+    "headline": "Stream-Widgets, die deine CPU schonen",
+    "description": "Chat, Alerts, Emote-Combos und Szenen-Bildschirme. Stil wählen, Animationen anpassen und einen Link in OBS einfügen.",
+    "welcomeBack": "Du bist angemeldet. Deine Widgets warten.",
+    "guestTitle": "Starte mit deinem Namen",
+    "guestDescription": "Kein Konto nötig. Deine Widgets bleiben in diesem Browser gespeichert.",
+    "continue": "Weiter",
+    "or": "oder",
+    "loginDescription": "Melde dich an, um deine Widgets auf allen Geräten zu haben, Sounds hochzuladen und Follow-Alerts zu bekommen.",
+    "loginWith": "Mit {platform} anmelden",
+    "loginError": "Anmeldung fehlgeschlagen. Bitte versuche es erneut.",
+    "nickRequired": "Gib mindestens einen Namen ein.",
+    "invalidNick": "Dieser Name sieht nicht richtig aus.",
+    "features": {
+      "obs": {
+        "title": "Ein Link pro Widget",
+        "text": "Als Browserquelle hinzufügen. Änderungen erscheinen sofort, ohne Neuladen."
+      },
+      "emotes": {
+        "title": "7TV, BetterTTV und FFZ",
+        "text": "Drittanbieter-Emotes funktionieren sofort, auch Zero-Width-Emotes."
+      },
+      "styles": {
+        "title": "Stile und Animationen",
+        "text": "Starte mit einer Vorlage, pass sie an und speichere sie als eigenen Stil."
+      }
+    }
+  },
+  "dashboard": {
+    "title": "Deine Widgets",
+    "subtitle": "Widget bearbeiten und den Link in OBS kopieren.",
+    "addWidget": "Widget hinzufügen",
+    "edit": "Bearbeiten",
+    "copyUrl": "Link kopieren",
+    "confirmDelete": "Dieses Widget löschen? Der OBS-Link funktioniert dann nicht mehr.",
+    "channels": "Kanäle",
+    "channelsHint": "Widgets lesen Chat und Ereignisse aus diesen Kanälen.",
+    "accounts": "Verbundene Konten",
+    "accountsHint": "Ein verbundenes Konto sichert deine Daten und aktiviert Follow-Alerts und Sound-Uploads.",
+    "connected": "Verbunden",
+    "connect": "{platform} verbinden",
+    "urlCopied": "Link kopiert",
+    "urlCopiedHint": "In OBS: Quellen → + → Browser → URL einfügen."
+  },
+  "widgets": {
+    "chat": {
+      "name": "Chat",
+      "description": "Twitch- und Kick-Chat mit Abzeichen und 7TV/BTTV-Emotes."
+    },
+    "alerts": {
+      "name": "Alerts",
+      "description": "Follows, Abos, Geschenke, Raids und Bits mit Sounds."
+    },
+    "emote-combo": {
+      "name": "Emote-Combo",
+      "description": "Erscheint, wenn der Chat dasselbe Emote spammt."
+    },
+    "scene": {
+      "name": "Szenen-Bildschirm",
+      "description": "Bildschirme für gleich geht’s los, bin gleich zurück und Ende."
+    }
+  },
+  "editor": {
+    "save": {
+      "saved": "Gespeichert",
+      "saving": "Speichern…",
+      "error": "Nicht gespeichert"
+    },
+    "presets": "Stile",
+    "myStyles": "Meine Stile",
+    "saveStyle": "Als eigenen Stil speichern",
+    "styleName": "Name des Stils",
+    "styleSaved": "Stil gespeichert",
+    "noStyles": "Passe die Felder unten an und speichere sie als eigenen Stil.",
+    "preview": "Vorschau",
+    "liveChat": "Live-Chat",
+    "test": "Test",
+    "sendToObs": "Test an OBS senden",
+    "testSent": "Test an OBS gesendet",
+    "obsTitle": "Zu OBS hinzufügen",
+    "regenerate": "Neuen Link erzeugen",
+    "confirmRegenerate": "Neuen Link erzeugen? Der alte funktioniert in OBS nicht mehr.",
+    "obsStep1": "Füge in OBS eine neue Quelle hinzu: Browser.",
+    "obsStep2": "Link einfügen und Größe auf {width} × {height} setzen.",
+    "obsStep3": "Für Alert-Sounds „Audio über OBS steuern“ aktivieren.",
+    "css": {
+      "intro": "Dein CSS gilt nur für dieses Widget. Klicke auf eine Klasse, um sie in den Editor einzufügen, oder auf eine Variable, um sie zu kopieren.",
+      "classes": "Klassen",
+      "variables": "CSS-Variablen (Werte aus dem Tab Stil)",
+      "insert": "Zum CSS hinzufügen",
+      "copy": "Kopieren",
+      "copied": "{text} kopiert"
+    }
+  },
+  "sections": {
+    "general": "Allgemein",
+    "style": "Stil",
+    "animation": "Animation",
+    "advanced": "Erweitert",
+    "follow": "Follow",
+    "sub": "Abo",
+    "gifts": "Geschenke",
+    "raid": "Raid",
+    "bits": "Bits",
+    "socials": "Socials"
+  },
+  "fields": {
+    "maxMessages": "Max. Nachrichten",
+    "hideAfter": "Nachrichten ausblenden nach",
+    "direction": "Neue Nachrichten",
+    "showBadges": "Abzeichen anzeigen",
+    "showPlatform": "Plattform-Symbol anzeigen",
+    "hideCommands": "Befehle ausblenden",
+    "ignoredUsers": "Ignorierte Nutzer",
+    "font": "Schriftart",
+    "fontSize": "Schriftgröße",
+    "emoteSize": "Emote-Größe",
+    "textColor": "Textfarbe",
+    "background": "Hintergrund",
+    "sceneBackground": "Hintergrund",
+    "borderColor": "Rahmenfarbe",
+    "radius": "Eckenradius",
+    "blur": "Hintergrundunschärfe",
+    "gap": "Abstand",
+    "nameColor": "Namensfarbe",
+    "fixedNameColor": "Feste Namensfarbe",
+    "animIn": "Eingangsanimation",
+    "animOut": "Ausgangsanimation",
+    "animDuration": "Animationsdauer",
+    "customCss": "Eigenes CSS",
+    "language": "Widget-Sprache",
+    "holdTime": "Anzeigedauer",
+    "volume": "Lautstärke",
+    "position": "Position",
+    "enabled": "Aktiviert",
+    "text": "Text",
+    "textResub": "Text für Folgemonate",
+    "min": "Mindestmenge",
+    "sound": "Sound",
+    "color": "Farbe",
+    "showIcon": "Symbol anzeigen",
+    "glow": "Leuchten",
+    "shine": "Glanzeffekt",
+    "minMessages": "Nachrichten zum Auslösen",
+    "window": "Zeitfenster",
+    "bounce": "Hüpfendes Emote",
+    "popScale": "Pop-Größe",
+    "popRotate": "Pop-Drehung",
+    "numberColor": "Zahlenfarbe",
+    "mode": "Modus",
+    "title": "Titel",
+    "titleAccent": "Hervorhebung",
+    "status": "Status",
+    "countdownTo": "Countdown bis",
+    "twitch": "Twitch",
+    "kick": "Kick",
+    "youtube": "YouTube",
+    "instagram": "Instagram",
+    "tiktok": "TikTok",
+    "x": "X",
+    "discord": "Discord",
+    "titleSize": "Titelgröße",
+    "backgroundColor": "Hintergrundfarbe",
+    "accent1": "Akzent 1",
+    "accent2": "Akzent 2",
+    "italic": "Kursiver Titel"
+  },
+  "hints": {
+    "hideAfter": "0 behält Nachrichten, bis neue sie verdrängen.",
+    "hideCommands": "Nachrichten, die mit „!“ beginnen.",
+    "ignoredUsers": "Bots und Nutzer, deren Nachrichten ausgeblendet werden. Jeden Namen mit Enter bestätigen.",
+    "text": "Leer = Standardtext. Platzhalter: {'{name}'} {'{count}'} {'{months}'} {'{tier}'}. Plural: {'{count|Abo|Abos}'}.",
+    "textResub": "Wird genutzt, wenn mehr als 1 Monat. Leer = Standardtext.",
+    "min": "Kleinere Mengen lösen keinen Alert aus.",
+    "minMessages": "Dasselbe Emote in so vielen verschiedenen Nachrichten.",
+    "countdownTo": "Lokale Zeit. Leer = kein Countdown.",
+    "title": "Leer = Standardtext für den gewählten Modus.",
+    "sceneBackground": "3D sieht toll aus, belastet aber die GPU. Wenn dein Spiel ruckelt, wähle einen leichteren Hintergrund."
+  },
+  "options": {
+    "direction": {
+      "bottom": "Von unten stapeln",
+      "top": "Von oben stapeln"
+    },
+    "nameColor": {
+      "user": "Farbe des Nutzers",
+      "fixed": "Feste Farbe"
+    },
+    "position": {
+      "top": "Oben",
+      "center": "Mitte",
+      "bottom": "Unten",
+      "top-left": "Oben links",
+      "top-right": "Oben rechts",
+      "bottom-left": "Unten links",
+      "bottom-right": "Unten rechts"
+    },
+    "mode": {
+      "starting": "Gleich geht’s los",
+      "brb": "Bin gleich zurück",
+      "ending": "Ende"
+    },
+    "sceneBackground": {
+      "none": "Transparent",
+      "gradient": "Verlauf",
+      "orbs": "Leuchtende Kugeln",
+      "3d": "3D-Weltraum (schwer)"
+    }
+  },
+  "animations": {
+    "none": "Keine",
+    "fade": "Einblenden",
+    "slide-up": "Nach oben gleiten",
+    "slide-down": "Nach unten gleiten",
+    "slide-left": "Nach links gleiten",
+    "slide-right": "Nach rechts gleiten",
+    "pop": "Pop",
+    "zoom": "Zoom",
+    "blur": "Unschärfe",
+    "bounce": "Abprallen",
+    "flip": "Kippen",
+    "rise": "Aufsteigen",
+    "shrink": "Schrumpfen",
+    "lift": "Nach oben weg",
+    "swing": "Schwung"
+  },
+  "presets": {
+    "glass": "Glas",
+    "minimal": "Minimal",
+    "bubble": "Blase",
+    "neon": "Neon",
+    "terminal": "Terminal",
+    "glow": "Leuchten",
+    "flat": "Flach",
+    "retro": "Retro",
+    "fire": "Feuer",
+    "sunset": "Sonnenuntergang",
+    "mint": "Minze",
+    "mono": "Mono",
+    "space-3d": "3D-Weltraum"
+  },
+  "tests": {
+    "chat": "Nachricht",
+    "emote": "Emote",
+    "follow": "Follow",
+    "sub": "Abo",
+    "gifts": "Geschenke",
+    "raid": "Raid",
+    "bits": "Bits"
+  },
+  "sound": {
+    "none": "Kein Sound",
+    "builtin": "Integriert",
+    "mine": "Meine Sounds",
+    "library": "Bibliothek",
+    "link": "Link",
+    "play": "Abspielen",
+    "upload": "Sound hochladen (max. 3 MB)",
+    "loginToUpload": "Verbinde ein Konto, um Sounds hochzuladen",
+    "invalidUrl": "Gib einen Link ein, der mit https:// beginnt",
+    "playError": "Dieser Sound kann nicht abgespielt werden",
+    "errors": {
+      "login_required": "Verbinde ein Konto, um Sounds hochzuladen",
+      "too_many_sounds": "Limit von 30 Sounds erreicht",
+      "invalid_type": "Dateityp nicht unterstützt",
+      "too_large": "Die Datei ist größer als 3 MB",
+      "generic": "Upload fehlgeschlagen"
+    }
+  },
+  "cssClasses": {
+    "root": "Gesamter Widget-Bereich (enthält alle CSS-Variablen)",
+    "chat": "Container der Nachrichtenliste",
+    "chatMessage": "Einzelne Chatnachricht (die Blase)",
+    "chatPlatformAttr": "Nachrichten nur von einer Plattform (twitch oder kick)",
+    "chatBadge": "Nutzer-Abzeichen (Abo, Mod, VIP…)",
+    "chatPlatform": "Plattform-Symbol vor dem Namen",
+    "chatName": "Benutzername",
+    "chatText": "Nachrichtentext",
+    "emote": "Emotes (nativ, 7TV, BTTV, FFZ)",
+    "alerts": "Bereich, der den Alert positioniert",
+    "alert": "Alert-Karte",
+    "alertType": "Alert eines Typs: .alert-follow, .alert-sub, .alert-gifts, .alert-raid, .alert-bits",
+    "alertIcon": "Rundes Symbol links",
+    "alertText": "Container für Name und Nachricht",
+    "alertName": "Name der Person (erste Zeile)",
+    "alertMessage": "Alert-Nachricht (zweite Zeile)",
+    "alertBurst": "Lichtblitz hinter der Karte",
+    "alertShine": "Glanz, der über die Karte läuft",
+    "combo": "Bereich, der den Zähler positioniert",
+    "comboBox": "Zähler-Karte",
+    "comboEmote": "Emote-Bild",
+    "comboCount": "Der Text „x3“",
+    "comboNumber": "Nur die Zahl",
+    "scene": "Ganze Szene mit Hintergrund",
+    "sceneBackground": "Verlauf oder leuchtende Kugeln im Hintergrund",
+    "sceneStatusLabel": "Beschriftung „Status“",
+    "sceneStatusText": "Statustext",
+    "sceneCard": "Karte hinter dem Titel",
+    "sceneTitle": "Titel",
+    "sceneAccent": "Hervorgehobener Teil des Titels",
+    "sceneCountdown": "Countdown",
+    "sceneSocials": "Social-Leiste",
+    "sceneSocial": "Einzelnes Social (Symbol + Name)"
+  }
+}

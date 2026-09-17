@@ -1,0 +1,17 @@
+@import "tailwindcss";
+@import "@nuxt/ui";
+@import "./overlay.css";
+
+@theme {
+  --font-sans: "Outfit", system-ui, sans-serif;
+}
+
+html.overlay {
+  color-scheme: light;
+}
+
+html.overlay,
+html.overlay body {
+  background: transparent !important;
+  overflow: hidden;
+}
