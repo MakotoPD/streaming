@@ -69,53 +69,55 @@ function nameColor(message: Message) {
 </template>
 
 <style>
-.chat {
-  display: flex;
-  flex-direction: column;
-  gap: var(--gap);
-  height: 100%;
-  padding: 12px;
-  font-size: var(--font-size);
-  overflow: hidden;
-}
+@layer widget {
+  .chat {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap);
+    height: 100%;
+    padding: 12px;
+    font-size: var(--font-size);
+    overflow: hidden;
+  }
 
-.chat-bottom {
-  justify-content: flex-end;
-}
+  .chat-bottom {
+    justify-content: flex-end;
+  }
 
-.chat-top {
-  justify-content: flex-start;
-}
+  .chat-top {
+    justify-content: flex-start;
+  }
 
-.chat-message {
-  display: block;
-  flex-shrink: 0;
-  padding: 0.6em 0.9em;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  background: var(--bg);
-  backdrop-filter: blur(var(--blur));
-  color: var(--text);
-  line-height: 1.5;
-  word-break: break-word;
-}
+  .chat-message {
+    display: block;
+    flex-shrink: 0;
+    padding: 0.6em 0.9em;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--bg);
+    backdrop-filter: blur(var(--blur));
+    color: var(--text);
+    line-height: 1.5;
+    word-break: break-word;
+  }
 
-.chat-badge {
-  display: inline-block;
-  width: 1.15em;
-  height: 1.15em;
-  margin-right: 0.25em;
-  vertical-align: -0.2em;
-  border-radius: 3px;
-}
+  .chat-badge {
+    display: inline-block;
+    width: 1.15em;
+    height: 1.15em;
+    margin-right: 0.25em;
+    vertical-align: -0.2em;
+    border-radius: 3px;
+  }
 
-.chat-platform {
-  color: var(--text);
-  opacity: 0.7;
-}
+  .chat-platform {
+    color: var(--text);
+    opacity: 0.7;
+  }
 
-.chat-name {
-  margin-right: 0.35em;
-  font-weight: 700;
+  .chat-name {
+    margin-right: 0.35em;
+    font-weight: 700;
+  }
 }
 </style>

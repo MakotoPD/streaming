@@ -107,12 +107,16 @@
     "obsStep2": "Paste the link and set the size to {width} × {height}.",
     "obsStep3": "For alert sounds, tick “Control audio via OBS”.",
     "css": {
-      "intro": "Your CSS applies only to this widget. Click a class to add it to the editor, click a variable to copy it.",
+      "intro": "Your CSS applies only to this widget and overrides the Style tab. Hover a class to highlight it in the preview, click it to add it to the editor. Hover a color to pick it.",
       "classes": "Classes",
       "variables": "CSS variables (values from the Style tab)",
       "insert": "Add to CSS",
       "copy": "Copy",
-      "copied": "Copied {text}"
+      "copied": "Copied {text}",
+      "synced": "Synced with the Style tab",
+      "detached": "Edited manually — Style tab changes no longer apply here",
+      "reset": "Rebuild from current style",
+      "confirmReset": "Replace your CSS with values from the current style?"
     }
   },
   "sections": {

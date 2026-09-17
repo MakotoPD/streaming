@@ -107,12 +107,16 @@
     "obsStep2": "Link einfügen und Größe auf {width} × {height} setzen.",
     "obsStep3": "Für Alert-Sounds „Audio über OBS steuern“ aktivieren.",
     "css": {
-      "intro": "Dein CSS gilt nur für dieses Widget. Klicke auf eine Klasse, um sie in den Editor einzufügen, oder auf eine Variable, um sie zu kopieren.",
+      "intro": "Dein CSS gilt nur für dieses Widget und überschreibt den Tab Stil. Fahre über eine Klasse, um sie in der Vorschau hervorzuheben, klicke, um sie in den Editor einzufügen. Fahre über eine Farbe, um sie auszuwählen.",
       "classes": "Klassen",
       "variables": "CSS-Variablen (Werte aus dem Tab Stil)",
       "insert": "Zum CSS hinzufügen",
       "copy": "Kopieren",
-      "copied": "{text} kopiert"
+      "copied": "{text} kopiert",
+      "synced": "Mit dem Tab Stil synchronisiert",
+      "detached": "Manuell bearbeitet – Änderungen im Tab Stil wirken hier nicht mehr",
+      "reset": "Aus aktuellem Stil neu erzeugen",
+      "confirmReset": "Dein CSS durch die Werte des aktuellen Stils ersetzen?"
     }
   },
   "sections": {

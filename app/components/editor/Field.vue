@@ -55,6 +55,6 @@ const items = computed(() => {
       <UButton v-if="model" icon="i-lucide-x" color="neutral" variant="ghost" @click="model = ''" />
     </div>
 
-    <UTextarea v-else-if="field.type === 'code'" v-model="model" :rows="10" autoresize class="w-full font-mono text-xs" :placeholder="'.chat-message { }'" />
+    <EditorCssEditor v-else-if="field.type === 'code'" v-model="model" :placeholder="placeholder" />
   </UFormField>
 </template>

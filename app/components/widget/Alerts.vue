@@ -87,7 +87,6 @@ onBeforeUnmount(() => clearTimeout(holdTimer))
         :key="current.key"
         class="alert"
         :class="[`alert-${current.type}`, { 'alert-glow': settings.glow }]"
-        :style="{ '--c': settings[`${current.type}.color`] }"
       >
         <div v-if="settings.glow" class="alert-burst" />
         <div v-if="settings.showIcon" class="alert-icon">
@@ -108,119 +107,127 @@ onBeforeUnmount(() => clearTimeout(holdTimer))
 </template>
 
 <style>
-.alerts {
-  display: flex;
-  justify-content: center;
-  height: 100%;
-  padding: 2%;
-  font-size: var(--font-size);
-}
+@layer widget {
+  .alerts {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    padding: 2%;
+    font-size: var(--font-size);
+  }
 
-.alerts-top { align-items: flex-start; }
-.alerts-center { align-items: center; }
-.alerts-bottom { align-items: flex-end; }
+  .alerts-top { align-items: flex-start; }
+  .alerts-center { align-items: center; }
+  .alerts-bottom { align-items: flex-end; }
 
-.alert {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 0.9em;
-  max-width: 100%;
-  padding: 1em 1.6em;
-  overflow: hidden;
-  border: 1px solid color-mix(in srgb, var(--c) 55%, transparent);
-  border-radius: var(--radius);
-  background:
-    linear-gradient(135deg, color-mix(in srgb, var(--c) 22%, transparent), transparent 55%),
-    var(--bg);
-  color: var(--text);
-  backdrop-filter: blur(14px) saturate(1.3);
-}
+  .alert-follow { --c: var(--c-follow); }
+  .alert-sub { --c: var(--c-sub); }
+  .alert-gifts { --c: var(--c-gifts); }
+  .alert-raid { --c: var(--c-raid); }
+  .alert-bits { --c: var(--c-bits); }
 
-.alert-glow {
-  box-shadow:
-    0 0 0 1px rgb(255 255 255 / 0.05) inset,
-    0 0.6em 2em rgb(0 0 0 / 0.45),
-    0 0 2.2em color-mix(in srgb, var(--c) 45%, transparent);
-}
+  .alert {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.9em;
+    max-width: 100%;
+    padding: 1em 1.6em;
+    overflow: hidden;
+    border: 1px solid color-mix(in srgb, var(--c) 55%, transparent);
+    border-radius: var(--radius);
+    background:
+      linear-gradient(135deg, color-mix(in srgb, var(--c) 22%, transparent), transparent 55%),
+      var(--bg);
+    color: var(--text);
+    backdrop-filter: blur(14px) saturate(1.3);
+  }
 
-.alert-burst {
-  position: absolute;
-  inset: 0;
-  width: 8em;
-  height: 8em;
-  margin: auto;
-  border-radius: 50%;
-  background: radial-gradient(circle, color-mix(in srgb, var(--c) 60%, transparent), transparent 65%);
-  animation: alert-burst 0.9s ease-out both;
-}
+  .alert-glow {
+    box-shadow:
+      0 0 0 1px rgb(255 255 255 / 0.05) inset,
+      0 0.6em 2em rgb(0 0 0 / 0.45),
+      0 0 2.2em color-mix(in srgb, var(--c) 45%, transparent);
+  }
 
-.alert-shine {
-  position: absolute;
-  top: 0;
-  left: -60%;
-  width: 40%;
-  height: 100%;
-  background: linear-gradient(100deg, transparent, color-mix(in srgb, var(--c) 35%, #fff 25%), transparent);
-  opacity: 0.55;
-  animation: alert-sweep 1.4s 0.35s ease-in-out both;
-}
+  .alert-burst {
+    position: absolute;
+    inset: 0;
+    width: 8em;
+    height: 8em;
+    margin: auto;
+    border-radius: 50%;
+    background: radial-gradient(circle, color-mix(in srgb, var(--c) 60%, transparent), transparent 65%);
+    animation: alert-burst 0.9s ease-out both;
+  }
 
-.alert-icon {
-  display: grid;
-  flex: 0 0 auto;
-  place-items: center;
-  width: 2.4em;
-  height: 2.4em;
-  border-radius: 50%;
-  font-size: 1.15em;
-  color: #fff;
-  background: radial-gradient(circle at 35% 30%, color-mix(in srgb, var(--c) 85%, #fff 20%), color-mix(in srgb, var(--c) 60%, #000 25%));
-  box-shadow: 0 0 1.4em color-mix(in srgb, var(--c) 70%, transparent);
-  animation: alert-icon-pop 0.7s 0.1s cubic-bezier(0.16, 1.4, 0.3, 1) both;
-}
+  .alert-shine {
+    position: absolute;
+    top: 0;
+    left: -60%;
+    width: 40%;
+    height: 100%;
+    background: linear-gradient(100deg, transparent, color-mix(in srgb, var(--c) 35%, #fff 25%), transparent);
+    opacity: 0.55;
+    animation: alert-sweep 1.4s 0.35s ease-in-out both;
+  }
 
-.alert-icon > span {
-  width: 1.25em;
-  height: 1.25em;
-}
+  .alert-icon {
+    display: grid;
+    flex: 0 0 auto;
+    place-items: center;
+    width: 2.4em;
+    height: 2.4em;
+    border-radius: 50%;
+    font-size: 1.15em;
+    color: #fff;
+    background: radial-gradient(circle at 35% 30%, color-mix(in srgb, var(--c) 85%, #fff 20%), color-mix(in srgb, var(--c) 60%, #000 25%));
+    box-shadow: 0 0 1.4em color-mix(in srgb, var(--c) 70%, transparent);
+    animation: alert-icon-pop 0.7s 0.1s cubic-bezier(0.16, 1.4, 0.3, 1) both;
+  }
 
-.alert-text {
-  min-width: 0;
-}
+  .alert-icon > span {
+    width: 1.25em;
+    height: 1.25em;
+  }
 
-.alert-name {
-  overflow: hidden;
-  font-size: 1.25em;
-  font-weight: 800;
-  line-height: 1.15;
-  letter-spacing: -0.01em;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
+  .alert-text {
+    min-width: 0;
+  }
 
-.alert-glow .alert-name {
-  text-shadow: 0 0 0.7em color-mix(in srgb, var(--c) 80%, transparent);
-}
+  .alert-name {
+    overflow: hidden;
+    font-size: 1.25em;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 
-.alert-message {
-  overflow: hidden;
-  font-size: 0.85em;
-  font-weight: 500;
-  line-height: 1.25;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  color: color-mix(in srgb, var(--c) 45%, var(--text));
-}
+  .alert-glow .alert-name {
+    text-shadow: 0 0 0.7em color-mix(in srgb, var(--c) 80%, transparent);
+  }
 
-@keyframes alert-sweep { to { transform: translateX(420%); } }
-@keyframes alert-burst {
-  0% { opacity: 0.85; transform: scale(0.3); }
-  100% { opacity: 0; transform: scale(2.6); }
-}
-@keyframes alert-icon-pop {
-  0% { transform: scale(0) rotate(-45deg); }
-  60% { transform: scale(1.22) rotate(10deg); }
-  100% { transform: scale(1) rotate(0); }
+  .alert-message {
+    overflow: hidden;
+    font-size: 0.85em;
+    font-weight: 500;
+    line-height: 1.25;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: color-mix(in srgb, var(--c) 45%, var(--text));
+  }
+
+  @keyframes alert-sweep { to { transform: translateX(420%); } }
+  @keyframes alert-burst {
+    0% { opacity: 0.85; transform: scale(0.3); }
+    100% { opacity: 0; transform: scale(2.6); }
+  }
+  @keyframes alert-icon-pop {
+    0% { transform: scale(0) rotate(-45deg); }
+    60% { transform: scale(1.22) rotate(10deg); }
+    100% { transform: scale(1) rotate(0); }
+  }
 }
 </style>

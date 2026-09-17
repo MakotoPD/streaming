@@ -27,6 +27,12 @@ export const scene: WidgetDefinition = {
     ...animationFields('rise', 'fade', 900),
     customCssField()
   ],
+  cssTemplate: [
+    { selector: '.scene', declarations: { 'font-family': '{font}' } },
+    { selector: '.scene-title', declarations: { 'font-size': '{titleSize}', 'color': '{textColor}' } },
+    { selector: '.scene-accent', declarations: { 'background-image': 'linear-gradient(90deg, {accent1}, {accent2})' } },
+    { selector: '.scene-status-text', declarations: { 'color': '{accent1}' } }
+  ],
   cssClasses: [
     { id: 'root', selector: '.widget-root' },
     { id: 'scene', selector: '.scene' },

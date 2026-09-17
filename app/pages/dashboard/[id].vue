@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Settings } from '#shared/types'
-import { sampleEvent, styleKeys, WIDGET_TESTS, WIDGETS, widgetTexts } from '#shared/widgets'
+import { baseCss, sampleEvent, styleKeys, WIDGET_TESTS, WIDGETS, widgetTexts } from '#shared/widgets'
 
 definePageMeta({ middleware: 'auth' })
 
@@ -31,6 +31,7 @@ const visibleFields = computed(() => def.fields.filter(f => f.section === active
 const texts = computed(() => widgetTexts(settings.value.language ?? 'en'))
 function placeholderFor(key: string) {
   const alerts = texts.value.alerts as Record<string, string>
+  if (key === 'customCss') return `${def.cssClasses[1]?.selector ?? '.widget-root'} { }`
   if (key === 'sub.textResub') return alerts.resub
   if (key.endsWith('.text')) return alerts[key.split('.')[0]!]
   const scene = texts.value.scene[settings.value.mode as 'starting'] as [string, string] | undefined
@@ -89,9 +90,43 @@ async function deleteStyle(style: StyleRow) {
   await refreshStyles()
 }
 
-const preview = useTemplateRef<{ emit: (event: ReturnType<typeof sampleEvent>) => void }>('preview')
+const preview = useTemplateRef<{ emit: (event: ReturnType<typeof sampleEvent>) => void, highlight: (selector?: string) => void }>('preview')
 const live = ref(true)
 const tests = WIDGET_TESTS[def.type] ?? []
+
+const generatedCss = computed(() => baseCss(def, settings.value))
+const cssSynced = computed(() => settings.value.customCss === generatedCss.value)
+let lastGeneratedCss = generatedCss.value
+
+watch(generatedCss, (next) => {
+  if (settings.value.customCss === lastGeneratedCss) settings.value.customCss = next
+  lastGeneratedCss = next
+})
+
+watch(activeSection, (section) => {
+  if (section === 'advanced' && !settings.value.customCss) settings.value.customCss = generatedCss.value
+}, { immediate: true })
+
+function resetCss() {
+  if (settings.value.customCss && !confirm(t('editor.css.confirmReset'))) return
+  settings.value.customCss = generatedCss.value
+}
+
+const hoveredSelector = ref<string>()
+let lastAutoTest = 0
+
+function hoverClass(selector?: string) {
+  hoveredSelector.value = selector
+  preview.value?.highlight(selector)
+}
+
+function onHighlightCount(count: number) {
+  const cooldown = (settings.value.holdTime ?? settings.value.window ?? 3) * 1000 + 1000
+  if (count || !hoveredSelector.value || !tests.length || Date.now() - lastAutoTest < cooldown) return
+  lastAutoTest = Date.now()
+  const repeat = def.type === 'emote-combo' ? settings.value.minMessages : 1
+  for (let i = 0; i < repeat; i++) preview.value?.emit(sampleEvent(tests[0]!))
+}
 
 async function sendToObs(test: string) {
   await $fetch(`/api/widgets/${id}/test`, { method: 'POST', body: { test } })
@@ -187,9 +222,28 @@ async function regenerateToken() {
           :placeholder="placeholderFor(field.key)"
         />
 
+        <div v-if="activeSection === 'advanced'" class="flex flex-wrap items-center gap-2">
+          <UBadge
+            :color="cssSynced ? 'success' : 'warning'"
+            variant="subtle"
+            :icon="cssSynced ? 'i-lucide-link' : 'i-lucide-unlink'"
+            :label="t(cssSynced ? 'editor.css.synced' : 'editor.css.detached')"
+          />
+          <UButton
+            v-if="!cssSynced"
+            size="xs"
+            color="neutral"
+            variant="ghost"
+            icon="i-lucide-rotate-ccw"
+            :label="t('editor.css.reset')"
+            @click="resetCss"
+          />
+        </div>
+
         <EditorCssReference
           v-if="activeSection === 'advanced'"
           :definition="def"
+          @hover="hoverClass"
           @insert="settings.customCss = `${settings.customCss ? `${settings.customCss.trimEnd()}\n\n` : ''}${$event}`"
         />
       </UCard>
@@ -205,7 +259,7 @@ async function regenerateToken() {
             <span class="text-xs text-muted">{{ def.size[0] }}×{{ def.size[1] }}</span>
           </div>
 
-          <EditorPreview ref="preview" :token="widget.token" :settings="settings" :size="def.size" :live="live" />
+          <EditorPreview ref="preview" :token="widget.token" :settings="settings" :size="def.size" :live="live" @highlight-count="onHighlightCount" />
 
           <div v-if="tests.length" class="flex flex-wrap items-center gap-2">
             <span class="text-sm text-muted">{{ t('editor.test') }}:</span>

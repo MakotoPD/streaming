@@ -2,6 +2,7 @@
 import type { Settings, StreamEvent } from '#shared/types'
 
 const props = defineProps<{ token: string, settings: Settings, size: [number, number], live: boolean }>()
+const emit = defineEmits<{ highlightCount: [count: number] }>()
 
 const wrapper = useTemplateRef<HTMLDivElement>('wrapper')
 const frame = useTemplateRef<HTMLIFrameElement>('frame')
@@ -29,7 +30,9 @@ onMounted(() => {
   observer.observe(wrapper.value!)
 
   onMessage = (e: MessageEvent) => {
-    if (e.origin !== location.origin || e.source !== frame.value?.contentWindow || e.data?.kind !== 'ready') return
+    if (e.origin !== location.origin || e.source !== frame.value?.contentWindow) return
+    if (e.data?.kind === 'highlight-count') emit('highlightCount', e.data.count)
+    if (e.data?.kind !== 'ready') return
     ready.value = true
     sendConfig()
     post({ kind: 'live', on: props.live })
@@ -43,7 +46,8 @@ onBeforeUnmount(() => {
 })
 
 defineExpose({
-  emit: (event: StreamEvent) => post({ kind: 'event', event })
+  emit: (event: StreamEvent) => post({ kind: 'event', event }),
+  highlight: (selector?: string) => post({ kind: 'highlight', selector })
 })
 </script>
 

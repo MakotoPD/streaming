@@ -20,7 +20,7 @@ function typeFields(type: AlertType): Field[] {
   if (type === 'bits' || type === 'raid') fields.push({ key: `${type}.min`, section: type, label: 'min', type: 'number', default: 1, min: 1, max: 100000 })
   fields.push(
     { key: `${type}.sound`, section: type, label: 'sound', type: 'sound', default: DEFAULTS[type].sound },
-    { key: `${type}.color`, section: type, label: 'color', type: 'color', default: DEFAULTS[type].color }
+    { key: `${type}.color`, section: type, label: 'color', type: 'color', default: DEFAULTS[type].color, css: `--c-${type}` }
   )
   return fields
 }
@@ -48,6 +48,15 @@ export const alerts: WidgetDefinition = {
 
     ...animationFields('rise', 'lift', 750),
     customCssField()
+  ],
+  cssTemplate: [
+    { selector: '.alerts', declarations: { 'font-family': '{font}', 'font-size': '{fontSize}' } },
+    { selector: '.alert', declarations: { '--bg': '{background}', 'color': '{textColor}', 'border-radius': '{radius}' } },
+    { selector: '.alert-follow', declarations: { '--c': '{follow.color}' } },
+    { selector: '.alert-sub', declarations: { '--c': '{sub.color}' } },
+    { selector: '.alert-gifts', declarations: { '--c': '{gifts.color}' } },
+    { selector: '.alert-raid', declarations: { '--c': '{raid.color}' } },
+    { selector: '.alert-bits', declarations: { '--c': '{bits.color}' } }
   ],
   cssClasses: [
     { id: 'root', selector: '.widget-root' },

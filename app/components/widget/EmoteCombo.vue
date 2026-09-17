@@ -84,55 +84,57 @@ onBeforeUnmount(() => clearTimeout(hideTimer))
 </template>
 
 <style>
-.combo {
-  display: flex;
-  height: 100%;
-  padding: 20px;
-}
+@layer widget {
+  .combo {
+    display: flex;
+    height: 100%;
+    padding: 20px;
+  }
 
-.combo-top-left { align-items: flex-start; justify-content: flex-start; }
-.combo-top-right { align-items: flex-start; justify-content: flex-end; }
-.combo-bottom-left { align-items: flex-end; justify-content: flex-start; }
-.combo-bottom-right { align-items: flex-end; justify-content: flex-end; }
-.combo-center { align-items: center; justify-content: center; }
+  .combo-top-left { align-items: flex-start; justify-content: flex-start; }
+  .combo-top-right { align-items: flex-start; justify-content: flex-end; }
+  .combo-bottom-left { align-items: flex-end; justify-content: flex-start; }
+  .combo-bottom-right { align-items: flex-end; justify-content: flex-end; }
+  .combo-center { align-items: center; justify-content: center; }
 
-.combo-box {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 14px 24px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  background: var(--bg);
-  box-shadow: 0 10px 30px rgb(0 0 0 / 0.4);
-  backdrop-filter: blur(10px);
-}
+  .combo-box {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 24px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--bg);
+    box-shadow: 0 10px 30px rgb(0 0 0 / 0.4);
+    backdrop-filter: blur(10px);
+  }
 
-.combo-emote {
-  width: auto;
-  height: var(--emote-size);
-  object-fit: contain;
-}
+  .combo-emote {
+    width: auto;
+    height: var(--emote-size);
+    object-fit: contain;
+  }
 
-.combo-bounce {
-  animation: combo-bounce 0.4s ease infinite alternate;
-}
+  .combo-bounce {
+    animation: combo-bounce 0.4s ease infinite alternate;
+  }
 
-.combo-count {
-  font-size: var(--font-size);
-  font-weight: 800;
-  letter-spacing: 1px;
-  color: var(--text);
-  text-shadow: 0 2px 8px rgb(0 0 0 / 0.5);
-}
+  .combo-count {
+    font-size: var(--font-size);
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: var(--text);
+    text-shadow: 0 2px 8px rgb(0 0 0 / 0.5);
+  }
 
-.combo-number {
-  display: inline-block;
-  color: var(--accent);
-}
+  .combo-number {
+    display: inline-block;
+    color: var(--accent);
+  }
 
-@keyframes combo-bounce {
-  0% { translate: 0 0; }
-  100% { translate: 0 -4px; }
+  @keyframes combo-bounce {
+    0% { translate: 0 0; }
+    100% { translate: 0 -4px; }
+  }
 }
 </style>

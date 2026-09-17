@@ -2,7 +2,7 @@
 import type { WidgetDefinition } from '#shared/widgets'
 
 const props = defineProps<{ definition: WidgetDefinition }>()
-const emit = defineEmits<{ insert: [snippet: string] }>()
+const emit = defineEmits<{ insert: [snippet: string], hover: [selector?: string] }>()
 const { t } = useI18n()
 const toast = useToast()
 
@@ -32,6 +32,10 @@ async function copy(text: string) {
         type="button"
         class="w-full text-left rounded-md px-2 py-1.5 hover:bg-elevated transition-colors"
         :title="t('editor.css.insert')"
+        @mouseenter="emit('hover', item.selector)"
+        @mouseleave="emit('hover')"
+        @focus="emit('hover', item.selector)"
+        @blur="emit('hover')"
         @click="emit('insert', `${item.selector} {\n  \n}`)"
       >
         <code class="block text-xs font-mono text-primary">{{ item.selector }}</code>

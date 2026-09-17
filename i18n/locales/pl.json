@@ -107,12 +107,16 @@
     "obsStep2": "Wklej link i ustaw rozmiar {width} × {height}.",
     "obsStep3": "Dla dźwięków alertów zaznacz „Kontroluj dźwięk przez OBS”.",
     "css": {
-      "intro": "Twój CSS działa tylko w tym widgecie. Kliknij klasę, żeby dodać ją do edytora, kliknij zmienną, żeby ją skopiować.",
+      "intro": "Twój CSS działa tylko w tym widgecie i nadpisuje zakładkę Styl. Najedź na klasę, żeby podświetlić ją w podglądzie, kliknij, żeby dodać ją do edytora. Najedź na kolor, żeby go wybrać.",
       "classes": "Klasy",
       "variables": "Zmienne CSS (wartości z zakładki Styl)",
       "insert": "Dodaj do CSS",
       "copy": "Kopiuj",
-      "copied": "Skopiowano {text}"
+      "copied": "Skopiowano {text}",
+      "synced": "Zsynchronizowany z zakładką Styl",
+      "detached": "Edytowany ręcznie — zmiany w zakładce Styl już go nie zmieniają",
+      "reset": "Odbuduj z aktualnego stylu",
+      "confirmReset": "Zastąpić Twój CSS wartościami z aktualnego stylu?"
     }
   },
   "sections": {

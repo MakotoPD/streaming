@@ -107,12 +107,16 @@
     "obsStep2": "Pega el enlace y ajusta el tamaño a {width} × {height}.",
     "obsStep3": "Para los sonidos de alertas, marca «Controlar audio mediante OBS».",
     "css": {
-      "intro": "Tu CSS solo se aplica a este widget. Haz clic en una clase para añadirla al editor y en una variable para copiarla.",
+      "intro": "Tu CSS solo se aplica a este widget y sobrescribe la pestaña Estilo. Pasa el cursor por una clase para resaltarla en la vista previa y haz clic para añadirla al editor. Pasa el cursor por un color para elegirlo.",
       "classes": "Clases",
       "variables": "Variables CSS (valores de la pestaña Estilo)",
       "insert": "Añadir al CSS",
       "copy": "Copiar",
-      "copied": "Copiado {text}"
+      "copied": "Copiado {text}",
+      "synced": "Sincronizado con la pestaña Estilo",
+      "detached": "Editado a mano: los cambios de la pestaña Estilo ya no se aplican aquí",
+      "reset": "Reconstruir desde el estilo actual",
+      "confirmReset": "¿Reemplazar tu CSS con los valores del estilo actual?"
     }
   },
   "sections": {

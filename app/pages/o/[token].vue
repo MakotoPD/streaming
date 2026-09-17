@@ -26,11 +26,18 @@ const live = ref(!preview || route.query.live !== '0')
 const bus = createEventBus()
 useStreamEvents(() => data.value?.channels, bus, () => live.value && !!data.value)
 
-function handle(msg: OverlayMessage | { kind: 'live', on: boolean }) {
+const highlight = ref<string>()
+
+function handle(msg: OverlayMessage | { kind: 'live', on: boolean } | { kind: 'highlight', selector?: string }) {
   if (msg.kind === 'config') settings.value = msg.settings
   else if (msg.kind === 'event') bus.emit(msg.event)
   else if (msg.kind === 'live') live.value = msg.on
+  else if (msg.kind === 'highlight') highlight.value = msg.selector
   else if (msg.kind === 'reload') location.reload()
+}
+
+function reportHighlight(count: number) {
+  parent.postMessage({ kind: 'highlight-count', count }, location.origin)
 }
 
 let disconnect = () => {}
@@ -56,5 +63,6 @@ onBeforeUnmount(() => disconnect())
 <template>
   <WidgetFrame v-if="data" :type="data.type" :settings="settings">
     <component :is="COMPONENTS[data.type]" :settings="settings" :bus="bus" />
+    <WidgetHighlight v-if="preview" :selector="highlight" @count="reportHighlight" />
   </WidgetFrame>
 </template>

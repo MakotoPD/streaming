@@ -24,6 +24,12 @@ export const emoteCombo: WidgetDefinition = {
     ...animationFields('pop', 'swing', 420),
     customCssField()
   ],
+  cssTemplate: [
+    { selector: '.combo-box', declarations: { 'font-family': '{font}', 'background': '{background}', 'border-color': '{borderColor}', 'border-radius': '{radius}' } },
+    { selector: '.combo-emote', declarations: { 'height': '{emoteSize}' } },
+    { selector: '.combo-count', declarations: { 'font-size': '{fontSize}', 'color': '{textColor}' } },
+    { selector: '.combo-number', declarations: { 'color': '{numberColor}' } }
+  ],
   cssClasses: [
     { id: 'root', selector: '.widget-root' },
     { id: 'combo', selector: '.combo' },

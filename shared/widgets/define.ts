@@ -36,6 +36,7 @@ export interface WidgetDefinition {
   fields: Field[]
   presets: { id: string, values: Settings }[]
   cssClasses: { id: string, selector: string }[]
+  cssTemplate: { selector: string, declarations: Record<string, string> }[]
 }
 
 const COLOR = /^[#\w(),.%\s-]{1,80}$/
@@ -88,17 +89,33 @@ export function defaultSettings(def: WidgetDefinition, language: string): Settin
   return settings
 }
 
+function cssValue(field: Field, value: unknown) {
+  if (field.type === 'number') return `${value}${field.unit ?? ''}`
+  if (field.type === 'font') return `"${value}", system-ui, sans-serif`
+  if (field.type === 'toggle') return value ? '1' : '0'
+  return String(value)
+}
+
 export function cssVars(def: WidgetDefinition, settings: Settings): Record<string, string> {
   const vars: Record<string, string> = {}
   for (const field of def.fields) {
-    if (!field.css) continue
-    const value = settings[field.key]
-    if (field.type === 'number') vars[field.css] = `${value}${field.unit ?? ''}`
-    else if (field.type === 'font') vars[field.css] = `"${value}", system-ui, sans-serif`
-    else if (field.type === 'toggle') vars[field.css] = value ? '1' : '0'
-    else vars[field.css] = String(value)
+    if (field.css) vars[field.css] = cssValue(field, settings[field.key])
   }
   return vars
+}
+
+export function baseCss(def: WidgetDefinition, settings: Settings): string {
+  const fields = new Map(def.fields.map(field => [field.key, field]))
+  const fill = (template: string) => template.replace(/\{([\w.]+)\}/g, (whole, key: string) => {
+    const field = fields.get(key)
+    return field ? cssValue(field, settings[key]) : whole
+  })
+  return def.cssTemplate
+    .map((rule) => {
+      const lines = Object.entries(rule.declarations).map(([property, value]) => `  ${property}: ${fill(value)};`)
+      return [`${rule.selector} {`, ...lines, '}'].join('\n')
+    })
+    .join('\n\n')
 }
 
 export function styleKeys(def: WidgetDefinition): string[] {
