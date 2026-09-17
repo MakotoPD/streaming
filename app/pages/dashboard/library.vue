@@ -9,7 +9,7 @@ const toast = useToast()
 useHead({ title: () => t('library.title') })
 
 interface Usage { widgetId: string, type: string, name: string, mode?: string, fields: { key: string, label: string, section: string }[] }
-interface LibraryFile { id: string, name: string, size: number, url: string, usages: Usage[] }
+interface LibraryFile { id: string, name: string, size: number, mime: string, url: string, usages: Usage[] }
 interface ImageFile extends LibraryFile { width: number, height: number, animated: boolean }
 interface Library { sounds: LibraryFile[], images: ImageFile[] }
 
@@ -22,7 +22,7 @@ const busy = ref<string>()
 const picker = useTemplateRef<HTMLInputElement>('picker')
 let pending: { kind: 'images' | 'sounds', id?: string } | undefined
 
-const ACCEPT = { images: 'image/png,image/webp,image/gif', sounds: 'audio/*' }
+const ACCEPT = { images: 'image/png,image/webp,image/gif,video/mp4,video/webm', sounds: 'audio/*' }
 
 function pick(kind: 'images' | 'sounds', id?: string) {
   pending = { kind, id }
@@ -141,7 +141,8 @@ const tabs = computed(() => [
       <UCard v-for="image in library.images" :key="image.id" :ui="{ root: 'overflow-hidden', header: 'p-0 sm:p-0', body: 'space-y-3' }">
         <template #header>
           <div class="checker flex h-44 items-center justify-center">
-            <img :src="`${image.url}?v=${image.size}`" :alt="image.name" class="max-h-full max-w-full object-contain">
+            <video v-if="image.mime.startsWith('video/')" :src="image.url" class="max-h-full max-w-full" controls muted playsinline />
+            <img v-else :src="`${image.url}?v=${image.size}`" :alt="image.name" class="max-h-full max-w-full object-contain">
           </div>
         </template>
         <div class="flex items-start justify-between gap-2">
@@ -150,7 +151,7 @@ const tabs = computed(() => [
               {{ image.name }}
             </div>
             <div class="text-xs text-muted">
-              {{ image.width }}×{{ image.height }} · {{ formatSize(image.size) }}
+              <template v-if="image.width">{{ image.width }}×{{ image.height }} · </template>{{ formatSize(image.size) }}
             </div>
           </div>
           <UBadge v-if="image.animated" :label="t('library.animated')" size="sm" variant="subtle" />

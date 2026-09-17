@@ -8,5 +8,5 @@ export default defineEventHandler(async (event) => {
     .orderBy(asc(tables.widgets.createdAt))
   return rows
     .filter(w => WIDGETS[w.type])
-    .map(w => ({ ...w, settings: sanitizeSettings(WIDGETS[w.type]!, w.settings) }))
+    .map(w => ({ ...w, scene: undefined, settings: sanitizeSettings(WIDGETS[w.type]!, w.settings) }))
 })

@@ -182,6 +182,10 @@
     "viewers": {
       "name": "Liczba widzów",
       "description": "Widzowie na żywo na Twitchu i Kicku, osobno albo razem."
+    },
+    "canvas": {
+      "name": "Tablica do rysowania",
+      "description": "Plansza 2560×1440, na której Ty lub ktoś inny rysuje na żywo — z osobnym linkiem do edycji."
     }
   },
   "editor": {
@@ -225,6 +229,15 @@
       "hint": "Kliknij wiadomość, żeby przypiąć ją na streamie.",
       "waiting": "Czekam na wiadomości z czatu…",
       "pinned": "Wiadomość przypięta"
+    },
+    "canvas": {
+      "title": "Link do rysowania",
+      "hint": "Każdy, kto ma ten link, może rysować na tablicy na żywo. Trzymaj go prywatnie albo wygeneruj nowy.",
+      "create": "Utwórz link do rysowania",
+      "open": "Otwórz tablicę",
+      "copied": "Skopiowano link do rysowania",
+      "regenerate": "Wygeneruj nowy link",
+      "confirmRegenerate": "Wygenerować nowy link? Stary przestanie działać u wszystkich, którzy go mają."
     }
   },
   "sections": {
@@ -429,7 +442,8 @@
     "goalSource": "Licz od",
     "alertImage": "Obrazek",
     "alertLayout": "Układ",
-    "imageSize": "Rozmiar obrazka"
+    "imageSize": "Rozmiar obrazka",
+    "canvasMedia": "Obraz lub wideo na tablicy"
   },
   "hints": {
     "hideAfter": "0 = wiadomości znikają dopiero, gdy wypchną je nowe.",
@@ -835,7 +849,10 @@
     "viewersIcon": "Ikona platformy",
     "viewersCount": "Liczba widzów",
     "viewersLabel": "Napis „widzów”",
-    "alertImage": "Obrazek alertu (układ z obrazkiem)"
+    "alertImage": "Obrazek alertu (układ z obrazkiem)",
+    "canvasStage": "Obszar rysowania (SVG z całą zawartością tablicy)",
+    "canvasText": "Tekst dodany na tablicy",
+    "canvasMedia": "Obraz lub wideo dodane na tablicy"
   },
   "actions": {
     "start": "Start",
@@ -859,10 +876,11 @@
     "errors": {
       "login_required": "Połącz konto, żeby wgrywać obrazki",
       "too_many_images": "Osiągnięto limit 50 obrazków",
-      "invalid_type": "Dozwolone są tylko obrazki PNG, WebP i GIF",
+      "invalid_type": "Dozwolone są tylko obrazy PNG, WebP i GIF oraz wideo MP4/WebM",
       "too_large": "Plik jest większy niż 10 MB",
       "too_many_frames": "Animacja ma za dużo klatek",
-      "generic": "Wgrywanie nie powiodło się"
+      "generic": "Wgrywanie nie powiodło się",
+      "video_too_large": "Wideo jest większe niż 25 MB"
     }
   },
   "library": {
@@ -884,5 +902,40 @@
     "confirmDelete": "Usunąć ten plik?",
     "confirmDeleteUsed": "Ten plik jest użyty w widgetach: {count}. Usunąć go i odpiąć od nich?",
     "manage": "Zarządzaj w Bibliotece"
+  },
+  "canvas": {
+    "title": "Tablica",
+    "hint": "Wszystko, co narysujesz, od razu pojawia się na streamie.",
+    "offline": "Brak połączenia",
+    "stroke": "Kolor",
+    "fill": "Kolor wypełnienia",
+    "noFill": "Bez wypełnienia",
+    "width": "Grubość linii",
+    "textStyle": "Styl tekstu",
+    "bold": "Pogrubienie",
+    "italic": "Kursywa",
+    "underline": "Podkreślenie",
+    "strike": "Przekreślenie",
+    "upload": "Dodaj obraz lub wideo",
+    "undo": "Cofnij",
+    "redo": "Ponów",
+    "remove": "Usuń zaznaczone",
+    "clear": "Wyczyść tablicę",
+    "confirmClear": "Usunąć wszystko z tablicy?",
+    "tools": {
+      "move": "Przesuń",
+      "pencil": "Ołówek",
+      "line": "Linia",
+      "rect": "Kwadrat",
+      "ellipse": "Okrąg",
+      "triangle": "Trójkąt",
+      "arrow": "Strzałka",
+      "text": "Tekst",
+      "fill": "Wiaderko",
+      "eraser": "Gumka"
+    },
+    "errors": {
+      "too_many_objects": "Tablica jest pełna — najpierw coś usuń."
+    }
   }
 }

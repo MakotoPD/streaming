@@ -3,6 +3,7 @@ import type { Channels, OverlayMessage, Settings } from '#shared/types'
 import {
   LazyWidgetAlerts,
   LazyWidgetCamFrame,
+  LazyWidgetCanvas,
   LazyWidgetChat,
   LazyWidgetClock,
   LazyWidgetCounter,
@@ -49,6 +50,7 @@ const COMPONENTS: Record<string, Component> = {
   'socials': LazyWidgetSocials,
   'marquee': LazyWidgetMarquee,
   'cam-frame': LazyWidgetCamFrame,
+  'canvas': LazyWidgetCanvas,
   'lower-third': LazyWidgetLowerThird,
   'redemptions': LazyWidgetRedemptions,
   'hype-train': LazyWidgetHypeTrain,

@@ -47,7 +47,7 @@ export interface WidgetDefinition {
   cssTemplate: { selector: string, declarations: Record<string, string> }[]
   tests: string[]
   actions?: string[]
-  panel?: 'pin'
+  panel?: 'pin' | 'canvas'
 }
 
 const COLOR = /^[#\w(),.%\s-]{1,80}$/

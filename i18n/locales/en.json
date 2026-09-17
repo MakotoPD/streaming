@@ -182,6 +182,10 @@
     "viewers": {
       "name": "Viewer count",
       "description": "Live viewers on Twitch and Kick, separately or combined."
+    },
+    "canvas": {
+      "name": "Drawing canvas",
+      "description": "A 2560×1440 board you or someone else can draw on live, with a separate edit link."
     }
   },
   "editor": {
@@ -225,6 +229,15 @@
       "hint": "Click a message to pin it on stream.",
       "waiting": "Waiting for chat messages…",
       "pinned": "Message pinned"
+    },
+    "canvas": {
+      "title": "Drawing link",
+      "hint": "Anyone with this link can draw on the board live. Keep it private or generate a new one.",
+      "create": "Create drawing link",
+      "open": "Open the board",
+      "copied": "Drawing link copied",
+      "regenerate": "Generate a new link",
+      "confirmRegenerate": "Generate a new link? The old one will stop working for everyone who has it."
     }
   },
   "sections": {
@@ -429,7 +442,8 @@
     "goalSource": "Count from",
     "alertImage": "Image",
     "alertLayout": "Layout",
-    "imageSize": "Image size"
+    "imageSize": "Image size",
+    "canvasMedia": "Image or video on the board"
   },
   "hints": {
     "hideAfter": "0 keeps messages until new ones push them out.",
@@ -835,7 +849,10 @@
     "viewersIcon": "Platform icon",
     "viewersCount": "Number of viewers",
     "viewersLabel": "“viewers” label",
-    "alertImage": "Alert image (Image on top layout)"
+    "alertImage": "Alert image (Image on top layout)",
+    "canvasStage": "Drawing area (SVG with everything on the board)",
+    "canvasText": "Text added on the board",
+    "canvasMedia": "Image or video added on the board"
   },
   "actions": {
     "start": "Start",
@@ -859,10 +876,11 @@
     "errors": {
       "login_required": "Connect an account to upload images",
       "too_many_images": "You have reached the limit of 50 images",
-      "invalid_type": "Only PNG, WebP and GIF images are allowed",
+      "invalid_type": "Only PNG, WebP and GIF images and MP4/WebM videos are allowed",
       "too_large": "The file is larger than 10 MB",
       "too_many_frames": "The animation has too many frames",
-      "generic": "Upload failed"
+      "generic": "Upload failed",
+      "video_too_large": "The video is larger than 25 MB"
     }
   },
   "library": {
@@ -884,5 +902,40 @@
     "confirmDelete": "Delete this file?",
     "confirmDeleteUsed": "This file is used in {count} widget(s). Delete it and remove it from them?",
     "manage": "Manage in Library"
+  },
+  "canvas": {
+    "title": "Drawing board",
+    "hint": "Everything you draw shows up on stream right away.",
+    "offline": "No connection",
+    "stroke": "Color",
+    "fill": "Fill color",
+    "noFill": "No fill",
+    "width": "Line width",
+    "textStyle": "Text style",
+    "bold": "Bold",
+    "italic": "Italic",
+    "underline": "Underline",
+    "strike": "Strikethrough",
+    "upload": "Add image or video",
+    "undo": "Undo",
+    "redo": "Redo",
+    "remove": "Delete selected",
+    "clear": "Clear the board",
+    "confirmClear": "Delete everything on the board?",
+    "tools": {
+      "move": "Move",
+      "pencil": "Pencil",
+      "line": "Line",
+      "rect": "Square",
+      "ellipse": "Circle",
+      "triangle": "Triangle",
+      "arrow": "Arrow",
+      "text": "Text",
+      "fill": "Fill",
+      "eraser": "Eraser"
+    },
+    "errors": {
+      "too_many_objects": "The board is full — delete something first."
+    }
   }
 }

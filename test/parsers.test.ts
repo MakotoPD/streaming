@@ -9,6 +9,7 @@ import { eventSubToStreamEvent } from '../server/utils/eventsub.ts'
 import { fillTemplate } from '../shared/utils/template.ts'
 import { formatColor, parseColor } from '../app/utils/color.ts'
 import { tokenizeCss } from '../app/utils/css-highlight.ts'
+import { applyOps, canvasPath, sanitizeOps, sanitizeScene } from '../shared/canvas.ts'
 
 test('parseIrc reads tags, command and trailing text', () => {
   const msg = parseIrc('@badges=subscriber/36;color=#FF69B4;display-name=Tester;emotes=25:0-4;id=abc;user-id=1\\s2 :tester!tester@tester.tmi.twitch.tv PRIVMSG #chan :Kappa hello')
@@ -142,4 +143,38 @@ test('eventSubToStreamEvent maps Twitch EventSub payloads', () => {
   assert.ok(prediction?.kind === 'prediction' && prediction.phase === 'lock' && prediction.outcomes[0]?.points === 900)
   assert.deepEqual(eventSubToStreamEvent('channel.follow', { user_name: 'F' }), { kind: 'alert', type: 'follow', platform: 'twitch', name: 'F' })
   assert.equal(eventSubToStreamEvent('channel.ban', {}), undefined)
+})
+
+test('canvas ops apply, upsert and delete', () => {
+  const stroke = { id: 'a1', kind: 'draw', shape: 'pencil', points: [0, 0, 10, 10], stroke: '#fff', width: 4, fill: 'none' } as const
+  const scene = applyOps({ background: '', objects: [] }, [{ t: 'put', o: { ...stroke } }])
+  assert.equal(scene.objects.length, 1)
+  const moved = applyOps(scene, [{ t: 'put', o: { ...stroke, points: [5, 5, 20, 20] } }])
+  assert.equal(moved.objects.length, 1)
+  assert.deepEqual(moved.objects[0]!.kind === 'draw' && moved.objects[0]!.points, [5, 5, 20, 20])
+  assert.equal(scene.objects[0]!.kind === 'draw' && scene.objects[0]!.points[0], 0)
+  assert.equal(applyOps(moved, [{ t: 'del', ids: ['a1'] }]).objects.length, 0)
+  assert.equal(applyOps(moved, [{ t: 'bg', color: '#000' }]).background, '#000')
+})
+
+test('canvas sanitizing drops junk and foreign media urls', () => {
+  const scene = sanitizeScene({
+    background: 'javascript:alert(1)',
+    objects: [
+      { id: 'ok', kind: 'media', x: 0, y: 0, w: 100, h: 100, url: '/api/images/2b0a1e7c-0000-4000-8000-00000000abcd/file', video: true },
+      { id: 'bad', kind: 'media', x: 0, y: 0, w: 100, h: 100, url: 'https://evil.example/x.png' },
+      { id: 'weird', kind: 'draw', shape: 'spiral', points: [1, 2] }
+    ]
+  })
+  assert.equal(scene.background, '')
+  assert.deepEqual(scene.objects.map(object => object.id), ['ok'])
+  assert.deepEqual(sanitizeOps([{ t: 'del', ids: ['a', 5] }, { t: 'nope' }]), [{ t: 'del', ids: ['a'] }])
+})
+
+test('canvas paths close shapes and point the arrow head', () => {
+  const base = { id: 'x', kind: 'draw', points: [0, 0, 100, 50], stroke: '#fff', width: 4, fill: 'none' } as const
+  assert.equal(canvasPath({ ...base, shape: 'rect' }), 'M 0 0 H 100 V 50 H 0 Z')
+  assert.equal(canvasPath({ ...base, shape: 'line' }), 'M 0 0 L 100 50')
+  assert.ok(canvasPath({ ...base, shape: 'arrow' }).split('M').length === 3)
+  assert.equal(canvasPath({ ...base, shape: 'pencil', points: [0, 0, 5, 5, 9, 9] }), 'M 0 0 L 5 5 L 9 9')
 })

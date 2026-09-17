@@ -182,6 +182,10 @@
     "viewers": {
       "name": "Número de espectadores",
       "description": "Espectadores en vivo en Twitch y Kick, por separado o juntos."
+    },
+    "canvas": {
+      "name": "Lienzo de dibujo",
+      "description": "Un lienzo de 2560×1440 en el que tú u otra persona podéis dibujar en directo, con un enlace de edición aparte."
     }
   },
   "editor": {
@@ -225,6 +229,15 @@
       "hint": "Haz clic en un mensaje para fijarlo en el directo.",
       "waiting": "Esperando mensajes del chat…",
       "pinned": "Mensaje fijado"
+    },
+    "canvas": {
+      "title": "Enlace de dibujo",
+      "hint": "Cualquiera con este enlace puede dibujar en el lienzo en directo. Guárdalo bien o genera uno nuevo.",
+      "create": "Crear enlace de dibujo",
+      "open": "Abrir el lienzo",
+      "copied": "Enlace de dibujo copiado",
+      "regenerate": "Generar un enlace nuevo",
+      "confirmRegenerate": "¿Generar un enlace nuevo? El anterior dejará de funcionar para todos los que lo tengan."
     }
   },
   "sections": {
@@ -429,7 +442,8 @@
     "goalSource": "Contar desde",
     "alertImage": "Imagen",
     "alertLayout": "Disposición",
-    "imageSize": "Tamaño de la imagen"
+    "imageSize": "Tamaño de la imagen",
+    "canvasMedia": "Imagen o vídeo en el lienzo"
   },
   "hints": {
     "hideAfter": "0 mantiene los mensajes hasta que los nuevos los desplacen.",
@@ -835,7 +849,10 @@
     "viewersIcon": "Icono de la plataforma",
     "viewersCount": "Número de espectadores",
     "viewersLabel": "Etiqueta «espectadores»",
-    "alertImage": "Imagen de la alerta (disposición con imagen)"
+    "alertImage": "Imagen de la alerta (disposición con imagen)",
+    "canvasStage": "Área de dibujo (SVG con todo el contenido del lienzo)",
+    "canvasText": "Texto añadido en el lienzo",
+    "canvasMedia": "Imagen o vídeo añadido en el lienzo"
   },
   "actions": {
     "start": "Iniciar",
@@ -859,10 +876,11 @@
     "errors": {
       "login_required": "Conecta una cuenta para subir imágenes",
       "too_many_images": "Has alcanzado el límite de 50 imágenes",
-      "invalid_type": "Solo se permiten imágenes PNG, WebP y GIF",
+      "invalid_type": "Solo se permiten imágenes PNG, WebP y GIF y vídeos MP4/WebM",
       "too_large": "El archivo supera los 10 MB",
       "too_many_frames": "La animación tiene demasiados fotogramas",
-      "generic": "Error al subir"
+      "generic": "Error al subir",
+      "video_too_large": "El vídeo pesa más de 25 MB"
     }
   },
   "library": {
@@ -884,5 +902,40 @@
     "confirmDelete": "¿Eliminar este archivo?",
     "confirmDeleteUsed": "Este archivo se usa en {count} widget(s). ¿Eliminarlo y quitarlo de ellos?",
     "manage": "Gestionar en la Biblioteca"
+  },
+  "canvas": {
+    "title": "Lienzo",
+    "hint": "Todo lo que dibujes aparece en el directo al instante.",
+    "offline": "Sin conexión",
+    "stroke": "Color",
+    "fill": "Color de relleno",
+    "noFill": "Sin relleno",
+    "width": "Grosor de línea",
+    "textStyle": "Estilo de texto",
+    "bold": "Negrita",
+    "italic": "Cursiva",
+    "underline": "Subrayado",
+    "strike": "Tachado",
+    "upload": "Añadir imagen o vídeo",
+    "undo": "Deshacer",
+    "redo": "Rehacer",
+    "remove": "Borrar lo seleccionado",
+    "clear": "Vaciar el lienzo",
+    "confirmClear": "¿Borrar todo el lienzo?",
+    "tools": {
+      "move": "Mover",
+      "pencil": "Lápiz",
+      "line": "Línea",
+      "rect": "Cuadrado",
+      "ellipse": "Círculo",
+      "triangle": "Triángulo",
+      "arrow": "Flecha",
+      "text": "Texto",
+      "fill": "Relleno",
+      "eraser": "Borrador"
+    },
+    "errors": {
+      "too_many_objects": "El lienzo está lleno: borra algo primero."
+    }
   }
 }

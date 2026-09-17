@@ -23,11 +23,11 @@ logs
 .env.*
 !.env.example
 
-# Claude (lokalne pliki asystenta, nie commitujemy)
+# Claude (local assistant files, never committed)
 CLAUDE.md
 CLAUDE.local.md
 .claude/
 .claude*
 
-# wgrane dźwięki użytkowników
+# user uploads
 data/

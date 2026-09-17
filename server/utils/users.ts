@@ -20,6 +20,7 @@ export async function createWidget(userId: string, type: string, language: strin
     type,
     name: '',
     token: newToken(),
+    editToken: type === 'canvas' ? newToken() : undefined,
     settings
   }).returning()
   return widget!

@@ -1,6 +1,7 @@
 import type { AlertType, ChatMessage, Settings, StreamEvent } from '../types'
 import { alerts, ALERT_TYPES } from './alerts'
 import { camFrame } from './cam-frame'
+import { canvas } from './canvas'
 import { chat } from './chat'
 import { clock } from './clock'
 import { counter } from './counter'
@@ -52,6 +53,7 @@ export const WIDGETS: Record<string, WidgetDefinition> = Object.fromEntries([
   marquee,
   camFrame,
   lowerThird,
+  canvas,
   redemptions,
   hypeTrain,
   twitchPoll,

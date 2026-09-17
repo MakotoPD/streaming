@@ -182,6 +182,10 @@
     "viewers": {
       "name": "Zuschauerzahl",
       "description": "Live-Zuschauer auf Twitch und Kick, getrennt oder zusammen."
+    },
+    "canvas": {
+      "name": "Zeichenfläche",
+      "description": "Eine 2560×1440-Fläche, auf der du oder jemand anderes live zeichnen kann – mit eigenem Bearbeitungslink."
     }
   },
   "editor": {
@@ -225,6 +229,15 @@
       "hint": "Klicke auf eine Nachricht, um sie im Stream anzuheften.",
       "waiting": "Warte auf Chatnachrichten…",
       "pinned": "Nachricht angeheftet"
+    },
+    "canvas": {
+      "title": "Zeichen-Link",
+      "hint": "Wer diesen Link hat, kann live auf der Fläche zeichnen. Halte ihn privat oder erzeuge einen neuen.",
+      "create": "Zeichen-Link erstellen",
+      "open": "Fläche öffnen",
+      "copied": "Zeichen-Link kopiert",
+      "regenerate": "Neuen Link erzeugen",
+      "confirmRegenerate": "Neuen Link erzeugen? Der alte funktioniert dann für niemanden mehr."
     }
   },
   "sections": {
@@ -429,7 +442,8 @@
     "goalSource": "Zählen ab",
     "alertImage": "Bild",
     "alertLayout": "Layout",
-    "imageSize": "Bildgröße"
+    "imageSize": "Bildgröße",
+    "canvasMedia": "Bild oder Video auf der Fläche"
   },
   "hints": {
     "hideAfter": "0 behält Nachrichten, bis neue sie verdrängen.",
@@ -835,7 +849,10 @@
     "viewersIcon": "Plattformsymbol",
     "viewersCount": "Zuschauerzahl",
     "viewersLabel": "Beschriftung „Zuschauer“",
-    "alertImage": "Alert-Bild (Layout mit Bild)"
+    "alertImage": "Alert-Bild (Layout mit Bild)",
+    "canvasStage": "Zeichenbereich (SVG mit allen Inhalten der Fläche)",
+    "canvasText": "Text auf der Fläche",
+    "canvasMedia": "Bild oder Video auf der Fläche"
   },
   "actions": {
     "start": "Start",
@@ -859,10 +876,11 @@
     "errors": {
       "login_required": "Verbinde ein Konto, um Bilder hochzuladen",
       "too_many_images": "Limit von 50 Bildern erreicht",
-      "invalid_type": "Nur PNG-, WebP- und GIF-Bilder sind erlaubt",
+      "invalid_type": "Erlaubt sind nur PNG-, WebP- und GIF-Bilder sowie MP4/WebM-Videos",
       "too_large": "Die Datei ist größer als 10 MB",
       "too_many_frames": "Die Animation hat zu viele Frames",
-      "generic": "Upload fehlgeschlagen"
+      "generic": "Upload fehlgeschlagen",
+      "video_too_large": "Das Video ist größer als 25 MB"
     }
   },
   "library": {
@@ -884,5 +902,40 @@
     "confirmDelete": "Diese Datei löschen?",
     "confirmDeleteUsed": "Diese Datei wird in {count} Widget(s) verwendet. Löschen und dort entfernen?",
     "manage": "In der Bibliothek verwalten"
+  },
+  "canvas": {
+    "title": "Zeichenfläche",
+    "hint": "Alles, was du zeichnest, erscheint sofort im Stream.",
+    "offline": "Keine Verbindung",
+    "stroke": "Farbe",
+    "fill": "Füllfarbe",
+    "noFill": "Ohne Füllung",
+    "width": "Linienstärke",
+    "textStyle": "Textstil",
+    "bold": "Fett",
+    "italic": "Kursiv",
+    "underline": "Unterstrichen",
+    "strike": "Durchgestrichen",
+    "upload": "Bild oder Video hinzufügen",
+    "undo": "Rückgängig",
+    "redo": "Wiederholen",
+    "remove": "Auswahl löschen",
+    "clear": "Fläche leeren",
+    "confirmClear": "Alles auf der Fläche löschen?",
+    "tools": {
+      "move": "Verschieben",
+      "pencil": "Stift",
+      "line": "Linie",
+      "rect": "Quadrat",
+      "ellipse": "Kreis",
+      "triangle": "Dreieck",
+      "arrow": "Pfeil",
+      "text": "Text",
+      "fill": "Füllen",
+      "eraser": "Radierer"
+    },
+    "errors": {
+      "too_many_objects": "Die Fläche ist voll – lösche zuerst etwas."
+    }
   }
 }

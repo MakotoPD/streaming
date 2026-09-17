@@ -12,8 +12,7 @@ export default defineEventHandler(async (event) => {
   if (!image) throw createError({ statusCode: 404 })
 
   const file = await readUploadedFile(event)
-  if (file.data.length > IMAGE_MAX_INPUT) throw createError({ statusCode: 400, message: 'too_large' })
-  const processed = await processImage(file.data)
+  const processed = await processMedia(file.data, true)
 
   const dir = join(useRuntimeConfig().uploadDir, 'images')
   const name = `${randomUUID()}.${processed.extension}`

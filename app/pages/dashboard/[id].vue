@@ -9,7 +9,7 @@ const toast = useToast()
 const route = useRoute()
 const id = String(route.params.id)
 
-interface WidgetRow { id: string, type: string, name: string, token: string, settings: Settings }
+interface WidgetRow { id: string, type: string, name: string, token: string, editToken: string | null, settings: Settings }
 interface StyleRow { id: string, name: string, values: Settings }
 
 const { data: widget, error } = await useFetch<WidgetRow>(`/api/widgets/${id}`)
@@ -311,6 +311,13 @@ async function regenerateToken() {
 
           <EditorPinPanel v-if="def.panel === 'pin'" @pin="pin" />
         </UCard>
+
+        <EditorCanvasPanel
+          v-if="def.panel === 'canvas'"
+          :id="widget.id"
+          :token="widget.editToken"
+          @update:token="widget = { ...widget!, editToken: $event }"
+        />
 
         <UCard :ui="{ body: 'space-y-3' }">
           <div class="font-semibold">

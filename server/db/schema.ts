@@ -1,4 +1,5 @@
 import { boolean, index, integer, jsonb, pgTable, text, timestamp, uniqueIndex, uuid } from 'drizzle-orm/pg-core'
+import type { CanvasScene } from '../../shared/canvas'
 import type { Channels, Settings } from '../../shared/types'
 
 export const users = pgTable('users', {
@@ -31,7 +32,9 @@ export const widgets = pgTable('widgets', {
   type: text().notNull(),
   name: text().notNull(),
   token: text().notNull().unique(),
+  editToken: text().unique(),
   settings: jsonb().$type<Settings>().notNull(),
+  scene: jsonb().$type<CanvasScene>(),
   createdAt: timestamp({ withTimezone: true }).notNull().defaultNow(),
   updatedAt: timestamp({ withTimezone: true }).notNull().defaultNow()
 }, t => [index().on(t.userId)])
@@ -65,5 +68,6 @@ export const images = pgTable('images', {
   width: integer().notNull(),
   height: integer().notNull(),
   animated: boolean().notNull().default(false),
+  canvas: boolean().notNull().default(false),
   createdAt: timestamp({ withTimezone: true }).notNull().defaultNow()
 }, t => [index().on(t.userId)])

@@ -2,6 +2,7 @@ import { desc, eq } from 'drizzle-orm'
 
 export default defineEventHandler(async (event) => {
   const userId = await requireUserId(event)
+  await sweepCanvasMedia(userId)
   const db = useDb()
   const [widgets, sounds, images] = await Promise.all([
     userWidgets(userId),
@@ -16,7 +17,7 @@ export default defineEventHandler(async (event) => {
     }),
     images: images.map((image) => {
       const url = `/api/images/${image.id}/file`
-      return { id: image.id, name: image.name, size: image.size, width: image.width, height: image.height, animated: image.animated, createdAt: image.createdAt, url, usages: usagesOf(widgets, url) }
+      return { id: image.id, name: image.name, size: image.size, mime: image.mime, width: image.width, height: image.height, animated: image.animated, createdAt: image.createdAt, url, usages: usagesOf(widgets, url) }
     })
   }
 })
