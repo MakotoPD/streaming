@@ -12,7 +12,7 @@ export const giveaway: WidgetDefinition = {
     { key: 'eligibility', section: 'general', type: 'select', default: 'everyone', options: ['everyone', 'subscribers'] },
     { key: 'showEntries', section: 'general', type: 'toggle', default: true },
     { key: 'rollDuration', section: 'general', type: 'number', default: 4, min: 0, max: 20, step: 0.5, unit: 's' },
-    { key: 'sound', section: 'general', type: 'sound', default: '/sounds/wide.mp3' },
+    { key: 'sound', section: 'general', type: 'sound', default: '' },
     { key: 'volume', section: 'general', type: 'number', default: 80, min: 0, max: 100, unit: '%' },
 
     { key: 'font', section: 'style', type: 'font', default: 'Poppins', css: '--font' },

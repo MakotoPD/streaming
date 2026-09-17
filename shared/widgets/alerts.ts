@@ -3,12 +3,12 @@ import { animationFields, customCssField, languageField, type Field, type Widget
 
 export const ALERT_TYPES: AlertType[] = ['follow', 'sub', 'gifts', 'raid', 'bits']
 
-const DEFAULTS: Record<AlertType, { color: string, sound: string }> = {
-  follow: { color: '#22d3ee', sound: '/sounds/plakal.mp3' },
-  sub: { color: '#a855f7', sound: '/sounds/pterodactyl.mp3' },
-  gifts: { color: '#ec4899', sound: '/sounds/pasja-gotowania.mp3' },
-  raid: { color: '#fb923c', sound: '/sounds/wide.mp3' },
-  bits: { color: '#fbbf24', sound: '' }
+const COLORS: Record<AlertType, string> = {
+  follow: '#22d3ee',
+  sub: '#a855f7',
+  gifts: '#ec4899',
+  raid: '#fb923c',
+  bits: '#fbbf24'
 }
 
 function typeFields(type: AlertType): Field[] {
@@ -20,8 +20,8 @@ function typeFields(type: AlertType): Field[] {
   if (type === 'bits' || type === 'raid') fields.push({ key: `${type}.min`, section: type, label: 'min', type: 'number', default: 1, min: 1, max: 100000 })
   fields.push(
     { key: `${type}.image`, section: type, label: 'alertImage', type: 'image', default: '' },
-    { key: `${type}.sound`, section: type, label: 'sound', type: 'sound', default: DEFAULTS[type].sound },
-    { key: `${type}.color`, section: type, label: 'color', type: 'color', default: DEFAULTS[type].color, css: `--c-${type}` }
+    { key: `${type}.sound`, section: type, label: 'sound', type: 'sound', default: '' },
+    { key: `${type}.color`, section: type, label: 'color', type: 'color', default: COLORS[type], css: `--c-${type}` }
   )
   return fields
 }
