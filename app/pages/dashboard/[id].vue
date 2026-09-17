@@ -124,7 +124,19 @@ async function regenerateToken() {
 
     <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,420px)_minmax(0,1fr)] gap-6 items-start">
       <UCard :ui="{ body: 'space-y-5' }">
-        <UTabs v-model="activeSection" :items="tabs" :content="false" variant="pill" size="xs" :ui="{ list: 'flex-wrap h-auto', trigger: 'grow-0' }" />
+        <div role="tablist" class="flex flex-wrap gap-1 rounded-lg bg-elevated p-1">
+          <UButton
+            v-for="tab in tabs"
+            :key="tab.value"
+            role="tab"
+            size="sm"
+            :aria-selected="activeSection === tab.value"
+            :color="activeSection === tab.value ? 'primary' : 'neutral'"
+            :variant="activeSection === tab.value ? 'solid' : 'ghost'"
+            :label="tab.label"
+            @click="activeSection = tab.value"
+          />
+        </div>
 
         <div v-if="activeSection === 'style'" class="space-y-3">
           <div class="text-sm font-medium">
