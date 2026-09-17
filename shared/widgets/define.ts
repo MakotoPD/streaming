@@ -20,6 +20,7 @@ export type Field = Base & (
   | { type: 'number', default: number, min: number, max: number, step?: number, unit?: string }
   | { type: 'toggle', default: boolean }
   | { type: 'select', default: string, options: readonly string[] }
+  | { type: 'multi', default: string[], options: readonly string[] }
   | { type: 'color', default: string }
   | { type: 'font', default: string }
   | { type: 'animation', default: string, kind: 'in' | 'out' }
@@ -60,6 +61,8 @@ function clean(field: Field, value: unknown): unknown {
       return typeof value === 'boolean' ? value : field.default
     case 'select':
       return field.options.includes(value as string) ? value : field.default
+    case 'multi':
+      return Array.isArray(value) ? [...new Set(value.filter(v => field.options.includes(v)))] : field.default
     case 'font':
       return FONTS.includes(value as typeof FONTS[number]) ? value : field.default
     case 'animation':

@@ -264,7 +264,7 @@
     "accent1": "Akcent 1",
     "accent2": "Akcent 2",
     "italic": "Tytuł kursywą",
-    "rainMode": "Kierunek",
+    "rainMode": "Efekt dla czatu",
     "perMessage": "Emotki na wiadomość",
     "maxEmotes": "Maks. emotek na ekranie",
     "rainDuration": "Czas przelotu",
@@ -362,7 +362,14 @@
     "showFor": "Pokazuj przez",
     "hideFor": "Ukrywaj przez",
     "subtitleSize": "Rozmiar podtytułu",
-    "subtitleColor": "Kolor podtytułu"
+    "subtitleColor": "Kolor podtytułu",
+    "triggers": "Uruchamiaj przy",
+    "alertMode": "Efekt dla zdarzeń",
+    "alertAmount": "Emotek na zdarzenie",
+    "scaleWithAmount": "Skaluj z ilością",
+    "alertEmotes": "Emotki dla zdarzeń",
+    "burstSize": "Emotek w wybuchu",
+    "spread": "Rozmiar wybuchu"
   },
   "hints": {
     "hideAfter": "0 = wiadomości znikają dopiero, gdy wypchną je nowe.",
@@ -375,8 +382,7 @@
     "countdownTo": "Czas lokalny. Puste = bez odliczania.",
     "title": "Puste = domyślny tekst dla wybranego trybu.",
     "sceneBackground": "3D wygląda świetnie, ale obciąża kartę graficzną. Jeśli gra się tnie, wybierz lżejsze tło.",
-    "perMessage": "Kolejne emotki z tej samej wiadomości są pomijane.",
-    "maxEmotes": "Chroni overlay przed obciążeniem przy spamie.",
+    "perMessage": "Dla deszczu, wznoszenia i przelotu. Wybuchy i fontanny używają „Emotek w wybuchu”.",
     "commandPrefix": "Głos to prefiks + numer, np. !1. Puste = same cyfry.",
     "allowChange": "W przeciwnym razie liczy się tylko pierwszy głos.",
     "autoClose": "Liczone od Startu. 0 = do kliknięcia Stop.",
@@ -396,7 +402,11 @@
     "lines": "Zatwierdź każdy tekst Enterem. Puste = domyślne powitanie.",
     "frameLabel": "Puste = nazwa kanału.",
     "thirdTitle": "Puste = nazwa kanału.",
-    "clockMode": "Czas trwania jest pobierany z Twitcha lub Kicka co minutę."
+    "clockMode": "Czas trwania jest pobierany z Twitcha lub Kicka co minutę.",
+    "triggers": "Wybierz, co uruchamia efekt. Czat używa emotek z wiadomości.",
+    "scaleWithAmount": "Więcej giftów, bitów albo raiderów = więcej emotek (do 10×).",
+    "alertEmotes": "Nazwy emotek z kanału, np. KEKW. Puste = losowe emotki z Twojego zestawu 7TV/BTTV/FFZ.",
+    "spread": "Jak daleko emotki odlatują od środka wybuchu."
   },
   "options": {
     "direction": {
@@ -428,9 +438,13 @@
       "3d": "Kosmos 3D (ciężkie)"
     },
     "rainMode": {
-      "fall": "Spadanie",
+      "fall": "Deszcz",
       "rise": "Wznoszenie",
-      "fly": "Przelot"
+      "fly": "Przelot",
+      "burst": "Wybuchy w losowych miejscach",
+      "fountain": "Fontanna",
+      "pop": "Wyskakiwanie w miejscu",
+      "random": "Losowy"
     },
     "permission": {
       "everyone": "Wszyscy",
@@ -497,6 +511,23 @@
     "align": {
       "left": "Do lewej",
       "right": "Do prawej"
+    },
+    "alertMode": {
+      "fall": "Deszcz",
+      "rise": "Wznoszenie",
+      "fly": "Przelot",
+      "burst": "Wybuchy w losowych miejscach",
+      "fountain": "Fontanna",
+      "pop": "Wyskakiwanie w miejscu",
+      "random": "Losowy"
+    },
+    "triggers": {
+      "chat": "Wiadomości z emotkami",
+      "follow": "Obserwacja",
+      "sub": "Sub",
+      "gifts": "Gifty",
+      "raid": "Raid",
+      "bits": "Bity"
     }
   },
   "animations": {
@@ -681,7 +712,8 @@
     "lowerThird": "Belka",
     "lowerThirdAccent": "Pasek akcentu",
     "lowerThirdTitle": "Nazwa",
-    "lowerThirdSubtitle": "Podtytuł"
+    "lowerThirdSubtitle": "Podtytuł",
+    "emoteDropBurst": "Emotki jednego efektu: .emote-drop-fall, -rise, -fly, -burst, -fountain, -pop"
   },
   "actions": {
     "start": "Start",

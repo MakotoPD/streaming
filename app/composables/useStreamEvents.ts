@@ -20,10 +20,12 @@ export function createEventBus(): EventBus {
 
 export function useStreamEvents(channels: MaybeRefOrGetter<Channels | undefined>, bus: EventBus, enabled: MaybeRefOrGetter<boolean> = true) {
   let cleanup: (() => void)[] = []
+  const emoteStore = shallowRef<ReturnType<typeof createEmoteStore>>()
 
   const stop = () => {
     cleanup.forEach(fn => fn())
     cleanup = []
+    emoteStore.value = undefined
   }
 
   watch(() => [toValue(channels)?.twitch?.login, toValue(channels)?.kick?.slug, toValue(enabled)] as const, ([twitchLogin, kickSlug, on]) => {
@@ -35,6 +37,7 @@ export function useStreamEvents(channels: MaybeRefOrGetter<Channels | undefined>
 
     const emotes = createEmoteStore()
     cleanup.push(emotes.close)
+    emoteStore.value = emotes
     const ids: { twitchId?: string, kickUserId?: number } = {}
 
     const emit = (event: StreamEvent) => {
@@ -71,6 +74,7 @@ export function useStreamEvents(channels: MaybeRefOrGetter<Channels | undefined>
   }, { immediate: true })
 
   onScopeDispose(stop)
+  return { emotes: emoteStore }
 }
 
 export function useBusEvents(bus: EventBus, handler: Parameters<EventBus['on']>[0]) {

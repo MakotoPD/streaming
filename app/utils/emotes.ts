@@ -66,6 +66,7 @@ export function expandParts(parts: ChatPart[], lookup: (name: string) => Emote |
 export function createEmoteStore() {
   const layers = { ffz: new Map<string, Emote>(), bttv: new Map<string, Emote>(), seventv: new Map<string, Emote>() }
   let merged = new Map<string, Emote>()
+  let channel: { name: string, url: string }[] = []
   let eventSocket: WebSocket | undefined
   let loadSeq = 0
   let closed = false
@@ -92,6 +93,9 @@ export function createEmoteStore() {
     layers.bttv = new Map([...bttvList(bttvGlobal), ...bttvList(bttvUser?.sharedEmotes), ...bttvList(bttvUser?.channelEmotes)])
     layers.ffz = new Map([...ffzList(ffzGlobal), ...ffzList(ffzUser)])
     rebuild()
+    channel = [...new Map([...sevenTvSet(stvKick?.emote_set), ...sevenTvSet(stvTwitch?.emote_set), ...bttvList(bttvUser?.sharedEmotes), ...bttvList(bttvUser?.channelEmotes), ...ffzList(ffzUser)]).entries()]
+      .filter(([, emote]) => !emote.zeroWidth)
+      .map(([name, emote]) => ({ name, url: emote.url }))
 
     const setIds = [stvTwitch?.emote_set?.id, stvKick?.emote_set?.id].filter(Boolean) as string[]
     watchSevenTv(setIds, ids)
@@ -123,6 +127,10 @@ export function createEmoteStore() {
   return {
     load,
     lookup: (name: string) => merged.get(name),
+    sample: (count: number) => {
+      const pool = channel.length ? channel : [...merged.entries()].filter(([, emote]) => !emote.zeroWidth).map(([name, emote]) => ({ name, url: emote.url }))
+      return Array.from({ length: pool.length ? count : 0 }, () => pool[Math.floor(Math.random() * pool.length)]!)
+    },
     expand: (parts: ChatPart[]) => expandParts(parts, name => merged.get(name)),
     close: () => {
       closed = true

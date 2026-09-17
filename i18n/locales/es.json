@@ -264,7 +264,7 @@
     "accent1": "Acento 1",
     "accent2": "Acento 2",
     "italic": "Título en cursiva",
-    "rainMode": "Dirección",
+    "rainMode": "Efecto del chat",
     "perMessage": "Emotes por mensaje",
     "maxEmotes": "Máx. emotes en pantalla",
     "rainDuration": "Duración del vuelo",
@@ -362,7 +362,14 @@
     "showFor": "Mostrar durante",
     "hideFor": "Ocultar durante",
     "subtitleSize": "Tamaño del subtítulo",
-    "subtitleColor": "Color del subtítulo"
+    "subtitleColor": "Color del subtítulo",
+    "triggers": "Activar con",
+    "alertMode": "Efecto de eventos",
+    "alertAmount": "Emotes por evento",
+    "scaleWithAmount": "Escalar con la cantidad",
+    "alertEmotes": "Emotes de eventos",
+    "burstSize": "Emotes por explosión",
+    "spread": "Tamaño de la explosión"
   },
   "hints": {
     "hideAfter": "0 mantiene los mensajes hasta que los nuevos los desplacen.",
@@ -375,8 +382,7 @@
     "countdownTo": "Hora local. Vacío = sin cuenta atrás.",
     "title": "Vacío = texto predeterminado del modo elegido.",
     "sceneBackground": "El 3D se ve genial pero usa la GPU. Si el juego va a tirones, elige un fondo más ligero.",
-    "perMessage": "Los emotes extra de un mismo mensaje se ignoran.",
-    "maxEmotes": "Mantiene el overlay ligero si el chat hace spam.",
+    "perMessage": "Para lluvia, subir y cruzar. Explosiones y fuentes usan «Emotes por explosión».",
     "commandPrefix": "El voto es prefijo + número, p. ej. !1. Vacío = solo números.",
     "allowChange": "Si no, solo cuenta el primer voto.",
     "autoClose": "Desde Iniciar. 0 = hasta pulsar Detener.",
@@ -396,7 +402,11 @@
     "lines": "Pulsa Enter tras cada texto. Vacío = bienvenida por defecto.",
     "frameLabel": "Vacío = nombre de tu canal.",
     "thirdTitle": "Vacío = nombre de tu canal.",
-    "clockMode": "El tiempo en directo se lee de Twitch o Kick cada minuto."
+    "clockMode": "El tiempo en directo se lee de Twitch o Kick cada minuto.",
+    "triggers": "Elige qué inicia el efecto. El chat usa los emotes del mensaje.",
+    "scaleWithAmount": "Más regalos, bits o raiders = más emotes (hasta 10×).",
+    "alertEmotes": "Nombres de emotes del canal, p. ej. KEKW. Vacío = emotes aleatorios de tu set 7TV/BTTV/FFZ.",
+    "spread": "Hasta dónde vuelan los emotes desde el centro."
   },
   "options": {
     "direction": {
@@ -428,9 +438,13 @@
       "3d": "Espacio 3D (pesado)"
     },
     "rainMode": {
-      "fall": "Caer",
+      "fall": "Lluvia",
       "rise": "Subir",
-      "fly": "Cruzar"
+      "fly": "Cruzar",
+      "burst": "Explosiones en lugares aleatorios",
+      "fountain": "Fuente",
+      "pop": "Aparecer en el sitio",
+      "random": "Aleatorio"
     },
     "permission": {
       "everyone": "Todos",
@@ -497,6 +511,23 @@
     "align": {
       "left": "Izquierda",
       "right": "Derecha"
+    },
+    "alertMode": {
+      "fall": "Lluvia",
+      "rise": "Subir",
+      "fly": "Cruzar",
+      "burst": "Explosiones en lugares aleatorios",
+      "fountain": "Fuente",
+      "pop": "Aparecer en el sitio",
+      "random": "Aleatorio"
+    },
+    "triggers": {
+      "chat": "Mensajes con emotes",
+      "follow": "Follow",
+      "sub": "Sub",
+      "gifts": "Subs regalados",
+      "raid": "Raid",
+      "bits": "Bits"
     }
   },
   "animations": {
@@ -681,7 +712,8 @@
     "lowerThird": "Rótulo",
     "lowerThirdAccent": "Franja de acento",
     "lowerThirdTitle": "Nombre",
-    "lowerThirdSubtitle": "Subtítulo"
+    "lowerThirdSubtitle": "Subtítulo",
+    "emoteDropBurst": "Emotes de un efecto: .emote-drop-fall, -rise, -fly, -burst, -fountain, -pop"
   },
   "actions": {
     "start": "Iniciar",

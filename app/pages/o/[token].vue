@@ -59,11 +59,10 @@ watch(data, (value) => {
   if (value) settings.value = value.settings
 }, { immediate: true })
 
-provideWidgetContext({ id: data.value?.id ?? token, preview, channels: computed(() => data.value?.channels) })
-
 const live = ref(!preview || route.query.live !== '0')
 const bus = createEventBus()
-useStreamEvents(() => data.value?.channels, bus, () => live.value && !!data.value)
+const { emotes } = useStreamEvents(() => data.value?.channels, bus, () => live.value && !!data.value)
+provideWidgetContext({ id: data.value?.id ?? token, preview, channels: computed(() => data.value?.channels), emotes })
 
 const highlight = ref<string>()
 

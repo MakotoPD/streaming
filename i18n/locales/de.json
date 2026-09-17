@@ -264,7 +264,7 @@
     "accent1": "Akzent 1",
     "accent2": "Akzent 2",
     "italic": "Kursiver Titel",
-    "rainMode": "Richtung",
+    "rainMode": "Effekt für Chat",
     "perMessage": "Emotes pro Nachricht",
     "maxEmotes": "Max. Emotes auf dem Bildschirm",
     "rainDuration": "Flugdauer",
@@ -362,7 +362,14 @@
     "showFor": "Anzeigen für",
     "hideFor": "Ausblenden für",
     "subtitleSize": "Untertitelgröße",
-    "subtitleColor": "Untertitelfarbe"
+    "subtitleColor": "Untertitelfarbe",
+    "triggers": "Auslösen bei",
+    "alertMode": "Effekt für Ereignisse",
+    "alertAmount": "Emotes pro Ereignis",
+    "scaleWithAmount": "Mit Menge skalieren",
+    "alertEmotes": "Emotes für Ereignisse",
+    "burstSize": "Emotes pro Explosion",
+    "spread": "Explosionsgröße"
   },
   "hints": {
     "hideAfter": "0 behält Nachrichten, bis neue sie verdrängen.",
@@ -375,8 +382,7 @@
     "countdownTo": "Lokale Zeit. Leer = kein Countdown.",
     "title": "Leer = Standardtext für den gewählten Modus.",
     "sceneBackground": "3D sieht toll aus, belastet aber die GPU. Wenn dein Spiel ruckelt, wähle einen leichteren Hintergrund.",
-    "perMessage": "Weitere Emotes derselben Nachricht werden übersprungen.",
-    "maxEmotes": "Hält das Overlay leicht, wenn der Chat spammt.",
+    "perMessage": "Für Regen, Aufsteigen und Durchfliegen. Explosionen und Fontänen nutzen „Emotes pro Explosion“.",
     "commandPrefix": "Stimme = Präfix + Zahl, z. B. !1. Leer = nur Zahlen.",
     "allowChange": "Sonst zählt nur die erste Stimme.",
     "autoClose": "Ab Start. 0 = bis du Stopp drückst.",
@@ -396,7 +402,11 @@
     "lines": "Jeden Text mit Enter bestätigen. Leer = Standardbegrüßung.",
     "frameLabel": "Leer = dein Kanalname.",
     "thirdTitle": "Leer = dein Kanalname.",
-    "clockMode": "Die Streamdauer wird jede Minute von Twitch oder Kick gelesen."
+    "clockMode": "Die Streamdauer wird jede Minute von Twitch oder Kick gelesen.",
+    "triggers": "Wähle, was den Effekt startet. Chat nutzt die Emotes der Nachricht.",
+    "scaleWithAmount": "Mehr Geschenke, Bits oder Raider = mehr Emotes (bis 10×).",
+    "alertEmotes": "Emote-Namen deines Kanals, z. B. KEKW. Leer = zufällige Emotes aus deinem 7TV/BTTV/FFZ-Set.",
+    "spread": "Wie weit Emotes vom Explosionszentrum fliegen."
   },
   "options": {
     "direction": {
@@ -428,9 +438,13 @@
       "3d": "3D-Weltraum (schwer)"
     },
     "rainMode": {
-      "fall": "Fallen",
-      "rise": "Steigen",
-      "fly": "Durchfliegen"
+      "fall": "Regen",
+      "rise": "Aufsteigen",
+      "fly": "Durchfliegen",
+      "burst": "Explosionen an zufälligen Stellen",
+      "fountain": "Fontäne",
+      "pop": "Aufploppen",
+      "random": "Zufällig"
     },
     "permission": {
       "everyone": "Alle",
@@ -497,6 +511,23 @@
     "align": {
       "left": "Links",
       "right": "Rechts"
+    },
+    "alertMode": {
+      "fall": "Regen",
+      "rise": "Aufsteigen",
+      "fly": "Durchfliegen",
+      "burst": "Explosionen an zufälligen Stellen",
+      "fountain": "Fontäne",
+      "pop": "Aufploppen",
+      "random": "Zufällig"
+    },
+    "triggers": {
+      "chat": "Chatnachrichten mit Emotes",
+      "follow": "Follow",
+      "sub": "Abo",
+      "gifts": "Verschenkte Abos",
+      "raid": "Raid",
+      "bits": "Bits"
     }
   },
   "animations": {
@@ -681,7 +712,8 @@
     "lowerThird": "Balken",
     "lowerThirdAccent": "Akzentstreifen",
     "lowerThirdTitle": "Name",
-    "lowerThirdSubtitle": "Untertitel"
+    "lowerThirdSubtitle": "Untertitel",
+    "emoteDropBurst": "Emotes eines Effekts: .emote-drop-fall, -rise, -fly, -burst, -fountain, -pop"
   },
   "actions": {
     "start": "Start",

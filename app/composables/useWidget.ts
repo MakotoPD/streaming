@@ -5,6 +5,7 @@ export interface WidgetContext {
   id: string
   preview: boolean
   channels: Ref<Channels | undefined>
+  emotes: ShallowRef<ReturnType<typeof createEmoteStore> | undefined>
 }
 
 const WIDGET_CONTEXT: InjectionKey<WidgetContext> = Symbol('widget-context')

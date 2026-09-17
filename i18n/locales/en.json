@@ -264,7 +264,7 @@
     "accent1": "Accent 1",
     "accent2": "Accent 2",
     "italic": "Italic title",
-    "rainMode": "Direction",
+    "rainMode": "Chat effect",
     "perMessage": "Emotes per message",
     "maxEmotes": "Max emotes on screen",
     "rainDuration": "Flight time",
@@ -362,7 +362,14 @@
     "showFor": "Show for",
     "hideFor": "Hide for",
     "subtitleSize": "Subtitle size",
-    "subtitleColor": "Subtitle color"
+    "subtitleColor": "Subtitle color",
+    "triggers": "Trigger on",
+    "alertMode": "Event effect",
+    "alertAmount": "Emotes per event",
+    "scaleWithAmount": "Scale with amount",
+    "alertEmotes": "Event emotes",
+    "burstSize": "Emotes per explosion",
+    "spread": "Explosion size"
   },
   "hints": {
     "hideAfter": "0 keeps messages until new ones push them out.",
@@ -375,8 +382,7 @@
     "countdownTo": "Local time. Leave empty to hide the countdown.",
     "title": "Leave empty for the default text for the selected mode.",
     "sceneBackground": "3D looks great but uses the GPU. Pick a lighter background if your game stutters.",
-    "perMessage": "Extra emotes in one message are skipped.",
-    "maxEmotes": "Keeps the overlay light when chat spams.",
+    "perMessage": "For rain, rise and fly. Explosions and fountains use “Emotes per explosion”.",
     "commandPrefix": "Votes look like prefix + number, e.g. !1. Leave empty to accept plain numbers.",
     "allowChange": "Otherwise only the first vote counts.",
     "autoClose": "Counted from Start. 0 = until you press Stop.",
@@ -396,7 +402,11 @@
     "lines": "Press Enter after each text. Empty = default welcome text.",
     "frameLabel": "Empty = your channel name.",
     "thirdTitle": "Empty = your channel name.",
-    "clockMode": "Uptime is read from Twitch or Kick every minute."
+    "clockMode": "Uptime is read from Twitch or Kick every minute.",
+    "triggers": "Pick what starts the effect. Chat uses the emotes from the message.",
+    "scaleWithAmount": "More gifted subs, bits or raiders = more emotes (up to 10×).",
+    "alertEmotes": "Emote names from your channel, e.g. KEKW. Empty = random emotes from your 7TV/BTTV/FFZ set.",
+    "spread": "How far emotes fly from the center of an explosion."
   },
   "options": {
     "direction": {
@@ -428,9 +438,13 @@
       "3d": "3D space (heavy)"
     },
     "rainMode": {
-      "fall": "Fall",
+      "fall": "Rain",
       "rise": "Rise",
-      "fly": "Fly across"
+      "fly": "Fly across",
+      "burst": "Explosions in random places",
+      "fountain": "Fountain",
+      "pop": "Pop in place",
+      "random": "Random"
     },
     "permission": {
       "everyone": "Everyone",
@@ -497,6 +511,23 @@
     "align": {
       "left": "Left",
       "right": "Right"
+    },
+    "alertMode": {
+      "fall": "Rain",
+      "rise": "Rise",
+      "fly": "Fly across",
+      "burst": "Explosions in random places",
+      "fountain": "Fountain",
+      "pop": "Pop in place",
+      "random": "Random"
+    },
+    "triggers": {
+      "chat": "Chat messages with emotes",
+      "follow": "Follow",
+      "sub": "Sub",
+      "gifts": "Gifted subs",
+      "raid": "Raid",
+      "bits": "Bits"
     }
   },
   "animations": {
@@ -681,7 +712,8 @@
     "lowerThird": "Bar",
     "lowerThirdAccent": "Accent stripe",
     "lowerThirdTitle": "Name",
-    "lowerThirdSubtitle": "Subtitle"
+    "lowerThirdSubtitle": "Subtitle",
+    "emoteDropBurst": "Emotes of one effect: .emote-drop-fall, -rise, -fly, -burst, -fountain, -pop"
   },
   "actions": {
     "start": "Start",

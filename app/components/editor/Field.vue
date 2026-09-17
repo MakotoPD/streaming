@@ -13,6 +13,9 @@ const LANGUAGE_NAMES: Record<string, string> = { en: 'English', pl: 'Polski', es
 
 const items = computed(() => {
   const field = props.field
+  if (field.type === 'multi') {
+    return field.options.map(value => ({ value, label: t(`options.${labelKey.value}.${value}`) }))
+  }
   if (field.type === 'select') {
     return field.options.map(value => ({
       value,
@@ -43,6 +46,8 @@ const items = computed(() => {
     <USwitch v-else-if="field.type === 'toggle'" v-model="model" />
 
     <USelect v-else-if="field.type === 'select' || field.type === 'animation' || field.type === 'font'" v-model="model" :items="items" class="w-full" />
+
+    <USelectMenu v-else-if="field.type === 'multi'" v-model="model" :items="items" value-key="value" multiple class="w-full" />
 
     <EditorColorField v-else-if="field.type === 'color'" v-model="model" />
 
