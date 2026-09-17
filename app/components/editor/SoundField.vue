@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import { BUILTIN_SOUNDS } from '#shared/widgets'
-
 const model = defineModel<string>({ default: '' })
 const { t } = useI18n()
 const toast = useToast()
 
 const { data: me } = useMe()
 const { data: mine, refresh } = useFetch<{ id: string, name: string, url: string }[]>('/api/sounds', { key: 'sounds', default: () => [] })
+const { data: builtin } = useFetch<{ name: string, url: string }[]>('/api/sounds/builtin', { key: 'builtin-sounds', default: () => [] })
 
 const canUpload = computed(() => (me.value?.accounts.length ?? 0) > 0)
 const mode = ref<'library' | 'url'>(model.value.startsWith('http') ? 'url' : 'library')
@@ -17,7 +16,7 @@ const fileInput = useTemplateRef<HTMLInputElement>('file')
 const items = computed(() => [
   { value: 'none', label: t('sound.none') },
   { type: 'label' as const, label: t('sound.builtin') },
-  ...BUILTIN_SOUNDS.map(s => ({ value: s.url, label: s.name })),
+  ...builtin.value.map(s => ({ value: s.url, label: s.name })),
   ...(mine.value.length ? [{ type: 'label' as const, label: t('sound.mine') }] : []),
   ...mine.value.map(s => ({ value: s.url, label: s.name }))
 ])

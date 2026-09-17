@@ -13,6 +13,10 @@ export default defineNuxtConfig({
     }
   },
 
+  nitro: {
+    serverAssets: [{ baseName: 'sounds', dir: '../server/assets/sounds' }]
+  },
+
   routeRules: {
     '/o/**': { ssr: false }
   },

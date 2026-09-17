@@ -55,6 +55,8 @@ Signing in with Twitch stores the OAuth tokens encrypted (AES-256-GCM, key deriv
 
 EventSub webhooks only work when `NUXT_PUBLIC_SITE_URL` is a public `https://` address, so rewards, Hype Train, polls, predictions and Twitch follows cannot be received on localhost.
 
+Built-in alert sounds live in `server/assets/sounds/`. The editor lists whatever is in that folder (`GET /api/sounds/builtin`), so adding a sound only means dropping the file there and redeploying; file names become the labels. They are served from `/sounds/<file>`.
+
 Uploaded images are re-encoded with sharp: GIFs become animated WebP, PNG stays PNG, everything is resized to fit 1024 px and stripped of metadata. Anything that is not a real PNG, WebP or GIF is rejected. Files are served with `X-Content-Type-Options: nosniff` and a `default-src 'none'; sandbox` CSP.
 
 The dashboard has a **Library** page listing uploaded images and sounds with the widgets and fields that use them. Replacing a file keeps its URL (widgets using it reload), and deleting one also clears it from those widgets.

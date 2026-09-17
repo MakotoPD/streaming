@@ -4,8 +4,8 @@ import { animationFields, customCssField, languageField, type Field, type Widget
 export const ALERT_TYPES: AlertType[] = ['follow', 'sub', 'gifts', 'raid', 'bits']
 
 const DEFAULTS: Record<AlertType, { color: string, sound: string }> = {
-  follow: { color: '#22d3ee', sound: '/sounds/plakal2.mp3' },
-  sub: { color: '#a855f7', sound: '/sounds/pterodaktyl.mp3' },
+  follow: { color: '#22d3ee', sound: '/sounds/plakal.mp3' },
+  sub: { color: '#a855f7', sound: '/sounds/pterodactyl.mp3' },
   gifts: { color: '#ec4899', sound: '/sounds/pasja-gotowania.mp3' },
   raid: { color: '#fb923c', sound: '/sounds/wide.mp3' },
   bits: { color: '#fbbf24', sound: '' }

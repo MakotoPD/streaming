@@ -60,8 +60,6 @@ export const WIDGETS: Record<string, WidgetDefinition> = Object.fromEntries([
 
 export const WIDGET_TYPES = Object.keys(WIDGETS)
 
-export const BUILTIN_SOUNDS = ['plakal2', 'pterodaktyl', 'pasja-gotowania', 'wide'].map(name => ({ name, url: `/sounds/${name}.mp3` }))
-
 const LUL = 'https://static-cdn.jtvnw.net/emoticons/v2/425618/default/dark/2.0'
 const SAMPLE_TEXTS = ['Hello chat!', 'GG WP', 'that was insane', 'first time here, love the stream', 'let\'s gooo']
 const SAMPLE_NAMES = ['makotopd', 'TestViewer', 'chatter_42', 'NightOwl', 'PixelPanda', 'LagMaster', 'CozyGamer', 'NoScopeNina']

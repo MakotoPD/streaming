@@ -51,7 +51,7 @@ export interface WidgetDefinition {
 }
 
 const COLOR = /^[#\w(),.%\s-]{1,80}$/
-const SOUND = /^(\/sounds\/[\w.-]+|\/api\/sounds\/[\w-]+\/file|https?:\/\/\S{1,500})$/
+const SOUND = /^(\/sounds\/[\w%.()'+-]{1,120}|\/api\/sounds\/[\w-]+\/file|https?:\/\/\S{1,500})$/
 const TIME = /^([01]\d|2[0-3]):[0-5]\d$/
 const IMAGE = /^\/api\/images\/[\da-f-]{36}\/file$/
 
