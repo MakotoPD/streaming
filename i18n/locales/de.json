@@ -2,11 +2,15 @@
   "nav": {
     "dashboard": "Dashboard",
     "logout": "Abmelden",
-    "library": "Bibliothek"
+    "library": "Bibliothek",
+    "privacy": "Datenschutz",
+    "terms": "Bedingungen",
+    "cookies": "Cookies"
   },
   "footer": {
-    "tagline": "Leichtgewichtige Stream-Widgets für OBS.",
-    "contribute": "Neues Widget gewünscht? Mach mit auf GitHub."
+    "tagline": "Leichte Stream-Widgets für OBS.",
+    "contribute": "Du willst ein neues Widget? Trag auf GitHub bei.",
+    "rights": "Nicht verbunden mit Twitch, Kick, 7TV oder BetterTTV."
   },
   "common": {
     "soon": "Demnächst",
@@ -23,8 +27,8 @@
   "landing": {
     "title": "Stream-Widgets für OBS",
     "badge": "Twitch · Kick · 7TV · BetterTTV",
-    "headline": "Stream-Widgets, die deine CPU schonen",
-    "description": "Chat, Alerts, Emote-Combos und Szenen-Bildschirme. Stil wählen, Animationen anpassen und einen Link in OBS einfügen.",
+    "headline": "Stream-Widgets, die deine CPU in Ruhe lassen",
+    "description": "Chat, Alerts, Ziele, Szenenbilder und eine Zeichenfläche, die du weitergeben kannst. Stil wählen, Animation anpassen, einen Link in OBS einfügen.",
     "welcomeBack": "Du bist angemeldet. Deine Widgets warten.",
     "guestTitle": "Starte mit deinem Namen",
     "guestDescription": "Kein Konto nötig. Deine Widgets bleiben in diesem Browser gespeichert.",
@@ -47,7 +51,49 @@
       "styles": {
         "title": "Stile und Animationen",
         "text": "Starte mit einer Vorlage, pass sie an und speichere sie als eigenen Stil."
+      },
+      "canvas": {
+        "title": "Eine Fläche, auf der deine Mods zeichnen",
+        "text": "Schick einem Freund den Zeichen-Link – was er malt, schreibt oder ablegt, erscheint sofort im Stream."
       }
+    },
+    "bullets": {
+      "free": "Kostenlos, ohne Wasserzeichen",
+      "noInstall": "Nichts zu installieren",
+      "live": "Änderungen sind sofort sichtbar"
+    },
+    "mock": {
+      "scene": "OBS · Szene 1",
+      "alert": "Neuer Follower",
+      "chat1": "das Overlay ist sauber",
+      "chat2": "was ist das für eine Schrift",
+      "chat3": "endlich kein Lag"
+    },
+    "steps": {
+      "eyebrow": "So funktioniert es",
+      "title": "Drei Schritte, rund zwei Minuten",
+      "pick": {
+        "title": "Widget auswählen",
+        "text": "Kanal-Nickname eintippen oder mit Twitch bzw. Kick anmelden, dann ein Widget aus der Liste hinzufügen."
+      },
+      "style": {
+        "title": "Mach es zu deinem",
+        "text": "Beginne mit einem fertigen Stil, ändere Farben, Schriften und Animationen oder schreibe eigenes CSS – die Klassenliste steht daneben."
+      },
+      "paste": {
+        "title": "Link in OBS einfügen",
+        "text": "Jedes Widget hat seinen eigenen Browserquellen-Link. Änderst du später etwas, aktualisiert sich das Overlay ohne OBS anzufassen."
+      }
+    },
+    "catalog": {
+      "eyebrow": "Widgets",
+      "title": "{count} Widgets, sofort nutzbar",
+      "text": "Du baust hier keine Widgets von Grund auf. Du nimmst eins, das schon läuft, und passt es an deinen Kanal an."
+    },
+    "cta": {
+      "title": "Starte mit deinem Nickname",
+      "text": "Zum Ausprobieren brauchst du kein Konto. Melde dich später an, wenn du deine Einstellungen auf mehreren Rechnern willst.",
+      "button": "Jetzt starten"
     }
   },
   "dashboard": {
@@ -937,5 +983,155 @@
     "errors": {
       "too_many_objects": "Die Fläche ist voll – lösche zuerst etwas."
     }
+  },
+  "legal": {
+    "privacy": {
+      "title": "Datenschutzerklärung",
+      "intro": "Was diese App über dich speichert, wozu sie das braucht und wie du es wieder löschst.",
+      "sections": [
+        {
+          "title": "Wer das hier betreibt",
+          "body": [
+            "Streaming ist ein kleines Werkzeug für Stream-Widgets und wird vom Betreiber dieser Seite geführt.",
+            "Wenn etwas unklar ist, frag über das Projekt-Repository nach."
+          ]
+        },
+        {
+          "title": "Daten, die du uns gibst",
+          "body": [
+            "Als Gast zu starten speichert eine zufällige Nutzer-ID und die eingegebenen Kanal-Nicknames. Mehr nicht.",
+            "Die Anmeldung mit Twitch oder Kick speichert zusätzlich Konto-ID, Login, Anzeigename, Avatar-URL und Zugriffstokens. Tokens werden verschlüsselt, bevor sie in die Datenbank kommen, und dienen nur zum Lesen deiner eigenen Kanaldaten: Follower, Abos, Zuschauerzahl, Kanalpunkt-Belohnungen, Umfragen und Hype Trains."
+          ]
+        },
+        {
+          "title": "Widget-Daten",
+          "body": [
+            "Widget-Einstellungen, gespeicherte Stile, hochgeladene Sounds, Bilder und Videos sowie der Inhalt der Zeichenfläche liegen auf dem Server, damit deine Overlays nach einem Neustart weiterlaufen.",
+            "Ein Teil bleibt nur in deinem Browser: Zähler, Timer und die zuletzt angepinnte Nachricht, damit ein Refresh in OBS sie nicht zurücksetzt."
+          ]
+        },
+        {
+          "title": "Was in der Browserquelle passiert",
+          "body": [
+            "Widgets verbinden sich aus deinem Browser oder aus OBS direkt mit Twitch, Kick, 7TV, BetterTTV und FrankerFaceZ, um Chat und Emotes zu lesen. Diese Dienste sehen die IP-Adresse dieses Rechners und verarbeiten sie nach ihren eigenen Richtlinien.",
+            "Schriften kommen von Google Fonts. In der App gibt es keine Analyse, keine Werbung und keine Tracking-Skripte."
+          ]
+        },
+        {
+          "title": "Wie lange wir das behalten",
+          "body": [
+            "Daten bleiben, bis du sie löschst. Ein gelöschtes Widget nimmt seine Einstellungen und Links mit. Eine gelöschte Datei in der Bibliothek verschwindet vom Server und aus allen Widgets, die sie genutzt haben.",
+            "Bilder und Videos, die auf der Zeichenfläche hochgeladen wurden, werden automatisch vom Server gelöscht, sobald sie nicht mehr auf der Fläche liegen."
+          ]
+        },
+        {
+          "title": "Deine Rechte",
+          "body": [
+            "Du kannst alles im Dashboard sehen, ändern und löschen. Wird ein verknüpftes Konto getrennt, verschwinden auch seine Tokens.",
+            "Das Löschen des Kontos im Dashboard entfernt alles auf einmal: Widgets und ihre Links, Stile, hochgeladene Dateien, Zeichenflächen und verbundene Konten. Das passiert sofort und lässt sich nicht rückgängig machen."
+          ]
+        }
+      ]
+    },
+    "terms": {
+      "title": "Nutzungsbedingungen",
+      "intro": "Ein kostenloses Werkzeug für Streamer. Nutze es, mach es kaputt, sag uns was kaputt ging.",
+      "sections": [
+        {
+          "title": "Was du bekommst",
+          "body": [
+            "Zugriff auf die Widgets der App, einen OBS-Link pro Widget und Speicher für deine Einstellungen und Dateien.",
+            "Der Dienst wird so bereitgestellt, wie er ist. Funktionen können sich ändern, und es gibt keine Zusage für ständige Verfügbarkeit oder Fehlerfreiheit."
+          ]
+        },
+        {
+          "title": "Was du hochlädst",
+          "body": [
+            "Du bist für Sounds, Bilder, Videos und Texte verantwortlich, die du in Widgets einsetzt. Lade nichts hoch, wozu dir die Rechte fehlen, und nichts Illegales oder Schädliches.",
+            "Dateien, die gegen diese Regeln verstoßen oder den Server gefährden, können entfernt werden."
+          ]
+        },
+        {
+          "title": "Links, die du teilst",
+          "body": [
+            "Ein Overlay-Link zeigt dein Widget jedem, der ihn öffnet, und ein Zeichen-Link lässt jeden, der ihn hat, auf deinem Stream zeichnen. Du entscheidest, wer sie bekommt.",
+            "Ein neuer Link im Editor macht den alten sofort ungültig."
+          ]
+        },
+        {
+          "title": "Andere Plattformen",
+          "body": [
+            "Twitch, Kick und die Emote-Anbieter haben eigene Regeln; diese App ändert daran nichts, und deine Konten dort bleiben deine."
+          ]
+        },
+        {
+          "title": "Haftung",
+          "body": [
+            "Die App haftet nicht für Schäden durch ihre Nutzung, auch nicht für das, was auf deinem Stream landet. Du entscheidest, was auf dem Bildschirm erscheint."
+          ]
+        },
+        {
+          "title": "Änderungen",
+          "body": [
+            "Diese Bedingungen können sich mit der App ändern. Wichtiges wird in der App angezeigt."
+          ]
+        }
+      ]
+    },
+    "cookies": {
+      "title": "Cookie-Richtlinie",
+      "intro": "Nur die Cookies, die die App zum Funktionieren braucht. Kein Tracking, keine Werbung.",
+      "sections": [
+        {
+          "title": "Was gespeichert wird",
+          "body": [
+            "Session-Cookie: hält dich angemeldet oder deine Gast-Sitzung am Leben. Ohne es kann die App nichts speichern.",
+            "Sprach-Cookie: merkt sich die gewählte Sprache.",
+            "Theme-Cookie: merkt sich hell oder dunkel."
+          ]
+        },
+        {
+          "title": "Lokaler Speicher",
+          "body": [
+            "Widgets halten Kleinigkeiten im Browser: einen Zählerstand, einen laufenden Timer, die letzte angepinnte Nachricht. Das verlässt deinen Rechner nicht und macht einen Refresh in OBS harmlos.",
+            "Auch der geschlossene Cookie-Hinweis wird dort gemerkt."
+          ]
+        },
+        {
+          "title": "Wie du sie abschaltest",
+          "body": [
+            "Cookies lassen sich in den Browser-Einstellungen löschen oder blockieren. Blockiert funktionieren Anmeldung und Speichern nicht mehr."
+          ]
+        },
+        {
+          "title": "Dritte",
+          "body": [
+            "Emotes, Badges und Schriften kommen von Twitch, Kick, 7TV, BetterTTV, FrankerFaceZ und Google Fonts. Diese Dienste können in der Browserquelle eigene Cookies setzen."
+          ]
+        }
+      ]
+    },
+    "updated": "Zuletzt aktualisiert: {date}",
+    "backHome": "Zurück zur Startseite"
+  },
+  "cookieBanner": {
+    "text": "Diese Seite nutzt nur Cookies, die sie zum Funktionieren braucht: Sitzung, Sprache und Theme. Kein Tracking, keine Werbung.",
+    "accept": "Alles klar",
+    "more": "Details"
+  },
+  "seo": {
+    "title": "Stream-Widgets für OBS: Chat, Alerts, Ziele und Zeichenfläche",
+    "description": "Kostenlose Widgets für OBS als Browserquelle. Twitch- und Kick-Chat mit 7TV- und BetterTTV-Emotes, Alerts, Ziele, Timer, Szenenbilder und eine Zeichenfläche, die du weitergeben kannst. Ein Link in OBS genügt."
+  },
+  "account": {
+    "title": "Konto löschen",
+    "hint": "Löscht deine Widgets, Stile, hochgeladenen Dateien und verbundenen Konten. Ohne Rückgängig.",
+    "delete": "Konto löschen",
+    "cancel": "Abbrechen",
+    "warning": "Das löscht alles, sofort.",
+    "warningList": "Widgets und ihre OBS-Links, gespeicherte Stile, hochgeladene Sounds, Bilder und Videos, Zeichenflächen und verbundene Twitch- oder Kick-Konten.",
+    "confirmLabel": "Tippe {word} zum Bestätigen",
+    "confirmWord": "LÖSCHEN",
+    "failed": "Konto konnte nicht gelöscht werden. Versuch es erneut."
   }
 }

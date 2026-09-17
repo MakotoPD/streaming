@@ -64,11 +64,33 @@ async function logout() {
       <slot />
     </main>
 
-    <footer class="border-t border-default py-6 text-sm text-muted">
-      <UContainer class="flex flex-wrap items-center justify-between gap-2">
-        <span>{{ t('footer.tagline') }}</span>
-        <span>{{ t('footer.contribute') }}</span>
+    <footer class="border-t border-default py-10 text-sm text-muted">
+      <UContainer class="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
+        <div class="space-y-1">
+          <div class="flex items-center gap-2 font-semibold text-default">
+            <UIcon name="i-lucide-radio" class="size-5 text-primary" />
+            Streaming
+          </div>
+          <p>{{ t('footer.tagline') }}</p>
+          <p class="text-dimmed">
+            {{ t('footer.rights') }}
+          </p>
+        </div>
+        <nav class="flex flex-col gap-2 sm:items-end">
+          <NuxtLink to="/privacy" class="hover:text-default">
+            {{ t('nav.privacy') }}
+          </NuxtLink>
+          <NuxtLink to="/terms" class="hover:text-default">
+            {{ t('nav.terms') }}
+          </NuxtLink>
+          <NuxtLink to="/cookies" class="hover:text-default">
+            {{ t('nav.cookies') }}
+          </NuxtLink>
+          <span class="text-dimmed">{{ t('footer.contribute') }}</span>
+        </nav>
       </UContainer>
     </footer>
+
+    <CookieNotice />
   </div>
 </template>

@@ -173,5 +173,9 @@ const { copyObsUrl } = useObsUrl()
         </div>
       </UCard>
     </section>
+
+    <section>
+      <DashboardDeleteAccount />
+    </section>
   </UContainer>
 </template>

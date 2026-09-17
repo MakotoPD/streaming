@@ -2,11 +2,15 @@
   "nav": {
     "dashboard": "Panel",
     "logout": "Wyloguj",
-    "library": "Biblioteka"
+    "library": "Biblioteka",
+    "privacy": "Prywatność",
+    "terms": "Regulamin",
+    "cookies": "Cookies"
   },
   "footer": {
-    "tagline": "Lekkie widgety streamowe dla OBS.",
-    "contribute": "Chcesz nowy widget? Dołącz na GitHubie."
+    "tagline": "Lekkie widgety na stream do OBS.",
+    "contribute": "Chcesz nowy widget? Dorzuć się na GitHubie.",
+    "rights": "Niepowiązane z Twitchem, Kickiem, 7TV ani BetterTTV."
   },
   "common": {
     "soon": "Wkrótce",
@@ -23,8 +27,8 @@
   "landing": {
     "title": "Widgety streamowe dla OBS",
     "badge": "Twitch · Kick · 7TV · BetterTTV",
-    "headline": "Widgety, które nie zjadają procesora",
-    "description": "Czat, alerty, combo emotek i ekrany scen. Wybierz styl, ustaw animacje i wklej jeden link do OBS.",
+    "headline": "Widgety na stream, które nie zjadają procesora",
+    "description": "Czat, alerty, cele, ekrany przerwy i tablica do rysowania, którą oddasz znajomemu. Wybierasz styl, dobierasz animację i wklejasz jeden link do OBS.",
     "welcomeBack": "Jesteś zalogowany. Twoje widgety czekają.",
     "guestTitle": "Zacznij od nicku",
     "guestDescription": "Bez zakładania konta. Widgety zostają zapisane w tej przeglądarce.",
@@ -47,7 +51,49 @@
       "styles": {
         "title": "Style i animacje",
         "text": "Zacznij od gotowego stylu, dopasuj go i zapisz jako własny."
+      },
+      "canvas": {
+        "title": "Tablica, na której rysują moderatorzy",
+        "text": "Wyślij znajomemu link do rysowania — wszystko, co narysuje, napisze albo wrzuci na tablicę, od razu pojawia się na streamie."
       }
+    },
+    "bullets": {
+      "free": "Za darmo, bez znaku wodnego",
+      "noInstall": "Nic nie instalujesz",
+      "live": "Zmiany widać na żywo"
+    },
+    "mock": {
+      "scene": "OBS · Scena 1",
+      "alert": "Nowa obserwacja",
+      "chat1": "ten overlay jest czysty",
+      "chat2": "co to za czcionka",
+      "chat3": "w końcu bez lagów"
+    },
+    "steps": {
+      "eyebrow": "Jak to działa",
+      "title": "Trzy kroki, jakieś dwie minuty",
+      "pick": {
+        "title": "Wybierz widget",
+        "text": "Wpisz nick swojego kanału albo zaloguj się przez Twitcha lub Kicka, potem dodaj widget z listy."
+      },
+      "style": {
+        "title": "Ustaw po swojemu",
+        "text": "Zacznij od gotowego stylu, zmień kolory, czcionki i animacje albo napisz własny CSS — lista klas jest obok."
+      },
+      "paste": {
+        "title": "Wklej link do OBS",
+        "text": "Każdy widget ma własny link do źródła przeglądarki. Zmienisz coś później, a nakładka zaktualizuje się bez ruszania OBS."
+      }
+    },
+    "catalog": {
+      "eyebrow": "Widgety",
+      "title": "{count} widgetów gotowych do użycia",
+      "text": "Nie budujesz tu widgetów od zera. Bierzesz taki, który już działa, i robisz z niego coś w stylu swojego kanału."
+    },
+    "cta": {
+      "title": "Zacznij od swojego nicku",
+      "text": "Do spróbowania nie trzeba konta. Zalogujesz się później, jeśli chcesz mieć swoje ustawienia na kilku komputerach.",
+      "button": "Zacznij teraz"
     }
   },
   "dashboard": {
@@ -937,5 +983,155 @@
     "errors": {
       "too_many_objects": "Tablica jest pełna — najpierw coś usuń."
     }
+  },
+  "legal": {
+    "privacy": {
+      "title": "Polityka prywatności",
+      "intro": "Co aplikacja o Tobie przechowuje, po co jej to i jak się tego pozbyć.",
+      "sections": [
+        {
+          "title": "Kto prowadzi tę stronę",
+          "body": [
+            "Streaming to niewielkie narzędzie do robienia widgetów na stream, prowadzone przez właściciela tej strony.",
+            "Jeśli coś tu jest niejasne, zapytaj przez repozytorium projektu."
+          ]
+        },
+        {
+          "title": "Dane, które nam podajesz",
+          "body": [
+            "Start jako gość zapisuje losowy identyfikator użytkownika i nicki kanałów, które wpisałeś. Nic więcej.",
+            "Logowanie przez Twitch lub Kick zapisuje dodatkowo identyfikator konta, login, nazwę wyświetlaną, adres awatara i tokeny dostępu. Tokeny są szyfrowane, zanim trafią do bazy, i służą tylko do odczytu danych Twojego kanału: obserwujących, subskrypcji, liczby widzów, nagród za punkty kanału, ankiet i hype trainów."
+          ]
+        },
+        {
+          "title": "Dane widgetów",
+          "body": [
+            "Ustawienia widgetów, zapisane style, wgrane dźwięki, obrazy i wideo oraz zawartość tablicy do rysowania są zapisane na serwerze, żeby nakładki działały po restarcie.",
+            "Część stanu zostaje tylko w Twojej przeglądarce: liczniki, timery i ostatnia przypięta wiadomość, żeby odświeżenie w OBS ich nie kasowało."
+          ]
+        },
+        {
+          "title": "Co dzieje się w źródle przeglądarki",
+          "body": [
+            "Widgety łączą się z Twojej przeglądarki lub z OBS bezpośrednio z Twitchem, Kickiem, 7TV, BetterTTV i FrankerFaceZ, żeby czytać czat i emotki. Te serwisy widzą adres IP tego komputera i przetwarzają go według własnych polityk prywatności.",
+            "Czcionki pochodzą z Google Fonts. W aplikacji nie ma analityki, reklam ani skryptów śledzących."
+          ]
+        },
+        {
+          "title": "Jak długo to trzymamy",
+          "body": [
+            "Dane zostają, dopóki ich nie usuniesz. Usunięcie widgetu kasuje jego ustawienia i linki. Usunięcie pliku w Bibliotece kasuje go z serwera i ze wszystkich widgetów, które go używały.",
+            "Obrazy i wideo wgrane na tablicy do rysowania są automatycznie kasowane z serwera, gdy znikną z tablicy."
+          ]
+        },
+        {
+          "title": "Twoje prawa",
+          "body": [
+            "Wszystko możesz zobaczyć, zmienić i usunąć w panelu. Odłączenie połączonego konta usuwa też jego tokeny.",
+            "Usunięcie konta w panelu kasuje wszystko naraz: widgety i ich linki, style, wgrane pliki, tablice do rysowania i połączone konta. Dzieje się to od razu i nie da się tego cofnąć."
+          ]
+        }
+      ]
+    },
+    "terms": {
+      "title": "Regulamin",
+      "intro": "Darmowe narzędzie dla streamerów. Korzystaj, psuj, pisz co się zepsuło.",
+      "sections": [
+        {
+          "title": "Co dostajesz",
+          "body": [
+            "Dostęp do widgetów w aplikacji, jeden link do OBS na widget i miejsce na Twoje ustawienia oraz pliki.",
+            "Usługa działa w takiej formie, w jakiej jest. Funkcje mogą się zmieniać i nie ma gwarancji, że wszystko zawsze działa bez błędów."
+          ]
+        },
+        {
+          "title": "Co wgrywasz",
+          "body": [
+            "Odpowiadasz za dźwięki, obrazy, wideo i teksty, które wstawiasz do widgetów. Nie wgrywaj rzeczy, do których nie masz praw, ani niczego nielegalnego czy szkodliwego.",
+            "Pliki łamiące te zasady albo zagrażające serwerowi mogą zostać usunięte."
+          ]
+        },
+        {
+          "title": "Linki, którymi się dzielisz",
+          "body": [
+            "Link do nakładki pokazuje widget każdemu, kto go otworzy, a link do rysowania pozwala rysować na Twoim streamie każdemu, kto go ma. To Ty decydujesz, kto je dostanie.",
+            "Wygenerowanie nowego linku w edytorze natychmiast unieważnia stary."
+          ]
+        },
+        {
+          "title": "Inne platformy",
+          "body": [
+            "Twitch, Kick i dostawcy emotek mają własne zasady; korzystanie z tej aplikacji ich nie zmienia, a Twoje konta tam pozostają Twoje."
+          ]
+        },
+        {
+          "title": "Odpowiedzialność",
+          "body": [
+            "Aplikacja nie odpowiada za szkody wynikłe z jej użycia, w tym za to, co trafi na Twój stream. To Ty decydujesz, co pojawia się na ekranie."
+          ]
+        },
+        {
+          "title": "Zmiany",
+          "body": [
+            "Ten regulamin może się zmieniać wraz z rozwojem aplikacji. Ważne zmiany będą widoczne w aplikacji."
+          ]
+        }
+      ]
+    },
+    "cookies": {
+      "title": "Polityka cookies",
+      "intro": "Tylko te cookies, których aplikacja potrzebuje, żeby działać. Bez śledzenia i reklam.",
+      "sections": [
+        {
+          "title": "Co jest zapisywane",
+          "body": [
+            "Cookie sesji: trzyma Cię zalogowanego albo utrzymuje sesję gościa. Bez niego aplikacja nic nie zapisze.",
+            "Cookie języka: pamięta wybrany przez Ciebie język.",
+            "Cookie motywu: pamięta tryb jasny albo ciemny."
+          ]
+        },
+        {
+          "title": "Pamięć przeglądarki",
+          "body": [
+            "Widgety trzymają w przeglądarce drobne dane: wartość licznika, działający timer, ostatnią przypiętą wiadomość. Nie opuszczają Twojego komputera i dzięki nim odświeżenie w OBS nic nie psuje.",
+            "Zamknięcie informacji o cookies też jest tam zapamiętane."
+          ]
+        },
+        {
+          "title": "Jak je wyłączyć",
+          "body": [
+            "Cookies możesz wyczyścić albo zablokować w ustawieniach przeglądarki. Po zablokowaniu logowanie i zapisywanie widgetów przestaną działać."
+          ]
+        },
+        {
+          "title": "Zewnętrzne serwisy",
+          "body": [
+            "Emotki, odznaki i czcionki wczytują się z Twitcha, Kicka, 7TV, BetterTTV, FrankerFaceZ i Google Fonts. Te serwisy mogą ustawiać własne cookies w źródle przeglądarki."
+          ]
+        }
+      ]
+    },
+    "updated": "Ostatnia aktualizacja: {date}",
+    "backHome": "Wróć na stronę główną"
+  },
+  "cookieBanner": {
+    "text": "Ta strona używa tylko cookies potrzebnych do działania: sesji, języka i motywu. Bez śledzenia i reklam.",
+    "accept": "Rozumiem",
+    "more": "Szczegóły"
+  },
+  "seo": {
+    "title": "Widgety na stream do OBS: czat, alerty, cele i tablica do rysowania",
+    "description": "Darmowe widgety do OBS jako źródło przeglądarki. Czat z Twitcha i Kicka z emotkami 7TV i BetterTTV, alerty, cele, timery, ekrany przerwy i tablica do rysowania, którą oddasz znajomemu. Wklejasz jeden link do OBS."
+  },
+  "account": {
+    "title": "Usuń konto",
+    "hint": "Usuwa Twoje widgety, style, wgrane pliki i połączone konta. Nie da się tego cofnąć.",
+    "delete": "Usuń konto",
+    "cancel": "Anuluj",
+    "warning": "To usuwa wszystko, od razu.",
+    "warningList": "Widgety i ich linki do OBS, zapisane style, wgrane dźwięki, obrazy i wideo, tablice do rysowania oraz połączone konta Twitch i Kick.",
+    "confirmLabel": "Wpisz {word}, żeby potwierdzić",
+    "confirmWord": "USUŃ",
+    "failed": "Nie udało się usunąć konta. Spróbuj ponownie."
   }
 }

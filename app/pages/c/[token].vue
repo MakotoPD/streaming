@@ -25,7 +25,7 @@ const token = String(route.params.token)
 const { data, error } = await useFetch<{ widgetId: string, name: string, scene: CanvasScene }>(`/api/canvas/${token}`)
 if (error.value) throw createError({ statusCode: 404, fatal: true })
 
-useHead({ title: () => data.value?.name || t('canvas.title') })
+useHead({ title: () => data.value?.name || t('canvas.title'), meta: [{ name: 'robots', content: 'noindex, nofollow' }] })
 
 const scene = shallowRef<CanvasScene>(data.value?.scene ? structuredClone(toRaw(data.value.scene)) : emptyScene())
 const past = shallowRef<CanvasScene[]>([])

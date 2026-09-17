@@ -1,6 +1,6 @@
 # Streaming
 
-Stream widgets for OBS: chat, alerts, emote combo and scene screens. Twitch and Kick, with 7TV, BetterTTV and FFZ emotes.
+Stream widgets for OBS: chat, alerts, emote combo, scene screens and a shared drawing canvas. Twitch and Kick, with 7TV, BetterTTV and FFZ emotes.
 Every widget gets its own link for an OBS **Browser** source. Changes made in the dashboard show up in OBS live.
 
 Stack: Nuxt 4, Nuxt UI, Tailwind CSS, @nuxtjs/i18n (EN, PL, ES, DE, RU), nuxt-auth-utils, PostgreSQL + Drizzle.
@@ -26,7 +26,7 @@ The app runs at http://localhost:3000. Database migrations run automatically whe
 | `NUXT_OAUTH_TWITCH_CLIENT_ID` / `_SECRET` | App from https://dev.twitch.tv/console/apps, redirect: `<SITE_URL>/auth/twitch` |
 | `NUXT_TWITCH_WEBHOOK_SECRET` | Random 10–100 character string, signs EventSub webhooks (follow alerts) |
 | `NUXT_OAUTH_KICK_CLIENT_ID` / `_SECRET` | App from https://kick.com/settings/developer, redirect: `<SITE_URL>/auth/kick` |
-| `NUXT_UPLOAD_DIR` | Directory for uploaded sounds |
+| `NUXT_UPLOAD_DIR` | Directory for uploaded sounds, images and videos |
 | `POSTGRES_PASSWORD` | `docker-compose.yml` only: database password |
 
 Without Twitch app credentials chat still works, but there are no Twitch badges, no Twitch login and no follow alerts.
@@ -59,7 +59,29 @@ Built-in alert sounds live in `server/assets/sounds/`. The editor lists whatever
 
 Uploaded images are re-encoded with sharp: GIFs become animated WebP, PNG stays PNG, everything is resized to fit 1024 px and stripped of metadata. Anything that is not a real PNG, WebP or GIF is rejected. Files are served with `X-Content-Type-Options: nosniff` and a `default-src 'none'; sandbox` CSP.
 
-The dashboard has a **Library** page listing uploaded images and sounds with the widgets and fields that use them. Replacing a file keeps its URL (widgets using it reload), and deleting one also clears it from those widgets.
+Videos (MP4, WebM, up to 25 MB) are accepted for the drawing canvas and the Library. They are not re-encoded, only sniffed by magic bytes and served with the same headers.
+
+The dashboard has a **Library** page listing uploaded images, videos and sounds with the widgets and fields that use them. Replacing a file keeps its URL (widgets using it reload), and deleting one also clears it from those widgets.
+
+Deleting the account (dashboard, bottom of the page, `DELETE /api/me`) removes the user row — widgets, styles, linked accounts and files cascade with it, and uploaded files are removed from disk.
+
+## Drawing canvas
+
+The `canvas` widget is a 2560x1440 board. Besides the OBS link it has a second, separately generated link (`/c/<editToken>`) that opens a full-screen editor with a floating toolbar: move, pencil, line, square, circle, triangle, arrow, text, fill and eraser, undo/redo, image/GIF/video upload and text formatting (font, size, bold, italic, underline, strikethrough).
+
+- The scene is a list of objects (`shared/canvas.ts`) rendered as one SVG, shared by the editor and the overlay.
+- Edits are sent as ops (`put`, `del`, `bg`, `set`) to `POST /api/canvas/<token>/ops`, validated server side, applied to the scene held in memory, flushed to Postgres after 1.5 s and published over SSE, so the OBS source and every other open editor update live.
+- Undo and redo are per editor and replace the whole scene, so the last full-scene op wins when two people edit at once.
+- The eraser removes whole objects; the fill tool paints a shape (or the background when nothing is clicked).
+- Media uploaded from a drawing link is stored under the board owner and marked `images.canvas`. Once such a file is no longer on any board it is deleted from the database and from disk (5 minute grace period, so undo still works).
+
+## Public pages and SEO
+
+`/privacy`, `/terms` and `/cookies` are rendered from `legal.*` in `i18n/locales/*.json` by `app/components/LegalDoc.vue`, so all five languages stay in sync. A cookie notice sits in the default layout and is dismissed into local storage.
+
+`robots.txt`, `sitemap.xml` and `llms.txt` are generated in `server/routes/` from `NUXT_PUBLIC_SITE_URL`. Overlay (`/o/`) and drawing (`/c/`) pages send `noindex`. Titles, description, canonical, Open Graph and Twitter tags come from `app/app.vue`; the share image is `public/og.png`.
+
+Icons in `public/` (`favicon.ico` with 16-256 px frames, `favicon-32.png`, `apple-touch-icon.png`, `icon-512.png`, `og.png`) are generated from `public/favicon.webp` and declared in `app/app.vue`.
 
 Known limitations:
 - Widget state (poll votes, counters, giveaway entries, subathon time, goals, leaderboards) is stored in the OBS browser source (localStorage), so it is not shared between computers.
@@ -75,6 +97,7 @@ Users only configure widgets; new ones are added through pull requests:
 3. `app/components/widget/<Type>.vue`: the component receives `settings` and `bus` (chat, alert and `command` events). Use `useWidgetState` for data that must survive an OBS source reload.
 4. `app/pages/o/[token].vue`: register the component in the `COMPONENTS` map.
 5. Translations in `i18n/locales/*.json` for all 5 languages, including a `cssClasses.<id>` description for every class (tests check both).
+6. If the widget needs a page outside the overlay (like the canvas editor), add it to `PUBLIC_PAGES` in `server/utils/site.ts` only when it should be indexed.
 
 The editor form is generated from the field definitions. Fields with `css` become CSS variables on `.widget-root`.
 

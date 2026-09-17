@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { WIDGETS } from '#shared/widgets'
+
 const { t } = useI18n()
 const toast = useToast()
 const route = useRoute()
@@ -32,78 +34,207 @@ async function continueAsGuest() {
   }
 }
 
+const widgets = Object.values(WIDGETS)
+const bullets = ['free', 'noInstall', 'live']
+const steps = ['pick', 'style', 'paste']
 const features = [
   { icon: 'i-lucide-monitor', key: 'obs' },
   { icon: 'i-lucide-smile-plus', key: 'emotes' },
-  { icon: 'i-lucide-palette', key: 'styles' }
+  { icon: 'i-lucide-palette', key: 'styles' },
+  { icon: 'i-lucide-users', key: 'canvas' }
 ]
+
+function backToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' })
+}
 </script>
 
 <template>
-  <UContainer class="py-16 lg:py-24">
-    <div class="grid lg:grid-cols-2 gap-12 items-center">
-      <div>
-        <UBadge :label="t('landing.badge')" variant="subtle" class="mb-4" />
-        <h1 class="text-4xl lg:text-6xl font-bold tracking-tight text-highlighted">
-          {{ t('landing.headline') }}
-        </h1>
-        <p class="mt-6 text-lg text-muted">
-          {{ t('landing.description') }}
-        </p>
-      </div>
+  <div>
+    <section class="relative overflow-hidden border-b border-default">
+      <div class="pointer-events-none absolute inset-0 hero-grid" />
+      <UContainer class="relative py-14 lg:py-20">
+        <div class="grid items-start gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,26rem)]">
+          <div>
+            <div class="flex flex-wrap items-center gap-2 text-xs font-medium text-muted">
+              <span class="inline-flex items-center gap-1.5 rounded-full border border-default px-2.5 py-1">
+                <UIcon name="i-simple-icons-twitch" class="size-3.5" /> Twitch
+              </span>
+              <span class="inline-flex items-center gap-1.5 rounded-full border border-default px-2.5 py-1">
+                <UIcon name="i-simple-icons-kick" class="size-3.5" /> Kick
+              </span>
+              <span class="rounded-full border border-default px-2.5 py-1">7TV</span>
+              <span class="rounded-full border border-default px-2.5 py-1">BetterTTV</span>
+            </div>
 
-      <UCard>
-        <template v-if="loggedIn">
-          <p class="mb-4 text-muted">
-            {{ t('landing.welcomeBack') }}
-          </p>
-          <UButton to="/dashboard" size="xl" block icon="i-lucide-layout-dashboard" :label="t('nav.dashboard')" />
-        </template>
+            <h1 class="mt-5 text-4xl font-bold leading-[1.05] tracking-tight text-highlighted sm:text-5xl lg:text-6xl">
+              {{ t('landing.headline') }}
+            </h1>
+            <p class="mt-5 max-w-xl text-lg text-muted">
+              {{ t('landing.description') }}
+            </p>
 
-        <template v-else>
-          <h2 class="text-lg font-semibold mb-1">
-            {{ t('landing.guestTitle') }}
-          </h2>
-          <p class="text-sm text-muted mb-4">
-            {{ t('landing.guestDescription') }}
-          </p>
+            <ul class="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm">
+              <li v-for="bullet in bullets" :key="bullet" class="flex items-center gap-2">
+                <UIcon name="i-lucide-check" class="size-4 text-primary" />
+                {{ t(`landing.bullets.${bullet}`) }}
+              </li>
+            </ul>
 
-          <UForm :state="form" class="space-y-3" @submit="continueAsGuest">
-            <UFormField :label="t('platforms.twitch')" name="twitch">
-              <UInput v-model="form.twitch" icon="i-simple-icons-twitch" placeholder="nick" class="w-full" />
-            </UFormField>
-            <UFormField :label="t('platforms.kick')" name="kick">
-              <UInput v-model="form.kick" icon="i-simple-icons-kick" placeholder="nick" class="w-full" />
-            </UFormField>
-            <UFormField :label="t('platforms.youtube')" name="youtube" :hint="t('common.soon')">
-              <UInput icon="i-simple-icons-youtube" disabled class="w-full" />
-            </UFormField>
-            <UButton type="submit" block size="lg" :loading="loading" :label="t('landing.continue')" trailing-icon="i-lucide-arrow-right" />
-          </UForm>
-
-          <USeparator :label="t('landing.or')" class="my-6" />
-
-          <p class="text-sm text-muted mb-3">
-            {{ t('landing.loginDescription') }}
-          </p>
-          <div class="grid sm:grid-cols-2 gap-2">
-            <UButton to="/auth/twitch" external icon="i-simple-icons-twitch" color="neutral" variant="outline" block :label="t('landing.loginWith', { platform: 'Twitch' })" />
-            <UButton to="/auth/kick" external icon="i-simple-icons-kick" color="neutral" variant="outline" block :label="t('landing.loginWith', { platform: 'Kick' })" />
+            <div class="mt-10">
+              <LandingShowcase />
+            </div>
           </div>
-        </template>
-      </UCard>
-    </div>
 
-    <div class="grid md:grid-cols-3 gap-6 mt-20">
-      <UCard v-for="feature in features" :key="feature.key">
-        <UIcon :name="feature.icon" class="size-8 text-primary mb-3" />
-        <h3 class="font-semibold mb-1">
-          {{ t(`landing.features.${feature.key}.title`) }}
-        </h3>
-        <p class="text-sm text-muted">
-          {{ t(`landing.features.${feature.key}.text`) }}
-        </p>
-      </UCard>
-    </div>
-  </UContainer>
+          <UCard class="lg:sticky lg:top-24" :ui="{ body: 'space-y-4' }">
+            <template v-if="loggedIn">
+              <p class="text-muted">
+                {{ t('landing.welcomeBack') }}
+              </p>
+              <UButton to="/dashboard" size="xl" block icon="i-lucide-layout-dashboard" :label="t('nav.dashboard')" />
+            </template>
+
+            <template v-else>
+              <div>
+                <h2 class="text-lg font-semibold text-highlighted">
+                  {{ t('landing.guestTitle') }}
+                </h2>
+                <p class="mt-1 text-sm text-muted">
+                  {{ t('landing.guestDescription') }}
+                </p>
+              </div>
+
+              <UForm :state="form" class="space-y-3" @submit="continueAsGuest">
+                <UFormField :label="t('platforms.twitch')" name="twitch">
+                  <UInput v-model="form.twitch" icon="i-simple-icons-twitch" placeholder="nick" class="w-full" />
+                </UFormField>
+                <UFormField :label="t('platforms.kick')" name="kick">
+                  <UInput v-model="form.kick" icon="i-simple-icons-kick" placeholder="nick" class="w-full" />
+                </UFormField>
+                <UFormField :label="t('platforms.youtube')" name="youtube" :hint="t('common.soon')">
+                  <UInput icon="i-simple-icons-youtube" disabled class="w-full" />
+                </UFormField>
+                <UButton type="submit" block size="lg" :loading="loading" :label="t('landing.continue')" trailing-icon="i-lucide-arrow-right" />
+              </UForm>
+
+              <USeparator :label="t('landing.or')" />
+
+              <div class="space-y-2">
+                <p class="text-sm text-muted">
+                  {{ t('landing.loginDescription') }}
+                </p>
+                <UButton to="/auth/twitch" external icon="i-simple-icons-twitch" color="neutral" variant="outline" block :label="t('landing.loginWith', { platform: 'Twitch' })" />
+                <UButton to="/auth/kick" external icon="i-simple-icons-kick" color="neutral" variant="outline" block :label="t('landing.loginWith', { platform: 'Kick' })" />
+              </div>
+            </template>
+          </UCard>
+        </div>
+      </UContainer>
+    </section>
+
+    <section class="border-b border-default">
+      <UContainer class="py-14 lg:py-20">
+        <div class="max-w-2xl">
+          <span class="font-mono text-xs uppercase tracking-widest text-primary">{{ t('landing.steps.eyebrow') }}</span>
+          <h2 class="mt-2 text-3xl font-bold tracking-tight text-highlighted">
+            {{ t('landing.steps.title') }}
+          </h2>
+        </div>
+
+        <ol class="mt-10 grid gap-px overflow-hidden rounded-xl border border-default bg-accented md:grid-cols-3">
+          <li v-for="(step, index) in steps" :key="step" class="bg-default p-6">
+            <span class="font-mono text-sm text-primary">{{ String(index + 1).padStart(2, '0') }}</span>
+            <h3 class="mt-2 font-semibold text-highlighted">
+              {{ t(`landing.steps.${step}.title`) }}
+            </h3>
+            <p class="mt-1.5 text-sm text-muted">
+              {{ t(`landing.steps.${step}.text`) }}
+            </p>
+          </li>
+        </ol>
+      </UContainer>
+    </section>
+
+    <section class="border-b border-default">
+      <UContainer class="py-14 lg:py-20">
+        <div class="max-w-2xl">
+          <span class="font-mono text-xs uppercase tracking-widest text-primary">{{ t('landing.catalog.eyebrow') }}</span>
+          <h2 class="mt-2 text-3xl font-bold tracking-tight text-highlighted">
+            {{ t('landing.catalog.title', { count: widgets.length }) }}
+          </h2>
+          <p class="mt-2 text-muted">
+            {{ t('landing.catalog.text') }}
+          </p>
+        </div>
+
+        <div class="mt-8 flex flex-wrap gap-2">
+          <div
+            v-for="widget in widgets"
+            :key="widget.type"
+            class="flex items-center gap-2 rounded-lg border border-default px-3 py-2 text-sm"
+          >
+            <UIcon :name="widget.icon" class="size-4 text-primary" />
+            {{ t(`widgets.${widget.type}.name`) }}
+          </div>
+        </div>
+      </UContainer>
+    </section>
+
+    <section class="border-b border-default">
+      <UContainer class="py-14 lg:py-20">
+        <div class="grid gap-8 sm:grid-cols-2">
+          <div v-for="feature in features" :key="feature.key" class="flex gap-4">
+            <UIcon :name="feature.icon" class="mt-0.5 size-6 shrink-0 text-primary" />
+            <div>
+              <h3 class="font-semibold text-highlighted">
+                {{ t(`landing.features.${feature.key}.title`) }}
+              </h3>
+              <p class="mt-1 text-sm text-muted">
+                {{ t(`landing.features.${feature.key}.text`) }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </UContainer>
+    </section>
+
+    <section>
+      <UContainer class="py-14 lg:py-20">
+        <div class="flex flex-col items-start gap-6 rounded-xl border border-default p-8 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <h2 class="text-2xl font-bold tracking-tight text-highlighted">
+              {{ t('landing.cta.title') }}
+            </h2>
+            <p class="mt-1 text-muted">
+              {{ t('landing.cta.text') }}
+            </p>
+          </div>
+          <UButton
+            v-if="loggedIn"
+            to="/dashboard"
+            size="xl"
+            :label="t('nav.dashboard')"
+            trailing-icon="i-lucide-arrow-right"
+          />
+          <UButton
+            v-else
+            size="xl"
+            :label="t('landing.cta.button')"
+            trailing-icon="i-lucide-arrow-up"
+            @click="backToTop"
+          />
+        </div>
+      </UContainer>
+    </section>
+  </div>
 </template>
+
+<style scoped>
+.hero-grid {
+  background-image:
+    linear-gradient(to right, var(--ui-border) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--ui-border) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black, transparent 70%);
+}
+</style>

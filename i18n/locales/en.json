@@ -2,11 +2,15 @@
   "nav": {
     "dashboard": "Dashboard",
     "logout": "Log out",
-    "library": "Library"
+    "library": "Library",
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "cookies": "Cookies"
   },
   "footer": {
     "tagline": "Lightweight stream widgets for OBS.",
-    "contribute": "Want a new widget? Contribute on GitHub."
+    "contribute": "Want a new widget? Contribute on GitHub.",
+    "rights": "Not affiliated with Twitch, Kick, 7TV or BetterTTV."
   },
   "common": {
     "soon": "Coming soon",
@@ -24,7 +28,7 @@
     "title": "Stream widgets for OBS",
     "badge": "Twitch · Kick · 7TV · BetterTTV",
     "headline": "Stream widgets that don't eat your CPU",
-    "description": "Chat, alerts, emote combos and scene screens. Pick a style, tweak animations and paste one link into OBS.",
+    "description": "Chat, alerts, goals, scene screens and a drawing board you can hand to a friend. Pick a style, tweak the animation, paste one link into OBS.",
     "welcomeBack": "You're signed in. Your widgets are waiting.",
     "guestTitle": "Start with your nickname",
     "guestDescription": "No account needed. Your widgets are kept in this browser.",
@@ -47,7 +51,49 @@
       "styles": {
         "title": "Styles and animations",
         "text": "Start from a preset, make it yours and save it as your own style."
+      },
+      "canvas": {
+        "title": "A board your mods can draw on",
+        "text": "Send the drawing link to a friend and whatever they draw, write or drop on the board shows up on stream instantly."
       }
+    },
+    "bullets": {
+      "free": "Free, no watermark",
+      "noInstall": "Nothing to install",
+      "live": "Changes show up live"
+    },
+    "mock": {
+      "scene": "OBS · Scene 1",
+      "alert": "New follower",
+      "chat1": "this overlay is clean",
+      "chat2": "what font is that",
+      "chat3": "finally no lag"
+    },
+    "steps": {
+      "eyebrow": "How it works",
+      "title": "Three steps, about two minutes",
+      "pick": {
+        "title": "Pick a widget",
+        "text": "Type your channel nickname or sign in with Twitch or Kick, then add a widget from the list."
+      },
+      "style": {
+        "title": "Make it yours",
+        "text": "Start from a ready style, change colours, fonts and animations, or write your own CSS with the class list next to it."
+      },
+      "paste": {
+        "title": "Paste the link into OBS",
+        "text": "Every widget has its own Browser Source link. Edit it later and the overlay updates without touching OBS."
+      }
+    },
+    "catalog": {
+      "eyebrow": "Widgets",
+      "title": "{count} widgets, ready to use",
+      "text": "You do not build widgets from scratch here. You take one that already works and make it look like your channel."
+    },
+    "cta": {
+      "title": "Start with your nickname",
+      "text": "No account needed to try it. Sign in later if you want your setup on more than one computer.",
+      "button": "Start now"
     }
   },
   "dashboard": {
@@ -937,5 +983,155 @@
     "errors": {
       "too_many_objects": "The board is full — delete something first."
     }
+  },
+  "legal": {
+    "privacy": {
+      "title": "Privacy policy",
+      "intro": "What this app stores about you, why it needs it, and how you get rid of it.",
+      "sections": [
+        {
+          "title": "Who runs this",
+          "body": [
+            "Streaming is a small tool for making stream widgets, run by the owner of this site.",
+            "If anything here is unclear, ask through the project repository."
+          ]
+        },
+        {
+          "title": "Data you give us",
+          "body": [
+            "Starting as a guest stores a random user id and the channel nicknames you typed. Nothing else.",
+            "Signing in with Twitch or Kick also stores your account id, login, display name, avatar URL and access tokens. Tokens are encrypted before they reach the database and are only used to read your own channel data: followers, subscriptions, viewer count, channel point rewards, polls and hype trains."
+          ]
+        },
+        {
+          "title": "Widget data",
+          "body": [
+            "Widget settings, saved styles, uploaded sounds, images and videos and the content of a drawing board are stored on the server so your overlays keep working after a restart.",
+            "Some state stays in your browser only: counters, timers and the last pinned message, so an OBS refresh does not reset them."
+          ]
+        },
+        {
+          "title": "What happens in the browser source",
+          "body": [
+            "Widgets connect from your browser or from OBS straight to Twitch, Kick, 7TV, BetterTTV and FrankerFaceZ to read chat and emotes. Those services see the IP address of that machine and handle it under their own privacy policies.",
+            "Fonts come from Google Fonts. There are no analytics, no ads and no tracking scripts anywhere in the app."
+          ]
+        },
+        {
+          "title": "How long we keep it",
+          "body": [
+            "Data stays until you delete it. Deleting a widget removes its settings and its links. Deleting a file in the Library removes it from the server and from every widget that used it.",
+            "Images and videos uploaded on a drawing board are deleted from the server automatically once they are no longer on the board."
+          ]
+        },
+        {
+          "title": "Your rights",
+          "body": [
+            "You can see, change and delete everything from the dashboard. Disconnecting a linked account also removes its tokens.",
+            "Deleting the account in the dashboard removes everything at once: widgets and their links, styles, uploaded files, drawing boards and connected accounts. It happens immediately and cannot be undone."
+          ]
+        }
+      ]
+    },
+    "terms": {
+      "title": "Terms of service",
+      "intro": "A free tool for streamers. Use it, break it, tell us what broke.",
+      "sections": [
+        {
+          "title": "What you get",
+          "body": [
+            "Access to the widgets in the app, one OBS link per widget and storage for your settings and files.",
+            "The service is provided as is. Features may change, and there is no promise that it is always online or bug free."
+          ]
+        },
+        {
+          "title": "What you upload",
+          "body": [
+            "You are responsible for the sounds, images, videos and text you put into widgets. Do not upload anything you have no right to use, and nothing illegal or harmful.",
+            "Files that break these rules or put the server at risk can be removed."
+          ]
+        },
+        {
+          "title": "Links you share",
+          "body": [
+            "An overlay link shows your widget to anyone who opens it, and a drawing link lets anyone who has it draw on your stream. You decide who gets them.",
+            "Generating a new link in the editor immediately kills the old one."
+          ]
+        },
+        {
+          "title": "Other platforms",
+          "body": [
+            "Twitch, Kick and the emote providers have their own rules; using this app does not change them, and your accounts there stay yours."
+          ]
+        },
+        {
+          "title": "Liability",
+          "body": [
+            "The app is not liable for damage caused by using it, including anything that ends up on your stream. You are the one who decides what goes on screen."
+          ]
+        },
+        {
+          "title": "Changes",
+          "body": [
+            "These terms can change as the app grows. Anything important will be visible in the app."
+          ]
+        }
+      ]
+    },
+    "cookies": {
+      "title": "Cookie policy",
+      "intro": "Only the cookies the app needs to work. No tracking, no ads.",
+      "sections": [
+        {
+          "title": "What is stored",
+          "body": [
+            "Session cookie: keeps you signed in, or keeps your guest session alive. Without it the app cannot save anything.",
+            "Language cookie: remembers the language you picked.",
+            "Theme cookie: remembers light or dark mode."
+          ]
+        },
+        {
+          "title": "Local storage",
+          "body": [
+            "Widgets keep small pieces of state in your browser: a counter value, a running timer, the last pinned message. It never leaves your computer and it is what makes an OBS refresh harmless.",
+            "The cookie notice you dismissed is remembered there too."
+          ]
+        },
+        {
+          "title": "Turning them off",
+          "body": [
+            "You can clear or block cookies in your browser settings. If you block them, signing in and saving widgets stop working."
+          ]
+        },
+        {
+          "title": "Third parties",
+          "body": [
+            "Emotes, badges and fonts are loaded from Twitch, Kick, 7TV, BetterTTV, FrankerFaceZ and Google Fonts. Those services may set their own cookies in the browser source."
+          ]
+        }
+      ]
+    },
+    "updated": "Last updated: {date}",
+    "backHome": "Back to the home page"
+  },
+  "cookieBanner": {
+    "text": "This site only uses cookies it needs to work: your session, language and theme. No tracking, no ads.",
+    "accept": "Got it",
+    "more": "Details"
+  },
+  "seo": {
+    "title": "Stream widgets for OBS: chat, alerts, goals and a live drawing board",
+    "description": "Free browser-source widgets for OBS. Twitch and Kick chat with 7TV and BetterTTV emotes, alerts, goals, timers, scene screens and a drawing board you can hand to a friend. Paste one link into OBS."
+  },
+  "account": {
+    "title": "Delete account",
+    "hint": "Removes your widgets, styles, uploaded files and connected accounts. There is no undo.",
+    "delete": "Delete account",
+    "cancel": "Cancel",
+    "warning": "This deletes everything, right away.",
+    "warningList": "Widgets and their OBS links, saved styles, uploaded sounds, images and videos, drawing boards and connected Twitch or Kick accounts.",
+    "confirmLabel": "Type {word} to confirm",
+    "confirmWord": "DELETE",
+    "failed": "Could not delete the account. Try again."
   }
 }
