@@ -1,3 +1,29 @@
+import { and, eq } from 'drizzle-orm'
+
+export const TWITCH_SCOPES = [
+  'moderator:read:followers',
+  'channel:read:subscriptions',
+  'channel:read:redemptions',
+  'channel:read:hype_train',
+  'channel:read:polls',
+  'channel:read:predictions'
+]
+
+const EVENTSUB_TYPES: { type: string, version: string, moderator?: boolean }[] = [
+  { type: 'channel.follow', version: '2', moderator: true },
+  { type: 'channel.channel_points_custom_reward_redemption.add', version: '1' },
+  { type: 'channel.hype_train.begin', version: '2' },
+  { type: 'channel.hype_train.progress', version: '2' },
+  { type: 'channel.hype_train.end', version: '2' },
+  { type: 'channel.poll.begin', version: '1' },
+  { type: 'channel.poll.progress', version: '1' },
+  { type: 'channel.poll.end', version: '1' },
+  { type: 'channel.prediction.begin', version: '1' },
+  { type: 'channel.prediction.progress', version: '1' },
+  { type: 'channel.prediction.lock', version: '1' },
+  { type: 'channel.prediction.end', version: '1' }
+]
+
 let appToken: { value: string, expires: number } | undefined
 
 function credentials() {
@@ -17,9 +43,7 @@ async function getAppToken() {
   return appToken.value
 }
 
-export async function helix<T>(path: string, init: { method?: 'GET' | 'POST', body?: object } = {}): Promise<T | undefined> {
-  const token = await getAppToken()
-  if (!token) return undefined
+function request<T>(token: string, path: string, init: { method?: 'GET' | 'POST', body?: object } = {}) {
   return $fetch<T>(`https://api.twitch.tv/helix${path}`, {
     method: init.method ?? 'GET',
     body: init.body,
@@ -27,24 +51,74 @@ export async function helix<T>(path: string, init: { method?: 'GET' | 'POST', bo
   })
 }
 
-export async function subscribeTwitchFollows(broadcasterId: string) {
-  const { public: { siteUrl }, twitchWebhookSecret } = useRuntimeConfig()
-  if (!siteUrl.startsWith('https://') || !twitchWebhookSecret) {
-    console.warn('[twitch] follow alerts need an https NUXT_PUBLIC_SITE_URL and NUXT_TWITCH_WEBHOOK_SECRET, skipping subscription')
-    return
+export async function helix<T>(path: string, init: { method?: 'GET' | 'POST', body?: object } = {}): Promise<T | undefined> {
+  const token = await getAppToken()
+  return token ? request<T>(token, path, init) : undefined
+}
+
+async function twitchAccount(userId: string) {
+  const [account] = await useDb().select().from(tables.accounts)
+    .where(and(eq(tables.accounts.userId, userId), eq(tables.accounts.provider, 'twitch')))
+  return account
+}
+
+async function refreshUserToken(accountId: string, refreshToken: string) {
+  const creds = credentials()
+  if (!creds) return undefined
+  const res = await $fetch<{ access_token: string, refresh_token: string, expires_in: number }>('https://id.twitch.tv/oauth2/token', {
+    method: 'POST',
+    body: new URLSearchParams({ client_id: creds.clientId, client_secret: creds.clientSecret, grant_type: 'refresh_token', refresh_token: refreshToken })
+  }).catch(() => undefined)
+  if (!res) return undefined
+  await useDb().update(tables.accounts).set({
+    accessToken: seal(res.access_token),
+    refreshToken: seal(res.refresh_token),
+    tokenExpiresAt: new Date(Date.now() + res.expires_in * 1000)
+  }).where(eq(tables.accounts.id, accountId))
+  return res.access_token
+}
+
+export async function userHelix<T>(userId: string, path: string): Promise<T | undefined> {
+  const account = await twitchAccount(userId)
+  const refresh = unseal(account?.refreshToken)
+  if (!account || !refresh || !credentials()) return undefined
+
+  let token = unseal(account.accessToken)
+  if (!token || !account.tokenExpiresAt || account.tokenExpiresAt.getTime() < Date.now() + 60_000) {
+    token = await refreshUserToken(account.id, refresh)
   }
+  if (!token) return undefined
+
   try {
-    await helix('/eventsub/subscriptions', {
-      method: 'POST',
-      body: {
-        type: 'channel.follow',
-        version: '2',
-        condition: { broadcaster_user_id: broadcasterId, moderator_user_id: broadcasterId },
-        transport: { method: 'webhook', callback: `${siteUrl}/api/webhooks/twitch`, secret: twitchWebhookSecret }
-      }
-    })
+    return await request<T>(token, path)
   }
   catch (err: any) {
-    if (err?.statusCode !== 409) console.error('[twitch] EventSub', err?.data ?? err)
+    if (err?.statusCode !== 401) return undefined
+    const fresh = await refreshUserToken(account.id, refresh)
+    return fresh ? await request<T>(fresh, path).catch(() => undefined) : undefined
   }
+}
+
+export async function subscribeTwitchEvents(broadcasterId: string) {
+  const { public: { siteUrl }, twitchWebhookSecret } = useRuntimeConfig()
+  if (!siteUrl.startsWith('https://') || !twitchWebhookSecret) {
+    console.warn('[twitch] EventSub needs an https NUXT_PUBLIC_SITE_URL and NUXT_TWITCH_WEBHOOK_SECRET, skipping subscriptions')
+    return
+  }
+  await Promise.all(EVENTSUB_TYPES.map(async ({ type, version, moderator }) => {
+    try {
+      await helix('/eventsub/subscriptions', {
+        method: 'POST',
+        body: {
+          type,
+          version,
+          condition: moderator ? { broadcaster_user_id: broadcasterId, moderator_user_id: broadcasterId } : { broadcaster_user_id: broadcasterId },
+          transport: { method: 'webhook', callback: `${siteUrl}/api/webhooks/twitch`, secret: twitchWebhookSecret }
+        }
+      })
+    }
+    catch (err: any) {
+      if (err?.statusCode !== 409) console.error('[twitch] EventSub', type, err?.data ?? err)
+    }
+  }))
 }

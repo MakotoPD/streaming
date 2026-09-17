@@ -7,6 +7,7 @@ export const goal: WidgetDefinition = {
   fields: [
     languageField(),
     { key: 'goalMetric', section: 'general', type: 'select', default: 'subs', options: ['follows', 'subs', 'bits', 'gifts'] },
+    { key: 'goalSource', section: 'general', type: 'select', default: 'session', options: ['session', 'total'] },
     { key: 'goalTitle', section: 'general', type: 'text', default: '', max: 60 },
     { key: 'target', section: 'general', type: 'number', default: 10, min: 1, max: 1000000 },
     { key: 'startValue', section: 'general', type: 'number', default: 0, min: 0, max: 1000000 },

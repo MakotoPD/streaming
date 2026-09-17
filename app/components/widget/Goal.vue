@@ -6,7 +6,14 @@ const props = defineProps<{ settings: Settings, bus: EventBus }>()
 
 const progress = useWidgetState('goal', () => 0)
 const texts = computed(() => widgetTexts(props.settings.language).goal)
-const value = computed(() => props.settings.startValue + progress.value)
+const stats = useChannelStats(60_000, () => props.settings.goalSource === 'total')
+const totalValue = computed(() => {
+  const { twitch, kick } = stats.value
+  if (props.settings.goalMetric === 'follows') return (twitch?.followers ?? 0) + (kick?.followers ?? 0)
+  if (props.settings.goalMetric === 'subs') return twitch?.subs ?? 0
+  return undefined
+})
+const value = computed(() => (props.settings.goalSource === 'total' && totalValue.value !== undefined ? totalValue.value : props.settings.startValue + progress.value))
 const percent = computed(() => Math.min(100, (value.value / props.settings.target) * 100))
 const reached = computed(() => value.value >= props.settings.target)
 

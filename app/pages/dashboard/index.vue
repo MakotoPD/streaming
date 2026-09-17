@@ -140,7 +140,17 @@ const { copyObsUrl } = useObsUrl()
                 <UIcon :name="`i-simple-icons-${account.provider}`" /> {{ t(`platforms.${account.provider}`) }}
               </div>
             </div>
-            <UBadge color="success" variant="subtle" :label="t('dashboard.connected')" />
+            <UButton
+              v-if="account.needsReconnect"
+              :to="`/auth/${account.provider}`"
+              external
+              size="xs"
+              color="warning"
+              variant="soft"
+              icon="i-lucide-refresh-cw"
+              :label="t('dashboard.reconnect')"
+            />
+            <UBadge v-else color="success" variant="subtle" :label="t('dashboard.connected')" />
           </div>
           <div class="flex flex-wrap gap-2">
             <UButton v-if="!linked.has('twitch')" to="/auth/twitch" external icon="i-simple-icons-twitch" color="neutral" variant="outline" :label="t('dashboard.connect', { platform: 'Twitch' })" />

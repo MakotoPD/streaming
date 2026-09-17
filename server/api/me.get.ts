@@ -12,7 +12,15 @@ export default defineEventHandler(async (event) => {
     provider: tables.accounts.provider,
     login: tables.accounts.login,
     displayName: tables.accounts.displayName,
-    avatar: tables.accounts.avatar
+    avatar: tables.accounts.avatar,
+    scopes: tables.accounts.scopes
   }).from(tables.accounts).where(eq(tables.accounts.userId, userId))
-  return { id: user.id, channels: user.channels, accounts }
+  return {
+    id: user.id,
+    channels: user.channels,
+    accounts: accounts.map(({ scopes, ...account }) => ({
+      ...account,
+      needsReconnect: account.provider === 'twitch' && TWITCH_SCOPES.some(scope => !scopes.includes(scope))
+    }))
+  }
 })

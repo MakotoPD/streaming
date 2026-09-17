@@ -3,6 +3,7 @@ import type { Channels } from '#shared/types'
 
 export interface WidgetContext {
   id: string
+  token: string
   preview: boolean
   channels: Ref<Channels | undefined>
   emotes: ShallowRef<ReturnType<typeof createEmoteStore> | undefined>
@@ -76,4 +77,33 @@ export function useDisplayQueue<T>(holdMs: () => number, onShow?: (item: T) => v
 
   onBeforeUnmount(() => clearTimeout(timer))
   return { current, push, next }
+}
+
+export interface ChannelStats {
+  twitch: { viewers: number | null, followers: number | null, subs: number | null, live: boolean } | null
+  kick: { viewers: number, followers: number | null, live: boolean } | null
+}
+
+export function useChannelStats(interval = 60_000, enabled: () => boolean = () => true) {
+  const context = useWidgetContext()
+  const stats = ref<ChannelStats>({ twitch: null, kick: null })
+
+  async function load() {
+    if (!context || !enabled()) return
+    const slug = context.channels.value?.kick?.slug
+    const [server, kick] = await Promise.all([
+      $fetch<{ twitch: ChannelStats['twitch'] }>(`/api/o/${context.token}/stats`).catch(() => null),
+      slug ? $fetch<any>(`https://kick.com/api/v2/channels/${encodeURIComponent(slug)}`).catch(() => null) : null
+    ])
+    stats.value = {
+      twitch: server?.twitch ?? null,
+      kick: kick ? { viewers: Number(kick.livestream?.viewer_count) || 0, followers: kick.followers_count == null ? null : Number(kick.followers_count), live: !!kick.livestream } : null
+    }
+  }
+
+  onMounted(load)
+  const timer = setInterval(load, interval)
+  onBeforeUnmount(() => clearInterval(timer))
+  watch([() => context?.channels.value, enabled], load)
+  return stats
 }

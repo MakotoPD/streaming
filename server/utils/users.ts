@@ -57,16 +57,26 @@ export async function linkAccount(event: H3Event, account: {
   displayName: string
   avatar?: string
   channel: Channels
+  tokens?: { accessToken: string, refreshToken: string, expiresIn: number, scopes: string[] }
 }) {
   const db = useDb()
   const [existing] = await db.select().from(tables.accounts)
     .where(and(eq(tables.accounts.provider, account.provider), eq(tables.accounts.providerId, account.providerId)))
 
+  const tokenColumns = account.tokens
+    ? {
+        accessToken: seal(account.tokens.accessToken),
+        refreshToken: seal(account.tokens.refreshToken),
+        tokenExpiresAt: new Date(Date.now() + account.tokens.expiresIn * 1000),
+        scopes: account.tokens.scopes
+      }
+    : {}
+
   let userId: string
   if (existing) {
     userId = existing.userId
     await db.update(tables.accounts)
-      .set({ login: account.login, displayName: account.displayName, avatar: account.avatar })
+      .set({ login: account.login, displayName: account.displayName, avatar: account.avatar, ...tokenColumns })
       .where(eq(tables.accounts.id, existing.id))
     await setUserSession(event, { user: { id: userId } })
   }
@@ -78,7 +88,8 @@ export async function linkAccount(event: H3Event, account: {
       providerId: account.providerId,
       login: account.login,
       displayName: account.displayName,
-      avatar: account.avatar
+      avatar: account.avatar,
+      ...tokenColumns
     })
   }
   await updateChannels(userId, account.channel)

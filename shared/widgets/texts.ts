@@ -14,6 +14,10 @@ interface WidgetTexts {
   goal: Record<'follows' | 'subs' | 'bits' | 'gifts', string> & { reached: string }
   clock: { uptime: string, offline: string, countdown: string }
   marquee: { welcome: string }
+  redemptions: { redeemed: string, points: string }
+  hype: { title: string, golden: string, level: string, ended: string, bits: string, sub: string, other: string, idle: string }
+  twitchPoll: { votes: string, points: string, users: string, locked: string, winner: string, canceled: string, endsIn: string, ended: string }
+  viewers: { label: string, offline: string }
 }
 
 export const WIDGET_TEXTS: Record<Language, WidgetTexts> = {
@@ -39,7 +43,11 @@ export const WIDGET_TEXTS: Record<Language, WidgetTexts> = {
     subathon: { title: 'Subathon', paused: 'Paused', ended: 'Ended' },
     goal: { follows: 'Follower goal', subs: 'Sub goal', bits: 'Bits goal', gifts: 'Gift goal', reached: 'Goal reached!' },
     clock: { uptime: 'Live for', offline: 'Offline', countdown: 'Starting in' },
-    marquee: { welcome: 'Welcome to the stream!' }
+    marquee: { welcome: 'Welcome to the stream!' },
+    redemptions: { redeemed: 'redeemed {reward}', points: '{count} {count|point|points}' },
+    hype: { title: 'Hype Train', golden: 'Golden Kappa Train', level: 'Level {level}', ended: 'Hype Train finished at level {level}!', bits: '{count} bits', sub: 'Tier {tier} sub', other: '{count} points', idle: 'Waiting for the next Hype Train' },
+    twitchPoll: { votes: '{count} {count|vote|votes}', points: '{count} {count|point|points}', users: '{count} {count|person|people}', locked: 'Predictions closed', winner: 'Winner', canceled: 'Canceled, points refunded', endsIn: 'Ends in {time}', ended: 'Poll ended' },
+    viewers: { label: '{count|viewer|viewers}', offline: 'Offline' }
   },
   pl: {
     alerts: {
@@ -63,7 +71,11 @@ export const WIDGET_TEXTS: Record<Language, WidgetTexts> = {
     subathon: { title: 'Subathon', paused: 'Pauza', ended: 'Koniec' },
     goal: { follows: 'Cel obserwujących', subs: 'Cel subów', bits: 'Cel bitów', gifts: 'Cel giftów', reached: 'Cel osiągnięty!' },
     clock: { uptime: 'Na żywo od', offline: 'Offline', countdown: 'Start za' },
-    marquee: { welcome: 'Witaj na streamie!' }
+    marquee: { welcome: 'Witaj na streamie!' },
+    redemptions: { redeemed: 'odbiera {reward}', points: '{count} {count|punkt|punkty|punktów}' },
+    hype: { title: 'Hype Train', golden: 'Złoty Hype Train', level: 'Poziom {level}', ended: 'Hype Train zakończony na poziomie {level}!', bits: '{count} bitów', sub: 'sub Tier {tier}', other: '{count} pkt', idle: 'Czekamy na kolejny Hype Train' },
+    twitchPoll: { votes: '{count} {count|głos|głosy|głosów}', points: '{count} {count|punkt|punkty|punktów}', users: '{count} {count|osoba|osoby|osób}', locked: 'Przewidywania zamknięte', winner: 'Wygrywa', canceled: 'Anulowane, punkty zwrócone', endsIn: 'Koniec za {time}', ended: 'Ankieta zakończona' },
+    viewers: { label: '{count|widz|widzów|widzów}', offline: 'Offline' }
   },
   es: {
     alerts: {
@@ -87,7 +99,11 @@ export const WIDGET_TEXTS: Record<Language, WidgetTexts> = {
     subathon: { title: 'Subathon', paused: 'En pausa', ended: 'Terminado' },
     goal: { follows: 'Meta de seguidores', subs: 'Meta de subs', bits: 'Meta de bits', gifts: 'Meta de regalos', reached: '¡Meta alcanzada!' },
     clock: { uptime: 'En directo desde hace', offline: 'Desconectado', countdown: 'Empieza en' },
-    marquee: { welcome: '¡Bienvenido al directo!' }
+    marquee: { welcome: '¡Bienvenido al directo!' },
+    redemptions: { redeemed: 'canjeó {reward}', points: '{count} {count|punto|puntos}' },
+    hype: { title: 'Hype Train', golden: 'Hype Train dorado', level: 'Nivel {level}', ended: '¡Hype Train terminado en el nivel {level}!', bits: '{count} bits', sub: 'sub nivel {tier}', other: '{count} puntos', idle: 'Esperando el próximo Hype Train' },
+    twitchPoll: { votes: '{count} {count|voto|votos}', points: '{count} {count|punto|puntos}', users: '{count} {count|persona|personas}', locked: 'Predicciones cerradas', winner: 'Ganador', canceled: 'Cancelada, puntos devueltos', endsIn: 'Termina en {time}', ended: 'Encuesta terminada' },
+    viewers: { label: '{count|espectador|espectadores}', offline: 'Desconectado' }
   },
   de: {
     alerts: {
@@ -111,7 +127,11 @@ export const WIDGET_TEXTS: Record<Language, WidgetTexts> = {
     subathon: { title: 'Subathon', paused: 'Pausiert', ended: 'Beendet' },
     goal: { follows: 'Follower-Ziel', subs: 'Abo-Ziel', bits: 'Bits-Ziel', gifts: 'Geschenk-Ziel', reached: 'Ziel erreicht!' },
     clock: { uptime: 'Live seit', offline: 'Offline', countdown: 'Start in' },
-    marquee: { welcome: 'Willkommen im Stream!' }
+    marquee: { welcome: 'Willkommen im Stream!' },
+    redemptions: { redeemed: 'löst {reward} ein', points: '{count} {count|Punkt|Punkte}' },
+    hype: { title: 'Hype Train', golden: 'Goldener Hype Train', level: 'Stufe {level}', ended: 'Hype Train auf Stufe {level} beendet!', bits: '{count} Bits', sub: 'Stufe-{tier}-Abo', other: '{count} Punkte', idle: 'Warten auf den nächsten Hype Train' },
+    twitchPoll: { votes: '{count} {count|Stimme|Stimmen}', points: '{count} {count|Punkt|Punkte}', users: '{count} {count|Person|Personen}', locked: 'Vorhersagen geschlossen', winner: 'Gewinner', canceled: 'Abgebrochen, Punkte erstattet', endsIn: 'Endet in {time}', ended: 'Umfrage beendet' },
+    viewers: { label: '{count|Zuschauer|Zuschauer}', offline: 'Offline' }
   },
   ru: {
     alerts: {
@@ -135,7 +155,11 @@ export const WIDGET_TEXTS: Record<Language, WidgetTexts> = {
     subathon: { title: 'Сабатон', paused: 'Пауза', ended: 'Завершён' },
     goal: { follows: 'Цель по фолловерам', subs: 'Цель по подпискам', bits: 'Цель по битам', gifts: 'Цель по подаркам', reached: 'Цель достигнута!' },
     clock: { uptime: 'В эфире', offline: 'Не в сети', countdown: 'Старт через' },
-    marquee: { welcome: 'Добро пожаловать на стрим!' }
+    marquee: { welcome: 'Добро пожаловать на стрим!' },
+    redemptions: { redeemed: 'получает {reward}', points: '{count} {count|балл|балла|баллов}' },
+    hype: { title: 'Hype Train', golden: 'Золотой Hype Train', level: 'Уровень {level}', ended: 'Hype Train завершён на уровне {level}!', bits: '{count} битов', sub: 'подписка уровня {tier}', other: '{count} очков', idle: 'Ждём следующий Hype Train' },
+    twitchPoll: { votes: '{count} {count|голос|голоса|голосов}', points: '{count} {count|балл|балла|баллов}', users: '{count} {count|человек|человека|человек}', locked: 'Прогнозы закрыты', winner: 'Победа', canceled: 'Отменено, баллы возвращены', endsIn: 'До конца {time}', ended: 'Опрос завершён' },
+    viewers: { label: '{count|зритель|зрителя|зрителей}', offline: 'Не в сети' }
   }
 }
 

@@ -15,6 +15,10 @@ export const accounts = pgTable('accounts', {
   login: text().notNull(),
   displayName: text().notNull(),
   avatar: text(),
+  accessToken: text(),
+  refreshToken: text(),
+  tokenExpiresAt: timestamp({ withTimezone: true }),
+  scopes: jsonb().$type<string[]>().notNull().default([]),
   createdAt: timestamp({ withTimezone: true }).notNull().defaultNow()
 }, t => [
   uniqueIndex().on(t.provider, t.providerId),

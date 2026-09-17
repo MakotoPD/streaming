@@ -63,7 +63,8 @@
     "connected": "Connected",
     "connect": "Connect {platform}",
     "urlCopied": "Link copied",
-    "urlCopiedHint": "In OBS: Sources → + → Browser → paste the URL."
+    "urlCopiedHint": "In OBS: Sources → + → Browser → paste the URL.",
+    "reconnect": "Reconnect (new permissions)"
   },
   "widgets": {
     "chat": {
@@ -145,6 +146,22 @@
     "lower-third": {
       "name": "Lower third",
       "description": "Name and subtitle bar, always on or shown on an interval."
+    },
+    "redemptions": {
+      "name": "Channel point rewards",
+      "description": "Shows who redeemed which reward, with their message. Requires Twitch login."
+    },
+    "hype-train": {
+      "name": "Hype Train",
+      "description": "Level, progress, countdown and top contributors. Requires Twitch login."
+    },
+    "twitch-poll": {
+      "name": "Twitch polls & predictions",
+      "description": "Shows native Twitch polls and predictions live. Requires Twitch login."
+    },
+    "viewers": {
+      "name": "Viewer count",
+      "description": "Live viewers on Twitch and Kick, separately or combined."
     }
   },
   "editor": {
@@ -369,7 +386,27 @@
     "scaleWithAmount": "Scale with amount",
     "alertEmotes": "Event emotes",
     "burstSize": "Emotes per explosion",
-    "spread": "Explosion size"
+    "spread": "Explosion size",
+    "rewardFilter": "Which rewards",
+    "rewards": "Reward names",
+    "showInput": "Show viewer message",
+    "showCost": "Show cost",
+    "showContributors": "Show top contributors",
+    "contributorsCount": "Number of contributors",
+    "endHold": "Show result for",
+    "showWhenIdle": "Show when no train is running",
+    "goldenColor": "Golden train color",
+    "pollKinds": "Show",
+    "resultsHold": "Show results for",
+    "showVotes": "Show numbers",
+    "showPoints": "Show channel points",
+    "blueColor": "Blue outcome color",
+    "pinkColor": "Pink outcome color",
+    "showTwitch": "Show Twitch",
+    "showKick": "Show Kick",
+    "combine": "Combine platforms",
+    "hideWhenOffline": "Hide when offline",
+    "goalSource": "Count from"
   },
   "hints": {
     "hideAfter": "0 keeps messages until new ones push them out.",
@@ -406,7 +443,11 @@
     "triggers": "Pick what starts the effect. Chat uses the emotes from the message.",
     "scaleWithAmount": "More gifted subs, bits or raiders = more emotes (up to 10×).",
     "alertEmotes": "Emote names from your channel, e.g. KEKW. Empty = random emotes from your 7TV/BTTV/FFZ set.",
-    "spread": "How far emotes fly from the center of an explosion."
+    "spread": "How far emotes fly from the center of an explosion.",
+    "rewards": "Exact reward titles. Press Enter after each one.",
+    "goalSource": "“Channel total” uses real follower and sub counts from Twitch (login required) and Kick followers. Bits and gifts always count this stream.",
+    "endHold": "How long the final level stays after the train ends.",
+    "combine": "Adds Twitch and Kick viewers into one number."
   },
   "options": {
     "direction": {
@@ -528,6 +569,20 @@
       "gifts": "Gifted subs",
       "raid": "Raid",
       "bits": "Bits"
+    },
+    "rewardFilter": {
+      "all": "All rewards",
+      "only": "Only the listed ones",
+      "except": "All except the listed ones"
+    },
+    "pollKinds": {
+      "both": "Polls and predictions",
+      "polls": "Only polls",
+      "predictions": "Only predictions"
+    },
+    "goalSource": {
+      "session": "This stream",
+      "total": "Channel total"
     }
   },
   "animations": {
@@ -583,7 +638,14 @@
     "pin": "Pin",
     "join": "Join",
     "first": "First message",
-    "highlight": "Highlighted"
+    "highlight": "Highlighted",
+    "redemption": "Reward",
+    "hypeProgress": "Hype progress",
+    "hypeEnd": "Hype end",
+    "pollProgress": "Poll",
+    "pollEnd": "Poll end",
+    "predictionProgress": "Prediction",
+    "predictionEnd": "Prediction result"
   },
   "sound": {
     "none": "No sound",
@@ -713,7 +775,36 @@
     "lowerThirdAccent": "Accent stripe",
     "lowerThirdTitle": "Name",
     "lowerThirdSubtitle": "Subtitle",
-    "emoteDropBurst": "Emotes of one effect: .emote-drop-fall, -rise, -fly, -burst, -fountain, -pop"
+    "emoteDropBurst": "Emotes of one effect: .emote-drop-fall, -rise, -fly, -burst, -fountain, -pop",
+    "redemptionCard": "Reward card",
+    "redemptionIcon": "Icon",
+    "redemptionName": "Viewer name",
+    "redemptionReward": "Reward title",
+    "redemptionCost": "Cost badge",
+    "redemptionInput": "Viewer message",
+    "hype": "Hype Train box",
+    "hypeTitle": "Title",
+    "hypeLevel": "Level badge",
+    "hypeTimer": "Time left",
+    "hypeBar": "Progress bar background",
+    "hypeFill": "Progress bar fill",
+    "hypeContributors": "Top contributors row",
+    "hypeGolden": "Box during a Golden Kappa Train",
+    "tpoll": "Poll or prediction card",
+    "tpollTitle": "Title",
+    "tpollOption": "Single option",
+    "tpollBar": "Bar background",
+    "tpollFill": "Bar fill",
+    "tpollLabel": "Option name",
+    "tpollCount": "Percent and numbers",
+    "tpollWinner": "Winning option",
+    "tpollStatus": "Time left or status",
+    "viewers": "Container",
+    "viewersItem": "Single platform",
+    "viewersDot": "Live dot",
+    "viewersIcon": "Platform icon",
+    "viewersCount": "Number of viewers",
+    "viewersLabel": "“viewers” label"
   },
   "actions": {
     "start": "Start",

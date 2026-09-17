@@ -63,7 +63,8 @@
     "connected": "Verbunden",
     "connect": "{platform} verbinden",
     "urlCopied": "Link kopiert",
-    "urlCopiedHint": "In OBS: Quellen → + → Browser → URL einfügen."
+    "urlCopiedHint": "In OBS: Quellen → + → Browser → URL einfügen.",
+    "reconnect": "Neu verbinden (neue Berechtigungen)"
   },
   "widgets": {
     "chat": {
@@ -145,6 +146,22 @@
     "lower-third": {
       "name": "Bauchbinde",
       "description": "Balken mit Name und Untertitel, dauerhaft oder in Intervallen."
+    },
+    "redemptions": {
+      "name": "Kanalpunkte-Belohnungen",
+      "description": "Zeigt, wer welche Belohnung eingelöst hat, mit Nachricht. Erfordert Twitch-Login."
+    },
+    "hype-train": {
+      "name": "Hype Train",
+      "description": "Stufe, Fortschritt, Countdown und Top-Unterstützer. Erfordert Twitch-Login."
+    },
+    "twitch-poll": {
+      "name": "Twitch-Umfragen & Vorhersagen",
+      "description": "Zeigt native Twitch-Umfragen und Vorhersagen live. Erfordert Twitch-Login."
+    },
+    "viewers": {
+      "name": "Zuschauerzahl",
+      "description": "Live-Zuschauer auf Twitch und Kick, getrennt oder zusammen."
     }
   },
   "editor": {
@@ -369,7 +386,27 @@
     "scaleWithAmount": "Mit Menge skalieren",
     "alertEmotes": "Emotes für Ereignisse",
     "burstSize": "Emotes pro Explosion",
-    "spread": "Explosionsgröße"
+    "spread": "Explosionsgröße",
+    "rewardFilter": "Welche Belohnungen",
+    "rewards": "Namen der Belohnungen",
+    "showInput": "Nachricht des Zuschauers anzeigen",
+    "showCost": "Kosten anzeigen",
+    "showContributors": "Top-Unterstützer anzeigen",
+    "contributorsCount": "Anzahl der Unterstützer",
+    "endHold": "Ergebnis anzeigen für",
+    "showWhenIdle": "Anzeigen, wenn kein Zug läuft",
+    "goldenColor": "Farbe des goldenen Zugs",
+    "pollKinds": "Anzeigen",
+    "resultsHold": "Ergebnisse anzeigen für",
+    "showVotes": "Zahlen anzeigen",
+    "showPoints": "Kanalpunkte anzeigen",
+    "blueColor": "Farbe der blauen Option",
+    "pinkColor": "Farbe der rosa Option",
+    "showTwitch": "Twitch anzeigen",
+    "showKick": "Kick anzeigen",
+    "combine": "Plattformen zusammenfassen",
+    "hideWhenOffline": "Ausblenden, wenn offline",
+    "goalSource": "Zählen ab"
   },
   "hints": {
     "hideAfter": "0 behält Nachrichten, bis neue sie verdrängen.",
@@ -406,7 +443,11 @@
     "triggers": "Wähle, was den Effekt startet. Chat nutzt die Emotes der Nachricht.",
     "scaleWithAmount": "Mehr Geschenke, Bits oder Raider = mehr Emotes (bis 10×).",
     "alertEmotes": "Emote-Namen deines Kanals, z. B. KEKW. Leer = zufällige Emotes aus deinem 7TV/BTTV/FFZ-Set.",
-    "spread": "Wie weit Emotes vom Explosionszentrum fliegen."
+    "spread": "Wie weit Emotes vom Explosionszentrum fliegen.",
+    "rewards": "Exakte Belohnungstitel. Jeden mit Enter bestätigen.",
+    "goalSource": "„Kanal gesamt“ nutzt echte Follower- und Abozahlen von Twitch (Login nötig) und Kick-Follower. Bits und Geschenke zählen immer diesen Stream.",
+    "endHold": "Wie lange die Endstufe nach dem Zug sichtbar bleibt.",
+    "combine": "Addiert Zuschauer von Twitch und Kick zu einer Zahl."
   },
   "options": {
     "direction": {
@@ -528,6 +569,20 @@
       "gifts": "Verschenkte Abos",
       "raid": "Raid",
       "bits": "Bits"
+    },
+    "rewardFilter": {
+      "all": "Alle Belohnungen",
+      "only": "Nur die aufgelisteten",
+      "except": "Alle außer den aufgelisteten"
+    },
+    "pollKinds": {
+      "both": "Umfragen und Vorhersagen",
+      "polls": "Nur Umfragen",
+      "predictions": "Nur Vorhersagen"
+    },
+    "goalSource": {
+      "session": "Dieser Stream",
+      "total": "Kanal gesamt"
     }
   },
   "animations": {
@@ -583,7 +638,14 @@
     "pin": "Anheften",
     "join": "Teilnahme",
     "first": "Erste Nachricht",
-    "highlight": "Hervorgehoben"
+    "highlight": "Hervorgehoben",
+    "redemption": "Belohnung",
+    "hypeProgress": "Hype-Fortschritt",
+    "hypeEnd": "Hype-Ende",
+    "pollProgress": "Umfrage",
+    "pollEnd": "Umfrage-Ende",
+    "predictionProgress": "Vorhersage",
+    "predictionEnd": "Vorhersage-Ergebnis"
   },
   "sound": {
     "none": "Kein Sound",
@@ -713,7 +775,36 @@
     "lowerThirdAccent": "Akzentstreifen",
     "lowerThirdTitle": "Name",
     "lowerThirdSubtitle": "Untertitel",
-    "emoteDropBurst": "Emotes eines Effekts: .emote-drop-fall, -rise, -fly, -burst, -fountain, -pop"
+    "emoteDropBurst": "Emotes eines Effekts: .emote-drop-fall, -rise, -fly, -burst, -fountain, -pop",
+    "redemptionCard": "Belohnungskarte",
+    "redemptionIcon": "Symbol",
+    "redemptionName": "Name des Zuschauers",
+    "redemptionReward": "Belohnungstitel",
+    "redemptionCost": "Kostenmarkierung",
+    "redemptionInput": "Nachricht des Zuschauers",
+    "hype": "Hype-Train-Box",
+    "hypeTitle": "Titel",
+    "hypeLevel": "Stufenmarkierung",
+    "hypeTimer": "Verbleibende Zeit",
+    "hypeBar": "Hintergrund des Fortschrittsbalkens",
+    "hypeFill": "Balkenfüllung",
+    "hypeContributors": "Zeile der Unterstützer",
+    "hypeGolden": "Box während des goldenen Zugs",
+    "tpoll": "Umfrage- oder Vorhersagekarte",
+    "tpollTitle": "Titel",
+    "tpollOption": "Einzelne Option",
+    "tpollBar": "Balkenhintergrund",
+    "tpollFill": "Balkenfüllung",
+    "tpollLabel": "Optionsname",
+    "tpollCount": "Prozent und Zahlen",
+    "tpollWinner": "Gewinneroption",
+    "tpollStatus": "Verbleibende Zeit oder Status",
+    "viewers": "Container",
+    "viewersItem": "Einzelne Plattform",
+    "viewersDot": "Live-Punkt",
+    "viewersIcon": "Plattformsymbol",
+    "viewersCount": "Zuschauerzahl",
+    "viewersLabel": "Beschriftung „Zuschauer“"
   },
   "actions": {
     "start": "Start",

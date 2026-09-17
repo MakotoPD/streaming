@@ -5,6 +5,7 @@ import { expandParts } from '../app/utils/emotes.ts'
 import { ircToEvents, parseIrc, twitchParts, twitchRoles } from '../app/utils/twitch-irc.ts'
 import { kickParts, kickRoles } from '../app/utils/kick-chat.ts'
 import { hasPermission } from '../shared/utils/permissions.ts'
+import { eventSubToStreamEvent } from '../server/utils/eventsub.ts'
 import { fillTemplate } from '../shared/utils/template.ts'
 import { formatColor, parseColor } from '../app/utils/color.ts'
 import { tokenizeCss } from '../app/utils/css-highlight.ts'
@@ -128,4 +129,17 @@ test('twitch chat flags first message, highlight and bits', () => {
   const [chat, bits] = ircToEvents(msg, () => undefined)
   assert.ok(chat?.kind === 'chat' && chat.firstMessage && chat.highlighted && chat.bits === 100)
   assert.ok(bits?.kind === 'alert' && bits.type === 'bits')
+})
+
+test('eventSubToStreamEvent maps Twitch EventSub payloads', () => {
+  assert.deepEqual(eventSubToStreamEvent('channel.channel_points_custom_reward_redemption.add', { id: 'r1', user_name: 'Viewer', user_input: 'hi', reward: { title: 'Hydrate', cost: 500, prompt: '' } }),
+    { kind: 'redemption', platform: 'twitch', id: 'r1', name: 'Viewer', input: 'hi', reward: { title: 'Hydrate', cost: 500, prompt: '' } })
+  const hype = eventSubToStreamEvent('channel.hype_train.progress', { level: 3, total: 5000, progress: 400, goal: 1800, type: 'golden_kappa', expires_at: 'x', top_contributions: [{ user_name: 'A', type: 'bits', total: 1000 }] })
+  assert.ok(hype?.kind === 'hypetrain' && hype.phase === 'progress' && hype.golden && hype.level === 3 && hype.contributors[0]?.name === 'A')
+  const poll = eventSubToStreamEvent('channel.poll.end', { id: 'p', title: 'Q', status: 'completed', choices: [{ id: 'a', title: 'Yes', votes: 7 }] })
+  assert.ok(poll?.kind === 'twitch-poll' && poll.phase === 'end' && poll.choices[0]?.votes === 7)
+  const prediction = eventSubToStreamEvent('channel.prediction.lock', { id: 'x', title: 'T', outcomes: [{ id: 'o', title: 'Yes', color: 'blue', users: 2, channel_points: 900 }] })
+  assert.ok(prediction?.kind === 'prediction' && prediction.phase === 'lock' && prediction.outcomes[0]?.points === 900)
+  assert.deepEqual(eventSubToStreamEvent('channel.follow', { user_name: 'F' }), { kind: 'alert', type: 'follow', platform: 'twitch', name: 'F' })
+  assert.equal(eventSubToStreamEvent('channel.ban', {}), undefined)
 })

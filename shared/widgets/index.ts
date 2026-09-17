@@ -10,16 +10,20 @@ import { emoteRain } from './emote-rain'
 import { firstMessage } from './first-message'
 import { giveaway } from './giveaway'
 import { goal } from './goal'
+import { hypeTrain } from './hype-train'
 import { leaderboard } from './leaderboard'
 import { lowerThird } from './lower-third'
 import { marquee } from './marquee'
 import { pinned } from './pinned'
 import { poll } from './poll'
 import { recentEvents } from './recent-events'
+import { redemptions } from './redemptions'
 import { scene } from './scene'
 import { socials } from './socials'
 import { spotlight } from './spotlight'
 import { subathon } from './subathon'
+import { twitchPoll } from './twitch-poll'
+import { viewers } from './viewers'
 
 export * from './define'
 export { ALERT_TYPES } from './alerts'
@@ -47,7 +51,11 @@ export const WIDGETS: Record<string, WidgetDefinition> = Object.fromEntries([
   socials,
   marquee,
   camFrame,
-  lowerThird
+  lowerThird,
+  redemptions,
+  hypeTrain,
+  twitchPoll,
+  viewers
 ].map(def => [def.type, def]))
 
 export const WIDGET_TYPES = Object.keys(WIDGETS)
@@ -106,6 +114,19 @@ export function sampleEvent(test: string, settings: Settings = {}): StreamEvent 
       return sampleChat({ text: 'hi everyone, just found this stream!', name: `Newbie${Math.floor(Math.random() * 900 + 100)}`, firstMessage: true })
     case 'highlight':
       return sampleChat({ text: 'This stream is amazing, keep it up! LUL', highlighted: true, bits: 500, parts: [{ type: 'text', text: 'This stream is amazing, keep it up! ' }, { type: 'emote', name: 'LUL', url: LUL }] })
+    case 'redemption':
+      return { kind: 'redemption', platform: 'twitch', id: crypto.randomUUID(), name: random(SAMPLE_NAMES), input: 'play a sad song', reward: { title: 'Song request', cost: 500, prompt: '' } }
+    case 'hypeProgress':
+    case 'hypeEnd': {
+      const level = Math.floor(Math.random() * 4) + 1
+      return { kind: 'hypetrain', phase: test === 'hypeEnd' ? 'end' : 'progress', level, total: level * 1800, progress: Math.floor(Math.random() * 1600) + 100, goal: 1800, golden: false, expiresAt: new Date(Date.now() + 240_000).toISOString(), contributors: [{ name: random(SAMPLE_NAMES), type: 'bits', total: 1000 }, { name: random(SAMPLE_NAMES), type: 'subscription', total: 2500 }, { name: random(SAMPLE_NAMES), type: 'bits', total: 300 }] }
+    }
+    case 'pollProgress':
+    case 'pollEnd':
+      return { kind: 'twitch-poll', phase: test === 'pollEnd' ? 'end' : 'progress', id: 'sample-poll', title: 'Which game next?', endsAt: new Date(Date.now() + 90_000).toISOString(), status: test === 'pollEnd' ? 'completed' : undefined, choices: [{ id: 'a', title: 'Elden Ring', votes: Math.floor(Math.random() * 80) }, { id: 'b', title: 'Minecraft', votes: Math.floor(Math.random() * 80) }, { id: 'c', title: 'Just Chatting', votes: Math.floor(Math.random() * 40) }] }
+    case 'predictionProgress':
+    case 'predictionEnd':
+      return { kind: 'prediction', phase: test === 'predictionEnd' ? 'end' : 'progress', id: 'sample-prediction', title: 'Will we beat the boss?', locksAt: new Date(Date.now() + 60_000).toISOString(), winningId: test === 'predictionEnd' ? 'yes' : undefined, status: test === 'predictionEnd' ? 'resolved' : undefined, outcomes: [{ id: 'yes', title: 'Yes', color: 'blue', users: Math.floor(Math.random() * 60) + 1, points: Math.floor(Math.random() * 90000) }, { id: 'no', title: 'No', color: 'pink', users: Math.floor(Math.random() * 60) + 1, points: Math.floor(Math.random() * 90000) }] }
     case 'pin':
       return { kind: 'command', name: 'pin', payload: sampleChat({ text: 'Remember to hydrate! LUL', name: 'makotopd', roles: ['broadcaster'], parts: [{ type: 'text', text: 'Remember to hydrate! ' }, { type: 'emote', name: 'LUL', url: LUL }] }) }
   }

@@ -11,16 +11,20 @@ import {
   LazyWidgetFirstMessage,
   LazyWidgetGiveaway,
   LazyWidgetGoal,
+  LazyWidgetHypeTrain,
   LazyWidgetLeaderboard,
   LazyWidgetLowerThird,
   LazyWidgetMarquee,
   LazyWidgetPinned,
   LazyWidgetPoll,
   LazyWidgetRecentEvents,
+  LazyWidgetRedemptions,
   LazyWidgetScene,
   LazyWidgetSocials,
   LazyWidgetSpotlight,
-  LazyWidgetSubathon
+  LazyWidgetSubathon,
+  LazyWidgetTwitchPoll,
+  LazyWidgetViewers
 } from '#components'
 
 definePageMeta({ layout: 'overlay' })
@@ -45,7 +49,11 @@ const COMPONENTS: Record<string, Component> = {
   'socials': LazyWidgetSocials,
   'marquee': LazyWidgetMarquee,
   'cam-frame': LazyWidgetCamFrame,
-  'lower-third': LazyWidgetLowerThird
+  'lower-third': LazyWidgetLowerThird,
+  'redemptions': LazyWidgetRedemptions,
+  'hype-train': LazyWidgetHypeTrain,
+  'twitch-poll': LazyWidgetTwitchPoll,
+  'viewers': LazyWidgetViewers
 }
 
 const route = useRoute()
@@ -62,7 +70,7 @@ watch(data, (value) => {
 const live = ref(!preview || route.query.live !== '0')
 const bus = createEventBus()
 const { emotes } = useStreamEvents(() => data.value?.channels, bus, () => live.value && !!data.value)
-provideWidgetContext({ id: data.value?.id ?? token, preview, channels: computed(() => data.value?.channels), emotes })
+provideWidgetContext({ id: data.value?.id ?? token, token, preview, channels: computed(() => data.value?.channels), emotes })
 
 const highlight = ref<string>()
 

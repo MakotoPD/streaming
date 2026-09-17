@@ -44,12 +44,16 @@ Database data and uploaded sounds live in the `pgdata` and `uploads` volumes.
 
 | Platform | Without login | With login |
 |---|---|---|
-| Twitch | chat, subs, gifts, raids, bits (anonymous IRC) | follow alerts (EventSub webhook) |
-| Kick | chat, subs, gifts, raids, bans, follows (Pusher) | — |
+| Twitch | chat, subs, gifts, raids, bits (anonymous IRC), viewer count | follows, channel point rewards, Hype Train, polls and predictions (EventSub webhooks), follower and sub totals (Helix) |
+| Kick | chat, subs, gifts, raids, bans, follows (Pusher), viewer and follower counts | — |
 | YouTube | planned | planned |
 
 The overlay connects to Twitch and Kick directly from the OBS browser. The server stores settings, accounts and sounds,
 and pushes setting changes and follow alerts over SSE.
+
+Signing in with Twitch stores the OAuth tokens encrypted (AES-256-GCM, key derived from `NUXT_SESSION_PASSWORD`) so the server can read follower and sub totals. Changing `NUXT_SESSION_PASSWORD` invalidates stored tokens; users then reconnect Twitch from the dashboard. When new Twitch permissions are added, the dashboard shows a “Reconnect” button.
+
+EventSub webhooks only work when `NUXT_PUBLIC_SITE_URL` is a public `https://` address, so rewards, Hype Train, polls, predictions and Twitch follows cannot be received on localhost.
 
 Known limitations:
 - Widget state (poll votes, counters, giveaway entries, subathon time, goals, leaderboards) is stored in the OBS browser source (localStorage), so it is not shared between computers.

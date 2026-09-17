@@ -28,12 +28,11 @@ export default defineEventHandler(async (event) => {
   seen.add(id)
   if (seen.size > 1000) seen.delete(seen.values().next().value!)
 
-  if (body.subscription?.type === 'channel.follow') {
+  const streamEvent = eventSubToStreamEvent(body.subscription?.type ?? '', body.event)
+  if (streamEvent) {
     const users = await useDb().select({ id: tables.users.id }).from(tables.users)
       .where(sql`${tables.users.channels}->'twitch'->>'id' = ${body.event.broadcaster_user_id}`)
-    for (const user of users) {
-      publishToUser(user.id, { kind: 'event', event: { kind: 'alert', type: 'follow', platform: 'twitch', name: body.event.user_name } })
-    }
+    for (const user of users) publishToUser(user.id, { kind: 'event', event: streamEvent })
   }
   return null
 })

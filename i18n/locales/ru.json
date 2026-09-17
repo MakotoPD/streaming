@@ -63,7 +63,8 @@
     "connected": "Подключено",
     "connect": "Подключить {platform}",
     "urlCopied": "Ссылка скопирована",
-    "urlCopiedHint": "В OBS: Источники → + → Браузер → вставьте URL."
+    "urlCopiedHint": "В OBS: Источники → + → Браузер → вставьте URL.",
+    "reconnect": "Переподключить (новые права)"
   },
   "widgets": {
     "chat": {
@@ -145,6 +146,22 @@
     "lower-third": {
       "name": "Плашка с ником",
       "description": "Плашка с ником и подписью, постоянно или по интервалу."
+    },
+    "redemptions": {
+      "name": "Награды за баллы канала",
+      "description": "Показывает, кто получил награду, и сообщение. Нужен вход через Twitch."
+    },
+    "hype-train": {
+      "name": "Hype Train",
+      "description": "Уровень, прогресс, отсчёт и топ поддержавших. Нужен вход через Twitch."
+    },
+    "twitch-poll": {
+      "name": "Опросы и прогнозы Twitch",
+      "description": "Показывает опросы и прогнозы Twitch вживую. Нужен вход через Twitch."
+    },
+    "viewers": {
+      "name": "Число зрителей",
+      "description": "Зрители на Twitch и Kick по отдельности или вместе."
     }
   },
   "editor": {
@@ -369,7 +386,27 @@
     "scaleWithAmount": "Масштабировать по количеству",
     "alertEmotes": "Эмодзи для событий",
     "burstSize": "Эмодзи во взрыве",
-    "spread": "Размер взрыва"
+    "spread": "Размер взрыва",
+    "rewardFilter": "Какие награды",
+    "rewards": "Названия наград",
+    "showInput": "Показывать сообщение зрителя",
+    "showCost": "Показывать стоимость",
+    "showContributors": "Показывать топ поддержавших",
+    "contributorsCount": "Количество поддержавших",
+    "endHold": "Показывать итог",
+    "showWhenIdle": "Показывать без активного поезда",
+    "goldenColor": "Цвет золотого поезда",
+    "pollKinds": "Показывать",
+    "resultsHold": "Показывать результаты",
+    "showVotes": "Показывать числа",
+    "showPoints": "Показывать баллы канала",
+    "blueColor": "Цвет синего варианта",
+    "pinkColor": "Цвет розового варианта",
+    "showTwitch": "Показывать Twitch",
+    "showKick": "Показывать Kick",
+    "combine": "Суммировать платформы",
+    "hideWhenOffline": "Скрывать, когда офлайн",
+    "goalSource": "Считать от"
   },
   "hints": {
     "hideAfter": "0 — сообщения остаются, пока их не вытеснят новые.",
@@ -406,7 +443,11 @@
     "triggers": "Выберите, что запускает эффект. Чат использует эмодзи из сообщения.",
     "scaleWithAmount": "Больше подарков, битов или рейдеров — больше эмодзи (до 10×).",
     "alertEmotes": "Названия эмодзи канала, например KEKW. Пусто — случайные эмодзи из вашего набора 7TV/BTTV/FFZ.",
-    "spread": "Как далеко эмодзи разлетаются от центра взрыва."
+    "spread": "Как далеко эмодзи разлетаются от центра взрыва.",
+    "rewards": "Точные названия наград. Подтверждайте каждое Enter.",
+    "goalSource": "«Всего на канале» берёт реальные числа фолловеров и подписчиков Twitch (нужен вход) и фолловеров Kick. Биты и подарки всегда считаются за этот стрим.",
+    "endHold": "Сколько показывать итоговый уровень после окончания.",
+    "combine": "Складывает зрителей Twitch и Kick в одно число."
   },
   "options": {
     "direction": {
@@ -528,6 +569,20 @@
       "gifts": "Подарки",
       "raid": "Рейд",
       "bits": "Биты"
+    },
+    "rewardFilter": {
+      "all": "Все награды",
+      "only": "Только из списка",
+      "except": "Все, кроме списка"
+    },
+    "pollKinds": {
+      "both": "Опросы и прогнозы",
+      "polls": "Только опросы",
+      "predictions": "Только прогнозы"
+    },
+    "goalSource": {
+      "session": "Этот стрим",
+      "total": "Всего на канале"
     }
   },
   "animations": {
@@ -583,7 +638,14 @@
     "pin": "Закрепить",
     "join": "Участие",
     "first": "Первое сообщение",
-    "highlight": "Выделенное"
+    "highlight": "Выделенное",
+    "redemption": "Награда",
+    "hypeProgress": "Прогресс hype",
+    "hypeEnd": "Конец hype",
+    "pollProgress": "Опрос",
+    "pollEnd": "Конец опроса",
+    "predictionProgress": "Прогноз",
+    "predictionEnd": "Итог прогноза"
   },
   "sound": {
     "none": "Без звука",
@@ -713,7 +775,36 @@
     "lowerThirdAccent": "Акцентная полоса",
     "lowerThirdTitle": "Имя",
     "lowerThirdSubtitle": "Подзаголовок",
-    "emoteDropBurst": "Эмодзи одного эффекта: .emote-drop-fall, -rise, -fly, -burst, -fountain, -pop"
+    "emoteDropBurst": "Эмодзи одного эффекта: .emote-drop-fall, -rise, -fly, -burst, -fountain, -pop",
+    "redemptionCard": "Карточка награды",
+    "redemptionIcon": "Иконка",
+    "redemptionName": "Ник зрителя",
+    "redemptionReward": "Название награды",
+    "redemptionCost": "Метка стоимости",
+    "redemptionInput": "Сообщение зрителя",
+    "hype": "Блок Hype Train",
+    "hypeTitle": "Заголовок",
+    "hypeLevel": "Метка уровня",
+    "hypeTimer": "Оставшееся время",
+    "hypeBar": "Фон полосы прогресса",
+    "hypeFill": "Заполнение полосы",
+    "hypeContributors": "Строка поддержавших",
+    "hypeGolden": "Блок во время золотого поезда",
+    "tpoll": "Карточка опроса или прогноза",
+    "tpollTitle": "Заголовок",
+    "tpollOption": "Один вариант",
+    "tpollBar": "Фон полосы",
+    "tpollFill": "Заполнение полосы",
+    "tpollLabel": "Название варианта",
+    "tpollCount": "Проценты и числа",
+    "tpollWinner": "Победивший вариант",
+    "tpollStatus": "Оставшееся время или статус",
+    "viewers": "Контейнер",
+    "viewersItem": "Одна платформа",
+    "viewersDot": "Точка «в эфире»",
+    "viewersIcon": "Иконка платформы",
+    "viewersCount": "Число зрителей",
+    "viewersLabel": "Подпись «зрителей»"
   },
   "actions": {
     "start": "Старт",

@@ -46,9 +46,55 @@ export interface AlertEvent {
   tier?: number
 }
 
+export interface RedemptionEvent {
+  kind: 'redemption'
+  platform: Platform
+  id: string
+  name: string
+  input: string
+  reward: { title: string, cost: number, prompt: string }
+}
+
+export interface HypeTrainEvent {
+  kind: 'hypetrain'
+  phase: 'begin' | 'progress' | 'end'
+  level: number
+  total: number
+  progress: number
+  goal: number
+  golden: boolean
+  contributors: { name: string, type: string, total: number }[]
+  expiresAt?: string
+}
+
+export interface TwitchPollEvent {
+  kind: 'twitch-poll'
+  phase: 'begin' | 'progress' | 'end'
+  id: string
+  title: string
+  choices: { id: string, title: string, votes: number }[]
+  endsAt?: string
+  status?: string
+}
+
+export interface PredictionEvent {
+  kind: 'prediction'
+  phase: 'begin' | 'progress' | 'lock' | 'end'
+  id: string
+  title: string
+  outcomes: { id: string, title: string, color: string, users: number, points: number }[]
+  locksAt?: string
+  winningId?: string
+  status?: string
+}
+
 export type StreamEvent =
   | ChatMessage
   | AlertEvent
+  | RedemptionEvent
+  | HypeTrainEvent
+  | TwitchPollEvent
+  | PredictionEvent
   | { kind: 'delete', platform: Platform, id: string }
   | { kind: 'clear', platform: Platform, userId?: string }
   | { kind: 'command', name: string, payload?: any }
