@@ -3,6 +3,8 @@ import { animationFields, customCssField, languageField, type WidgetDefinition }
 export const redemptions: WidgetDefinition = {
   type: 'redemptions',
   icon: 'i-lucide-sparkles',
+  category: 'alerts',
+  requiresTwitchLogin: true,
   size: [700, 200],
   fields: [
     languageField(),

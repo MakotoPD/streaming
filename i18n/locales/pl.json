@@ -64,7 +64,24 @@
     "connect": "Połącz {platform}",
     "urlCopied": "Link skopiowany",
     "urlCopiedHint": "W OBS: Źródła → + → Przeglądarka → wklej adres URL.",
-    "reconnect": "Połącz ponownie (nowe uprawnienia)"
+    "reconnect": "Połącz ponownie (nowe uprawnienia)",
+    "addWidgetTitle": "Dodaj widget",
+    "addWidgetDescription": "Wybierz widget. Wszystko zmienisz potem w edytorze.",
+    "searchWidgets": "Szukaj widgetów…",
+    "noWidgetsFound": "Brak widgetów pasujących do wyszukiwania.",
+    "requiresTwitch": "Wymaga logowania przez Twitch",
+    "addFailed": "Nie udało się dodać widgetu. Spróbuj ponownie.",
+    "categories": {
+      "all": "Wszystkie",
+      "chat": "Czat",
+      "alerts": "Alerty i zdarzenia",
+      "interactive": "Interakcje z widzami",
+      "progress": "Cele i czas",
+      "scene": "Scena i dekoracje"
+    },
+    "emptyTitle": "Nie masz jeszcze widgetów",
+    "emptyText": "Dodaj pierwszy widget, dopasuj go w edytorze i wklej jego link do OBS jako źródło Przeglądarka.",
+    "addFirstWidget": "Dodaj pierwszy widget"
   },
   "widgets": {
     "chat": {

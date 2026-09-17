@@ -64,7 +64,24 @@
     "connect": "Connect {platform}",
     "urlCopied": "Link copied",
     "urlCopiedHint": "In OBS: Sources → + → Browser → paste the URL.",
-    "reconnect": "Reconnect (new permissions)"
+    "reconnect": "Reconnect (new permissions)",
+    "addWidgetTitle": "Add a widget",
+    "addWidgetDescription": "Pick a widget. You can change everything in the editor afterwards.",
+    "searchWidgets": "Search widgets…",
+    "noWidgetsFound": "No widgets match your search.",
+    "requiresTwitch": "Requires signing in with Twitch",
+    "addFailed": "Could not add the widget. Try again.",
+    "categories": {
+      "all": "All",
+      "chat": "Chat",
+      "alerts": "Alerts & events",
+      "interactive": "Interactive",
+      "progress": "Goals & timers",
+      "scene": "Scene & decor"
+    },
+    "emptyTitle": "No widgets yet",
+    "emptyText": "Add your first widget, style it in the editor and paste its link into OBS as a Browser source.",
+    "addFirstWidget": "Add your first widget"
   },
   "widgets": {
     "chat": {

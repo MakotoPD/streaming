@@ -3,6 +3,7 @@ import { animationFields, customCssField, type WidgetDefinition } from './define
 export const lowerThird: WidgetDefinition = {
   type: 'lower-third',
   icon: 'i-lucide-panel-bottom',
+  category: 'scene',
   size: [900, 200],
   fields: [
     { key: 'thirdTitle', section: 'general', type: 'text', default: '', max: 60 },

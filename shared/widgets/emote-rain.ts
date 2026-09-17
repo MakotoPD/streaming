@@ -6,6 +6,7 @@ export const RAIN_TRIGGERS = ['chat', 'follow', 'sub', 'gifts', 'raid', 'bits'] 
 export const emoteRain: WidgetDefinition = {
   type: 'emote-rain',
   icon: 'i-lucide-cloud-rain',
+  category: 'chat',
   size: [1920, 1080],
   fields: [
     { key: 'triggers', section: 'triggers', type: 'multi', default: ['chat'], options: RAIN_TRIGGERS },

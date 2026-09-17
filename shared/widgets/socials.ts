@@ -4,6 +4,7 @@ import { SOCIALS } from './scene'
 export const socials: WidgetDefinition = {
   type: 'socials',
   icon: 'i-lucide-at-sign',
+  category: 'scene',
   size: [500, 100],
   fields: [
     ...SOCIALS.map(s => ({ key: `social.${s}`, section: 'general', label: s, type: 'text' as const, default: '', max: 60 })),

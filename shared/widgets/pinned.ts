@@ -3,6 +3,7 @@ import { animationFields, customCssField, languageField, type WidgetDefinition }
 export const pinned: WidgetDefinition = {
   type: 'pinned',
   icon: 'i-lucide-pin',
+  category: 'chat',
   size: [700, 220],
   fields: [
     languageField(),

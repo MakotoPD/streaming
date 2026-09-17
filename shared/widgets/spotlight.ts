@@ -3,6 +3,7 @@ import { animationFields, customCssField, permissionField, type WidgetDefinition
 export const spotlight: WidgetDefinition = {
   type: 'spotlight',
   icon: 'i-lucide-message-square-quote',
+  category: 'chat',
   size: [1000, 300],
   fields: [
     { key: 'onHighlighted', section: 'triggers', type: 'toggle', default: true },

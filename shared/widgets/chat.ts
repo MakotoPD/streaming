@@ -3,6 +3,7 @@ import { animationFields, customCssField, type WidgetDefinition } from './define
 export const chat: WidgetDefinition = {
   type: 'chat',
   icon: 'i-lucide-messages-square',
+  category: 'chat',
   size: [450, 700],
   fields: [
     { key: 'maxMessages', section: 'general', type: 'number', default: 8, min: 1, max: 50 },

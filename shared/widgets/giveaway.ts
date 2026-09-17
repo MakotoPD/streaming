@@ -3,6 +3,7 @@ import { animationFields, customCssField, languageField, type WidgetDefinition }
 export const giveaway: WidgetDefinition = {
   type: 'giveaway',
   icon: 'i-lucide-ticket',
+  category: 'interactive',
   size: [600, 320],
   fields: [
     languageField(),

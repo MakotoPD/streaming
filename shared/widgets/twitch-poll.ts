@@ -3,6 +3,8 @@ import { animationFields, customCssField, languageField, type WidgetDefinition }
 export const twitchPoll: WidgetDefinition = {
   type: 'twitch-poll',
   icon: 'i-lucide-vote',
+  category: 'interactive',
+  requiresTwitchLogin: true,
   size: [600, 400],
   fields: [
     languageField(),

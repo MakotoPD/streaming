@@ -3,6 +3,7 @@ import { customCssField, languageField, type WidgetDefinition } from './define'
 export const marquee: WidgetDefinition = {
   type: 'marquee',
   icon: 'i-lucide-text-cursor-input',
+  category: 'scene',
   size: [1920, 60],
   fields: [
     languageField(),

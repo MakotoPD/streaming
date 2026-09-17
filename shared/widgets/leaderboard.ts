@@ -3,6 +3,7 @@ import { customCssField, languageField, type WidgetDefinition } from './define'
 export const leaderboard: WidgetDefinition = {
   type: 'leaderboard',
   icon: 'i-lucide-trophy',
+  category: 'interactive',
   size: [420, 360],
   fields: [
     languageField(),

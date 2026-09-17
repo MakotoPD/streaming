@@ -3,6 +3,7 @@ import { customCssField, languageField, type WidgetDefinition } from './define'
 export const subathon: WidgetDefinition = {
   type: 'subathon',
   icon: 'i-lucide-timer',
+  category: 'progress',
   size: [600, 200],
   fields: [
     languageField(),

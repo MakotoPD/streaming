@@ -5,6 +5,7 @@ export const SOCIALS = ['twitch', 'kick', 'youtube', 'instagram', 'tiktok', 'x',
 export const scene: WidgetDefinition = {
   type: 'scene',
   icon: 'i-lucide-clapperboard',
+  category: 'scene',
   size: [1920, 1080],
   fields: [
     languageField(),

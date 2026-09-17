@@ -3,6 +3,7 @@ import { customCssField, languageField, permissionField, type WidgetDefinition }
 export const counter: WidgetDefinition = {
   type: 'counter',
   icon: 'i-lucide-skull',
+  category: 'interactive',
   size: [500, 160],
   fields: [
     languageField(),

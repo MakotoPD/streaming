@@ -3,6 +3,8 @@ import { animationFields, customCssField, languageField, type WidgetDefinition }
 export const hypeTrain: WidgetDefinition = {
   type: 'hype-train',
   icon: 'i-lucide-train-front',
+  category: 'alerts',
+  requiresTwitchLogin: true,
   size: [700, 180],
   fields: [
     languageField(),

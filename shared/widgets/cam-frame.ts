@@ -3,6 +3,7 @@ import { customCssField, type WidgetDefinition } from './define'
 export const camFrame: WidgetDefinition = {
   type: 'cam-frame',
   icon: 'i-lucide-webcam',
+  category: 'scene',
   size: [640, 360],
   fields: [
     { key: 'frameLabel', section: 'general', type: 'text', default: '', max: 40 },

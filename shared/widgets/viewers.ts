@@ -3,6 +3,7 @@ import { customCssField, languageField, type WidgetDefinition } from './define'
 export const viewers: WidgetDefinition = {
   type: 'viewers',
   icon: 'i-lucide-eye',
+  category: 'progress',
   size: [400, 80],
   fields: [
     languageField(),

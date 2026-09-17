@@ -3,6 +3,7 @@ import { animationFields, customCssField, languageField, type WidgetDefinition }
 export const poll: WidgetDefinition = {
   type: 'poll',
   icon: 'i-lucide-chart-bar-big',
+  category: 'interactive',
   size: [600, 400],
   fields: [
     languageField(),

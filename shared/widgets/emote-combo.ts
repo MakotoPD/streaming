@@ -3,6 +3,7 @@ import { animationFields, customCssField, type WidgetDefinition } from './define
 export const emoteCombo: WidgetDefinition = {
   type: 'emote-combo',
   icon: 'i-lucide-flame',
+  category: 'chat',
   size: [500, 200],
   fields: [
     { key: 'minMessages', section: 'general', type: 'number', default: 3, min: 2, max: 50 },

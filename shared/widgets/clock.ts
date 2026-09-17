@@ -3,6 +3,7 @@ import { customCssField, languageField, type WidgetDefinition } from './define'
 export const clock: WidgetDefinition = {
   type: 'clock',
   icon: 'i-lucide-clock',
+  category: 'progress',
   size: [400, 120],
   fields: [
     languageField(),

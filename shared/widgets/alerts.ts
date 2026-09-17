@@ -28,6 +28,7 @@ function typeFields(type: AlertType): Field[] {
 export const alerts: WidgetDefinition = {
   type: 'alerts',
   icon: 'i-lucide-bell-ring',
+  category: 'alerts',
   size: [900, 300],
   fields: [
     languageField(),

@@ -3,6 +3,7 @@ import { customCssField, languageField, type WidgetDefinition } from './define'
 export const goal: WidgetDefinition = {
   type: 'goal',
   icon: 'i-lucide-target',
+  category: 'progress',
   size: [700, 120],
   fields: [
     languageField(),

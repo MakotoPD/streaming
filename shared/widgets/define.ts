@@ -30,9 +30,14 @@ export type Field = Base & (
   | { type: 'code', default: string }
 )
 
+export const WIDGET_CATEGORIES = ['chat', 'alerts', 'interactive', 'progress', 'scene'] as const
+export type WidgetCategory = typeof WIDGET_CATEGORIES[number]
+
 export interface WidgetDefinition {
   type: string
   icon: string
+  category: WidgetCategory
+  requiresTwitchLogin?: boolean
   size: [number, number]
   fields: Field[]
   presets: { id: string, values: Settings }[]

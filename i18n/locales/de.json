@@ -64,7 +64,24 @@
     "connect": "{platform} verbinden",
     "urlCopied": "Link kopiert",
     "urlCopiedHint": "In OBS: Quellen → + → Browser → URL einfügen.",
-    "reconnect": "Neu verbinden (neue Berechtigungen)"
+    "reconnect": "Neu verbinden (neue Berechtigungen)",
+    "addWidgetTitle": "Widget hinzufügen",
+    "addWidgetDescription": "Wähle ein Widget. Alles andere änderst du danach im Editor.",
+    "searchWidgets": "Widgets suchen…",
+    "noWidgetsFound": "Keine Widgets gefunden.",
+    "requiresTwitch": "Erfordert Twitch-Login",
+    "addFailed": "Widget konnte nicht hinzugefügt werden. Versuche es erneut.",
+    "categories": {
+      "all": "Alle",
+      "chat": "Chat",
+      "alerts": "Alerts & Ereignisse",
+      "interactive": "Interaktiv",
+      "progress": "Ziele & Zeit",
+      "scene": "Szene & Deko"
+    },
+    "emptyTitle": "Noch keine Widgets",
+    "emptyText": "Füge dein erstes Widget hinzu, passe es im Editor an und füge den Link in OBS als Browserquelle ein.",
+    "addFirstWidget": "Erstes Widget hinzufügen"
   },
   "widgets": {
     "chat": {

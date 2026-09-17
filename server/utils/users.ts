@@ -2,7 +2,7 @@ import { randomBytes } from 'node:crypto'
 import { and, eq } from 'drizzle-orm'
 import type { H3Event } from 'h3'
 import type { Channels } from '#shared/types'
-import { defaultSettings, STARTER_WIDGETS, WIDGETS } from '#shared/widgets'
+import { defaultSettings, WIDGETS } from '#shared/widgets'
 
 export const newToken = () => randomBytes(18).toString('base64url')
 
@@ -11,10 +11,10 @@ export async function requireUserId(event: H3Event) {
   return user.id
 }
 
-export async function createWidget(userId: string, type: string, language: string, overrides: Record<string, unknown> = {}) {
+export async function createWidget(userId: string, type: string, language: string) {
   const def = WIDGETS[type]
   if (!def) throw createError({ statusCode: 400, message: 'Unknown widget type' })
-  const settings = { ...defaultSettings(def, language), ...overrides }
+  const settings = defaultSettings(def, language)
   const [widget] = await useDb().insert(tables.widgets).values({
     userId,
     type,
@@ -32,8 +32,6 @@ export async function ensureUser(event: H3Event): Promise<string> {
     if (exists.length) return session.user.id
   }
   const [user] = await useDb().insert(tables.users).values({}).returning({ id: tables.users.id })
-  const language = getCookie(event, 'lang') ?? 'en'
-  for (const starter of STARTER_WIDGETS) await createWidget(user!.id, starter.type, language, starter.settings)
   await setUserSession(event, { user: { id: user!.id } })
   return user!.id
 }

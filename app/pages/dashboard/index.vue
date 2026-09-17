@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Settings } from '#shared/types'
-import { WIDGET_TYPES, WIDGETS } from '#shared/widgets'
+import { WIDGETS } from '#shared/widgets'
 
 definePageMeta({ middleware: 'auth' })
 
@@ -38,15 +38,17 @@ async function saveChannels() {
 
 const linked = computed(() => new Set(me.value?.accounts.map(a => a.provider)))
 
-const addItems = computed(() => WIDGET_TYPES.map(type => ({
-  label: t(`widgets.${type}.name`),
-  icon: WIDGETS[type]!.icon,
-  onSelect: () => addWidget(type)
-})))
+const addOpen = ref(false)
 
 async function addWidget(type: string) {
-  const widget = await $fetch<WidgetRow>('/api/widgets', { method: 'POST', body: { type } })
-  await navigateTo(`/dashboard/${widget.id}`)
+  try {
+    const widget = await $fetch<WidgetRow>('/api/widgets', { method: 'POST', body: { type } })
+    await navigateTo(`/dashboard/${widget.id}`)
+  }
+  catch {
+    addOpen.value = false
+    toast.add({ title: t('dashboard.addFailed'), color: 'error' })
+  }
 }
 
 async function removeWidget(widget: WidgetRow) {
@@ -70,12 +72,24 @@ const { copyObsUrl } = useObsUrl()
             {{ t('dashboard.subtitle') }}
           </p>
         </div>
-        <UDropdownMenu :items="addItems">
-          <UButton icon="i-lucide-plus" :label="t('dashboard.addWidget')" />
-        </UDropdownMenu>
+        <UButton icon="i-lucide-plus" :label="t('dashboard.addWidget')" @click="addOpen = true" />
+        <DashboardAddWidgetModal v-model:open="addOpen" @select="addWidget" />
       </div>
 
-      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div v-if="!widgets.length" class="flex flex-col items-center gap-3 rounded-xl border border-dashed border-default px-6 py-14 text-center">
+        <div class="flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary">
+          <UIcon name="i-lucide-layout-grid" class="size-6" />
+        </div>
+        <h2 class="text-lg font-semibold">
+          {{ t('dashboard.emptyTitle') }}
+        </h2>
+        <p class="max-w-md text-sm text-muted">
+          {{ t('dashboard.emptyText') }}
+        </p>
+        <UButton icon="i-lucide-plus" size="lg" :label="t('dashboard.addFirstWidget')" @click="addOpen = true" />
+      </div>
+
+      <div v-else class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
         <UCard v-for="widget in widgets" :key="widget.id" :ui="{ body: 'flex flex-col gap-4 h-full' }">
           <div class="flex items-start gap-3">
             <div class="rounded-lg bg-primary/10 p-2.5">

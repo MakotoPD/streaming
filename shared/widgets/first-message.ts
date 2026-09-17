@@ -3,6 +3,7 @@ import { animationFields, customCssField, languageField, type WidgetDefinition }
 export const firstMessage: WidgetDefinition = {
   type: 'first-message',
   icon: 'i-lucide-hand',
+  category: 'chat',
   size: [700, 200],
   fields: [
     languageField(),

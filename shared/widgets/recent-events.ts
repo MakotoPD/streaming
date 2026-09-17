@@ -3,6 +3,7 @@ import { customCssField, languageField, type WidgetDefinition } from './define'
 export const recentEvents: WidgetDefinition = {
   type: 'recent-events',
   icon: 'i-lucide-history',
+  category: 'alerts',
   size: [1200, 80],
   fields: [
     languageField(),
