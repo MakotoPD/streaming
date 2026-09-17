@@ -1,23 +1,35 @@
 <script setup lang="ts">
+import type { Platform } from '#shared/types'
 import { WIDGET_CATEGORIES, WIDGETS, type WidgetCategory } from '#shared/widgets'
 
 const emit = defineEmits<{ select: [type: string] }>()
 const open = defineModel<boolean>('open', { default: false })
 const { t } = useI18n()
+const { data: me } = useMe()
 
 const query = ref('')
 const category = ref<WidgetCategory | 'all'>('all')
+const platform = ref<Platform | 'all'>('all')
 const creating = ref<string>()
 
-const tabs = computed(() => ['all', ...WIDGET_CATEGORIES].map(value => ({
+const supports = (def: typeof WIDGETS[string], value: Platform | 'all') => value === 'all' || !def.platforms || def.platforms.includes(value)
+
+const categoryTabs = computed(() => ['all', ...WIDGET_CATEGORIES].map(value => ({
   value,
   label: t(`dashboard.categories.${value}`),
-  count: value === 'all' ? Object.keys(WIDGETS).length : Object.values(WIDGETS).filter(def => def.category === value).length
+  count: Object.values(WIDGETS).filter(def => supports(def, platform.value) && (value === 'all' || def.category === value)).length
 })))
+
+const platformTabs = computed(() => ([
+  { value: 'all' as const, label: t('dashboard.allPlatforms'), icon: 'i-lucide-layers' },
+  { value: 'twitch' as const, label: t('platforms.twitch'), icon: 'i-simple-icons-twitch' },
+  { value: 'kick' as const, label: t('platforms.kick'), icon: 'i-simple-icons-kick' }
+]))
 
 const results = computed(() => {
   const search = query.value.trim().toLowerCase()
   return Object.values(WIDGETS)
+    .filter(def => supports(def, platform.value))
     .filter(def => category.value === 'all' || def.category === category.value)
     .map(def => ({ def, name: t(`widgets.${def.type}.name`), description: t(`widgets.${def.type}.description`) }))
     .filter(item => !search || `${item.name} ${item.description}`.toLowerCase().includes(search))
@@ -32,8 +44,10 @@ const groups = computed(() => {
 
 watch(open, (value) => {
   if (!value) return
+  const channels = me.value?.channels
   query.value = ''
   category.value = 'all'
+  platform.value = channels?.twitch && !channels?.kick ? 'twitch' : channels?.kick && !channels?.twitch ? 'kick' : 'all'
   creating.value = undefined
 })
 
@@ -51,24 +65,39 @@ function choose(type: string) {
     :ui="{ content: 'sm:max-w-4xl', body: 'space-y-4' }"
   >
     <template #body>
-      <UInput
-        v-model="query"
-        icon="i-lucide-search"
-        :placeholder="t('dashboard.searchWidgets')"
-        size="lg"
-        class="w-full"
-        autofocus
-      />
+      <div class="flex flex-col gap-2 sm:flex-row">
+        <UInput
+          v-model="query"
+          icon="i-lucide-search"
+          :placeholder="t('dashboard.searchWidgets')"
+          size="lg"
+          class="flex-1"
+          autofocus
+        />
+        <UFieldGroup size="lg">
+          <UTooltip v-for="item in platformTabs" :key="item.value" :text="item.label">
+            <UButton
+              :icon="item.icon"
+              :aria-label="item.label"
+              :aria-pressed="platform === item.value"
+              :color="platform === item.value ? 'primary' : 'neutral'"
+              :variant="platform === item.value ? 'solid' : 'outline'"
+              @click="platform = item.value"
+            />
+          </UTooltip>
+        </UFieldGroup>
+      </div>
 
       <div role="tablist" class="flex flex-wrap gap-1">
         <UButton
-          v-for="tab in tabs"
+          v-for="tab in categoryTabs"
           :key="tab.value"
           role="tab"
           size="sm"
           :aria-selected="category === tab.value"
           :color="category === tab.value ? 'primary' : 'neutral'"
           :variant="category === tab.value ? 'solid' : 'ghost'"
+          :disabled="!tab.count"
           @click="category = tab.value as WidgetCategory | 'all'"
         >
           {{ tab.label }}
@@ -101,8 +130,8 @@ function choose(type: string) {
               <div class="min-w-0 flex-1">
                 <div class="flex items-start gap-1.5">
                   <span class="font-medium leading-snug">{{ item.name }}</span>
-                  <UTooltip v-if="item.def.requiresTwitchLogin" :text="t('dashboard.requiresTwitch')">
-                    <UIcon name="i-simple-icons-twitch" class="mt-1 size-3.5 shrink-0 text-[#9146ff]" />
+                  <UTooltip v-if="item.def.platforms?.length === 1" :text="t('dashboard.onlyOnPlatform', { platform: t(`platforms.${item.def.platforms[0]}`) })">
+                    <UIcon :name="`i-simple-icons-${item.def.platforms[0]}`" class="mt-1 size-3.5 shrink-0" :class="item.def.platforms[0] === 'twitch' ? 'text-[#9146ff]' : 'text-[#53fc18]'" />
                   </UTooltip>
                 </div>
                 <p class="mt-0.5 line-clamp-2 text-xs text-muted">

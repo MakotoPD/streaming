@@ -4,6 +4,7 @@ export const hypeTrain: WidgetDefinition = {
   type: 'hype-train',
   icon: 'i-lucide-train-front',
   category: 'alerts',
+  platforms: ['twitch'],
   requiresTwitchLogin: true,
   size: [700, 180],
   fields: [

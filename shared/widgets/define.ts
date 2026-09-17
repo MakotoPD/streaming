@@ -1,4 +1,4 @@
-import type { Settings } from '../types'
+import type { Platform, Settings } from '../types'
 import { ANIMATIONS_IN, ANIMATIONS_OUT } from './animations'
 
 export const LANGUAGES = ['en', 'pl', 'es', 'de', 'ru'] as const
@@ -38,6 +38,7 @@ export interface WidgetDefinition {
   type: string
   icon: string
   category: WidgetCategory
+  platforms?: Platform[]
   requiresTwitchLogin?: boolean
   size: [number, number]
   fields: Field[]

@@ -4,6 +4,7 @@ export const redemptions: WidgetDefinition = {
   type: 'redemptions',
   icon: 'i-lucide-sparkles',
   category: 'alerts',
+  platforms: ['twitch'],
   requiresTwitchLogin: true,
   size: [700, 200],
   fields: [

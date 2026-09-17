@@ -82,7 +82,9 @@
     },
     "emptyTitle": "Noch keine Widgets",
     "emptyText": "Füge dein erstes Widget hinzu, passe es im Editor an und füge den Link in OBS als Browserquelle ein.",
-    "addFirstWidget": "Erstes Widget hinzufügen"
+    "addFirstWidget": "Erstes Widget hinzufügen",
+    "allPlatforms": "Alle Plattformen",
+    "onlyOnPlatform": "Funktioniert nur auf {platform}"
   },
   "widgets": {
     "chat": {

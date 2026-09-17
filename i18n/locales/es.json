@@ -82,7 +82,9 @@
     },
     "emptyTitle": "Aún no tienes widgets",
     "emptyText": "Añade tu primer widget, ajústalo en el editor y pega su enlace en OBS como fuente de Navegador.",
-    "addFirstWidget": "Añade tu primer widget"
+    "addFirstWidget": "Añade tu primer widget",
+    "allPlatforms": "Todas las plataformas",
+    "onlyOnPlatform": "Solo funciona en {platform}"
   },
   "widgets": {
     "chat": {

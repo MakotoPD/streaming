@@ -4,6 +4,7 @@ export const twitchPoll: WidgetDefinition = {
   type: 'twitch-poll',
   icon: 'i-lucide-vote',
   category: 'interactive',
+  platforms: ['twitch'],
   requiresTwitchLogin: true,
   size: [600, 400],
   fields: [

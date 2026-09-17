@@ -82,7 +82,9 @@
     },
     "emptyTitle": "Nie masz jeszcze widgetów",
     "emptyText": "Dodaj pierwszy widget, dopasuj go w edytorze i wklej jego link do OBS jako źródło Przeglądarka.",
-    "addFirstWidget": "Dodaj pierwszy widget"
+    "addFirstWidget": "Dodaj pierwszy widget",
+    "allPlatforms": "Wszystkie platformy",
+    "onlyOnPlatform": "Działa tylko na {platform}"
   },
   "widgets": {
     "chat": {

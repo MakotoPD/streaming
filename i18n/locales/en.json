@@ -82,7 +82,9 @@
     },
     "emptyTitle": "No widgets yet",
     "emptyText": "Add your first widget, style it in the editor and paste its link into OBS as a Browser source.",
-    "addFirstWidget": "Add your first widget"
+    "addFirstWidget": "Add your first widget",
+    "allPlatforms": "All platforms",
+    "onlyOnPlatform": "Works only on {platform}"
   },
   "widgets": {
     "chat": {
