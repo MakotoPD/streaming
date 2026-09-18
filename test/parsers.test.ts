@@ -8,6 +8,7 @@ import { hasPermission } from '../shared/utils/permissions.ts'
 import { eventSubToStreamEvent } from '../server/utils/eventsub.ts'
 import { donationToAlert, parseSocketIoPacket, streamElementsChannel, streamElementsDonation, streamlabsDonations, tipplyDonation, tipplyId } from '../server/utils/donation-protocols.ts'
 import { fillTemplate } from '../shared/utils/template.ts'
+import { filterText, speakable } from '../shared/utils/moderation.ts'
 import { formatColor, parseColor } from '../app/utils/color.ts'
 import { tokenizeCss } from '../app/utils/css-highlight.ts'
 import { applyOps, canvasPath, sanitizeOps, sanitizeScene } from '../shared/canvas.ts'
@@ -203,4 +204,15 @@ test('donation payloads from StreamElements and Streamlabs', () => {
   assert.equal(streamElementsChannel('garbage'), undefined)
   assert.equal(tipplyId('https://widgets.tipply.pl/TIP_ALERT/7f3c9a1e-aaaa-bbbb'), '7f3c9a1e-aaaa-bbbb')
   assert.equal(tipplyId('https://evil.example/x y'), undefined)
+})
+
+test('moderation masks slurs, custom words, spaced letters and links', () => {
+  assert.equal(filterText('you are a n1gg3r lol', { slurs: true }).text, 'you are a *** lol')
+  assert.equal(filterText('ty p e d a l e', { slurs: true }).text, 'ty *** *** *** *** *** ***')
+  assert.equal(filterText('Niger is a country near Nigeria', { slurs: false }).flagged, false)
+  assert.equal(filterText('idioci wszędzie', { banned: ['idio*'] }).text, '*** wszędzie')
+  assert.equal(filterText('Żółw', { banned: ['zolw'] }).text, '***')
+  assert.equal(filterText('wbij na example.com/x teraz', { links: true }).text, 'wbij na *** teraz')
+  assert.equal(filterText('good game', { slurs: true, links: true }).flagged, false)
+  assert.equal(speakable('hej *** tam'), 'hej tam')
 })

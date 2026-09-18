@@ -1,7 +1,35 @@
-import type { AlertType } from '../types'
-import { animationFields, customCssField, languageField, type Field, type WidgetDefinition } from './define'
+import type { AlertEvent, AlertType } from '../types'
+import { animationFields, customCssField, languageField, type AlertVariant, type Field, type WidgetDefinition } from './define'
 
 export const ALERT_TYPES: AlertType[] = ['follow', 'sub', 'gifts', 'raid', 'bits', 'donation']
+
+export const PIPER_VOICES = [
+  'pl_PL-gosia-medium',
+  'pl_PL-darkman-medium',
+  'pl_PL-mc_speech-medium',
+  'en_US-lessac-medium',
+  'en_US-ryan-medium',
+  'de_DE-thorsten-medium',
+  'es_ES-davefx-medium',
+  'ru_RU-irina-medium',
+  'ru_RU-dmitri-medium'
+] as const
+
+export const TTS_TYPES = ['donation', 'bits'] as const
+
+export function variantValue(alert: AlertEvent) {
+  if (alert.type === 'donation') return alert.amount ?? 0
+  if (alert.type === 'sub') return alert.months ?? 1
+  return alert.count ?? 0
+}
+
+export function pickVariant(variants: AlertVariant[] | undefined, alert: AlertEvent) {
+  const value = variantValue(alert)
+  const tier = alert.tier ?? 1
+  return (variants ?? [])
+    .filter(variant => value >= variant.min && (!variant.tier || variant.tier === tier))
+    .sort((a, b) => b.min - a.min || b.tier - a.tier)[0]
+}
 
 const COLORS: Record<AlertType, string> = {
   follow: '#22d3ee',
@@ -30,6 +58,9 @@ function typeFields(type: AlertType): Field[] {
     { key: `${type}.sound`, section: type, label: 'sound', type: 'sound', default: '' },
     { key: `${type}.color`, section: type, label: 'color', type: 'color', default: COLORS[type], css: `--c-${type}` }
   )
+  if (type !== 'follow') {
+    fields.push({ key: `${type}.variants`, section: type, label: `variants${type[0]!.toUpperCase()}${type.slice(1)}`, type: 'variants', default: [], tiers: type === 'sub' || type === 'gifts', step: type === 'donation' ? 0.5 : 1 })
+  }
   return fields
 }
 
@@ -46,6 +77,21 @@ export const alerts: WidgetDefinition = {
 
     ...ALERT_TYPES.flatMap(typeFields),
 
+    { key: 'tts.enabled', section: 'tts', label: 'ttsEnabled', type: 'toggle', default: false },
+    { key: 'tts.types', section: 'tts', label: 'ttsTypes', type: 'multi', default: ['donation'], options: TTS_TYPES },
+    { key: 'tts.minAmount', section: 'tts', label: 'ttsMinAmount', type: 'number', default: 5, min: 0, max: 10000, step: 0.5 },
+    { key: 'tts.minBits', section: 'tts', label: 'ttsMinBits', type: 'number', default: 100, min: 1, max: 100000 },
+    { key: 'tts.source', section: 'tts', label: 'ttsSource', type: 'select', default: 'service', options: ['service', 'piper'] },
+    { key: 'tts.voice', section: 'tts', label: 'ttsVoice', type: 'select', default: 'pl_PL-gosia-medium', options: PIPER_VOICES },
+    { key: 'tts.readName', section: 'tts', label: 'ttsReadName', type: 'toggle', default: true },
+    { key: 'tts.volume', section: 'tts', label: 'ttsVolume', type: 'number', default: 90, min: 0, max: 100, unit: '%' },
+    { key: 'tts.speed', section: 'tts', label: 'ttsSpeed', type: 'number', default: 1, min: 0.5, max: 2, step: 0.1, unit: '×' },
+
+    { key: 'moderation.slurs', section: 'moderation', label: 'blockSlurs', type: 'toggle', default: true },
+    { key: 'moderation.links', section: 'moderation', label: 'blockLinks', type: 'toggle', default: true },
+    { key: 'moderation.words', section: 'moderation', label: 'bannedWords', type: 'list', default: [] },
+    { key: 'moderation.action', section: 'moderation', label: 'bannedAction', type: 'select', default: 'mask', options: ['mask', 'skip'] },
+
     { key: 'alertLayout', section: 'style', type: 'select', default: 'card', options: ['card', 'image'] },
     { key: 'imageSize', section: 'style', type: 'number', default: 260, min: 40, max: 800, unit: 'px', css: '--image-size' },
     { key: 'font', section: 'style', type: 'font', default: 'Inter', css: '--font' },
@@ -61,6 +107,7 @@ export const alerts: WidgetDefinition = {
     customCssField()
   ],
   tests: ALERT_TYPES,
+  actions: ['skip'],
   cssTemplate: [
     { selector: '.alerts', declarations: { 'font-family': '{font}', 'font-size': '{fontSize}' } },
     { selector: '.alert', declarations: { '--bg': '{background}', 'color': '{textColor}', 'border-radius': '{radius}' } },
@@ -83,6 +130,7 @@ export const alerts: WidgetDefinition = {
     { id: 'alertName', selector: '.alert-name' },
     { id: 'alertMessage', selector: '.alert-message' },
     { id: 'alertDonationMessage', selector: '.alert-donation-message' },
+    { id: 'alertVariant', selector: '[data-variant="name"]' },
     { id: 'alertBurst', selector: '.alert-burst' },
     { id: 'alertShine', selector: '.alert-shine' }
   ],

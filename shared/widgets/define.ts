@@ -15,6 +15,17 @@ interface Base {
   css?: string
 }
 
+export interface AlertVariant {
+  id: string
+  name: string
+  min: number
+  tier: number
+  text: string
+  image: string
+  sound: string
+  color: string
+}
+
 export type Field = Base & (
   | { type: 'text', default: string, max?: number, multiline?: boolean }
   | { type: 'number', default: number, min: number, max: number, step?: number, unit?: string }
@@ -29,6 +40,7 @@ export type Field = Base & (
   | { type: 'list', default: string[] }
   | { type: 'time', default: string }
   | { type: 'code', default: string }
+  | { type: 'variants', default: AlertVariant[], tiers?: boolean, step?: number }
 )
 
 export const WIDGET_CATEGORIES = ['chat', 'alerts', 'interactive', 'progress', 'scene'] as const
@@ -83,11 +95,31 @@ function clean(field: Field, value: unknown): unknown {
       return value === '' || (typeof value === 'string' && IMAGE.test(value)) ? value : field.default
     case 'time':
       return value === '' || (typeof value === 'string' && TIME.test(value)) ? value : field.default
+    case 'variants':
+      return Array.isArray(value) ? value.slice(0, 12).flatMap(item => cleanVariant(item)) : field.default
     case 'list':
       return Array.isArray(value)
         ? value.filter(v => typeof v === 'string').map(v => v.trim().slice(0, 100)).filter(Boolean).slice(0, 200)
         : field.default
   }
+}
+
+function cleanVariant(input: unknown): AlertVariant[] {
+  const raw = input as Record<string, unknown> | null
+  if (!raw || typeof raw !== 'object') return []
+  const min = Number(raw.min)
+  const tier = Number(raw.tier)
+  const text = (value: unknown, max: number) => (typeof value === 'string' ? value.slice(0, max) : '')
+  return [{
+    id: typeof raw.id === 'string' && /^[\w-]{1,40}$/.test(raw.id) ? raw.id : Math.random().toString(36).slice(2, 10),
+    name: text(raw.name, 40),
+    min: Number.isFinite(min) ? Math.min(1_000_000, Math.max(0, min)) : 0,
+    tier: [0, 1, 2, 3].includes(tier) ? tier : 0,
+    text: text(raw.text, 200),
+    image: typeof raw.image === 'string' && IMAGE.test(raw.image) ? raw.image : '',
+    sound: typeof raw.sound === 'string' && SOUND.test(raw.sound) ? raw.sound : '',
+    color: typeof raw.color === 'string' && COLOR.test(raw.color) ? raw.color : ''
+  }]
 }
 
 export function sanitizeSettings(def: WidgetDefinition, input: unknown): Settings {

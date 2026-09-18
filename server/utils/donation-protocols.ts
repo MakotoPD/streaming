@@ -56,6 +56,7 @@ export interface Donation {
   amount: number
   currency: string
   message: string
+  audio?: string[]
 }
 
 function clean(input: { id: unknown, name: unknown, amount: unknown, currency: unknown, message: unknown }): Donation | undefined {
@@ -71,10 +72,22 @@ function clean(input: { id: unknown, name: unknown, amount: unknown, currency: u
   }
 }
 
+export function audioSource(value: unknown) {
+  if (typeof value !== 'string' || !value) return
+  if (/^https:\/\/[^\s"'<>]{1,1000}$/.test(value)) return value
+  if (/^data:audio\/[\w.+-]+;base64,[A-Za-z0-9+/=]+$/.test(value) && value.length < 1_500_000) return value
+  if (/^[A-Za-z0-9+/=\s]{200,1500000}$/.test(value)) return `data:audio/mpeg;base64,${value.replace(/\s/g, '')}`
+}
+
 export function tipplyDonation(payload: unknown): Donation | undefined {
   const tip = payload as Record<string, any> | null
   if (!tip || typeof tip !== 'object') return
-  return clean({ id: tip.id, name: tip.nickname, amount: Number(tip.amount) / 100, currency: 'PLN', message: tip.message })
+  const donation = clean({ id: tip.id, name: tip.nickname, amount: Number(tip.amount) / 100, currency: 'PLN', message: tip.message })
+  if (!donation) return
+  const audio = [tip.tts_nickname_google_female, tip.tts_amount_google_female, tip.tts_message_google_female, tip.audio_url]
+    .map(audioSource)
+    .filter((url): url is string => !!url)
+  return audio.length ? { ...donation, audio } : donation
 }
 
 export function streamlabsDonations(payload: unknown): Donation[] {
@@ -122,6 +135,7 @@ export function donationToAlert(donation: Donation, source: DonationSource): Ale
     name: donation.name,
     amount: donation.amount,
     currency: donation.currency,
-    message: donation.message || undefined
+    message: donation.message || undefined,
+    audio: donation.audio
   }
 }

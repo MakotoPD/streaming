@@ -299,7 +299,9 @@
     "socials": "Socials",
     "triggers": "Triggers",
     "time": "Time",
-    "donation": "Donation"
+    "donation": "Donation",
+    "tts": "Text to speech",
+    "moderation": "Moderation"
   },
   "fields": {
     "maxMessages": "Max messages",
@@ -493,7 +495,25 @@
     "canvasMedia": "Image or video on the board",
     "minAmount": "Minimum amount",
     "showDonation": "Show donations",
-    "secondsPerDonationUnit": "Per 1 unit of currency"
+    "secondsPerDonationUnit": "Per 1 unit of currency",
+    "variantsSub": "Sub tiers and lengths",
+    "variantsGifts": "Gift tiers",
+    "variantsRaid": "Raid tiers",
+    "variantsBits": "Bits tiers",
+    "variantsDonation": "Donation tiers",
+    "ttsEnabled": "Read alerts aloud",
+    "ttsTypes": "Read for",
+    "ttsMinAmount": "Read donations from",
+    "ttsMinBits": "Read bits from",
+    "ttsSource": "Voice source",
+    "ttsVoice": "Piper voice",
+    "ttsReadName": "Also read the name and amount",
+    "ttsVolume": "Voice volume",
+    "ttsSpeed": "Speed",
+    "blockSlurs": "Block slurs banned on Twitch and Kick",
+    "blockLinks": "Remove links",
+    "bannedWords": "Your banned words",
+    "bannedAction": "When a message contains one"
   },
   "hints": {
     "hideAfter": "0 keeps messages until new ones push them out.",
@@ -538,7 +558,17 @@
     "alertImage": "Shown above the text in the “Image on top” layout (Style tab).",
     "alertLayout": "“Image on top” shows the image of each alert type with the text below it.",
     "minAmount": "Smaller donations are skipped. 0 shows every donation.",
-    "secondsPerDonationUnit": "Seconds added for each 1 PLN, 1 EUR or 1 USD donated."
+    "secondsPerDonationUnit": "Seconds added for each 1 PLN, 1 EUR or 1 USD donated.",
+    "variantsSub": "A different look for longer subs or higher tiers. The tier with the highest minimum that matches wins; empty fields use the defaults above.",
+    "variantsDonation": "For example one alert from 5 zł and a bigger one from 50 zł. The highest matching tier wins; empty fields use the defaults above.",
+    "variantsBits": "A different look from a given number of bits.",
+    "variantsGifts": "A different look from a given number of gifted subs.",
+    "variantsRaid": "A different look from a given number of raiders.",
+    "ttsEnabled": "Plays after the alert sound, never on top of it. The alert stays on screen until reading ends.",
+    "ttsMinAmount": "Donations below this amount show up but are not read.",
+    "ttsSource": "Tipply sends its own recording with each donation. StreamElements and Streamlabs do not, so Piper reads those.",
+    "blockSlurs": "A built-in list of racist, homophobic and similar slurs in all five languages, including spaced-out and l33t spellings.",
+    "bannedWords": "Press Enter after each word. End a word with * to also catch longer forms (e.g. idiot* catches idiots). Case, Polish letters and l33t are ignored."
   },
   "options": {
     "direction": {
@@ -681,6 +711,29 @@
     "alertLayout": {
       "card": "Card with icon",
       "image": "Image on top, text below"
+    },
+    "ttsTypes": {
+      "donation": "Donations",
+      "bits": "Bits with a message"
+    },
+    "ttsSource": {
+      "service": "Service voice when available (Tipply), otherwise Piper",
+      "piper": "Always Piper"
+    },
+    "ttsVoice": {
+      "pl_PL-gosia-medium": "Polish — Gosia",
+      "pl_PL-darkman-medium": "Polish — Darkman",
+      "pl_PL-mc_speech-medium": "Polish — MC Speech",
+      "en_US-lessac-medium": "English — Lessac",
+      "en_US-ryan-medium": "English — Ryan",
+      "de_DE-thorsten-medium": "German — Thorsten",
+      "es_ES-davefx-medium": "Spanish — Davefx",
+      "ru_RU-irina-medium": "Russian — Irina",
+      "ru_RU-dmitri-medium": "Russian — Dmitri"
+    },
+    "bannedAction": {
+      "mask": "Hide only the word (***)",
+      "skip": "Hide the message and do not read it"
     }
   },
   "animations": {
@@ -909,7 +962,8 @@
     "canvasStage": "Drawing area (SVG with everything on the board)",
     "canvasText": "Text added on the board",
     "canvasMedia": "Image or video added on the board",
-    "alertDonationMessage": "Donor message under a donation alert"
+    "alertDonationMessage": "Donor message under a donation alert",
+    "alertVariant": "Alert using a tier; replace name with the tier name you set"
   },
   "actions": {
     "start": "Start",
@@ -923,7 +977,8 @@
     "draw": "Draw winner",
     "pause": "Pause",
     "addMinute": "+1 min",
-    "removeMinute": "−1 min"
+    "removeMinute": "−1 min",
+    "skip": "Skip current alert"
   },
   "image": {
     "none": "No image",
@@ -1187,6 +1242,28 @@
         "help": "Settings → API Settings → API Tokens → Your Socket API Token.",
         "placeholder": "Socket API token"
       }
+    }
+  },
+  "variants": {
+    "empty": "No tiers yet. Every alert of this type looks the same.",
+    "add": "Add tier",
+    "name": "Name (for CSS)",
+    "namePlaceholder": "e.g. big",
+    "textPlaceholder": "Empty = text from above",
+    "inherit": "Default",
+    "tierLabel": "Tier",
+    "tier": {
+      "0": "Any",
+      "1": "Tier 1",
+      "2": "Tier 2",
+      "3": "Tier 3"
+    },
+    "min": {
+      "sub": "From month",
+      "gifts": "From gifts",
+      "raid": "From viewers",
+      "bits": "From bits",
+      "donation": "From amount"
     }
   }
 }

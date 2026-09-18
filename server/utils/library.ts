@@ -47,7 +47,7 @@ export function usagesOf(widgets: Awaited<ReturnType<typeof userWidgets>>, url: 
     const def = WIDGETS[widget.type]
     if (!def) return []
     const fields = def.fields
-      .filter(field => widget.settings[field.key] === url)
+      .filter(field => widget.settings[field.key] === url || (field.type === 'variants' && (widget.settings[field.key] ?? []).some((variant: { image?: string, sound?: string }) => variant.image === url || variant.sound === url)))
       .map(field => ({ key: field.key, label: field.label ?? field.key, section: field.section }))
     if (canvasScene(widget).objects.some(object => object.kind === 'media' && object.url === url)) {
       fields.push({ key: 'canvasMedia', label: 'canvasMedia', section: 'general' })
@@ -64,7 +64,11 @@ export async function clearUsages(userId: string, url: string) {
     const keys = usage.fields.map(field => field.key).filter(key => key !== 'canvasMedia')
     if (!keys.length) continue
     const settings = { ...widget.settings }
-    for (const key of keys) settings[key] = ''
+    for (const key of keys) {
+      settings[key] = Array.isArray(settings[key])
+        ? settings[key].map((variant: Record<string, string>) => ({ ...variant, image: variant.image === url ? '' : variant.image, sound: variant.sound === url ? '' : variant.sound }))
+        : ''
+    }
     await useDb().update(tables.widgets).set({ settings, updatedAt: new Date() }).where(eq(tables.widgets.id, widget.id))
     publishToUser(userId, { kind: 'config', widgetId: widget.id, settings })
   }

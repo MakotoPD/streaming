@@ -63,5 +63,7 @@ const items = computed(() => {
     </div>
 
     <EditorCssEditor v-else-if="field.type === 'code'" v-model="model" :placeholder="placeholder" />
+
+    <EditorVariantsField v-else-if="field.type === 'variants'" v-model="model" :field="field" />
   </UFormField>
 </template>

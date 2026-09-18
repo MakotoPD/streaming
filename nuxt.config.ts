@@ -8,6 +8,7 @@ export default defineNuxtConfig({
     databaseUrl: '',
     uploadDir: './data/uploads',
     twitchWebhookSecret: '',
+    piperUrl: '',
     public: {
       siteUrl: 'http://localhost:3000'
     }

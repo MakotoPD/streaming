@@ -98,7 +98,7 @@ export function ircToEvents(msg: IrcMessage, badgeUrl: (key: string) => string |
         bits: Number(tags.bits) || undefined
       }]
       if (Number(tags.bits) > 0) {
-        events.push({ kind: 'alert', type: 'bits', platform: 'twitch', name, count: Number(tags.bits) })
+        events.push({ kind: 'alert', type: 'bits', platform: 'twitch', name, count: Number(tags.bits), message: text.replace(/(^|\s)[a-z]+\d+(?=\s|$)/gi, ' ').replace(/\s+/g, ' ').trim() || undefined })
       }
       return events
     }

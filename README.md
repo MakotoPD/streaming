@@ -75,6 +75,16 @@ The server holds one connection per source per user while at least one overlay o
 
 Widgets using donations: alerts (own section, minimum amount, message toggle), emote rain trigger, goal bar (amount), leaderboard (top donors), recent events and subathon (seconds per currency unit). StreamElements tips waiting in its moderation queue are skipped.
 
+## Text to speech, tiers and moderation
+
+Text to speech uses [Piper](https://github.com/OHF-Voice/piper1-gpl) running as the `tts` service (`piper/Dockerfile`, HTTP API on port 5000, Polish, English, German, Spanish and Russian voices baked into the image). The app talks to it through `NUXT_PIPER_URL` (`http://tts:5000` in `docker-compose.yml`; locally `docker compose -f compose.dev.yml up -d tts` exposes it on port 5100 because 5000 is often reserved on Windows). Overlays request speech from `POST /api/o/<token>/tts`, which checks the widget token, allows only known voices and 400 characters, caches recent results and limits each widget to 30 new clips per minute.
+
+In the alerts widget the alert sound plays first and the speech starts when it ends, so they never overlap; the alert stays on screen until reading finishes. TTS can be limited to donations and/or bits with a message, from a minimum amount. With the "service voice" option a Tipply donation plays the recordings Tipply sends with it; StreamElements and Streamlabs send none, so Piper reads those. "Skip current alert" in the editor stops the alert and its speech on stream.
+
+Every alert type except follows can have tiers (`<type>.variants`): from an amount, number of months, bits, gifts or raiders, and for subs and gifts optionally a specific tier. The highest matching tier replaces the text, image, sound and colour, and the alert gets `data-variant="<name>"` for custom CSS.
+
+Moderation (`shared/utils/moderation.ts`) applies to names and messages on screen and to TTS: a built-in list of slurs banned on Twitch and Kick in all five languages (toggle), the user's own word list (`word*` also matches longer forms), link removal, and a choice between masking the word and dropping the whole message. Matching ignores case, diacritics, repeated letters, l33t and spaced-out letters.
+
 ## Drawing canvas
 
 The `canvas` widget is a 2560x1440 board. Besides the OBS link it has a second, separately generated link (`/c/<editToken>`) that opens a full-screen editor with a floating toolbar: move, pencil, line, square, circle, triangle, arrow, text, fill and eraser, undo/redo, image/GIF/video upload and text formatting (font, size, bold, italic, underline, strikethrough).

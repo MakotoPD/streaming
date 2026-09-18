@@ -299,7 +299,9 @@
     "socials": "Sociale",
     "triggers": "Wyzwalacze",
     "time": "Czas",
-    "donation": "Donejt"
+    "donation": "Donejt",
+    "tts": "Czytanie (TTS)",
+    "moderation": "Moderacja"
   },
   "fields": {
     "maxMessages": "Maks. wiadomości",
@@ -493,7 +495,25 @@
     "canvasMedia": "Obraz lub wideo na tablicy",
     "minAmount": "Minimalna kwota",
     "showDonation": "Pokazuj donejty",
-    "secondsPerDonationUnit": "Za każdą 1 jednostkę waluty"
+    "secondsPerDonationUnit": "Za każdą 1 jednostkę waluty",
+    "variantsSub": "Progi subów (tier i długość)",
+    "variantsGifts": "Progi giftów",
+    "variantsRaid": "Progi raidów",
+    "variantsBits": "Progi bitów",
+    "variantsDonation": "Progi donejtów",
+    "ttsEnabled": "Czytaj alerty na głos",
+    "ttsTypes": "Czytaj dla",
+    "ttsMinAmount": "Czytaj donejty od kwoty",
+    "ttsMinBits": "Czytaj bity od",
+    "ttsSource": "Źródło głosu",
+    "ttsVoice": "Głos Piper",
+    "ttsReadName": "Czytaj też nick i kwotę",
+    "ttsVolume": "Głośność głosu",
+    "ttsSpeed": "Szybkość",
+    "blockSlurs": "Blokuj obelgi zakazane na Twitchu i Kicku",
+    "blockLinks": "Usuwaj linki",
+    "bannedWords": "Twoje zbanowane słowa",
+    "bannedAction": "Gdy wiadomość je zawiera"
   },
   "hints": {
     "hideAfter": "0 = wiadomości znikają dopiero, gdy wypchną je nowe.",
@@ -538,7 +558,17 @@
     "alertImage": "Pokazywany nad tekstem w układzie „Obrazek na górze” (zakładka Styl).",
     "alertLayout": "„Obrazek na górze” pokazuje obrazek danego typu alertu, a pod nim tekst.",
     "minAmount": "Mniejsze donejty są pomijane. 0 pokazuje każdy.",
-    "secondsPerDonationUnit": "Sekundy dodawane za każdą 1 zł, 1 EUR albo 1 USD."
+    "secondsPerDonationUnit": "Sekundy dodawane za każdą 1 zł, 1 EUR albo 1 USD.",
+    "variantsSub": "Inny wygląd dla dłuższych subów albo wyższych tierów. Wygrywa pasujący próg z najwyższym minimum; puste pola biorą ustawienia z góry.",
+    "variantsDonation": "Np. jeden alert od 5 zł i większy od 50 zł. Wygrywa najwyższy pasujący próg; puste pola biorą ustawienia z góry.",
+    "variantsBits": "Inny wygląd od podanej liczby bitów.",
+    "variantsGifts": "Inny wygląd od podanej liczby giftów.",
+    "variantsRaid": "Inny wygląd od podanej liczby widzów z raidu.",
+    "ttsEnabled": "Gra po dźwięku alertu, nigdy na nim. Alert zostaje na ekranie, aż czytanie się skończy.",
+    "ttsMinAmount": "Donejty poniżej tej kwoty pojawiają się, ale nie są czytane.",
+    "ttsSource": "Tipply wysyła z każdym donejtem własne nagranie. StreamElements i Streamlabs nie, więc te czyta Piper.",
+    "blockSlurs": "Wbudowana lista obelg rasistowskich, homofobicznych i podobnych w pięciu językach, także pisanych ze spacjami i l33t.",
+    "bannedWords": "Enter po każdym słowie. Gwiazdka na końcu łapie też dłuższe formy (np. idiot* złapie idiota, idioci). Wielkość liter, polskie znaki i l33t są ignorowane."
   },
   "options": {
     "direction": {
@@ -681,6 +711,29 @@
     "alertLayout": {
       "card": "Karta z ikoną",
       "image": "Obrazek na górze, tekst pod spodem"
+    },
+    "ttsTypes": {
+      "donation": "Donejtów",
+      "bits": "Bitów z wiadomością"
+    },
+    "ttsSource": {
+      "service": "Głos serwisu, jeśli jest (Tipply), inaczej Piper",
+      "piper": "Zawsze Piper"
+    },
+    "ttsVoice": {
+      "pl_PL-gosia-medium": "Polski — Gosia",
+      "pl_PL-darkman-medium": "Polski — Darkman",
+      "pl_PL-mc_speech-medium": "Polski — MC Speech",
+      "en_US-lessac-medium": "Angielski — Lessac",
+      "en_US-ryan-medium": "Angielski — Ryan",
+      "de_DE-thorsten-medium": "Niemiecki — Thorsten",
+      "es_ES-davefx-medium": "Hiszpański — Davefx",
+      "ru_RU-irina-medium": "Rosyjski — Irina",
+      "ru_RU-dmitri-medium": "Rosyjski — Dmitri"
+    },
+    "bannedAction": {
+      "mask": "Ukryj tylko słowo (***)",
+      "skip": "Ukryj wiadomość i jej nie czytaj"
     }
   },
   "animations": {
@@ -909,7 +962,8 @@
     "canvasStage": "Obszar rysowania (SVG z całą zawartością tablicy)",
     "canvasText": "Tekst dodany na tablicy",
     "canvasMedia": "Obraz lub wideo dodane na tablicy",
-    "alertDonationMessage": "Wiadomość darczyńcy pod alertem donejtu"
+    "alertDonationMessage": "Wiadomość darczyńcy pod alertem donejtu",
+    "alertVariant": "Alert z progu; w miejsce name wpisz nazwę progu"
   },
   "actions": {
     "start": "Start",
@@ -923,7 +977,8 @@
     "draw": "Losuj zwycięzcę",
     "pause": "Pauza",
     "addMinute": "+1 min",
-    "removeMinute": "−1 min"
+    "removeMinute": "−1 min",
+    "skip": "Pomiń bieżący alert"
   },
   "image": {
     "none": "Bez obrazka",
@@ -1187,6 +1242,28 @@
         "help": "Ustawienia → API Settings → API Tokens → Your Socket API Token.",
         "placeholder": "Token Socket API"
       }
+    }
+  },
+  "variants": {
+    "empty": "Brak progów. Każdy alert tego typu wygląda tak samo.",
+    "add": "Dodaj próg",
+    "name": "Nazwa (do CSS)",
+    "namePlaceholder": "np. duzy",
+    "textPlaceholder": "Puste = tekst z góry",
+    "inherit": "Domyślny",
+    "tierLabel": "Tier",
+    "tier": {
+      "0": "Dowolny",
+      "1": "Tier 1",
+      "2": "Tier 2",
+      "3": "Tier 3"
+    },
+    "min": {
+      "sub": "Od miesiąca",
+      "gifts": "Od giftów",
+      "raid": "Od widzów",
+      "bits": "Od bitów",
+      "donation": "Od kwoty"
     }
   }
 }

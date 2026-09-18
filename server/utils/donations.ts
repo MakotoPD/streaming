@@ -85,7 +85,10 @@ function connect(source: DonationSource, secrets: Secrets, handlers: Handlers) {
     return streamElements(secrets.streamelements.token, secrets.streamelements.channel, handlers)
   }
   if (source === 'tipply' && secrets.tipply) {
-    return socketIo('wss://alert-ws.tipply.pl/socket.io/?EIO=3&transport=websocket', `/${secrets.tipply.id}`, 'alert', payload => [tipplyDonation(payload)].filter(donation => !!donation), handlers)
+    return socketIo('wss://alert-ws.tipply.pl/socket.io/?EIO=3&transport=websocket', `/${secrets.tipply.id}`, 'alert', (payload) => {
+      if (import.meta.dev) console.info('[donations] tipply fields', Object.entries(payload as Record<string, unknown>).map(([key, value]) => `${key}=${typeof value === 'string' ? value.slice(0, 40) : typeof value}`).filter(line => !line.startsWith('email')).join(' | '))
+      return [tipplyDonation(payload)].filter(donation => !!donation)
+    }, handlers)
   }
   if (source === 'streamlabs' && secrets.streamlabs) {
     return socketIo(`wss://sockets.streamlabs.com/socket.io/?EIO=3&transport=websocket&token=${encodeURIComponent(secrets.streamlabs.token)}`, '', 'event', streamlabsDonations, handlers)

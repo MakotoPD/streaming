@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import type { AlertType, Settings, StreamEvent } from '#shared/types'
-import { widgetTexts } from '#shared/widgets'
+import type { AlertEvent, AlertType, Settings } from '#shared/types'
+import { pickVariant, widgetTexts } from '#shared/widgets'
 
 const props = defineProps<{ settings: Settings, bus: EventBus }>()
 
-type Alert = StreamEvent & { kind: 'alert' } & { key: number }
+type Alert = AlertEvent & { key: number }
 
 const ICONS: Record<AlertType, string> = {
   follow: 'i-lucide-heart',
@@ -15,43 +15,128 @@ const ICONS: Record<AlertType, string> = {
   donation: 'i-lucide-banknote'
 }
 
+const context = useWidgetContext()
 const queue: Alert[] = []
 const current = ref<Alert>()
 let key = 0
-let holdTimer: ReturnType<typeof setTimeout> | undefined
+let run = 0
+let playing: HTMLAudioElement | undefined
+let wake: (() => void) | undefined
 
 const texts = computed(() => widgetTexts(props.settings.language).alerts)
 
-const name = computed(() => {
-  const alert = current.value
-  if (!alert) return ''
-  if (alert.anonymous) return texts.value.anonymous
-  return alert.name || texts.value.someone
-})
+function moderate(text: string) {
+  const s = props.settings
+  return filterText(text, { slurs: s['moderation.slurs'], links: s['moderation.links'], banned: s['moderation.words'] })
+}
 
-const message = computed(() => {
-  const alert = current.value
-  if (!alert) return ''
+function variantFor(alert: Alert) {
+  return pickVariant(props.settings[`${alert.type}.variants`], alert)
+}
+
+function displayName(alert: Alert) {
+  if (alert.anonymous) return texts.value.anonymous
+  return alert.name ? moderate(alert.name).text : texts.value.someone
+}
+
+function headline(alert: Alert) {
   const s = props.settings
   const resub = alert.type === 'sub' && (alert.months ?? 1) > 1
-  const template = resub
-    ? s['sub.textResub'] || texts.value.resub
-    : s[`${alert.type}.text`] || texts.value[alert.type]
+  const template = variantFor(alert)?.text || (resub ? s['sub.textResub'] || texts.value.resub : s[`${alert.type}.text`] || texts.value[alert.type])
   return fillTemplate(template, {
-    name: name.value,
+    name: displayName(alert),
     months: alert.months,
     count: alert.count,
     amount: alert.amount === undefined ? undefined : formatMoney(alert.amount, alert.currency, s.language),
     tier: alert.tier && alert.tier > 1 ? ` (Tier ${alert.tier})` : ''
   }, s.language)
+}
+
+const variant = computed(() => (current.value ? variantFor(current.value) : undefined))
+const image = computed(() => (current.value ? variant.value?.image || props.settings[`${current.value.type}.image`] : ''))
+const name = computed(() => (current.value ? displayName(current.value) : ''))
+const message = computed(() => (current.value ? headline(current.value) : ''))
+
+const userMessage = computed(() => {
+  const alert = current.value
+  if (!alert?.message) return undefined
+  if (alert.type === 'donation' && !props.settings['donation.showMessage']) return undefined
+  const result = moderate(alert.message)
+  if (result.flagged && props.settings['moderation.action'] === 'skip') return undefined
+  return result.text
 })
 
-function playSound(type: AlertType) {
-  const url = props.settings[`${type}.sound`]
-  if (!url) return
-  const audio = new Audio(url)
-  audio.volume = props.settings.volume / 100
-  audio.play().catch(err => console.warn('[alerts] audio', err))
+function play(url: string, volume: number, token: number) {
+  return new Promise<void>((resolve) => {
+    if (!url || token !== run) return resolve()
+    const audio = new Audio(url)
+    audio.volume = Math.min(1, Math.max(0, volume / 100))
+    playing = audio
+    const done = () => {
+      if (playing === audio) playing = undefined
+      resolve()
+    }
+    audio.onended = done
+    audio.onerror = done
+    audio.play().catch(done)
+  })
+}
+
+function wait(ms: number) {
+  return new Promise<void>((resolve) => {
+    const timer = setTimeout(resolve, ms)
+    wake = () => {
+      clearTimeout(timer)
+      resolve()
+    }
+  })
+}
+
+function wantsSpeech(alert: Alert) {
+  const s = props.settings
+  if (!s['tts.enabled'] || !(s['tts.types'] as string[]).includes(alert.type)) return false
+  if (alert.type === 'donation') return (alert.amount ?? 0) >= s['tts.minAmount']
+  if (alert.type === 'bits') return (alert.count ?? 0) >= s['tts.minBits']
+  return false
+}
+
+async function speech(alert: Alert): Promise<string[]> {
+  const s = props.settings
+  if (!wantsSpeech(alert)) return []
+  const flagged = alert.message ? moderate(alert.message).flagged : false
+  if (flagged && s['moderation.action'] === 'skip') return []
+  if (s['tts.source'] === 'service' && alert.audio?.length && !flagged) return alert.audio
+
+  const spoken = alert.message ? speakable(moderate(alert.message).text) : ''
+  const text = [s['tts.readName'] ? headline(alert) : '', spoken].filter(Boolean).join(' ')
+  if (!text || !context) return []
+  try {
+    const blob = await $fetch<Blob>(`/api/o/${context.token}/tts`, {
+      method: 'POST',
+      body: { text: text.slice(0, 400), voice: s['tts.voice'], speed: s['tts.speed'] },
+      responseType: 'blob'
+    })
+    return [URL.createObjectURL(blob)]
+  }
+  catch (err) {
+    console.warn('[alerts] tts', err)
+    return []
+  }
+}
+
+async function present(alert: Alert) {
+  const token = ++run
+  const s = props.settings
+  const started = Date.now()
+  const clips = speech(alert)
+  await play(variantFor(alert)?.sound || s[`${alert.type}.sound`], s.volume, token)
+  for (const url of await clips) {
+    await play(url, s['tts.volume'], token)
+    if (url.startsWith('blob:')) URL.revokeObjectURL(url)
+  }
+  if (token !== run) return
+  await wait(Math.max(s.holdTime * 1000 + s.animDuration - (Date.now() - started), 600))
+  if (token === run) current.value = undefined
 }
 
 function next() {
@@ -59,13 +144,19 @@ function next() {
   const alert = queue.shift()
   if (!alert) return
   current.value = alert
-  playSound(alert.type)
-  holdTimer = setTimeout(() => {
-    current.value = undefined
-  }, props.settings.holdTime * 1000 + props.settings.animDuration)
+  present(alert)
+}
+
+function skip() {
+  run++
+  playing?.pause()
+  playing = undefined
+  wake?.()
+  current.value = undefined
 }
 
 useBusEvents(props.bus, (event) => {
+  if (event.kind === 'command' && event.name === 'skip') return skip()
   if (event.kind !== 'alert') return
   const s = props.settings
   if (!s[`${event.type}.enabled`]) return
@@ -75,7 +166,7 @@ useBusEvents(props.bus, (event) => {
   next()
 })
 
-onBeforeUnmount(() => clearTimeout(holdTimer))
+onBeforeUnmount(skip)
 </script>
 
 <template>
@@ -89,10 +180,12 @@ onBeforeUnmount(() => clearTimeout(holdTimer))
         v-if="current && settings.alertLayout === 'image'"
         :key="`image-${current.key}`"
         class="alert alert-image-layout"
-        :class="[`alert-${current.type}`, { 'alert-glow': settings.glow }]"
+        :class="[`alert-${current.type}`, { 'alert-glow': settings.glow, 'alert-variant': variant }]"
+        :data-variant="variant?.name || undefined"
+        :style="variant?.color ? { '--c': variant.color } : undefined"
       >
-        <div v-if="settings[`${current.type}.image`]" class="alert-image">
-          <img :src="settings[`${current.type}.image`]" alt="">
+        <div v-if="image" class="alert-image">
+          <img :src="image" alt="">
         </div>
         <div class="alert-text">
           <div class="alert-name">
@@ -101,8 +194,8 @@ onBeforeUnmount(() => clearTimeout(holdTimer))
           <div class="alert-message">
             {{ message }}
           </div>
-          <div v-if="current.type === 'donation' && current.message && settings['donation.showMessage']" class="alert-donation-message">
-            {{ current.message }}
+          <div v-if="userMessage" class="alert-donation-message">
+            {{ userMessage }}
           </div>
         </div>
       </div>
@@ -110,7 +203,9 @@ onBeforeUnmount(() => clearTimeout(holdTimer))
         v-else-if="current"
         :key="current.key"
         class="alert"
-        :class="[`alert-${current.type}`, { 'alert-glow': settings.glow }]"
+        :class="[`alert-${current.type}`, { 'alert-glow': settings.glow, 'alert-variant': variant }]"
+        :data-variant="variant?.name || undefined"
+        :style="variant?.color ? { '--c': variant.color } : undefined"
       >
         <div v-if="settings.glow" class="alert-burst" />
         <div v-if="settings.showIcon" class="alert-icon">
@@ -123,8 +218,8 @@ onBeforeUnmount(() => clearTimeout(holdTimer))
           <div class="alert-message">
             {{ message }}
           </div>
-          <div v-if="current.type === 'donation' && current.message && settings['donation.showMessage']" class="alert-donation-message">
-            {{ current.message }}
+          <div v-if="userMessage" class="alert-donation-message">
+            {{ userMessage }}
           </div>
         </div>
         <div v-if="settings.shine" class="alert-shine" />

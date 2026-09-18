@@ -27,7 +27,7 @@ import { twitchPoll } from './twitch-poll'
 import { viewers } from './viewers'
 
 export * from './define'
-export { ALERT_TYPES } from './alerts'
+export { ALERT_TYPES, PIPER_VOICES, pickVariant, TTS_TYPES } from './alerts'
 export { SOCIALS } from './scene'
 export { ANIMATIONS_IN, ANIMATIONS_OUT } from './animations'
 export { widgetTexts } from './texts'

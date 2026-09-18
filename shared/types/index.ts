@@ -56,6 +56,7 @@ export interface AlertEvent {
   amount?: number
   currency?: string
   message?: string
+  audio?: string[]
 }
 
 export interface RedemptionEvent {

@@ -10,5 +10,10 @@ services:
     volumes:
       - pgdata-dev:/var/lib/postgresql
 
+  tts:
+    build: ./piper
+    ports:
+      - "5100:5000"
+
 volumes:
   pgdata-dev:

@@ -299,7 +299,9 @@
     "socials": "Redes",
     "triggers": "Activadores",
     "time": "Tiempo",
-    "donation": "Donación"
+    "donation": "Donación",
+    "tts": "Texto a voz",
+    "moderation": "Moderación"
   },
   "fields": {
     "maxMessages": "Máx. mensajes",
@@ -493,7 +495,25 @@
     "canvasMedia": "Imagen o vídeo en el lienzo",
     "minAmount": "Importe mínimo",
     "showDonation": "Mostrar donaciones",
-    "secondsPerDonationUnit": "Por cada unidad de moneda"
+    "secondsPerDonationUnit": "Por cada unidad de moneda",
+    "variantsSub": "Niveles de sub y duración",
+    "variantsGifts": "Niveles de regalos",
+    "variantsRaid": "Niveles de raid",
+    "variantsBits": "Niveles de bits",
+    "variantsDonation": "Niveles de donación",
+    "ttsEnabled": "Leer alertas en voz alta",
+    "ttsTypes": "Leer para",
+    "ttsMinAmount": "Leer donaciones desde",
+    "ttsMinBits": "Leer bits desde",
+    "ttsSource": "Origen de la voz",
+    "ttsVoice": "Voz de Piper",
+    "ttsReadName": "Leer también nombre e importe",
+    "ttsVolume": "Volumen de la voz",
+    "ttsSpeed": "Velocidad",
+    "blockSlurs": "Bloquear insultos prohibidos en Twitch y Kick",
+    "blockLinks": "Quitar enlaces",
+    "bannedWords": "Tus palabras prohibidas",
+    "bannedAction": "Si un mensaje la contiene"
   },
   "hints": {
     "hideAfter": "0 mantiene los mensajes hasta que los nuevos los desplacen.",
@@ -538,7 +558,17 @@
     "alertImage": "Se muestra sobre el texto en la disposición «Imagen arriba» (pestaña Estilo).",
     "alertLayout": "«Imagen arriba» muestra la imagen de cada tipo de alerta con el texto debajo.",
     "minAmount": "Las donaciones menores se omiten. 0 muestra todas.",
-    "secondsPerDonationUnit": "Segundos que se añaden por cada 1 PLN, 1 EUR o 1 USD donado."
+    "secondsPerDonationUnit": "Segundos que se añaden por cada 1 PLN, 1 EUR o 1 USD donado.",
+    "variantsSub": "Otro aspecto para subs más largos o niveles más altos. Gana el nivel coincidente con el mínimo más alto; los campos vacíos usan lo de arriba.",
+    "variantsDonation": "Por ejemplo, una alerta desde 5 € y otra mayor desde 50 €. Gana el nivel más alto que coincida; los campos vacíos usan lo de arriba.",
+    "variantsBits": "Otro aspecto a partir de cierta cantidad de bits.",
+    "variantsGifts": "Otro aspecto a partir de cierta cantidad de subs regalados.",
+    "variantsRaid": "Otro aspecto a partir de cierto número de espectadores del raid.",
+    "ttsEnabled": "Suena después del sonido de la alerta, nunca encima. La alerta sigue en pantalla hasta terminar la lectura.",
+    "ttsMinAmount": "Las donaciones por debajo aparecen pero no se leen.",
+    "ttsSource": "Tipply envía su propia grabación con cada donación. StreamElements y Streamlabs no, así que esas las lee Piper.",
+    "blockSlurs": "Lista integrada de insultos racistas, homófobos y similares en los cinco idiomas, también con espacios y l33t.",
+    "bannedWords": "Pulsa Enter tras cada palabra. Un * al final atrapa formas más largas (idiot* atrapa idiota). Se ignoran mayúsculas, acentos y l33t."
   },
   "options": {
     "direction": {
@@ -681,6 +711,29 @@
     "alertLayout": {
       "card": "Tarjeta con icono",
       "image": "Imagen arriba, texto debajo"
+    },
+    "ttsTypes": {
+      "donation": "Donaciones",
+      "bits": "Bits con mensaje"
+    },
+    "ttsSource": {
+      "service": "Voz del servicio si existe (Tipply), si no Piper",
+      "piper": "Siempre Piper"
+    },
+    "ttsVoice": {
+      "pl_PL-gosia-medium": "Polaco — Gosia",
+      "pl_PL-darkman-medium": "Polaco — Darkman",
+      "pl_PL-mc_speech-medium": "Polaco — MC Speech",
+      "en_US-lessac-medium": "Inglés — Lessac",
+      "en_US-ryan-medium": "Inglés — Ryan",
+      "de_DE-thorsten-medium": "Alemán — Thorsten",
+      "es_ES-davefx-medium": "Español — Davefx",
+      "ru_RU-irina-medium": "Ruso — Irina",
+      "ru_RU-dmitri-medium": "Ruso — Dmitri"
+    },
+    "bannedAction": {
+      "mask": "Ocultar solo la palabra (***)",
+      "skip": "Ocultar el mensaje y no leerlo"
     }
   },
   "animations": {
@@ -909,7 +962,8 @@
     "canvasStage": "Área de dibujo (SVG con todo el contenido del lienzo)",
     "canvasText": "Texto añadido en el lienzo",
     "canvasMedia": "Imagen o vídeo añadido en el lienzo",
-    "alertDonationMessage": "Mensaje del donante bajo la alerta"
+    "alertDonationMessage": "Mensaje del donante bajo la alerta",
+    "alertVariant": "Alerta de un nivel; cambia name por el nombre del nivel"
   },
   "actions": {
     "start": "Iniciar",
@@ -923,7 +977,8 @@
     "draw": "Sortear ganador",
     "pause": "Pausa",
     "addMinute": "+1 min",
-    "removeMinute": "−1 min"
+    "removeMinute": "−1 min",
+    "skip": "Saltar alerta actual"
   },
   "image": {
     "none": "Sin imagen",
@@ -1187,6 +1242,28 @@
         "help": "Ajustes → API Settings → API Tokens → Your Socket API Token.",
         "placeholder": "Token de Socket API"
       }
+    }
+  },
+  "variants": {
+    "empty": "Sin niveles. Todas las alertas de este tipo se ven igual.",
+    "add": "Añadir nivel",
+    "name": "Nombre (para CSS)",
+    "namePlaceholder": "p. ej. grande",
+    "textPlaceholder": "Vacío = texto de arriba",
+    "inherit": "Predeterminado",
+    "tierLabel": "Nivel",
+    "tier": {
+      "0": "Cualquiera",
+      "1": "Nivel 1",
+      "2": "Nivel 2",
+      "3": "Nivel 3"
+    },
+    "min": {
+      "sub": "Desde el mes",
+      "gifts": "Desde regalos",
+      "raid": "Desde espectadores",
+      "bits": "Desde bits",
+      "donation": "Desde importe"
     }
   }
 }
