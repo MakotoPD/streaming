@@ -1,3 +1,5 @@
+import { and, eq, ne } from 'drizzle-orm'
+
 interface ChannelList {
   items?: { id: string, snippet: { title: string, customUrl?: string, thumbnails?: { default?: { url?: string } } } }[]
 }
@@ -5,7 +7,7 @@ interface ChannelList {
 export default defineOAuthGoogleEventHandler({
   config: {
     scope: YOUTUBE_SCOPES,
-    authorizationParams: { access_type: 'offline', prompt: 'consent', include_granted_scopes: 'true' }
+    authorizationParams: { access_type: 'offline', prompt: 'select_account consent', include_granted_scopes: 'true' }
   },
   async onSuccess(event, { tokens }) {
     const list = await $fetch<ChannelList>('https://www.googleapis.com/youtube/v3/channels', {
@@ -16,7 +18,7 @@ export default defineOAuthGoogleEventHandler({
     if (!channel) return sendRedirect(event, '/?error=youtube_no_channel')
 
     const handle = channel.snippet.customUrl?.startsWith('@') ? channel.snippet.customUrl : channel.id
-    await linkAccount(event, {
+    const userId = await linkAccount(event, {
       provider: 'youtube',
       providerId: channel.id,
       login: handle,
@@ -30,6 +32,11 @@ export default defineOAuthGoogleEventHandler({
         scopes: String(tokens.scope ?? '').split(' ').filter(Boolean)
       }
     })
+    await useDb().delete(tables.accounts).where(and(
+      eq(tables.accounts.userId, userId),
+      eq(tables.accounts.provider, 'youtube'),
+      ne(tables.accounts.providerId, channel.id)
+    ))
     return sendRedirect(event, '/dashboard')
   },
   onError(event, error) {

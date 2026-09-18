@@ -187,6 +187,16 @@ const { copyObsUrl } = useObsUrl()
               :label="t('dashboard.reconnect')"
             />
             <UBadge v-else color="success" variant="subtle" :label="t('dashboard.connected')" />
+            <UButton
+              v-if="account.provider === 'youtube'"
+              to="/auth/youtube"
+              external
+              size="xs"
+              color="neutral"
+              variant="ghost"
+              icon="i-lucide-repeat"
+              :label="t('dashboard.changeChannel')"
+            />
           </div>
           <div class="flex flex-wrap gap-2">
             <UButton v-if="!linked.has('twitch')" to="/auth/twitch" external icon="i-simple-icons-twitch" color="neutral" variant="outline" :label="t('dashboard.connect', { platform: 'Twitch' })" />

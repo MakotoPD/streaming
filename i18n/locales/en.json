@@ -145,7 +145,8 @@
     "addFirstWidget": "Add your first widget",
     "allPlatforms": "All platforms",
     "onlyOnPlatform": "Works only on {platform}",
-    "youtubeHint": "Set automatically after signing in with Google"
+    "youtubeHint": "Set automatically after signing in with Google",
+    "changeChannel": "Change channel"
   },
   "widgets": {
     "chat": {

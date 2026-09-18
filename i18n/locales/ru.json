@@ -145,7 +145,8 @@
     "addFirstWidget": "Добавить первый виджет",
     "allPlatforms": "Все платформы",
     "onlyOnPlatform": "Работает только на {platform}",
-    "youtubeHint": "Задаётся автоматически после входа через Google"
+    "youtubeHint": "Задаётся автоматически после входа через Google",
+    "changeChannel": "Сменить канал"
   },
   "widgets": {
     "chat": {

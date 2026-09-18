@@ -145,7 +145,8 @@
     "addFirstWidget": "Erstes Widget hinzufügen",
     "allPlatforms": "Alle Plattformen",
     "onlyOnPlatform": "Funktioniert nur auf {platform}",
-    "youtubeHint": "Wird nach der Google-Anmeldung automatisch gesetzt"
+    "youtubeHint": "Wird nach der Google-Anmeldung automatisch gesetzt",
+    "changeChannel": "Kanal wechseln"
   },
   "widgets": {
     "chat": {

@@ -145,7 +145,8 @@
     "addFirstWidget": "Añade tu primer widget",
     "allPlatforms": "Todas las plataformas",
     "onlyOnPlatform": "Solo funciona en {platform}",
-    "youtubeHint": "Se configura solo al iniciar sesión con Google"
+    "youtubeHint": "Se configura solo al iniciar sesión con Google",
+    "changeChannel": "Cambiar canal"
   },
   "widgets": {
     "chat": {
