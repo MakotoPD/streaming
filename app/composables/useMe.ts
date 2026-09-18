@@ -2,6 +2,7 @@ import type { Channels } from '#shared/types'
 
 export interface Me {
   id: string
+  panelToken: string
   channels: Channels
   expiresAt: string | null
   accounts: { provider: 'twitch' | 'kick' | 'youtube', login: string, displayName: string, avatar: string | null, needsReconnect: boolean }[]

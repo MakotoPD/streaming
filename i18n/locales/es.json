@@ -151,7 +151,20 @@
     "unlinkConfirm": "¿Desconectar {platform} ({name})? Se revoca el acceso y sus alertas dejan de funcionar hasta que la vuelvas a conectar.",
     "unlinked": "Cuenta desconectada",
     "unlinkLast": "Es tu único inicio de sesión. Conecta otra cuenta primero o elimina toda la cuenta abajo.",
-    "unlinkFailed": "No se pudo desconectar la cuenta."
+    "unlinkFailed": "No se pudo desconectar la cuenta.",
+    "panels": {
+      "title": "Paneles de OBS",
+      "hint": "Dos enlaces privados para añadir como fuentes de navegador o docks de OBS.",
+      "chat": "Panel de chat",
+      "chatHint": "Lee el chat de todas las plataformas y permite escribir donde la cuenta tenga permiso.",
+      "actions": "Panel de acciones",
+      "actionsHint": "Muestra el historial de acciones y permite repetir una alerta o saltar la actual.",
+      "securityTitle": "Mantén estos enlaces privados",
+      "securityText": "Cualquiera con el enlace puede abrir el panel. Generar uno nuevo invalida el anterior al instante.",
+      "regenerate": "Generar nuevos enlaces de panel",
+      "confirmRegenerate": "¿Generar nuevos enlaces de panel? Los antiguos dejarán de funcionar en OBS.",
+      "regenerated": "Los enlaces de panel se actualizaron"
+    }
   },
   "widgets": {
     "chat": {
@@ -1118,7 +1131,7 @@
           "title": "Datos que nos das",
           "body": [
             "Empezar como invitado guarda un identificador de usuario aleatorio y los nicks de canal que escribiste. Nada más.",
-            "Iniciar sesión con Twitch o Kick guarda además el identificador de la cuenta, el login, el nombre visible, la URL del avatar y los tokens de acceso. Los tokens se cifran antes de llegar a la base de datos y solo se usan para leer los datos de tu canal: seguidores, suscripciones, número de espectadores, recompensas de puntos, encuestas y hype trains. Iniciar sesión con Google guarda el id, nombre y avatar de tu canal de YouTube y tokens cifrados (solo lectura), usados únicamente para encontrar tu canal y leer tus últimos suscriptores públicos mientras hay un overlay abierto. Puedes revocar el acceso en cualquier momento desde tu cuenta de Google.",
+            "Iniciar sesión con Twitch o Kick guarda además el identificador de la cuenta, el login, el nombre visible, la URL del avatar y los tokens de acceso. Los tokens se cifran antes de llegar a la base de datos. Se usan para leer los datos de tu canal: seguidores, suscripciones, número de espectadores, recompensas de puntos, encuestas y hype trains; en Twitch también pueden enviar un mensaje de chat solo cuando lo haces manualmente desde tu panel privado de OBS. Iniciar sesión con Google guarda el id, nombre y avatar de tu canal de YouTube y tokens cifrados (solo lectura), usados únicamente para encontrar tu canal y leer tus últimos suscriptores públicos mientras hay un overlay abierto. Puedes revocar el acceso en cualquier momento desde tu cuenta de Google.",
             "Si conectas un servicio de donaciones (StreamElements, Tipply, Streamlabs), su token o enlace se guarda cifrado y solo lo usa el servidor para recibir tus donaciones. El nombre, el importe y el mensaje del donante pasan a tus overlays y no se guardan; los e-mails de los donantes se descartan."
           ]
         },

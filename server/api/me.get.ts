@@ -17,6 +17,7 @@ export default defineEventHandler(async (event) => {
   }).from(tables.accounts).where(eq(tables.accounts.userId, userId))
   return {
     id: user.id,
+    panelToken: user.panelToken,
     channels: user.channels,
     expiresAt: accounts.length ? null : guestExpiresAt(user.createdAt).toISOString(),
     accounts: accounts.map(({ scopes, ...account }) => ({

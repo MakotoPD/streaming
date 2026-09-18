@@ -151,7 +151,20 @@
     "unlinkConfirm": "Odłączyć {platform} ({name})? Dostęp zostanie cofnięty, a alerty z tej platformy przestaną działać, dopóki nie połączysz jej ponownie.",
     "unlinked": "Konto odłączone",
     "unlinkLast": "To Twoje jedyne logowanie. Najpierw połącz inne konto albo usuń całe konto na dole strony.",
-    "unlinkFailed": "Nie udało się odłączyć konta."
+    "unlinkFailed": "Nie udało się odłączyć konta.",
+    "panels": {
+      "title": "Panele OBS",
+      "hint": "Dwa prywatne linki do dodania jako osobne źródła Przeglądarka albo docki w OBS.",
+      "chat": "Panel czatu",
+      "chatHint": "Czyta chat ze wszystkich platform i pozwala pisać tam, gdzie konto ma uprawnienia.",
+      "actions": "Panel akcji",
+      "actionsHint": "Pokazuje historię akcji, pozwala odtworzyć alert albo pominąć bieżący.",
+      "securityTitle": "Trzymaj te linki prywatnie",
+      "securityText": "Każdy, kto ma link, może otworzyć panel. Wygenerowanie nowego linku natychmiast unieważni stary.",
+      "regenerate": "Wygeneruj nowe linki paneli",
+      "confirmRegenerate": "Wygenerować nowe linki paneli? Stare przestaną działać w OBS.",
+      "regenerated": "Linki paneli zostały odświeżone"
+    }
   },
   "widgets": {
     "chat": {
@@ -1118,7 +1131,7 @@
           "title": "Dane, które nam podajesz",
           "body": [
             "Start jako gość zapisuje losowy identyfikator użytkownika i nicki kanałów, które wpisałeś. Nic więcej.",
-            "Logowanie przez Twitch lub Kick zapisuje dodatkowo identyfikator konta, login, nazwę wyświetlaną, adres awatara i tokeny dostępu. Tokeny są szyfrowane, zanim trafią do bazy, i służą tylko do odczytu danych Twojego kanału: obserwujących, subskrypcji, liczby widzów, nagród za punkty kanału, ankiet i hype trainów. Logowanie przez Google zapisuje identyfikator, nazwę i awatar Twojego kanału YouTube oraz zaszyfrowane tokeny (dostęp tylko do odczytu), używane wyłącznie do znalezienia kanału i odczytu najnowszych publicznych subskrypcji, gdy nakładka jest otwarta. Dostęp możesz cofnąć w każdej chwili w ustawieniach konta Google.",
+            "Logowanie przez Twitch lub Kick zapisuje dodatkowo identyfikator konta, login, nazwę wyświetlaną, adres awatara i tokeny dostępu. Tokeny są szyfrowane, zanim trafią do bazy. Służą do odczytu danych Twojego kanału: obserwujących, subskrypcji, liczby widzów, nagród za punkty kanału, ankiet i hype trainów; na Twitchu mogą też wysłać wiadomość na czat tylko wtedy, gdy zrobisz to ręcznie w swoim prywatnym panelu OBS. Logowanie przez Google zapisuje identyfikator, nazwę i awatar Twojego kanału YouTube oraz zaszyfrowane tokeny (dostęp tylko do odczytu), używane wyłącznie do znalezienia kanału i odczytu najnowszych publicznych subskrypcji, gdy nakładka jest otwarta. Dostęp możesz cofnąć w każdej chwili w ustawieniach konta Google.",
             "Jeśli podłączysz serwis z donejtami (StreamElements, Tipply, Streamlabs), jego token albo link do widgetu jest zapisany w formie zaszyfrowanej i używany tylko przez serwer do odbierania Twoich donejtów. Nick, kwota i wiadomość darczyńcy trafiają do nakładek i nie są zapisywane; e-maile darczyńców są odrzucane."
           ]
         },

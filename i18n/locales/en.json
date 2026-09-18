@@ -151,7 +151,20 @@
     "unlinkConfirm": "Disconnect {platform} ({name})? Its access is revoked and its alerts stop working until you connect it again.",
     "unlinked": "Account disconnected",
     "unlinkLast": "This is your only sign-in. Connect another account first, or delete the whole account below.",
-    "unlinkFailed": "Could not disconnect the account."
+    "unlinkFailed": "Could not disconnect the account.",
+    "panels": {
+      "title": "OBS panels",
+      "hint": "Two private links you can add as separate Browser sources or OBS docks.",
+      "chat": "Chat panel",
+      "chatHint": "Reads chat from every platform and lets you write where the account has permission.",
+      "actions": "Actions panel",
+      "actionsHint": "Shows the action history, lets you replay an alert or skip the current one.",
+      "securityTitle": "Keep these links private",
+      "securityText": "Anyone with a link can open the panel. Generating a new link immediately invalidates the old one.",
+      "regenerate": "Generate new panel links",
+      "confirmRegenerate": "Generate new panel links? The old ones will stop working in OBS.",
+      "regenerated": "Panel links were refreshed"
+    }
   },
   "widgets": {
     "chat": {
@@ -1118,7 +1131,7 @@
           "title": "Data you give us",
           "body": [
             "Starting as a guest stores a random user id and the channel nicknames you typed. Nothing else.",
-            "Signing in with Twitch or Kick also stores your account id, login, display name, avatar URL and access tokens. Tokens are encrypted before they reach the database and are only used to read your own channel data: followers, subscriptions, viewer count, channel point rewards, polls and hype trains. Signing in with Google stores your YouTube channel id, name, avatar and encrypted access tokens (read-only YouTube scope), used only to find your channel and read your latest public subscribers while an overlay is open. You can revoke access at any time in your Google account settings.",
+            "Signing in with Twitch or Kick also stores your account id, login, display name, avatar URL and access tokens. Tokens are encrypted before they reach the database. They are used to read your own channel data: followers, subscriptions, viewer count, channel point rewards, polls and hype trains; on Twitch they can also send a chat message only when you do it manually from your private OBS panel. Signing in with Google stores your YouTube channel id, name, avatar and encrypted access tokens (read-only YouTube scope), used only to find your channel and read your latest public subscribers while an overlay is open. You can revoke access at any time in your Google account settings.",
             "If you connect a donation service (StreamElements, Tipply, Streamlabs), its token or widget link is stored encrypted and used only by the server to receive your donations. Donor names, amounts and messages are passed to your overlays and not stored; donor e-mails are discarded."
           ]
         },

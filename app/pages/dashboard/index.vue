@@ -78,7 +78,21 @@ async function removeWidget(widget: WidgetRow) {
   await refresh()
 }
 
-const { copyObsUrl } = useObsUrl()
+const { copyObsUrl, copyPanelUrl, panelUrl } = useObsUrl()
+
+const regeneratingPanelToken = ref(false)
+async function regeneratePanelToken() {
+  if (!confirm(t('dashboard.panels.confirmRegenerate'))) return
+  regeneratingPanelToken.value = true
+  try {
+    const updated = await $fetch<{ panelToken: string }>('/api/me/panels/token', { method: 'POST' })
+    if (me.value) me.value.panelToken = updated.panelToken
+    toast.add({ title: t('dashboard.panels.regenerated'), color: 'success', icon: 'i-lucide-check' })
+  }
+  finally {
+    regeneratingPanelToken.value = false
+  }
+}
 </script>
 
 <template>
@@ -146,6 +160,81 @@ const { copyObsUrl } = useObsUrl()
           </div>
         </UCard>
       </div>
+    </section>
+
+    <section>
+      <UCard :ui="{ body: 'space-y-4' }">
+        <template #header>
+          <div class="flex flex-wrap items-start justify-between gap-3">
+            <div>
+              <h2 class="font-semibold">
+                {{ t('dashboard.panels.title') }}
+              </h2>
+              <p class="text-sm text-muted">
+                {{ t('dashboard.panels.hint') }}
+              </p>
+            </div>
+            <UTooltip :text="t('dashboard.panels.regenerate')">
+              <UButton
+                icon="i-lucide-refresh-cw"
+                color="neutral"
+                variant="outline"
+                :loading="regeneratingPanelToken"
+                :aria-label="t('dashboard.panels.regenerate')"
+                @click="regeneratePanelToken"
+              />
+            </UTooltip>
+          </div>
+        </template>
+
+        <UAlert
+          icon="i-lucide-shield-check"
+          color="primary"
+          variant="subtle"
+          :title="t('dashboard.panels.securityTitle')"
+          :description="t('dashboard.panels.securityText')"
+        />
+
+        <div class="grid lg:grid-cols-2 gap-4">
+          <div class="space-y-2">
+            <div class="flex items-center gap-2 font-medium">
+              <UIcon name="i-lucide-messages-square" class="text-primary" />
+              {{ t('dashboard.panels.chat') }}
+            </div>
+            <UFieldGroup class="w-full">
+              <UInput :model-value="me?.panelToken ? panelUrl(me.panelToken, 'chat') : ''" readonly class="flex-1 font-mono" />
+              <UButton
+                icon="i-lucide-copy"
+                :label="t('dashboard.copyUrl')"
+                :disabled="!me?.panelToken"
+                @click="me?.panelToken && copyPanelUrl(me.panelToken, 'chat')"
+              />
+            </UFieldGroup>
+            <p class="text-sm text-muted">
+              {{ t('dashboard.panels.chatHint') }}
+            </p>
+          </div>
+
+          <div class="space-y-2">
+            <div class="flex items-center gap-2 font-medium">
+              <UIcon name="i-lucide-list-restart" class="text-primary" />
+              {{ t('dashboard.panels.actions') }}
+            </div>
+            <UFieldGroup class="w-full">
+              <UInput :model-value="me?.panelToken ? panelUrl(me.panelToken, 'actions') : ''" readonly class="flex-1 font-mono" />
+              <UButton
+                icon="i-lucide-copy"
+                :label="t('dashboard.copyUrl')"
+                :disabled="!me?.panelToken"
+                @click="me?.panelToken && copyPanelUrl(me.panelToken, 'actions')"
+              />
+            </UFieldGroup>
+            <p class="text-sm text-muted">
+              {{ t('dashboard.panels.actionsHint') }}
+            </p>
+          </div>
+        </div>
+      </UCard>
     </section>
 
     <section class="grid lg:grid-cols-2 gap-6">

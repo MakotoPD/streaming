@@ -23,7 +23,8 @@ export default defineNuxtConfig({
 
   routeRules: {
     '/o/**': { ssr: false },
-    '/c/**': { ssr: false }
+    '/c/**': { ssr: false },
+    '/p/**': { ssr: false }
   },
 
   i18n: {

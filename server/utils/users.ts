@@ -32,7 +32,7 @@ export async function ensureUser(event: H3Event): Promise<string> {
     const exists = await useDb().select({ id: tables.users.id }).from(tables.users).where(eq(tables.users.id, session.user.id))
     if (exists.length) return session.user.id
   }
-  const [user] = await useDb().insert(tables.users).values({}).returning({ id: tables.users.id })
+  const [user] = await useDb().insert(tables.users).values({ panelToken: newToken() }).returning({ id: tables.users.id })
   await setUserSession(event, { user: { id: user!.id } })
   return user!.id
 }

@@ -1,6 +1,7 @@
 import { and, eq } from 'drizzle-orm'
 
 export const TWITCH_SCOPES = [
+  'user:write:chat',
   'moderator:read:followers',
   'channel:read:subscriptions',
   'channel:read:redemptions',
@@ -78,7 +79,7 @@ async function refreshUserToken(accountId: string, refreshToken: string) {
   return res.access_token
 }
 
-export async function userHelix<T>(userId: string, path: string): Promise<T | undefined> {
+export async function userHelix<T>(userId: string, path: string, init: { method?: 'GET' | 'POST' | 'DELETE', body?: object } = {}): Promise<T | undefined> {
   const account = await twitchAccount(userId)
   const refresh = unseal(account?.refreshToken)
   if (!account || !refresh || !credentials()) return undefined
@@ -90,13 +91,30 @@ export async function userHelix<T>(userId: string, path: string): Promise<T | un
   if (!token) return undefined
 
   try {
-    return await request<T>(token, path)
+    return await request<T>(token, path, init)
   }
   catch (err: any) {
     if (err?.statusCode !== 401) return undefined
     const fresh = await refreshUserToken(account.id, refresh)
-    return fresh ? await request<T>(fresh, path).catch(() => undefined) : undefined
+    return fresh ? await request<T>(fresh, path, init).catch(() => undefined) : undefined
   }
+}
+
+export async function sendTwitchChat(userId: string, message: string) {
+  const account = await twitchAccount(userId)
+  if (!account?.providerId) throw createError({ statusCode: 403, message: 'twitch_unavailable' })
+  if (!account.scopes.includes('user:write:chat')) throw createError({ statusCode: 403, message: 'twitch_reconnect' })
+  const result = await userHelix<{ data: { is_sent: boolean, drop_reason?: { message?: string } }[] }>(userId, '/chat/messages', {
+    method: 'POST',
+    body: {
+      broadcaster_id: account.providerId,
+      sender_id: account.providerId,
+      message
+    }
+  })
+  const sent = result?.data?.[0]
+  if (!sent?.is_sent) throw createError({ statusCode: 502, message: sent?.drop_reason?.message ?? 'send_failed' })
+  return sent
 }
 
 export async function subscribeTwitchEvents(broadcasterId: string) {

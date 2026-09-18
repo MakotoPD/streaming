@@ -151,7 +151,20 @@
     "unlinkConfirm": "{platform} ({name}) trennen? Der Zugriff wird widerrufen und die Alerts dieser Plattform funktionieren erst nach erneutem Verbinden wieder.",
     "unlinked": "Konto getrennt",
     "unlinkLast": "Das ist deine einzige Anmeldung. Verbinde zuerst ein anderes Konto oder lösche unten das ganze Konto.",
-    "unlinkFailed": "Konto konnte nicht getrennt werden."
+    "unlinkFailed": "Konto konnte nicht getrennt werden.",
+    "panels": {
+      "title": "OBS-Panels",
+      "hint": "Zwei private Links für separate Browser-Quellen oder OBS-Docks.",
+      "chat": "Chat-Panel",
+      "chatHint": "Liest den Chat aller Plattformen und sendet dort, wo das Konto die Berechtigung hat.",
+      "actions": "Aktions-Panel",
+      "actionsHint": "Zeigt die Aktionshistorie und kann Alerts erneut abspielen oder den aktuellen überspringen.",
+      "securityTitle": "Halte diese Links privat",
+      "securityText": "Jeder mit einem Link kann das Panel öffnen. Ein neuer Link macht den alten sofort ungültig.",
+      "regenerate": "Neue Panel-Links erzeugen",
+      "confirmRegenerate": "Neue Panel-Links erzeugen? Die alten funktionieren in OBS nicht mehr.",
+      "regenerated": "Panel-Links wurden erneuert"
+    }
   },
   "widgets": {
     "chat": {
@@ -1118,7 +1131,7 @@
           "title": "Daten, die du uns gibst",
           "body": [
             "Als Gast zu starten speichert eine zufällige Nutzer-ID und die eingegebenen Kanal-Nicknames. Mehr nicht.",
-            "Die Anmeldung mit Twitch oder Kick speichert zusätzlich Konto-ID, Login, Anzeigename, Avatar-URL und Zugriffstokens. Tokens werden verschlüsselt, bevor sie in die Datenbank kommen, und dienen nur zum Lesen deiner eigenen Kanaldaten: Follower, Abos, Zuschauerzahl, Kanalpunkt-Belohnungen, Umfragen und Hype Trains. Die Google-Anmeldung speichert ID, Name und Avatar deines YouTube-Kanals sowie verschlüsselte Tokens (nur Lesezugriff), die nur genutzt werden, um deinen Kanal zu finden und deine neuesten öffentlichen Abonnenten zu lesen, solange ein Overlay offen ist. Du kannst den Zugriff jederzeit in deinem Google-Konto widerrufen.",
+            "Die Anmeldung mit Twitch oder Kick speichert zusätzlich Konto-ID, Login, Anzeigename, Avatar-URL und Zugriffstokens. Tokens werden verschlüsselt, bevor sie in die Datenbank kommen. Sie dienen zum Lesen deiner eigenen Kanaldaten: Follower, Abos, Zuschauerzahl, Kanalpunkt-Belohnungen, Umfragen und Hype Trains; bei Twitch können sie außerdem nur dann eine Chat-Nachricht senden, wenn du das manuell in deinem privaten OBS-Panel auslöst. Die Google-Anmeldung speichert ID, Name und Avatar deines YouTube-Kanals sowie verschlüsselte Tokens (nur Lesezugriff), die nur genutzt werden, um deinen Kanal zu finden und deine neuesten öffentlichen Abonnenten zu lesen, solange ein Overlay offen ist. Du kannst den Zugriff jederzeit in deinem Google-Konto widerrufen.",
             "Wenn du einen Spendendienst verbindest (StreamElements, Tipply, Streamlabs), wird sein Token oder Widget-Link verschlüsselt gespeichert und nur vom Server zum Empfang deiner Spenden genutzt. Name, Betrag und Nachricht des Spenders gehen an deine Overlays und werden nicht gespeichert; E-Mail-Adressen der Spender werden verworfen."
           ]
         },
