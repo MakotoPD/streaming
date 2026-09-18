@@ -7,7 +7,7 @@ export const goal: WidgetDefinition = {
   size: [700, 120],
   fields: [
     languageField(),
-    { key: 'goalMetric', section: 'general', type: 'select', default: 'subs', options: ['follows', 'subs', 'bits', 'gifts'] },
+    { key: 'goalMetric', section: 'general', type: 'select', default: 'subs', options: ['follows', 'subs', 'bits', 'gifts', 'donations'] },
     { key: 'goalSource', section: 'general', type: 'select', default: 'session', options: ['session', 'total'] },
     { key: 'goalTitle', section: 'general', type: 'text', default: '', max: 60 },
     { key: 'target', section: 'general', type: 'number', default: 10, min: 1, max: 1000000 },
@@ -27,7 +27,7 @@ export const goal: WidgetDefinition = {
 
     customCssField()
   ],
-  tests: ['follow', 'sub', 'gifts', 'bits'],
+  tests: ['follow', 'sub', 'gifts', 'bits', 'donation'],
   actions: ['increment', 'decrement', 'reset'],
   cssTemplate: [
     { selector: '.goal', declarations: { 'font-family': '{font}', 'font-size': '{fontSize}', 'color': '{textColor}', 'background': '{background}' } },

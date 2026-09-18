@@ -1,14 +1,15 @@
 import type { AlertType } from '../types'
 import { animationFields, customCssField, languageField, type Field, type WidgetDefinition } from './define'
 
-export const ALERT_TYPES: AlertType[] = ['follow', 'sub', 'gifts', 'raid', 'bits']
+export const ALERT_TYPES: AlertType[] = ['follow', 'sub', 'gifts', 'raid', 'bits', 'donation']
 
 const COLORS: Record<AlertType, string> = {
   follow: '#22d3ee',
   sub: '#a855f7',
   gifts: '#ec4899',
   raid: '#fb923c',
-  bits: '#fbbf24'
+  bits: '#fbbf24',
+  donation: '#34d399'
 }
 
 function typeFields(type: AlertType): Field[] {
@@ -18,6 +19,12 @@ function typeFields(type: AlertType): Field[] {
   ]
   if (type === 'sub') fields.push({ key: 'sub.textResub', section: type, label: 'textResub', type: 'text', default: '', max: 200 })
   if (type === 'bits' || type === 'raid') fields.push({ key: `${type}.min`, section: type, label: 'min', type: 'number', default: 1, min: 1, max: 100000 })
+  if (type === 'donation') {
+    fields.push(
+      { key: 'donation.min', section: type, label: 'minAmount', type: 'number', default: 0, min: 0, max: 100000, step: 0.5 },
+      { key: 'donation.showMessage', section: type, label: 'showMessage', type: 'toggle', default: true }
+    )
+  }
   fields.push(
     { key: `${type}.image`, section: type, label: 'alertImage', type: 'image', default: '' },
     { key: `${type}.sound`, section: type, label: 'sound', type: 'sound', default: '' },
@@ -62,7 +69,8 @@ export const alerts: WidgetDefinition = {
     { selector: '.alert-sub', declarations: { '--c': '{sub.color}' } },
     { selector: '.alert-gifts', declarations: { '--c': '{gifts.color}' } },
     { selector: '.alert-raid', declarations: { '--c': '{raid.color}' } },
-    { selector: '.alert-bits', declarations: { '--c': '{bits.color}' } }
+    { selector: '.alert-bits', declarations: { '--c': '{bits.color}' } },
+    { selector: '.alert-donation', declarations: { '--c': '{donation.color}' } }
   ],
   cssClasses: [
     { id: 'root', selector: '.widget-root' },
@@ -74,6 +82,7 @@ export const alerts: WidgetDefinition = {
     { id: 'alertText', selector: '.alert-text' },
     { id: 'alertName', selector: '.alert-name' },
     { id: 'alertMessage', selector: '.alert-message' },
+    { id: 'alertDonationMessage', selector: '.alert-donation-message' },
     { id: 'alertBurst', selector: '.alert-burst' },
     { id: 'alertShine', selector: '.alert-shine' }
   ],

@@ -11,7 +11,8 @@ const ICONS: Record<AlertType, string> = {
   sub: 'i-lucide-star',
   gifts: 'i-lucide-gift',
   raid: 'i-lucide-users',
-  bits: 'i-lucide-gem'
+  bits: 'i-lucide-gem',
+  donation: 'i-lucide-banknote'
 }
 
 const queue: Alert[] = []
@@ -40,6 +41,7 @@ const message = computed(() => {
     name: name.value,
     months: alert.months,
     count: alert.count,
+    amount: alert.amount === undefined ? undefined : formatMoney(alert.amount, alert.currency, s.language),
     tier: alert.tier && alert.tier > 1 ? ` (Tier ${alert.tier})` : ''
   }, s.language)
 })
@@ -68,6 +70,7 @@ useBusEvents(props.bus, (event) => {
   const s = props.settings
   if (!s[`${event.type}.enabled`]) return
   if ((event.type === 'bits' || event.type === 'raid') && (event.count ?? 0) < s[`${event.type}.min`]) return
+  if (event.type === 'donation' && (event.amount ?? 0) < s['donation.min']) return
   queue.push({ ...event, key: ++key })
   next()
 })
@@ -98,6 +101,9 @@ onBeforeUnmount(() => clearTimeout(holdTimer))
           <div class="alert-message">
             {{ message }}
           </div>
+          <div v-if="current.type === 'donation' && current.message && settings['donation.showMessage']" class="alert-donation-message">
+            {{ current.message }}
+          </div>
         </div>
       </div>
       <div
@@ -116,6 +122,9 @@ onBeforeUnmount(() => clearTimeout(holdTimer))
           </div>
           <div class="alert-message">
             {{ message }}
+          </div>
+          <div v-if="current.type === 'donation' && current.message && settings['donation.showMessage']" class="alert-donation-message">
+            {{ current.message }}
           </div>
         </div>
         <div v-if="settings.shine" class="alert-shine" />
@@ -143,6 +152,14 @@ onBeforeUnmount(() => clearTimeout(holdTimer))
   .alert-gifts { --c: var(--c-gifts); }
   .alert-raid { --c: var(--c-raid); }
   .alert-bits { --c: var(--c-bits); }
+  .alert-donation { --c: var(--c-donation); }
+
+  .alert-donation-message {
+    margin-top: 0.35em;
+    font-size: 0.8em;
+    opacity: 0.85;
+    overflow-wrap: anywhere;
+  }
 
   .alert {
     position: relative;

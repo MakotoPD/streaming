@@ -18,6 +18,7 @@ export const subathon: WidgetDefinition = {
     { key: 'secondsPer100Bits', section: 'time', type: 'number', default: 30, min: 0, max: 3600, unit: 's' },
     { key: 'secondsPerFollow', section: 'time', type: 'number', default: 0, min: 0, max: 3600, unit: 's' },
     { key: 'secondsPerRaid', section: 'time', type: 'number', default: 0, min: 0, max: 3600, unit: 's' },
+    { key: 'secondsPerDonationUnit', section: 'time', type: 'number', default: 10, min: 0, max: 3600, unit: 's' },
 
     { key: 'font', section: 'style', type: 'font', default: 'JetBrains Mono', css: '--font' },
     { key: 'fontSize', section: 'style', type: 'number', default: 64, min: 16, max: 200, unit: 'px', css: '--font-size' },
@@ -29,7 +30,7 @@ export const subathon: WidgetDefinition = {
 
     customCssField()
   ],
-  tests: ['sub', 'gifts', 'bits', 'follow'],
+  tests: ['sub', 'gifts', 'bits', 'follow', 'donation'],
   actions: ['start', 'pause', 'addMinute', 'removeMinute', 'reset'],
   cssTemplate: [
     { selector: '.subathon', declarations: { 'font-family': '{font}', 'background': '{background}', 'border-radius': '{radius}' } },

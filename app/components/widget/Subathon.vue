@@ -47,6 +47,7 @@ function secondsFor(event: AlertEvent) {
     case 'bits': return s.secondsPer100Bits * Math.floor((event.count ?? 0) / 100)
     case 'follow': return s.secondsPerFollow
     case 'raid': return s.secondsPerRaid
+    case 'donation': return Math.round(s.secondsPerDonationUnit * (event.amount ?? 0))
   }
 }
 

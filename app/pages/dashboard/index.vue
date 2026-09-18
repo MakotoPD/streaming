@@ -192,6 +192,10 @@ const { copyObsUrl } = useObsUrl()
     </section>
 
     <section>
+      <DashboardDonationSources />
+    </section>
+
+    <section>
       <DashboardDeleteAccount />
     </section>
   </UContainer>

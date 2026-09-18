@@ -6,6 +6,7 @@ import { ircToEvents, parseIrc, twitchParts, twitchRoles } from '../app/utils/tw
 import { kickParts, kickRoles } from '../app/utils/kick-chat.ts'
 import { hasPermission } from '../shared/utils/permissions.ts'
 import { eventSubToStreamEvent } from '../server/utils/eventsub.ts'
+import { donationToAlert, parseSocketIoPacket, streamElementsChannel, streamElementsDonation, streamlabsDonations, tipplyDonation, tipplyId } from '../server/utils/donation-protocols.ts'
 import { fillTemplate } from '../shared/utils/template.ts'
 import { formatColor, parseColor } from '../app/utils/color.ts'
 import { tokenizeCss } from '../app/utils/css-highlight.ts'
@@ -177,4 +178,29 @@ test('canvas paths close shapes and point the arrow head', () => {
   assert.equal(canvasPath({ ...base, shape: 'line' }), 'M 0 0 L 100 50')
   assert.ok(canvasPath({ ...base, shape: 'arrow' }).split('M').length === 3)
   assert.equal(canvasPath({ ...base, shape: 'pencil', points: [0, 0, 5, 5, 9, 9] }), 'M 0 0 L 5 5 L 9 9')
+})
+
+test('socket.io packets from Tipply and Streamlabs', () => {
+  assert.deepEqual(parseSocketIoPacket('0{"sid":"x","pingInterval":25000}'), { kind: 'open', pingInterval: 25000 })
+  assert.deepEqual(parseSocketIoPacket('40/abc123,'), { kind: 'connect', namespace: '/abc123' })
+  assert.deepEqual(parseSocketIoPacket('44/abc123,"Invalid namespace"'), { kind: 'error', namespace: '/abc123', reason: 'Invalid namespace' })
+  assert.deepEqual(parseSocketIoPacket('44"Authentication error"'), { kind: 'error', namespace: '', reason: 'Authentication error' })
+  const event = parseSocketIoPacket('42/abc123,["alert",{"id":"t1","nickname":"Ania","amount":1550,"email":"a@b.pl","message":"hej"}]')
+  assert.ok(event.kind === 'event' && event.name === 'alert')
+  const donation = tipplyDonation(event.kind === 'event' ? event.payload : null)
+  assert.deepEqual(donation, { id: 't1', name: 'Ania', amount: 15.5, currency: 'PLN', message: 'hej' })
+  assert.ok(!JSON.stringify(donationToAlert(donation!, 'tipply')).includes('a@b.pl'))
+})
+
+test('donation payloads from StreamElements and Streamlabs', () => {
+  const tip = { _id: 'se1', status: 'success', approved: 'allowed', donation: { user: { username: 'Bob', email: 'x@y.z' }, amount: 4.2, currency: 'usd', message: '' } }
+  assert.deepEqual(streamElementsDonation(tip), { id: 'se1', name: 'Bob', amount: 4.2, currency: 'USD', message: '' })
+  assert.equal(streamElementsDonation({ ...tip, approved: 'pending' }), undefined)
+  assert.deepEqual(streamlabsDonations({ type: 'donation', message: [{ _id: 's1', name: 'Eve', amount: '13.37', currency: 'EUR', message: 'gg' }] }).map(d => d.amount), [13.37])
+  assert.deepEqual(streamlabsDonations({ type: 'follow', for: 'twitch_account', message: [{}] }), [])
+  const jwt = `x.${Buffer.from(JSON.stringify({ channel: '5ad23dcc18fff500d78c5348' })).toString('base64url')}.y`
+  assert.equal(streamElementsChannel(jwt), '5ad23dcc18fff500d78c5348')
+  assert.equal(streamElementsChannel('garbage'), undefined)
+  assert.equal(tipplyId('https://widgets.tipply.pl/TIP_ALERT/7f3c9a1e-aaaa-bbbb'), '7f3c9a1e-aaaa-bbbb')
+  assert.equal(tipplyId('https://evil.example/x y'), undefined)
 })

@@ -298,7 +298,8 @@
     "bits": "Bits",
     "socials": "Socials",
     "triggers": "Auslöser",
-    "time": "Zeit"
+    "time": "Zeit",
+    "donation": "Spende"
   },
   "fields": {
     "maxMessages": "Max. Nachrichten",
@@ -489,13 +490,16 @@
     "alertImage": "Bild",
     "alertLayout": "Layout",
     "imageSize": "Bildgröße",
-    "canvasMedia": "Bild oder Video auf der Fläche"
+    "canvasMedia": "Bild oder Video auf der Fläche",
+    "minAmount": "Mindestbetrag",
+    "showDonation": "Spenden anzeigen",
+    "secondsPerDonationUnit": "Pro 1 Währungseinheit"
   },
   "hints": {
     "hideAfter": "0 behält Nachrichten, bis neue sie verdrängen.",
     "hideCommands": "Nachrichten, die mit „!“ beginnen.",
     "ignoredUsers": "Bots und Nutzer, deren Nachrichten ausgeblendet werden. Jeden Namen mit Enter bestätigen.",
-    "text": "Leer = Standardtext. Platzhalter: {'{name}'} {'{count}'} {'{months}'} {'{tier}'}. Plural: {'{count|Abo|Abos}'}.",
+    "text": "Leer = Standardtext. Platzhalter: {'{name}'} {'{count}'} {'{months}'} {'{tier}'} {'{amount}'}. Plural: {'{count|Abo|Abos}'}.",
     "textResub": "Wird genutzt, wenn mehr als 1 Monat. Leer = Standardtext.",
     "min": "Kleinere Mengen lösen keinen Alert aus.",
     "minMessages": "Dasselbe Emote in so vielen verschiedenen Nachrichten.",
@@ -532,7 +536,9 @@
     "endHold": "Wie lange die Endstufe nach dem Zug sichtbar bleibt.",
     "combine": "Addiert Zuschauer von Twitch und Kick zu einer Zahl.",
     "alertImage": "Wird im Layout „Bild oben“ über dem Text angezeigt (Tab Stil).",
-    "alertLayout": "„Bild oben“ zeigt das Bild des Alert-Typs mit dem Text darunter."
+    "alertLayout": "„Bild oben“ zeigt das Bild des Alert-Typs mit dem Text darunter.",
+    "minAmount": "Kleinere Spenden werden übersprungen. 0 zeigt alle.",
+    "secondsPerDonationUnit": "Sekunden pro gespendetem 1 PLN, 1 EUR oder 1 USD."
   },
   "options": {
     "direction": {
@@ -591,7 +597,8 @@
     "leaderboardMode": {
       "chatters": "Chatnachrichten",
       "gifters": "Verschenkte Abos",
-      "bits": "Bits"
+      "bits": "Bits",
+      "donors": "Spenden"
     },
     "eligibility": {
       "everyone": "Alle",
@@ -605,7 +612,8 @@
       "follows": "Follows",
       "subs": "Abos (inkl. Geschenke)",
       "bits": "Bits",
-      "gifts": "Verschenkte Abos"
+      "gifts": "Verschenkte Abos",
+      "donations": "Spenden (Betrag)"
     },
     "clockMode": {
       "clock": "Uhrzeit",
@@ -653,7 +661,8 @@
       "sub": "Abo",
       "gifts": "Verschenkte Abos",
       "raid": "Raid",
-      "bits": "Bits"
+      "bits": "Bits",
+      "donation": "Spenden"
     },
     "rewardFilter": {
       "all": "Alle Belohnungen",
@@ -735,7 +744,8 @@
     "pollProgress": "Umfrage",
     "pollEnd": "Umfrage-Ende",
     "predictionProgress": "Vorhersage",
-    "predictionEnd": "Vorhersage-Ergebnis"
+    "predictionEnd": "Vorhersage-Ergebnis",
+    "donation": "Spende"
   },
   "sound": {
     "none": "Kein Sound",
@@ -898,7 +908,8 @@
     "alertImage": "Alert-Bild (Layout mit Bild)",
     "canvasStage": "Zeichenbereich (SVG mit allen Inhalten der Fläche)",
     "canvasText": "Text auf der Fläche",
-    "canvasMedia": "Bild oder Video auf der Fläche"
+    "canvasMedia": "Bild oder Video auf der Fläche",
+    "alertDonationMessage": "Nachricht des Spenders unter dem Alert"
   },
   "actions": {
     "start": "Start",
@@ -1000,7 +1011,8 @@
           "title": "Daten, die du uns gibst",
           "body": [
             "Als Gast zu starten speichert eine zufällige Nutzer-ID und die eingegebenen Kanal-Nicknames. Mehr nicht.",
-            "Die Anmeldung mit Twitch oder Kick speichert zusätzlich Konto-ID, Login, Anzeigename, Avatar-URL und Zugriffstokens. Tokens werden verschlüsselt, bevor sie in die Datenbank kommen, und dienen nur zum Lesen deiner eigenen Kanaldaten: Follower, Abos, Zuschauerzahl, Kanalpunkt-Belohnungen, Umfragen und Hype Trains."
+            "Die Anmeldung mit Twitch oder Kick speichert zusätzlich Konto-ID, Login, Anzeigename, Avatar-URL und Zugriffstokens. Tokens werden verschlüsselt, bevor sie in die Datenbank kommen, und dienen nur zum Lesen deiner eigenen Kanaldaten: Follower, Abos, Zuschauerzahl, Kanalpunkt-Belohnungen, Umfragen und Hype Trains.",
+            "Wenn du einen Spendendienst verbindest (StreamElements, Tipply, Streamlabs), wird sein Token oder Widget-Link verschlüsselt gespeichert und nur vom Server zum Empfang deiner Spenden genutzt. Name, Betrag und Nachricht des Spenders gehen an deine Overlays und werden nicht gespeichert; E-Mail-Adressen der Spender werden verworfen."
           ]
         },
         {
@@ -1137,5 +1149,44 @@
   "guest": {
     "title": "Gast-Widgets werden am {date} gelöscht",
     "text": "Ohne Anmeldung bleiben deine Widgets 48 Stunden aktiv und werden danach samt OBS-Links gelöscht. Verbinde Twitch oder Kick, um sie zu behalten."
+  },
+  "donations": {
+    "title": "Spenden",
+    "hint": "Verbinde einen Spendendienst, dann erscheinen Spenden in Alerts, Emote-Regen, Zielen, Subathon und Ranglisten. Tokens bleiben auf dem Server und gehen nie an OBS.",
+    "open": "Öffnen",
+    "remove": "Trennen",
+    "saved": "Verbunden",
+    "removed": "Getrennt",
+    "replacePlaceholder": "Verbunden. Neuen einfügen, um ihn zu ersetzen",
+    "status": {
+      "connected": "Aktiv",
+      "connecting": "Verbinde",
+      "error": "Abgelehnt",
+      "idle": "Wartet auf OBS"
+    },
+    "errors": {
+      "invalid_token": "Dieser Token sieht falsch aus.",
+      "invalid_link": "Füge den vollständigen Alert-Widget-Link ein (…/TIP_ALERT/…).",
+      "rejected": "Der Dienst hat ihn abgelehnt. Kopiere ihn erneut und prüfe, ob er aktuell ist.",
+      "timeout": "Der Dienst hat nicht geantwortet. Versuch es gleich noch mal.",
+      "generic": "Verbindung fehlgeschlagen."
+    },
+    "sources": {
+      "streamelements": {
+        "name": "StreamElements",
+        "help": "Dashboard → dein Avatar → Kanaleinstellungen → Geheimnisse anzeigen → JWT Token.",
+        "placeholder": "JWT-Token"
+      },
+      "tipply": {
+        "name": "Tipply",
+        "help": "Kopiere im Tipply-Panel den Link deines Alert-Widgets (enthält /TIP_ALERT/). Inoffiziell: kann aufhören zu funktionieren, wenn Tipply etwas ändert.",
+        "placeholder": "https://widgets.tipply.pl/TIP_ALERT/…"
+      },
+      "streamlabs": {
+        "name": "Streamlabs",
+        "help": "Einstellungen → API Settings → API Tokens → Your Socket API Token.",
+        "placeholder": "Socket-API-Token"
+      }
+    }
   }
 }

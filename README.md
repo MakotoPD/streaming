@@ -67,6 +67,14 @@ Guest users (nickname only, no linked Twitch or Kick account) expire 48 hours af
 
 Deleting the account (dashboard, bottom of the page, `DELETE /api/me`) removes the user row — widgets, styles, linked accounts and files cascade with it, and uploaded files are removed from disk.
 
+## Donations
+
+The dashboard **Donations** card connects StreamElements (JWT token), Tipply (tip alert widget link, unofficial socket) and Streamlabs (Socket API token). Credentials are verified against the service when saved, stored in `users.donations` (tokens sealed like the Twitch tokens) and never reach the browser.
+
+The server holds one connection per source per user while at least one overlay of that user is open (`retainDonations` in `server/utils/donations.ts`, closed 60 s after the last overlay disconnects) and forwards each donation to the overlays over SSE as an `alert` event of type `donation` (amount, currency, message). Donor e-mails and payment data from the services are dropped. Protocol parsing lives in `server/utils/donation-protocols.ts` and is covered by tests.
+
+Widgets using donations: alerts (own section, minimum amount, message toggle), emote rain trigger, goal bar (amount), leaderboard (top donors), recent events and subathon (seconds per currency unit). StreamElements tips waiting in its moderation queue are skipped.
+
 ## Drawing canvas
 
 The `canvas` widget is a 2560x1440 board. Besides the OBS link it has a second, separately generated link (`/c/<editToken>`) that opens a full-screen editor with a floating toolbar: move, pencil, line, square, circle, triangle, arrow, text, fill and eraser, undo/redo, image/GIF/video upload and text formatting (font, size, bold, italic, underline, strikethrough).

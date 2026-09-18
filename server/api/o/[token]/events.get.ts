@@ -6,10 +6,12 @@ export default defineEventHandler(async (event) => {
     if (msg.widgetId && msg.widgetId !== widget.id) return
     stream.push(JSON.stringify(msg))
   })
+  const releaseDonations = retainDonations(widget.userId)
   const keepAlive = setInterval(() => stream.push({ event: 'ping', data: '' }), 25_000)
 
   stream.onClosed(async () => {
     clearInterval(keepAlive)
+    releaseDonations()
     unsubscribe()
     await stream.close()
   })

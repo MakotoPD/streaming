@@ -84,7 +84,7 @@ function alertEmotes(count: number) {
 function amountFor(event: AlertEvent) {
   const base = props.settings.alertAmount
   if (!props.settings.scaleWithAmount) return base
-  const factor = event.type === 'bits' ? (event.count ?? 0) / 100 : event.type === 'raid' ? (event.count ?? 0) / 10 : event.type === 'gifts' ? event.count ?? 1 : 1
+  const factor = event.type === 'donation' ? (event.amount ?? 0) / 10 : event.type === 'bits' ? (event.count ?? 0) / 100 : event.type === 'raid' ? (event.count ?? 0) / 10 : event.type === 'gifts' ? event.count ?? 1 : 1
   return Math.round(base * Math.min(10, Math.max(1, factor)))
 }
 

@@ -7,7 +7,7 @@ export const leaderboard: WidgetDefinition = {
   size: [420, 360],
   fields: [
     languageField(),
-    { key: 'leaderboardMode', section: 'general', type: 'select', default: 'chatters', options: ['chatters', 'gifters', 'bits'] },
+    { key: 'leaderboardMode', section: 'general', type: 'select', default: 'chatters', options: ['chatters', 'gifters', 'bits', 'donors'] },
     { key: 'leaderboardTitle', section: 'general', type: 'text', default: '', max: 60 },
     { key: 'limit', section: 'general', type: 'number', default: 5, min: 1, max: 20 },
     { key: 'showCount', section: 'general', type: 'toggle', default: true },
@@ -23,7 +23,7 @@ export const leaderboard: WidgetDefinition = {
 
     customCssField()
   ],
-  tests: ['chat', 'gifts', 'bits'],
+  tests: ['chat', 'gifts', 'bits', 'donation'],
   actions: ['reset'],
   cssTemplate: [
     { selector: '.leaderboard', declarations: { 'font-family': '{font}', 'font-size': '{fontSize}', 'color': '{textColor}', 'background': '{background}', 'border-radius': '{radius}', 'gap': '{gap}' } },

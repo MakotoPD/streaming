@@ -31,6 +31,7 @@ useBusEvents(props.bus, (event) => {
   else if (metric === 'subs' && event.type === 'gifts') progress.value += event.count ?? 1
   else if (metric === 'gifts' && event.type === 'gifts') progress.value += event.count ?? 1
   else if (metric === 'bits' && event.type === 'bits') progress.value += event.count ?? 0
+  else if (metric === 'donations' && event.type === 'donation') progress.value = Math.round((progress.value + (event.amount ?? 0)) * 100) / 100
 })
 </script>
 

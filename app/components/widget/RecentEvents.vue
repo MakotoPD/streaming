@@ -9,12 +9,13 @@ const ICONS: Record<AlertType, string> = {
   sub: 'i-lucide-star',
   gifts: 'i-lucide-gift',
   raid: 'i-lucide-users',
-  bits: 'i-lucide-gem'
+  bits: 'i-lucide-gem',
+  donation: 'i-lucide-banknote'
 }
 
-const TOGGLES: Record<AlertType, string> = { follow: 'showFollow', sub: 'showSub', gifts: 'showGifts', raid: 'showRaid', bits: 'showBits' }
+const TOGGLES: Record<AlertType, string> = { follow: 'showFollow', sub: 'showSub', gifts: 'showGifts', raid: 'showRaid', bits: 'showBits', donation: 'showDonation' }
 
-const latest = useWidgetState<Partial<Record<AlertType, { name: string, count?: number }>>>('recent', () => ({}))
+const latest = useWidgetState<Partial<Record<AlertType, { name: string, count?: number, amount?: string }>>>('recent', () => ({}))
 const texts = computed(() => widgetTexts(props.settings.language).recent)
 
 const items = computed(() => (Object.keys(ICONS) as AlertType[])
@@ -32,8 +33,9 @@ watch(now, (time) => {
 
 const visibleItems = computed(() => (props.settings.recentLayout === 'ticker' ? items.value.slice(tickerIndex.value, tickerIndex.value + 1) : items.value))
 
-function describe(type: AlertType, value?: { name: string, count?: number }) {
+function describe(type: AlertType, value?: { name: string, count?: number, amount?: string }) {
   if (!value) return '—'
+  if (value.amount) return `${value.name} (${value.amount})`
   if ((type === 'gifts' || type === 'bits' || type === 'raid') && value.count) return `${value.name} (${value.count})`
   return value.name
 }
@@ -41,7 +43,7 @@ function describe(type: AlertType, value?: { name: string, count?: number }) {
 useBusEvents(props.bus, (event) => {
   if (event.kind === 'command' && event.name === 'reset') latest.value = {}
   if (event.kind !== 'alert') return
-  latest.value = { ...latest.value, [event.type]: { name: event.anonymous ? widgetTexts(props.settings.language).alerts.anonymous : event.name, count: event.count } }
+  latest.value = { ...latest.value, [event.type]: { name: event.anonymous ? widgetTexts(props.settings.language).alerts.anonymous : event.name, count: event.count, amount: event.amount === undefined ? undefined : formatMoney(event.amount, event.currency, props.settings.language) } }
 })
 </script>
 

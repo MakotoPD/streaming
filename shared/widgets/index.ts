@@ -88,6 +88,9 @@ function sampleChat(overrides: Partial<ChatMessage> & { text: string }): ChatMes
 }
 
 export function sampleEvent(test: string, settings: Settings = {}): StreamEvent {
+  if (test === 'donation') {
+    return { kind: 'alert', type: 'donation', platform: 'tipply', name: random(SAMPLE_NAMES), amount: [5, 10, 20, 50][Math.floor(Math.random() * 4)]!, currency: 'PLN', message: 'Great stream, keep it up!' }
+  }
   if ((ALERT_TYPES as string[]).includes(test)) {
     return { kind: 'alert', type: test as AlertType, platform: 'twitch', name: random(SAMPLE_NAMES), months: 6, count: test === 'bits' ? 500 : 5, tier: 2 }
   }

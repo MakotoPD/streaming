@@ -1,7 +1,7 @@
 import { customCssField, type WidgetDefinition } from './define'
 
 export const RAIN_EFFECTS = ['fall', 'rise', 'fly', 'burst', 'fountain', 'pop', 'random'] as const
-export const RAIN_TRIGGERS = ['chat', 'follow', 'sub', 'gifts', 'raid', 'bits'] as const
+export const RAIN_TRIGGERS = ['chat', 'follow', 'sub', 'gifts', 'raid', 'bits', 'donation'] as const
 
 export const emoteRain: WidgetDefinition = {
   type: 'emote-rain',
@@ -30,7 +30,7 @@ export const emoteRain: WidgetDefinition = {
 
     customCssField()
   ],
-  tests: ['emote', 'follow', 'sub', 'gifts', 'raid', 'bits'],
+  tests: ['emote', 'follow', 'sub', 'gifts', 'raid', 'bits', 'donation'],
   cssTemplate: [
     { selector: '.emote-drop img', declarations: { height: '{emoteSize}', opacity: '{opacity}' } }
   ],

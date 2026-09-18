@@ -298,7 +298,8 @@
     "bits": "Bity",
     "socials": "Sociale",
     "triggers": "Wyzwalacze",
-    "time": "Czas"
+    "time": "Czas",
+    "donation": "Donejt"
   },
   "fields": {
     "maxMessages": "Maks. wiadomości",
@@ -409,7 +410,7 @@
     "rollDuration": "Czas animacji losowania",
     "firstMode": "Co liczy się jako pierwsza",
     "welcomeText": "Tekst powitania",
-    "showMessage": "Pokaż treść wiadomości",
+    "showMessage": "Pokazuj wiadomość darczyńcy",
     "onHighlighted": "Wyróżnione wiadomości (punkty kanału)",
     "onBits": "Wiadomości z bitami",
     "minBits": "Minimum bitów",
@@ -489,13 +490,16 @@
     "alertImage": "Obrazek",
     "alertLayout": "Układ",
     "imageSize": "Rozmiar obrazka",
-    "canvasMedia": "Obraz lub wideo na tablicy"
+    "canvasMedia": "Obraz lub wideo na tablicy",
+    "minAmount": "Minimalna kwota",
+    "showDonation": "Pokazuj donejty",
+    "secondsPerDonationUnit": "Za każdą 1 jednostkę waluty"
   },
   "hints": {
     "hideAfter": "0 = wiadomości znikają dopiero, gdy wypchną je nowe.",
     "hideCommands": "Wiadomości zaczynające się od „!”.",
     "ignoredUsers": "Boty i osoby, których wiadomości są ukryte. Zatwierdź każdy nick Enterem.",
-    "text": "Puste = tekst domyślny. Znaczniki: {'{name}'} {'{count}'} {'{months}'} {'{tier}'}. Liczba mnoga: {'{count|subskrypcję|subskrypcje|subskrypcji}'}.",
+    "text": "Puste = tekst domyślny. Znaczniki: {'{name}'} {'{count}'} {'{months}'} {'{tier}'} {'{amount}'}. Liczba mnoga: {'{count|subskrypcję|subskrypcje|subskrypcji}'}.",
     "textResub": "Używany, gdy liczba miesięcy jest większa niż 1. Puste = tekst domyślny.",
     "min": "Mniejsze ilości nie odpalają alertu.",
     "minMessages": "Ta sama emotka w tylu różnych wiadomościach.",
@@ -532,7 +536,9 @@
     "endHold": "Jak długo widać końcowy poziom po zakończeniu pociągu.",
     "combine": "Dodaje widzów z Twitcha i Kicka w jedną liczbę.",
     "alertImage": "Pokazywany nad tekstem w układzie „Obrazek na górze” (zakładka Styl).",
-    "alertLayout": "„Obrazek na górze” pokazuje obrazek danego typu alertu, a pod nim tekst."
+    "alertLayout": "„Obrazek na górze” pokazuje obrazek danego typu alertu, a pod nim tekst.",
+    "minAmount": "Mniejsze donejty są pomijane. 0 pokazuje każdy.",
+    "secondsPerDonationUnit": "Sekundy dodawane za każdą 1 zł, 1 EUR albo 1 USD."
   },
   "options": {
     "direction": {
@@ -591,7 +597,8 @@
     "leaderboardMode": {
       "chatters": "Wiadomości na czacie",
       "gifters": "Podarowane suby",
-      "bits": "Bity"
+      "bits": "Bity",
+      "donors": "Donejty"
     },
     "eligibility": {
       "everyone": "Wszyscy",
@@ -605,7 +612,8 @@
       "follows": "Obserwacje",
       "subs": "Suby (z giftami)",
       "bits": "Bity",
-      "gifts": "Podarowane suby"
+      "gifts": "Podarowane suby",
+      "donations": "Donejty (kwota)"
     },
     "clockMode": {
       "clock": "Godzina",
@@ -653,7 +661,8 @@
       "sub": "Sub",
       "gifts": "Gifty",
       "raid": "Raid",
-      "bits": "Bity"
+      "bits": "Bity",
+      "donation": "Donejty"
     },
     "rewardFilter": {
       "all": "Wszystkie nagrody",
@@ -735,7 +744,8 @@
     "pollProgress": "Ankieta",
     "pollEnd": "Koniec ankiety",
     "predictionProgress": "Przewidywanie",
-    "predictionEnd": "Wynik przewidywania"
+    "predictionEnd": "Wynik przewidywania",
+    "donation": "Donejt"
   },
   "sound": {
     "none": "Bez dźwięku",
@@ -898,7 +908,8 @@
     "alertImage": "Obrazek alertu (układ z obrazkiem)",
     "canvasStage": "Obszar rysowania (SVG z całą zawartością tablicy)",
     "canvasText": "Tekst dodany na tablicy",
-    "canvasMedia": "Obraz lub wideo dodane na tablicy"
+    "canvasMedia": "Obraz lub wideo dodane na tablicy",
+    "alertDonationMessage": "Wiadomość darczyńcy pod alertem donejtu"
   },
   "actions": {
     "start": "Start",
@@ -1000,7 +1011,8 @@
           "title": "Dane, które nam podajesz",
           "body": [
             "Start jako gość zapisuje losowy identyfikator użytkownika i nicki kanałów, które wpisałeś. Nic więcej.",
-            "Logowanie przez Twitch lub Kick zapisuje dodatkowo identyfikator konta, login, nazwę wyświetlaną, adres awatara i tokeny dostępu. Tokeny są szyfrowane, zanim trafią do bazy, i służą tylko do odczytu danych Twojego kanału: obserwujących, subskrypcji, liczby widzów, nagród za punkty kanału, ankiet i hype trainów."
+            "Logowanie przez Twitch lub Kick zapisuje dodatkowo identyfikator konta, login, nazwę wyświetlaną, adres awatara i tokeny dostępu. Tokeny są szyfrowane, zanim trafią do bazy, i służą tylko do odczytu danych Twojego kanału: obserwujących, subskrypcji, liczby widzów, nagród za punkty kanału, ankiet i hype trainów.",
+            "Jeśli podłączysz serwis z donejtami (StreamElements, Tipply, Streamlabs), jego token albo link do widgetu jest zapisany w formie zaszyfrowanej i używany tylko przez serwer do odbierania Twoich donejtów. Nick, kwota i wiadomość darczyńcy trafiają do nakładek i nie są zapisywane; e-maile darczyńców są odrzucane."
           ]
         },
         {
@@ -1137,5 +1149,44 @@
   "guest": {
     "title": "Widgety gościa znikną {date}",
     "text": "Bez logowania widgety działają przez 48 godzin, potem są usuwane razem z linkami do OBS. Połącz Twitcha albo Kicka, żeby je zachować."
+  },
+  "donations": {
+    "title": "Donejty",
+    "hint": "Podłącz serwis z donejtami, a wpłaty pojawią się w alertach, deszczu emotek, celach, subathonie i rankingach. Tokeny zostają na serwerze i nie trafiają do OBS.",
+    "open": "Otwórz",
+    "remove": "Odłącz",
+    "saved": "Połączono",
+    "removed": "Odłączono",
+    "replacePlaceholder": "Połączono. Wklej nowy, żeby podmienić",
+    "status": {
+      "connected": "Działa",
+      "connecting": "Łączenie",
+      "error": "Odrzucony",
+      "idle": "Czeka na OBS"
+    },
+    "errors": {
+      "invalid_token": "Ten token wygląda na niepoprawny.",
+      "invalid_link": "Wklej pełny link do widgetu alertów (…/TIP_ALERT/…).",
+      "rejected": "Serwis go odrzucił. Skopiuj jeszcze raz i upewnij się, że jest aktualny.",
+      "timeout": "Serwis nie odpowiedział. Spróbuj za chwilę.",
+      "generic": "Nie udało się połączyć."
+    },
+    "sources": {
+      "streamelements": {
+        "name": "StreamElements",
+        "help": "Panel → Twój awatar → Ustawienia kanału → Pokaż sekrety → JWT Token.",
+        "placeholder": "Token JWT"
+      },
+      "tipply": {
+        "name": "Tipply",
+        "help": "W panelu Tipply skopiuj link do swojego widgetu alertów (zawiera /TIP_ALERT/). Nieoficjalne: może przestać działać, jeśli Tipply coś zmieni.",
+        "placeholder": "https://widgets.tipply.pl/TIP_ALERT/…"
+      },
+      "streamlabs": {
+        "name": "Streamlabs",
+        "help": "Ustawienia → API Settings → API Tokens → Your Socket API Token.",
+        "placeholder": "Token Socket API"
+      }
+    }
   }
 }

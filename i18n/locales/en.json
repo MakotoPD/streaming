@@ -298,7 +298,8 @@
     "bits": "Bits",
     "socials": "Socials",
     "triggers": "Triggers",
-    "time": "Time"
+    "time": "Time",
+    "donation": "Donation"
   },
   "fields": {
     "maxMessages": "Max messages",
@@ -409,7 +410,7 @@
     "rollDuration": "Draw animation length",
     "firstMode": "What counts as first",
     "welcomeText": "Welcome text",
-    "showMessage": "Show their message",
+    "showMessage": "Show the donor message",
     "onHighlighted": "Highlighted messages (channel points)",
     "onBits": "Messages with bits",
     "minBits": "Minimum bits",
@@ -489,13 +490,16 @@
     "alertImage": "Image",
     "alertLayout": "Layout",
     "imageSize": "Image size",
-    "canvasMedia": "Image or video on the board"
+    "canvasMedia": "Image or video on the board",
+    "minAmount": "Minimum amount",
+    "showDonation": "Show donations",
+    "secondsPerDonationUnit": "Per 1 unit of currency"
   },
   "hints": {
     "hideAfter": "0 keeps messages until new ones push them out.",
     "hideCommands": "Messages starting with “!”.",
     "ignoredUsers": "Bots and users whose messages are hidden. Press Enter after each name.",
-    "text": "Leave empty for the default. Tokens: {'{name}'} {'{count}'} {'{months}'} {'{tier}'}. Plural: {'{count|sub|subs}'}.",
+    "text": "Leave empty for the default. Tokens: {'{name}'} {'{count}'} {'{months}'} {'{tier}'} {'{amount}'}. Plural: {'{count|sub|subs}'}.",
     "textResub": "Used when months is greater than 1. Leave empty for the default.",
     "min": "Smaller amounts don't trigger an alert.",
     "minMessages": "Same emote in this many different messages.",
@@ -532,7 +536,9 @@
     "endHold": "How long the final level stays after the train ends.",
     "combine": "Adds Twitch and Kick viewers into one number.",
     "alertImage": "Shown above the text in the “Image on top” layout (Style tab).",
-    "alertLayout": "“Image on top” shows the image of each alert type with the text below it."
+    "alertLayout": "“Image on top” shows the image of each alert type with the text below it.",
+    "minAmount": "Smaller donations are skipped. 0 shows every donation.",
+    "secondsPerDonationUnit": "Seconds added for each 1 PLN, 1 EUR or 1 USD donated."
   },
   "options": {
     "direction": {
@@ -591,7 +597,8 @@
     "leaderboardMode": {
       "chatters": "Chat messages",
       "gifters": "Gifted subs",
-      "bits": "Bits"
+      "bits": "Bits",
+      "donors": "Donations"
     },
     "eligibility": {
       "everyone": "Everyone",
@@ -605,7 +612,8 @@
       "follows": "Follows",
       "subs": "Subs (incl. gifts)",
       "bits": "Bits",
-      "gifts": "Gifted subs"
+      "gifts": "Gifted subs",
+      "donations": "Donations (amount)"
     },
     "clockMode": {
       "clock": "Time",
@@ -653,7 +661,8 @@
       "sub": "Sub",
       "gifts": "Gifted subs",
       "raid": "Raid",
-      "bits": "Bits"
+      "bits": "Bits",
+      "donation": "Donations"
     },
     "rewardFilter": {
       "all": "All rewards",
@@ -735,7 +744,8 @@
     "pollProgress": "Poll",
     "pollEnd": "Poll end",
     "predictionProgress": "Prediction",
-    "predictionEnd": "Prediction result"
+    "predictionEnd": "Prediction result",
+    "donation": "Donation"
   },
   "sound": {
     "none": "No sound",
@@ -898,7 +908,8 @@
     "alertImage": "Alert image (Image on top layout)",
     "canvasStage": "Drawing area (SVG with everything on the board)",
     "canvasText": "Text added on the board",
-    "canvasMedia": "Image or video added on the board"
+    "canvasMedia": "Image or video added on the board",
+    "alertDonationMessage": "Donor message under a donation alert"
   },
   "actions": {
     "start": "Start",
@@ -1000,7 +1011,8 @@
           "title": "Data you give us",
           "body": [
             "Starting as a guest stores a random user id and the channel nicknames you typed. Nothing else.",
-            "Signing in with Twitch or Kick also stores your account id, login, display name, avatar URL and access tokens. Tokens are encrypted before they reach the database and are only used to read your own channel data: followers, subscriptions, viewer count, channel point rewards, polls and hype trains."
+            "Signing in with Twitch or Kick also stores your account id, login, display name, avatar URL and access tokens. Tokens are encrypted before they reach the database and are only used to read your own channel data: followers, subscriptions, viewer count, channel point rewards, polls and hype trains.",
+            "If you connect a donation service (StreamElements, Tipply, Streamlabs), its token or widget link is stored encrypted and used only by the server to receive your donations. Donor names, amounts and messages are passed to your overlays and not stored; donor e-mails are discarded."
           ]
         },
         {
@@ -1137,5 +1149,44 @@
   "guest": {
     "title": "Guest widgets are removed on {date}",
     "text": "Without signing in, your widgets stay active for 48 hours and are then deleted together with their OBS links. Connect Twitch or Kick to keep them."
+  },
+  "donations": {
+    "title": "Donations",
+    "hint": "Connect a donation service and donations show up in alerts, emote rain, goals, subathon and leaderboards. Tokens stay on the server and are never sent to OBS.",
+    "open": "Open",
+    "remove": "Disconnect",
+    "saved": "Connected",
+    "removed": "Disconnected",
+    "replacePlaceholder": "Connected. Paste a new one to replace it",
+    "status": {
+      "connected": "Live",
+      "connecting": "Connecting",
+      "error": "Rejected",
+      "idle": "Waiting for OBS"
+    },
+    "errors": {
+      "invalid_token": "That token does not look right.",
+      "invalid_link": "Paste the full alert widget link (…/TIP_ALERT/…).",
+      "rejected": "The service rejected it. Copy it again and make sure it is the current one.",
+      "timeout": "The service did not answer. Try again in a moment.",
+      "generic": "Could not connect."
+    },
+    "sources": {
+      "streamelements": {
+        "name": "StreamElements",
+        "help": "Dashboard → your avatar → Channel settings → Show secrets → JWT Token.",
+        "placeholder": "JWT token"
+      },
+      "tipply": {
+        "name": "Tipply",
+        "help": "In the Tipply panel copy the link of your tip alert widget (it contains /TIP_ALERT/). Unofficial: it may stop working if Tipply changes something.",
+        "placeholder": "https://widgets.tipply.pl/TIP_ALERT/…"
+      },
+      "streamlabs": {
+        "name": "Streamlabs",
+        "help": "Settings → API Settings → API Tokens → Your Socket API Token.",
+        "placeholder": "Socket API token"
+      }
+    }
   }
 }

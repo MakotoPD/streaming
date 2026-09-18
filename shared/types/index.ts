@@ -17,7 +17,16 @@ export type ChatPart =
 
 export type ChatRole = 'broadcaster' | 'moderator' | 'vip' | 'subscriber'
 
-export type AlertType = 'follow' | 'sub' | 'gifts' | 'raid' | 'bits'
+export type AlertType = 'follow' | 'sub' | 'gifts' | 'raid' | 'bits' | 'donation'
+
+export const DONATION_SOURCES = ['streamelements', 'tipply', 'streamlabs'] as const
+export type DonationSource = typeof DONATION_SOURCES[number]
+
+export interface DonationCredentials {
+  streamelements?: { token: string, channel: string }
+  tipply?: { id: string }
+  streamlabs?: { token: string }
+}
 
 export interface ChatMessage {
   kind: 'chat'
@@ -38,12 +47,15 @@ export interface ChatMessage {
 export interface AlertEvent {
   kind: 'alert'
   type: AlertType
-  platform: Platform
+  platform: Platform | DonationSource
   name: string
   anonymous?: boolean
   months?: number
   count?: number
   tier?: number
+  amount?: number
+  currency?: string
+  message?: string
 }
 
 export interface RedemptionEvent {

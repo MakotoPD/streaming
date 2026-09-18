@@ -1,17 +1,17 @@
 import type { Language } from './define'
 
 interface WidgetTexts {
-  alerts: Record<'follow' | 'sub' | 'resub' | 'gifts' | 'raid' | 'bits', string> & { anonymous: string, someone: string }
+  alerts: Record<'follow' | 'sub' | 'resub' | 'gifts' | 'raid' | 'bits' | 'donation', string> & { anonymous: string, someone: string }
   scene: Record<'starting' | 'brb' | 'ending', [string, string]> & { status: string }
   poll: { question: string, hint: string, closed: string, votes: string }
   counter: { label: string }
   pinned: { label: string }
-  recent: Record<'follow' | 'sub' | 'gifts' | 'raid' | 'bits', string>
-  leaderboard: Record<'chatters' | 'gifters' | 'bits', string> & { messages: string, subs: string, bitsUnit: string, empty: string }
+  recent: Record<'follow' | 'sub' | 'gifts' | 'raid' | 'bits' | 'donation', string>
+  leaderboard: Record<'chatters' | 'gifters' | 'bits' | 'donors', string> & { messages: string, subs: string, bitsUnit: string, empty: string }
   giveaway: { title: string, join: string, entries: string, winner: string, closed: string }
   first: { welcome: string }
   subathon: { title: string, paused: string, ended: string }
-  goal: Record<'follows' | 'subs' | 'bits' | 'gifts', string> & { reached: string }
+  goal: Record<'follows' | 'subs' | 'bits' | 'gifts' | 'donations', string> & { reached: string }
   clock: { uptime: string, offline: string, countdown: string }
   marquee: { welcome: string }
   redemptions: { redeemed: string, points: string }
@@ -29,6 +29,7 @@ export const WIDGET_TEXTS: Record<Language, WidgetTexts> = {
       gifts: 'gifted {count} {count|sub|subs}!{tier}',
       raid: 'is raiding with {count} {count|viewer|viewers}!',
       bits: 'cheered {count} {count|bit|bits}!',
+      donation: 'donated {amount}!',
       anonymous: 'Anonymous gifter',
       someone: 'Someone'
     },
@@ -36,12 +37,12 @@ export const WIDGET_TEXTS: Record<Language, WidgetTexts> = {
     poll: { question: 'Vote in chat!', hint: 'Type {commands} to vote', closed: 'Voting closed', votes: '{count} {count|vote|votes}' },
     counter: { label: 'Deaths' },
     pinned: { label: 'Pinned' },
-    recent: { follow: 'Latest follower', sub: 'Latest sub', gifts: 'Latest gifter', raid: 'Latest raid', bits: 'Latest cheer' },
-    leaderboard: { chatters: 'Top chatters', gifters: 'Top gifters', bits: 'Top cheerers', messages: '{count|message|messages}', subs: '{count|sub|subs}', bitsUnit: '{count|bit|bits}', empty: 'Nobody yet' },
+    recent: { follow: 'Latest follower', sub: 'Latest sub', gifts: 'Latest gifter', raid: 'Latest raid', bits: 'Latest cheer', donation: 'Latest donation' },
+    leaderboard: { chatters: 'Top chatters', gifters: 'Top gifters', bits: 'Top cheerers', donors: 'Top donors', messages: '{count|message|messages}', subs: '{count|sub|subs}', bitsUnit: '{count|bit|bits}', empty: 'Nobody yet' },
     giveaway: { title: 'Giveaway', join: 'Type {keyword} to join', entries: '{count} {count|entry|entries}', winner: 'Winner', closed: 'Entries closed' },
     first: { welcome: 'first message in chat, welcome!' },
     subathon: { title: 'Subathon', paused: 'Paused', ended: 'Ended' },
-    goal: { follows: 'Follower goal', subs: 'Sub goal', bits: 'Bits goal', gifts: 'Gift goal', reached: 'Goal reached!' },
+    goal: { follows: 'Follower goal', subs: 'Sub goal', bits: 'Bits goal', gifts: 'Gift goal', donations: 'Donation goal', reached: 'Goal reached!' },
     clock: { uptime: 'Live for', offline: 'Offline', countdown: 'Starting in' },
     marquee: { welcome: 'Welcome to the stream!' },
     redemptions: { redeemed: 'redeemed {reward}', points: '{count} {count|point|points}' },
@@ -57,6 +58,7 @@ export const WIDGET_TEXTS: Record<Language, WidgetTexts> = {
       gifts: 'podarował {count} {count|subskrypcję|subskrypcje|subskrypcji}!{tier}',
       raid: 'wpada z {count} {count|widzem|widzami|widzami}!',
       bits: 'wysyła {count} {count|bit|bity|bitów}!',
+      donation: 'wpłaca {amount}!',
       anonymous: 'Anonimowy Gifter',
       someone: 'Ktoś'
     },
@@ -64,12 +66,12 @@ export const WIDGET_TEXTS: Record<Language, WidgetTexts> = {
     poll: { question: 'Głosuj na czacie!', hint: 'Wpisz {commands}, żeby zagłosować', closed: 'Głosowanie zakończone', votes: '{count} {count|głos|głosy|głosów}' },
     counter: { label: 'Zgony' },
     pinned: { label: 'Przypięte' },
-    recent: { follow: 'Ostatni obserwujący', sub: 'Ostatni sub', gifts: 'Ostatni gifter', raid: 'Ostatni raid', bits: 'Ostatnie bity' },
-    leaderboard: { chatters: 'Najaktywniejsi na czacie', gifters: 'Top gifterzy', bits: 'Top bity', messages: '{count|wiadomość|wiadomości|wiadomości}', subs: '{count|sub|suby|subów}', bitsUnit: '{count|bit|bity|bitów}', empty: 'Jeszcze nikogo' },
+    recent: { follow: 'Ostatni obserwujący', sub: 'Ostatni sub', gifts: 'Ostatni gifter', raid: 'Ostatni raid', bits: 'Ostatnie bity', donation: 'Ostatni donejt' },
+    leaderboard: { chatters: 'Najaktywniejsi na czacie', gifters: 'Top gifterzy', bits: 'Top bity', donors: 'Top donatorzy', messages: '{count|wiadomość|wiadomości|wiadomości}', subs: '{count|sub|suby|subów}', bitsUnit: '{count|bit|bity|bitów}', empty: 'Jeszcze nikogo' },
     giveaway: { title: 'Losowanie', join: 'Wpisz {keyword}, żeby dołączyć', entries: '{count} {count|zgłoszenie|zgłoszenia|zgłoszeń}', winner: 'Zwycięzca', closed: 'Zapisy zamknięte' },
     first: { welcome: 'pierwszy raz na czacie, witaj!' },
     subathon: { title: 'Subathon', paused: 'Pauza', ended: 'Koniec' },
-    goal: { follows: 'Cel obserwujących', subs: 'Cel subów', bits: 'Cel bitów', gifts: 'Cel giftów', reached: 'Cel osiągnięty!' },
+    goal: { follows: 'Cel obserwujących', subs: 'Cel subów', bits: 'Cel bitów', gifts: 'Cel giftów', donations: 'Cel donejtów', reached: 'Cel osiągnięty!' },
     clock: { uptime: 'Na żywo od', offline: 'Offline', countdown: 'Start za' },
     marquee: { welcome: 'Witaj na streamie!' },
     redemptions: { redeemed: 'odbiera {reward}', points: '{count} {count|punkt|punkty|punktów}' },
@@ -85,6 +87,7 @@ export const WIDGET_TEXTS: Record<Language, WidgetTexts> = {
       gifts: '¡regaló {count} {count|suscripción|suscripciones}!{tier}',
       raid: '¡llega con {count} {count|espectador|espectadores}!',
       bits: '¡envió {count} {count|bit|bits}!',
+      donation: '¡donó {amount}!',
       anonymous: 'Regalo anónimo',
       someone: 'Alguien'
     },
@@ -92,12 +95,12 @@ export const WIDGET_TEXTS: Record<Language, WidgetTexts> = {
     poll: { question: '¡Vota en el chat!', hint: 'Escribe {commands} para votar', closed: 'Votación cerrada', votes: '{count} {count|voto|votos}' },
     counter: { label: 'Muertes' },
     pinned: { label: 'Fijado' },
-    recent: { follow: 'Último seguidor', sub: 'Último sub', gifts: 'Último regalo', raid: 'Última raid', bits: 'Últimos bits' },
-    leaderboard: { chatters: 'Más activos en el chat', gifters: 'Top regaladores', bits: 'Top bits', messages: '{count|mensaje|mensajes}', subs: '{count|suscripción|suscripciones}', bitsUnit: '{count|bit|bits}', empty: 'Nadie todavía' },
+    recent: { follow: 'Último seguidor', sub: 'Último sub', gifts: 'Último regalo', raid: 'Última raid', bits: 'Últimos bits', donation: 'Última donación' },
+    leaderboard: { chatters: 'Más activos en el chat', gifters: 'Top regaladores', bits: 'Top bits', donors: 'Top donantes', messages: '{count|mensaje|mensajes}', subs: '{count|suscripción|suscripciones}', bitsUnit: '{count|bit|bits}', empty: 'Nadie todavía' },
     giveaway: { title: 'Sorteo', join: 'Escribe {keyword} para participar', entries: '{count} {count|participante|participantes}', winner: 'Ganador', closed: 'Inscripciones cerradas' },
     first: { welcome: 'primer mensaje en el chat, ¡bienvenido!' },
     subathon: { title: 'Subathon', paused: 'En pausa', ended: 'Terminado' },
-    goal: { follows: 'Meta de seguidores', subs: 'Meta de subs', bits: 'Meta de bits', gifts: 'Meta de regalos', reached: '¡Meta alcanzada!' },
+    goal: { follows: 'Meta de seguidores', subs: 'Meta de subs', bits: 'Meta de bits', gifts: 'Meta de regalos', donations: 'Meta de donaciones', reached: '¡Meta alcanzada!' },
     clock: { uptime: 'En directo desde hace', offline: 'Desconectado', countdown: 'Empieza en' },
     marquee: { welcome: '¡Bienvenido al directo!' },
     redemptions: { redeemed: 'canjeó {reward}', points: '{count} {count|punto|puntos}' },
@@ -113,6 +116,7 @@ export const WIDGET_TEXTS: Record<Language, WidgetTexts> = {
       gifts: 'hat {count} {count|Abo|Abos} verschenkt!{tier}',
       raid: 'raidet mit {count} {count|Zuschauer|Zuschauern}!',
       bits: 'hat {count} {count|Bit|Bits} gecheert!',
+      donation: 'hat {amount} gespendet!',
       anonymous: 'Anonymer Schenker',
       someone: 'Jemand'
     },
@@ -120,12 +124,12 @@ export const WIDGET_TEXTS: Record<Language, WidgetTexts> = {
     poll: { question: 'Stimm im Chat ab!', hint: 'Schreib {commands} zum Abstimmen', closed: 'Abstimmung beendet', votes: '{count} {count|Stimme|Stimmen}' },
     counter: { label: 'Tode' },
     pinned: { label: 'Angeheftet' },
-    recent: { follow: 'Neuester Follower', sub: 'Neuestes Abo', gifts: 'Neuester Schenker', raid: 'Neuester Raid', bits: 'Neueste Bits' },
-    leaderboard: { chatters: 'Aktivste im Chat', gifters: 'Top-Schenker', bits: 'Top-Bits', messages: '{count|Nachricht|Nachrichten}', subs: '{count|Abo|Abos}', bitsUnit: '{count|Bit|Bits}', empty: 'Noch niemand' },
+    recent: { follow: 'Neuester Follower', sub: 'Neuestes Abo', gifts: 'Neuester Schenker', raid: 'Neuester Raid', bits: 'Neueste Bits', donation: 'Neueste Spende' },
+    leaderboard: { chatters: 'Aktivste im Chat', gifters: 'Top-Schenker', bits: 'Top-Bits', donors: 'Top-Spender', messages: '{count|Nachricht|Nachrichten}', subs: '{count|Abo|Abos}', bitsUnit: '{count|Bit|Bits}', empty: 'Noch niemand' },
     giveaway: { title: 'Gewinnspiel', join: 'Schreib {keyword} zum Mitmachen', entries: '{count} {count|Teilnehmer|Teilnehmer}', winner: 'Gewinner', closed: 'Teilnahme geschlossen' },
     first: { welcome: 'erste Nachricht im Chat, willkommen!' },
     subathon: { title: 'Subathon', paused: 'Pausiert', ended: 'Beendet' },
-    goal: { follows: 'Follower-Ziel', subs: 'Abo-Ziel', bits: 'Bits-Ziel', gifts: 'Geschenk-Ziel', reached: 'Ziel erreicht!' },
+    goal: { follows: 'Follower-Ziel', subs: 'Abo-Ziel', bits: 'Bits-Ziel', gifts: 'Geschenk-Ziel', donations: 'Spendenziel', reached: 'Ziel erreicht!' },
     clock: { uptime: 'Live seit', offline: 'Offline', countdown: 'Start in' },
     marquee: { welcome: 'Willkommen im Stream!' },
     redemptions: { redeemed: 'löst {reward} ein', points: '{count} {count|Punkt|Punkte}' },
@@ -141,6 +145,7 @@ export const WIDGET_TEXTS: Record<Language, WidgetTexts> = {
       gifts: 'дарит {count} {count|подписку|подписки|подписок}!{tier}',
       raid: 'врывается с {count} {count|зрителем|зрителями|зрителями}!',
       bits: 'отправляет {count} {count|бит|бита|битов}!',
+      donation: 'донатит {amount}!',
       anonymous: 'Анонимный даритель',
       someone: 'Кто-то'
     },
@@ -148,12 +153,12 @@ export const WIDGET_TEXTS: Record<Language, WidgetTexts> = {
     poll: { question: 'Голосуйте в чате!', hint: 'Напишите {commands}, чтобы проголосовать', closed: 'Голосование завершено', votes: '{count} {count|голос|голоса|голосов}' },
     counter: { label: 'Смерти' },
     pinned: { label: 'Закреплено' },
-    recent: { follow: 'Последний фолловер', sub: 'Последний саб', gifts: 'Последний даритель', raid: 'Последний рейд', bits: 'Последние биты' },
-    leaderboard: { chatters: 'Самые активные в чате', gifters: 'Топ дарителей', bits: 'Топ по битам', messages: '{count|сообщение|сообщения|сообщений}', subs: '{count|подписка|подписки|подписок}', bitsUnit: '{count|бит|бита|битов}', empty: 'Пока никого' },
+    recent: { follow: 'Последний фолловер', sub: 'Последний саб', gifts: 'Последний даритель', raid: 'Последний рейд', bits: 'Последние биты', donation: 'Последний донат' },
+    leaderboard: { chatters: 'Самые активные в чате', gifters: 'Топ дарителей', bits: 'Топ по битам', donors: 'Топ донатеров', messages: '{count|сообщение|сообщения|сообщений}', subs: '{count|подписка|подписки|подписок}', bitsUnit: '{count|бит|бита|битов}', empty: 'Пока никого' },
     giveaway: { title: 'Розыгрыш', join: 'Напишите {keyword}, чтобы участвовать', entries: '{count} {count|участник|участника|участников}', winner: 'Победитель', closed: 'Запись закрыта' },
     first: { welcome: 'первое сообщение в чате, добро пожаловать!' },
     subathon: { title: 'Сабатон', paused: 'Пауза', ended: 'Завершён' },
-    goal: { follows: 'Цель по фолловерам', subs: 'Цель по подпискам', bits: 'Цель по битам', gifts: 'Цель по подаркам', reached: 'Цель достигнута!' },
+    goal: { follows: 'Цель по фолловерам', subs: 'Цель по подпискам', bits: 'Цель по битам', gifts: 'Цель по подаркам', donations: 'Цель по донатам', reached: 'Цель достигнута!' },
     clock: { uptime: 'В эфире', offline: 'Не в сети', countdown: 'Старт через' },
     marquee: { welcome: 'Добро пожаловать на стрим!' },
     redemptions: { redeemed: 'получает {reward}', points: '{count} {count|балл|балла|баллов}' },

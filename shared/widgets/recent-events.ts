@@ -12,6 +12,7 @@ export const recentEvents: WidgetDefinition = {
     { key: 'showGifts', section: 'general', type: 'toggle', default: true },
     { key: 'showRaid', section: 'general', type: 'toggle', default: true },
     { key: 'showBits', section: 'general', type: 'toggle', default: false },
+    { key: 'showDonation', section: 'general', type: 'toggle', default: true },
     { key: 'recentLayout', section: 'general', type: 'select', default: 'row', options: ['row', 'column', 'ticker'] },
     { key: 'tickerInterval', section: 'general', type: 'number', default: 5, min: 2, max: 60, unit: 's' },
 
@@ -27,7 +28,7 @@ export const recentEvents: WidgetDefinition = {
 
     customCssField()
   ],
-  tests: ['follow', 'sub', 'gifts', 'raid', 'bits'],
+  tests: ['follow', 'sub', 'gifts', 'raid', 'bits', 'donation'],
   actions: ['reset'],
   cssTemplate: [
     { selector: '.recent', declarations: { 'font-family': '{font}', 'font-size': '{fontSize}', 'gap': '{gap}' } },

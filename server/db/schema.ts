@@ -1,10 +1,11 @@
 import { boolean, index, integer, jsonb, pgTable, text, timestamp, uniqueIndex, uuid } from 'drizzle-orm/pg-core'
 import type { CanvasScene } from '../../shared/canvas'
-import type { Channels, Settings } from '../../shared/types'
+import type { Channels, DonationCredentials, Settings } from '../../shared/types'
 
 export const users = pgTable('users', {
   id: uuid().primaryKey().defaultRandom(),
   channels: jsonb().$type<Channels>().notNull().default({}),
+  donations: jsonb().$type<DonationCredentials>().notNull().default({}),
   createdAt: timestamp({ withTimezone: true }).notNull().defaultNow()
 })
 
