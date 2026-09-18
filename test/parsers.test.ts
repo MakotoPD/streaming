@@ -9,6 +9,7 @@ import { eventSubToStreamEvent } from '../server/utils/eventsub.ts'
 import { donationToAlert, parseSocketIoPacket, streamElementsChannel, streamElementsDonation, streamlabsDonations, tipplyDonation, tipplyId } from '../server/utils/donation-protocols.ts'
 import { fillTemplate } from '../shared/utils/template.ts'
 import { filterText, speakable } from '../shared/utils/moderation.ts'
+import { lastfmTrack, listenBrainzTrack } from '../server/utils/now-playing.ts'
 import { formatColor, parseColor } from '../app/utils/color.ts'
 import { tokenizeCss } from '../app/utils/css-highlight.ts'
 import { applyOps, canvasPath, sanitizeOps, sanitizeScene } from '../shared/canvas.ts'
@@ -215,4 +216,13 @@ test('moderation masks slurs, custom words, spaced letters and links', () => {
   assert.equal(filterText('wbij na example.com/x teraz', { links: true }).text, 'wbij na *** teraz')
   assert.equal(filterText('good game', { slurs: true, links: true }).flagged, false)
   assert.equal(speakable('hej *** tam'), 'hej tam')
+})
+
+test('now playing parses Last.fm and ListenBrainz', () => {
+  const lastfm = { recenttracks: { track: [{ name: 'Midnight City', artist: { '#text': 'M83' }, album: { '#text': 'Hurry Up' }, image: [{ '#text': 'https://lastfm.freetls.fastly.net/i/u/34s/a.jpg', size: 'small' }, { '#text': 'https://lastfm.freetls.fastly.net/i/u/300x300/a.jpg', size: 'extralarge' }], '@attr': { nowplaying: 'true' } }] } }
+  assert.deepEqual(lastfmTrack(lastfm), { title: 'Midnight City', artist: 'M83', album: 'Hurry Up', cover: 'https://lastfm.freetls.fastly.net/i/u/300x300/a.jpg' })
+  assert.equal(lastfmTrack({ recenttracks: { track: [{ name: 'Old', artist: { '#text': 'X' } }] } }), null)
+  const lb = { payload: { listens: [{ track_metadata: { track_name: 'Some Resolve', artist_name: 'Röyksopp', release_name: 'The Understanding', additional_info: { release_mbid: 'f1418001-7f1e-46af-bfdb-95faeded8841' } } }], playing_now: true } }
+  assert.equal(listenBrainzTrack(lb)?.cover, 'https://coverartarchive.org/release/f1418001-7f1e-46af-bfdb-95faeded8841/front-250')
+  assert.equal(listenBrainzTrack({ payload: { listens: [], playing_now: true } }), null)
 })

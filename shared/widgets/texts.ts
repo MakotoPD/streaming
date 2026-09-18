@@ -18,6 +18,7 @@ interface WidgetTexts {
   hype: { title: string, golden: string, level: string, ended: string, bits: string, sub: string, other: string, idle: string }
   twitchPoll: { votes: string, points: string, users: string, locked: string, winner: string, canceled: string, endsIn: string, ended: string }
   viewers: { label: string, offline: string }
+  nowPlaying: { label: string }
 }
 
 export const WIDGET_TEXTS: Record<Language, WidgetTexts> = {
@@ -48,7 +49,8 @@ export const WIDGET_TEXTS: Record<Language, WidgetTexts> = {
     redemptions: { redeemed: 'redeemed {reward}', points: '{count} {count|point|points}' },
     hype: { title: 'Hype Train', golden: 'Golden Kappa Train', level: 'Level {level}', ended: 'Hype Train finished at level {level}!', bits: '{count} bits', sub: 'Tier {tier} sub', other: '{count} points', idle: 'Waiting for the next Hype Train' },
     twitchPoll: { votes: '{count} {count|vote|votes}', points: '{count} {count|point|points}', users: '{count} {count|person|people}', locked: 'Predictions closed', winner: 'Winner', canceled: 'Canceled, points refunded', endsIn: 'Ends in {time}', ended: 'Poll ended' },
-    viewers: { label: '{count|viewer|viewers}', offline: 'Offline' }
+    viewers: { label: '{count|viewer|viewers}', offline: 'Offline' },
+    nowPlaying: { label: 'Now playing' }
   },
   pl: {
     alerts: {
@@ -77,7 +79,8 @@ export const WIDGET_TEXTS: Record<Language, WidgetTexts> = {
     redemptions: { redeemed: 'odbiera {reward}', points: '{count} {count|punkt|punkty|punktów}' },
     hype: { title: 'Hype Train', golden: 'Złoty Hype Train', level: 'Poziom {level}', ended: 'Hype Train zakończony na poziomie {level}!', bits: '{count} bitów', sub: 'sub Tier {tier}', other: '{count} pkt', idle: 'Czekamy na kolejny Hype Train' },
     twitchPoll: { votes: '{count} {count|głos|głosy|głosów}', points: '{count} {count|punkt|punkty|punktów}', users: '{count} {count|osoba|osoby|osób}', locked: 'Przewidywania zamknięte', winner: 'Wygrywa', canceled: 'Anulowane, punkty zwrócone', endsIn: 'Koniec za {time}', ended: 'Ankieta zakończona' },
-    viewers: { label: '{count|widz|widzów|widzów}', offline: 'Offline' }
+    viewers: { label: '{count|widz|widzów|widzów}', offline: 'Offline' },
+    nowPlaying: { label: 'Teraz gra' }
   },
   es: {
     alerts: {
@@ -106,7 +109,8 @@ export const WIDGET_TEXTS: Record<Language, WidgetTexts> = {
     redemptions: { redeemed: 'canjeó {reward}', points: '{count} {count|punto|puntos}' },
     hype: { title: 'Hype Train', golden: 'Hype Train dorado', level: 'Nivel {level}', ended: '¡Hype Train terminado en el nivel {level}!', bits: '{count} bits', sub: 'sub nivel {tier}', other: '{count} puntos', idle: 'Esperando el próximo Hype Train' },
     twitchPoll: { votes: '{count} {count|voto|votos}', points: '{count} {count|punto|puntos}', users: '{count} {count|persona|personas}', locked: 'Predicciones cerradas', winner: 'Ganador', canceled: 'Cancelada, puntos devueltos', endsIn: 'Termina en {time}', ended: 'Encuesta terminada' },
-    viewers: { label: '{count|espectador|espectadores}', offline: 'Desconectado' }
+    viewers: { label: '{count|espectador|espectadores}', offline: 'Desconectado' },
+    nowPlaying: { label: 'Sonando ahora' }
   },
   de: {
     alerts: {
@@ -135,7 +139,8 @@ export const WIDGET_TEXTS: Record<Language, WidgetTexts> = {
     redemptions: { redeemed: 'löst {reward} ein', points: '{count} {count|Punkt|Punkte}' },
     hype: { title: 'Hype Train', golden: 'Goldener Hype Train', level: 'Stufe {level}', ended: 'Hype Train auf Stufe {level} beendet!', bits: '{count} Bits', sub: 'Stufe-{tier}-Abo', other: '{count} Punkte', idle: 'Warten auf den nächsten Hype Train' },
     twitchPoll: { votes: '{count} {count|Stimme|Stimmen}', points: '{count} {count|Punkt|Punkte}', users: '{count} {count|Person|Personen}', locked: 'Vorhersagen geschlossen', winner: 'Gewinner', canceled: 'Abgebrochen, Punkte erstattet', endsIn: 'Endet in {time}', ended: 'Umfrage beendet' },
-    viewers: { label: '{count|Zuschauer|Zuschauer}', offline: 'Offline' }
+    viewers: { label: '{count|Zuschauer|Zuschauer}', offline: 'Offline' },
+    nowPlaying: { label: 'Läuft gerade' }
   },
   ru: {
     alerts: {
@@ -164,7 +169,8 @@ export const WIDGET_TEXTS: Record<Language, WidgetTexts> = {
     redemptions: { redeemed: 'получает {reward}', points: '{count} {count|балл|балла|баллов}' },
     hype: { title: 'Hype Train', golden: 'Золотой Hype Train', level: 'Уровень {level}', ended: 'Hype Train завершён на уровне {level}!', bits: '{count} битов', sub: 'подписка уровня {tier}', other: '{count} очков', idle: 'Ждём следующий Hype Train' },
     twitchPoll: { votes: '{count} {count|голос|голоса|голосов}', points: '{count} {count|балл|балла|баллов}', users: '{count} {count|человек|человека|человек}', locked: 'Прогнозы закрыты', winner: 'Победа', canceled: 'Отменено, баллы возвращены', endsIn: 'До конца {time}', ended: 'Опрос завершён' },
-    viewers: { label: '{count|зритель|зрителя|зрителей}', offline: 'Не в сети' }
+    viewers: { label: '{count|зритель|зрителя|зрителей}', offline: 'Не в сети' },
+    nowPlaying: { label: 'Сейчас играет' }
   }
 }
 

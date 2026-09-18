@@ -232,6 +232,10 @@
     "canvas": {
       "name": "Tablica do rysowania",
       "description": "Plansza 2560×1440, na której Ty lub ktoś inny rysuje na żywo — z osobnym linkiem do edycji."
+    },
+    "now-playing": {
+      "name": "Teraz gra",
+      "description": "Utwór, którego słuchasz: Spotify, SoundCloud, YouTube Music i inne przez Last.fm albo ListenBrainz."
     }
   },
   "editor": {
@@ -513,7 +517,16 @@
     "blockSlurs": "Blokuj obelgi zakazane na Twitchu i Kicku",
     "blockLinks": "Usuwaj linki",
     "bannedWords": "Twoje zbanowane słowa",
-    "bannedAction": "Gdy wiadomość je zawiera"
+    "bannedAction": "Gdy wiadomość je zawiera",
+    "musicSource": "Źródło",
+    "musicUser": "Nazwa użytkownika",
+    "nowPlayingLabel": "Etykieta",
+    "hideWhenIdle": "Ukryj, gdy nic nie gra",
+    "pollSeconds": "Sprawdzaj co",
+    "nowPlayingLayout": "Układ",
+    "showCover": "Pokazuj okładkę",
+    "showEqualizer": "Animowany equalizer",
+    "coverSize": "Rozmiar okładki"
   },
   "hints": {
     "hideAfter": "0 = wiadomości znikają dopiero, gdy wypchną je nowe.",
@@ -568,7 +581,9 @@
     "ttsMinAmount": "Donejty poniżej tej kwoty pojawiają się, ale nie są czytane.",
     "ttsSource": "Tipply wysyła z każdym donejtem własne nagranie. StreamElements i Streamlabs nie, więc te czyta Piper.",
     "blockSlurs": "Wbudowana lista obelg rasistowskich, homofobicznych i podobnych w pięciu językach, także pisanych ze spacjami i l33t.",
-    "bannedWords": "Enter po każdym słowie. Gwiazdka na końcu łapie też dłuższe formy (np. idiot* złapie idiota, idioci). Wielkość liter, polskie znaki i l33t są ignorowane."
+    "bannedWords": "Enter po każdym słowie. Gwiazdka na końcu łapie też dłuższe formy (np. idiot* złapie idiota, idioci). Wielkość liter, polskie znaki i l33t są ignorowane.",
+    "musicSource": "Spotify sam wysyła utwory do Last.fm (ustawienia Spotify → Społeczność → Last.fm). Dla SoundCloud, YouTube Music, Deezer, Tidal, Bandcamp albo Apple Music w przeglądarce zainstaluj darmowe rozszerzenie Web Scrobbler i połącz je z Last.fm albo ListenBrainz.",
+    "musicUser": "Twoja nazwa na Last.fm albo ListenBrainz. Historia słuchania musi być publiczna."
   },
   "options": {
     "direction": {
@@ -734,6 +749,14 @@
     "bannedAction": {
       "mask": "Ukryj tylko słowo (***)",
       "skip": "Ukryj wiadomość i jej nie czytaj"
+    },
+    "musicSource": {
+      "lastfm": "Last.fm",
+      "listenbrainz": "ListenBrainz"
+    },
+    "nowPlayingLayout": {
+      "card": "Karta z okładką",
+      "compact": "Jedna linia"
     }
   },
   "animations": {
@@ -798,7 +821,8 @@
     "pollEnd": "Koniec ankiety",
     "predictionProgress": "Przewidywanie",
     "predictionEnd": "Wynik przewidywania",
-    "donation": "Donejt"
+    "donation": "Donejt",
+    "track": "Utwór"
   },
   "sound": {
     "none": "Bez dźwięku",
@@ -963,7 +987,13 @@
     "canvasText": "Tekst dodany na tablicy",
     "canvasMedia": "Obraz lub wideo dodane na tablicy",
     "alertDonationMessage": "Wiadomość darczyńcy pod alertem donejtu",
-    "alertVariant": "Alert z progu; w miejsce name wpisz nazwę progu"
+    "alertVariant": "Alert z progu; w miejsce name wpisz nazwę progu",
+    "nowPlayingCard": "Całe pudełko",
+    "nowPlayingCover": "Okładka albumu",
+    "nowPlayingLabel": "Etykieta „Teraz gra” z equalizerem",
+    "nowPlayingTitle": "Tytuł utworu",
+    "nowPlayingArtist": "Wykonawca",
+    "nowPlayingBars": "Paski equalizera"
   },
   "actions": {
     "start": "Start",

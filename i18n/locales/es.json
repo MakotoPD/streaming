@@ -232,6 +232,10 @@
     "canvas": {
       "name": "Lienzo de dibujo",
       "description": "Un lienzo de 2560×1440 en el que tú u otra persona podéis dibujar en directo, con un enlace de edición aparte."
+    },
+    "now-playing": {
+      "name": "Sonando ahora",
+      "description": "La canción que escuchas: Spotify, SoundCloud, YouTube Music y más vía Last.fm o ListenBrainz."
     }
   },
   "editor": {
@@ -513,7 +517,16 @@
     "blockSlurs": "Bloquear insultos prohibidos en Twitch y Kick",
     "blockLinks": "Quitar enlaces",
     "bannedWords": "Tus palabras prohibidas",
-    "bannedAction": "Si un mensaje la contiene"
+    "bannedAction": "Si un mensaje la contiene",
+    "musicSource": "Origen",
+    "musicUser": "Usuario",
+    "nowPlayingLabel": "Etiqueta",
+    "hideWhenIdle": "Ocultar si no suena nada",
+    "pollSeconds": "Comprobar cada",
+    "nowPlayingLayout": "Diseño",
+    "showCover": "Mostrar portada",
+    "showEqualizer": "Ecualizador animado",
+    "coverSize": "Tamaño de portada"
   },
   "hints": {
     "hideAfter": "0 mantiene los mensajes hasta que los nuevos los desplacen.",
@@ -568,7 +581,9 @@
     "ttsMinAmount": "Las donaciones por debajo aparecen pero no se leen.",
     "ttsSource": "Tipply envía su propia grabación con cada donación. StreamElements y Streamlabs no, así que esas las lee Piper.",
     "blockSlurs": "Lista integrada de insultos racistas, homófobos y similares en los cinco idiomas, también con espacios y l33t.",
-    "bannedWords": "Pulsa Enter tras cada palabra. Un * al final atrapa formas más largas (idiot* atrapa idiota). Se ignoran mayúsculas, acentos y l33t."
+    "bannedWords": "Pulsa Enter tras cada palabra. Un * al final atrapa formas más largas (idiot* atrapa idiota). Se ignoran mayúsculas, acentos y l33t.",
+    "musicSource": "Spotify envía las canciones a Last.fm por sí mismo (ajustes de Spotify → Social → Last.fm). Para SoundCloud, YouTube Music, Deezer, Tidal, Bandcamp o Apple Music en el navegador instala la extensión gratuita Web Scrobbler y conéctala a Last.fm o ListenBrainz.",
+    "musicUser": "Tu usuario de Last.fm o ListenBrainz. Tu historial debe ser público."
   },
   "options": {
     "direction": {
@@ -734,6 +749,14 @@
     "bannedAction": {
       "mask": "Ocultar solo la palabra (***)",
       "skip": "Ocultar el mensaje y no leerlo"
+    },
+    "musicSource": {
+      "lastfm": "Last.fm",
+      "listenbrainz": "ListenBrainz"
+    },
+    "nowPlayingLayout": {
+      "card": "Tarjeta con portada",
+      "compact": "Una línea"
     }
   },
   "animations": {
@@ -798,7 +821,8 @@
     "pollEnd": "Fin de encuesta",
     "predictionProgress": "Predicción",
     "predictionEnd": "Resultado",
-    "donation": "Donación"
+    "donation": "Donación",
+    "track": "Canción"
   },
   "sound": {
     "none": "Sin sonido",
@@ -963,7 +987,13 @@
     "canvasText": "Texto añadido en el lienzo",
     "canvasMedia": "Imagen o vídeo añadido en el lienzo",
     "alertDonationMessage": "Mensaje del donante bajo la alerta",
-    "alertVariant": "Alerta de un nivel; cambia name por el nombre del nivel"
+    "alertVariant": "Alerta de un nivel; cambia name por el nombre del nivel",
+    "nowPlayingCard": "La caja completa",
+    "nowPlayingCover": "Portada del álbum",
+    "nowPlayingLabel": "Etiqueta «Sonando ahora» con el ecualizador",
+    "nowPlayingTitle": "Título de la canción",
+    "nowPlayingArtist": "Artista",
+    "nowPlayingBars": "Barras del ecualizador"
   },
   "actions": {
     "start": "Iniciar",

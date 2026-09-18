@@ -232,6 +232,10 @@
     "canvas": {
       "name": "Drawing canvas",
       "description": "A 2560×1440 board you or someone else can draw on live, with a separate edit link."
+    },
+    "now-playing": {
+      "name": "Now playing",
+      "description": "The song you are listening to: Spotify, SoundCloud, YouTube Music and more via Last.fm or ListenBrainz."
     }
   },
   "editor": {
@@ -513,7 +517,16 @@
     "blockSlurs": "Block slurs banned on Twitch and Kick",
     "blockLinks": "Remove links",
     "bannedWords": "Your banned words",
-    "bannedAction": "When a message contains one"
+    "bannedAction": "When a message contains one",
+    "musicSource": "Source",
+    "musicUser": "Username",
+    "nowPlayingLabel": "Label",
+    "hideWhenIdle": "Hide when nothing is playing",
+    "pollSeconds": "Check every",
+    "nowPlayingLayout": "Layout",
+    "showCover": "Show album cover",
+    "showEqualizer": "Animated equalizer",
+    "coverSize": "Cover size"
   },
   "hints": {
     "hideAfter": "0 keeps messages until new ones push them out.",
@@ -568,7 +581,9 @@
     "ttsMinAmount": "Donations below this amount show up but are not read.",
     "ttsSource": "Tipply sends its own recording with each donation. StreamElements and Streamlabs do not, so Piper reads those.",
     "blockSlurs": "A built-in list of racist, homophobic and similar slurs in all five languages, including spaced-out and l33t spellings.",
-    "bannedWords": "Press Enter after each word. End a word with * to also catch longer forms (e.g. idiot* catches idiots). Case, Polish letters and l33t are ignored."
+    "bannedWords": "Press Enter after each word. End a word with * to also catch longer forms (e.g. idiot* catches idiots). Case, Polish letters and l33t are ignored.",
+    "musicSource": "Spotify sends songs to Last.fm on its own (Spotify settings → Social → Last.fm). For SoundCloud, YouTube Music, Deezer, Tidal, Bandcamp or Apple Music on the web install the free Web Scrobbler extension and connect it to Last.fm or ListenBrainz.",
+    "musicUser": "Your Last.fm or ListenBrainz username. Your recent listening must be public."
   },
   "options": {
     "direction": {
@@ -734,6 +749,14 @@
     "bannedAction": {
       "mask": "Hide only the word (***)",
       "skip": "Hide the message and do not read it"
+    },
+    "musicSource": {
+      "lastfm": "Last.fm",
+      "listenbrainz": "ListenBrainz"
+    },
+    "nowPlayingLayout": {
+      "card": "Card with cover",
+      "compact": "One line"
     }
   },
   "animations": {
@@ -798,7 +821,8 @@
     "pollEnd": "Poll end",
     "predictionProgress": "Prediction",
     "predictionEnd": "Prediction result",
-    "donation": "Donation"
+    "donation": "Donation",
+    "track": "Song"
   },
   "sound": {
     "none": "No sound",
@@ -963,7 +987,13 @@
     "canvasText": "Text added on the board",
     "canvasMedia": "Image or video added on the board",
     "alertDonationMessage": "Donor message under a donation alert",
-    "alertVariant": "Alert using a tier; replace name with the tier name you set"
+    "alertVariant": "Alert using a tier; replace name with the tier name you set",
+    "nowPlayingCard": "The whole box",
+    "nowPlayingCover": "Album cover",
+    "nowPlayingLabel": "\"Now playing\" label with the equalizer",
+    "nowPlayingTitle": "Song title",
+    "nowPlayingArtist": "Artist",
+    "nowPlayingBars": "Equalizer bars"
   },
   "actions": {
     "start": "Start",

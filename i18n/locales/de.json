@@ -232,6 +232,10 @@
     "canvas": {
       "name": "Zeichenfläche",
       "description": "Eine 2560×1440-Fläche, auf der du oder jemand anderes live zeichnen kann – mit eigenem Bearbeitungslink."
+    },
+    "now-playing": {
+      "name": "Läuft gerade",
+      "description": "Der Song, den du hörst: Spotify, SoundCloud, YouTube Music und mehr über Last.fm oder ListenBrainz."
     }
   },
   "editor": {
@@ -513,7 +517,16 @@
     "blockSlurs": "In Twitch und Kick verbotene Beleidigungen blockieren",
     "blockLinks": "Links entfernen",
     "bannedWords": "Deine gesperrten Wörter",
-    "bannedAction": "Wenn eine Nachricht eins enthält"
+    "bannedAction": "Wenn eine Nachricht eins enthält",
+    "musicSource": "Quelle",
+    "musicUser": "Benutzername",
+    "nowPlayingLabel": "Beschriftung",
+    "hideWhenIdle": "Ausblenden, wenn nichts läuft",
+    "pollSeconds": "Prüfen alle",
+    "nowPlayingLayout": "Layout",
+    "showCover": "Cover anzeigen",
+    "showEqualizer": "Animierter Equalizer",
+    "coverSize": "Cover-Größe"
   },
   "hints": {
     "hideAfter": "0 behält Nachrichten, bis neue sie verdrängen.",
@@ -568,7 +581,9 @@
     "ttsMinAmount": "Spenden darunter erscheinen, werden aber nicht vorgelesen.",
     "ttsSource": "Tipply schickt bei jeder Spende eine eigene Aufnahme. StreamElements und Streamlabs nicht, die liest Piper.",
     "blockSlurs": "Eingebaute Liste rassistischer, homophober und ähnlicher Beleidigungen in allen fünf Sprachen, auch mit Leerzeichen und l33t.",
-    "bannedWords": "Nach jedem Wort Enter. Ein * am Ende erfasst längere Formen (idiot* erfasst Idioten). Groß-/Kleinschreibung, Umlaute und l33t werden ignoriert."
+    "bannedWords": "Nach jedem Wort Enter. Ein * am Ende erfasst längere Formen (idiot* erfasst Idioten). Groß-/Kleinschreibung, Umlaute und l33t werden ignoriert.",
+    "musicSource": "Spotify schickt Songs selbst an Last.fm (Spotify-Einstellungen → Social → Last.fm). Für SoundCloud, YouTube Music, Deezer, Tidal, Bandcamp oder Apple Music im Browser installiere die kostenlose Erweiterung Web Scrobbler und verbinde sie mit Last.fm oder ListenBrainz.",
+    "musicUser": "Dein Last.fm- oder ListenBrainz-Name. Dein Hörverlauf muss öffentlich sein."
   },
   "options": {
     "direction": {
@@ -734,6 +749,14 @@
     "bannedAction": {
       "mask": "Nur das Wort verbergen (***)",
       "skip": "Nachricht verbergen und nicht vorlesen"
+    },
+    "musicSource": {
+      "lastfm": "Last.fm",
+      "listenbrainz": "ListenBrainz"
+    },
+    "nowPlayingLayout": {
+      "card": "Karte mit Cover",
+      "compact": "Eine Zeile"
     }
   },
   "animations": {
@@ -798,7 +821,8 @@
     "pollEnd": "Umfrage-Ende",
     "predictionProgress": "Vorhersage",
     "predictionEnd": "Vorhersage-Ergebnis",
-    "donation": "Spende"
+    "donation": "Spende",
+    "track": "Song"
   },
   "sound": {
     "none": "Kein Sound",
@@ -963,7 +987,13 @@
     "canvasText": "Text auf der Fläche",
     "canvasMedia": "Bild oder Video auf der Fläche",
     "alertDonationMessage": "Nachricht des Spenders unter dem Alert",
-    "alertVariant": "Alert einer Stufe; ersetze name durch den Stufennamen"
+    "alertVariant": "Alert einer Stufe; ersetze name durch den Stufennamen",
+    "nowPlayingCard": "Die ganze Box",
+    "nowPlayingCover": "Album-Cover",
+    "nowPlayingLabel": "„Läuft gerade“-Beschriftung mit Equalizer",
+    "nowPlayingTitle": "Songtitel",
+    "nowPlayingArtist": "Interpret",
+    "nowPlayingBars": "Equalizer-Balken"
   },
   "actions": {
     "start": "Start",

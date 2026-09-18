@@ -232,6 +232,10 @@
     "canvas": {
       "name": "Холст для рисования",
       "description": "Холст 2560×1440, на котором вы или кто-то другой рисует в прямом эфире, с отдельной ссылкой для редактирования."
+    },
+    "now-playing": {
+      "name": "Сейчас играет",
+      "description": "Трек, который вы слушаете: Spotify, SoundCloud, YouTube Music и другие через Last.fm или ListenBrainz."
     }
   },
   "editor": {
@@ -513,7 +517,16 @@
     "blockSlurs": "Блокировать оскорбления, запрещённые на Twitch и Kick",
     "blockLinks": "Убирать ссылки",
     "bannedWords": "Ваши запрещённые слова",
-    "bannedAction": "Если сообщение содержит его"
+    "bannedAction": "Если сообщение содержит его",
+    "musicSource": "Источник",
+    "musicUser": "Имя пользователя",
+    "nowPlayingLabel": "Подпись",
+    "hideWhenIdle": "Скрывать, когда ничего не играет",
+    "pollSeconds": "Проверять каждые",
+    "nowPlayingLayout": "Макет",
+    "showCover": "Показывать обложку",
+    "showEqualizer": "Анимированный эквалайзер",
+    "coverSize": "Размер обложки"
   },
   "hints": {
     "hideAfter": "0 — сообщения остаются, пока их не вытеснят новые.",
@@ -568,7 +581,9 @@
     "ttsMinAmount": "Донаты меньше этой суммы показываются, но не озвучиваются.",
     "ttsSource": "Tipply присылает свою запись с каждым донатом. StreamElements и Streamlabs — нет, их читает Piper.",
     "blockSlurs": "Встроенный список расистских, гомофобных и подобных оскорблений на пяти языках, в том числе через пробелы и l33t.",
-    "bannedWords": "Enter после каждого слова. * в конце ловит и длинные формы (идиот* поймает идиоты). Регистр, диакритика и l33t не учитываются."
+    "bannedWords": "Enter после каждого слова. * в конце ловит и длинные формы (идиот* поймает идиоты). Регистр, диакритика и l33t не учитываются.",
+    "musicSource": "Spotify сам отправляет треки в Last.fm (настройки Spotify → Социальные сети → Last.fm). Для SoundCloud, YouTube Music, Deezer, Tidal, Bandcamp или Apple Music в браузере установите бесплатное расширение Web Scrobbler и подключите его к Last.fm или ListenBrainz.",
+    "musicUser": "Ваше имя на Last.fm или ListenBrainz. История прослушивания должна быть открытой."
   },
   "options": {
     "direction": {
@@ -734,6 +749,14 @@
     "bannedAction": {
       "mask": "Скрыть только слово (***)",
       "skip": "Скрыть сообщение и не озвучивать"
+    },
+    "musicSource": {
+      "lastfm": "Last.fm",
+      "listenbrainz": "ListenBrainz"
+    },
+    "nowPlayingLayout": {
+      "card": "Карточка с обложкой",
+      "compact": "Одна строка"
     }
   },
   "animations": {
@@ -798,7 +821,8 @@
     "pollEnd": "Конец опроса",
     "predictionProgress": "Прогноз",
     "predictionEnd": "Итог прогноза",
-    "donation": "Донат"
+    "donation": "Донат",
+    "track": "Трек"
   },
   "sound": {
     "none": "Без звука",
@@ -963,7 +987,13 @@
     "canvasText": "Текст, добавленный на холст",
     "canvasMedia": "Изображение или видео, добавленное на холст",
     "alertDonationMessage": "Сообщение донатера под алертом",
-    "alertVariant": "Алерт порога; замените name на название порога"
+    "alertVariant": "Алерт порога; замените name на название порога",
+    "nowPlayingCard": "Весь блок",
+    "nowPlayingCover": "Обложка альбома",
+    "nowPlayingLabel": "Подпись «Сейчас играет» с эквалайзером",
+    "nowPlayingTitle": "Название трека",
+    "nowPlayingArtist": "Исполнитель",
+    "nowPlayingBars": "Полосы эквалайзера"
   },
   "actions": {
     "start": "Старт",

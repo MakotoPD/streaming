@@ -15,6 +15,7 @@ import { hypeTrain } from './hype-train'
 import { leaderboard } from './leaderboard'
 import { lowerThird } from './lower-third'
 import { marquee } from './marquee'
+import { nowPlaying } from './now-playing'
 import { pinned } from './pinned'
 import { poll } from './poll'
 import { recentEvents } from './recent-events'
@@ -54,6 +55,7 @@ export const WIDGETS: Record<string, WidgetDefinition> = Object.fromEntries([
   camFrame,
   lowerThird,
   canvas,
+  nowPlaying,
   redemptions,
   hypeTrain,
   twitchPoll,
@@ -122,6 +124,12 @@ export function sampleEvent(test: string, settings: Settings = {}): StreamEvent 
     case 'predictionProgress':
     case 'predictionEnd':
       return { kind: 'prediction', phase: test === 'predictionEnd' ? 'end' : 'progress', id: 'sample-prediction', title: 'Will we beat the boss?', locksAt: new Date(Date.now() + 60_000).toISOString(), winningId: test === 'predictionEnd' ? 'yes' : undefined, status: test === 'predictionEnd' ? 'resolved' : undefined, outcomes: [{ id: 'yes', title: 'Yes', color: 'blue', users: Math.floor(Math.random() * 60) + 1, points: Math.floor(Math.random() * 90000) }, { id: 'no', title: 'No', color: 'pink', users: Math.floor(Math.random() * 60) + 1, points: Math.floor(Math.random() * 90000) }] }
+    case 'track':
+      return { kind: 'command', name: 'now-playing', payload: random([
+        { title: 'Some Resolve', artist: 'Röyksopp', album: 'The Understanding', cover: '' },
+        { title: 'Midnight City', artist: 'M83', album: 'Hurry Up, We Are Dreaming', cover: '' },
+        { title: 'Tokyo Drift', artist: 'Teriyaki Boyz', album: 'The Fast and the Furious: Tokyo Drift', cover: '' }
+      ]) }
     case 'pin':
       return { kind: 'command', name: 'pin', payload: sampleChat({ text: 'Remember to hydrate! LUL', name: 'makotopd', roles: ['broadcaster'], parts: [{ type: 'text', text: 'Remember to hydrate! ' }, { type: 'emote', name: 'LUL', url: LUL }] }) }
   }

@@ -26,6 +26,8 @@ The app runs at http://localhost:3000. Database migrations run automatically whe
 | `NUXT_OAUTH_TWITCH_CLIENT_ID` / `_SECRET` | App from https://dev.twitch.tv/console/apps, redirect: `<SITE_URL>/auth/twitch` |
 | `NUXT_TWITCH_WEBHOOK_SECRET` | Random 10–100 character string, signs EventSub webhooks (follow alerts) |
 | `NUXT_OAUTH_KICK_CLIENT_ID` / `_SECRET` | App from https://kick.com/settings/developer, redirect: `<SITE_URL>/auth/kick` |
+| `NUXT_LASTFM_API_KEY` | Optional. Free key from https://www.last.fm/api/account/create, enables the Last.fm source of the Now playing widget |
+| `NUXT_PIPER_URL` | Piper TTS server, set automatically in `docker-compose.yml` |
 | `NUXT_UPLOAD_DIR` | Directory for uploaded sounds, images and videos |
 | `POSTGRES_PASSWORD` | `docker-compose.yml` only: database password |
 
@@ -84,6 +86,10 @@ In the alerts widget the alert sound plays first and the speech starts when it e
 Every alert type except follows can have tiers (`<type>.variants`): from an amount, number of months, bits, gifts or raiders, and for subs and gifts optionally a specific tier. The highest matching tier replaces the text, image, sound and colour, and the alert gets `data-variant="<name>"` for custom CSS.
 
 Moderation (`shared/utils/moderation.ts`) applies to names and messages on screen and to TTS: a built-in list of slurs banned on Twitch and Kick in all five languages (toggle), the user's own word list (`word*` also matches longer forms), link removal, and a choice between masking the word and dropping the whole message. Matching ignores case, diacritics, repeated letters, l33t and spaced-out letters.
+
+## Now playing
+
+The `now-playing` widget shows the current song from **Last.fm** or **ListenBrainz**. Neither SoundCloud nor most players expose what is playing, but both services collect it: Spotify scrobbles to Last.fm natively, and the Web Scrobbler browser extension covers SoundCloud, YouTube Music, Deezer, Tidal, Bandcamp and Apple Music on the web. Overlays poll `GET /api/o/<token>/now-playing` (cached 8 s per user); Last.fm needs `NUXT_LASTFM_API_KEY`, ListenBrainz needs nothing. Cover art comes from Last.fm or the Cover Art Archive.
 
 ## Drawing canvas
 
