@@ -98,7 +98,8 @@ YouTube is only available after signing in with Google (`/auth/youtube`); the ch
 
 - **Chat, Super Chats, stickers and memberships** come from YouTube's public live chat, the same way popular chat tools read it (no quota, unofficial, may break if YouTube changes it). The server keeps one poller per live video (`server/utils/youtube.ts`, parsing in `youtube-parse.ts`) and overlays fetch only new items from `GET /api/youtube/chat?channel=…&after=<seq>`, so ten overlays still mean one poller.
 - **New subscribers** use the official API (`subscriptions.list myRecentSubscribers`, 1 quota unit per call, every 60 s only while an overlay of that user is open). Only subscribers with public subscriptions are visible to the API.
-- **Viewer count** is read from the channel's live page.
+- **Viewer count** comes from the same innertube `next` response.
+- Live detection tries innertube (`navigation/resolve_url` + `next`, no quota), then the official API (`liveBroadcasts.list`, 1 unit) and finally the channel page. The server logs `[youtube] … is live … found via <method>`, `chat … opened/closed` and an hourly `quota used today` line counting official API units since the last restart.
 
 Google Cloud setup: create a project, enable **YouTube Data API v3**, configure the OAuth consent screen with the `youtube.readonly` scope, create an OAuth client (Web application) with the redirect URI `<SITE_URL>/auth/youtube` and put its id and secret into `NUXT_OAUTH_GOOGLE_CLIENT_ID` / `NUXT_OAUTH_GOOGLE_CLIENT_SECRET`. `youtube.readonly` is a sensitive scope: until Google verifies the app, only test users added on the consent screen can sign in (up to 100) and they see an "unverified app" warning. The default quota is 10,000 units per day per project.
 
