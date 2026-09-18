@@ -2,12 +2,14 @@
 const props = defineProps<{ doc: 'privacy' | 'terms' | 'cookies' }>()
 
 const { t, tm, rt, locale } = useI18n()
+const { appName, contactEmail, siteUrl } = useRuntimeConfig().public
+const params = { app: appName, email: contactEmail || siteUrl }
 
 interface Section { title: unknown, body: unknown[] }
 
 const sections = computed(() => (tm(`legal.${props.doc}.sections`) as Section[]).map(section => ({
-  title: rt(section.title as string),
-  body: (section.body as string[]).map(paragraph => rt(paragraph))
+  title: rt(section.title as string, params),
+  body: (section.body as string[]).map(paragraph => rt(paragraph, params))
 })))
 
 const updated = computed(() => new Intl.DateTimeFormat(locale.value, { dateStyle: 'long' }).format(new Date('2026-09-18')))

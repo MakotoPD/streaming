@@ -4,7 +4,7 @@ import type { Settings } from '#shared/types'
 const props = defineProps<{ settings: Settings, bus?: EventBus }>()
 
 const context = useWidgetContext()
-const title = computed(() => props.settings.thirdTitle || context?.channels.value?.twitch?.login || context?.channels.value?.kick?.slug || '')
+const title = computed(() => props.settings.thirdTitle || context?.channels.value?.twitch?.login || context?.channels.value?.kick?.slug || context?.channels.value?.youtube?.handle?.replace(/^@/, '') || '')
 
 const shown = ref(true)
 let timer: ReturnType<typeof setTimeout> | undefined

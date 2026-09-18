@@ -94,6 +94,20 @@
       "title": "Zacznij od swojego nicku",
       "text": "Do spróbowania nie trzeba konta. Zalogujesz się później, jeśli chcesz mieć swoje ustawienia na kilku komputerach.",
       "button": "Zacznij teraz"
+    },
+    "youtubeNeedsLogin": "YouTube wymaga logowania przez Google: kanał ustawi się sam i dostaniesz alerty nowych subskrypcji. Czat i Super Chaty też działają.",
+    "whatIs": {
+      "title": "Czym jest {app}?",
+      "text": "{app} to darmowa aplikacja internetowa dla streamerów z Twitcha, Kicka i YouTube. Wybierasz gotowe widgety, np. czat, alerty, cele albo kartę „teraz gra”, ustawiasz ich wygląd w przeglądarce i dodajesz każdy do OBS jako źródło przeglądarki. Wszystko na tej stronie przeczytasz bez konta; logowanie jest potrzebne tylko do zapisania widgetów i połączenia platform."
+    },
+    "google": {
+      "eyebrow": "Logowanie Google",
+      "title": "Jak używamy Twojego konta YouTube",
+      "channel": "Odczytujemy nazwę, handle i awatar kanału, żeby widgety wiedziały, który kanał obserwować.",
+      "subscribers": "Sprawdzamy najnowszych publicznych subskrybentów, żeby pokazać na streamie alert z podziękowaniem.",
+      "chat": "Czytamy Twój publiczny czat na żywo, żeby pokazać wiadomości, Super Chaty i członkostwa w widgetach.",
+      "never": "Dostęp tylko do odczytu. Nigdy nic nie publikujemy, nie zmieniamy kanału, nie sprzedajemy ani nie udostępniamy danych i nie używamy ich do reklam ani trenowania AI.",
+      "policy": "Przeczytaj politykę prywatności"
     }
   },
   "dashboard": {
@@ -130,7 +144,8 @@
     "emptyText": "Dodaj pierwszy widget, dopasuj go w edytorze i wklej jego link do OBS jako źródło Przeglądarka.",
     "addFirstWidget": "Dodaj pierwszy widget",
     "allPlatforms": "Wszystkie platformy",
-    "onlyOnPlatform": "Działa tylko na {platform}"
+    "onlyOnPlatform": "Działa tylko na {platform}",
+    "youtubeHint": "Ustawiany automatycznie po zalogowaniu przez Google"
   },
   "widgets": {
     "chat": {
@@ -526,7 +541,8 @@
     "nowPlayingLayout": "Układ",
     "showCover": "Pokazuj okładkę",
     "showEqualizer": "Animowany equalizer",
-    "coverSize": "Rozmiar okładki"
+    "coverSize": "Rozmiar okładki",
+    "showYouTube": "Pokazuj YouTube"
   },
   "hints": {
     "hideAfter": "0 = wiadomości znikają dopiero, gdy wypchną je nowe.",
@@ -847,7 +863,7 @@
     "root": "Cały obszar widgetu (tu są wszystkie zmienne CSS)",
     "chat": "Kontener listy wiadomości",
     "chatMessage": "Pojedyncza wiadomość (dymek)",
-    "chatPlatformAttr": "Wiadomości tylko z jednej platformy (twitch lub kick)",
+    "chatPlatformAttr": "Wiadomości tylko z jednej platformy (twitch, kick albo youtube)",
     "chatBadge": "Odznaki użytkownika (sub, mod, VIP…)",
     "chatPlatform": "Ikona platformy przed nickiem",
     "chatName": "Nick",
@@ -1088,7 +1104,7 @@
         {
           "title": "Kto prowadzi tę stronę",
           "body": [
-            "Streaming to niewielkie narzędzie do robienia widgetów na stream, prowadzone przez właściciela tej strony.",
+            "{app} to aplikacja internetowa dla streamerów. Pozwala skonfigurować widgety na stream (czat, alerty, cele, timery i inne) i dodać je do OBS lub innego programu do streamowania jako źródło przeglądarki.",
             "Jeśli coś tu jest niejasne, zapytaj przez repozytorium projektu."
           ]
         },
@@ -1096,8 +1112,19 @@
           "title": "Dane, które nam podajesz",
           "body": [
             "Start jako gość zapisuje losowy identyfikator użytkownika i nicki kanałów, które wpisałeś. Nic więcej.",
-            "Logowanie przez Twitch lub Kick zapisuje dodatkowo identyfikator konta, login, nazwę wyświetlaną, adres awatara i tokeny dostępu. Tokeny są szyfrowane, zanim trafią do bazy, i służą tylko do odczytu danych Twojego kanału: obserwujących, subskrypcji, liczby widzów, nagród za punkty kanału, ankiet i hype trainów.",
+            "Logowanie przez Twitch lub Kick zapisuje dodatkowo identyfikator konta, login, nazwę wyświetlaną, adres awatara i tokeny dostępu. Tokeny są szyfrowane, zanim trafią do bazy, i służą tylko do odczytu danych Twojego kanału: obserwujących, subskrypcji, liczby widzów, nagród za punkty kanału, ankiet i hype trainów. Logowanie przez Google zapisuje identyfikator, nazwę i awatar Twojego kanału YouTube oraz zaszyfrowane tokeny (dostęp tylko do odczytu), używane wyłącznie do znalezienia kanału i odczytu najnowszych publicznych subskrypcji, gdy nakładka jest otwarta. Dostęp możesz cofnąć w każdej chwili w ustawieniach konta Google.",
             "Jeśli podłączysz serwis z donejtami (StreamElements, Tipply, Streamlabs), jego token albo link do widgetu jest zapisany w formie zaszyfrowanej i używany tylko przez serwer do odbierania Twoich donejtów. Nick, kwota i wiadomość darczyńcy trafiają do nakładek i nie są zapisywane; e-maile darczyńców są odrzucane."
+          ]
+        },
+        {
+          "title": "Dane z Google i YouTube",
+          "body": [
+            "Funkcje YouTube są dostępne dopiero po zalogowaniu przez Google. Prosimy o jeden zakres tylko do odczytu, youtube.readonly, oraz podstawowy profil Google potrzebny do logowania.",
+            "Co odczytujemy: identyfikator, nazwę, handle i awatar Twojego kanału YouTube (żeby wiedzieć, do którego kanału należą widgety) oraz nazwy najnowszych subskrybentów, którzy mają publiczne subskrypcje (żeby pokazać alert nowej subskrypcji na streamie). Odczytujemy też publiczny czat na żywo Twojego kanału, żeby pokazać w widgetach wiadomości, Super Chaty i członkostwa.",
+            "Jak tego używamy: wyłącznie do działania skonfigurowanych przez Ciebie widgetów i pokazania ich na Twoim streamie. Nie używamy tych danych do reklam, nie sprzedajemy ich, nie przekazujemy osobom trzecim i nie używamy ich do trenowania modeli AI ani uczenia maszynowego. Swoje ustawienia widzisz tylko Ty; na streamie pojawia się to, co YouTube i tak pokazuje publicznie w czacie.",
+            "Jak to przechowujemy: dane kanału są zapisane w naszej bazie na naszym serwerze; tokeny dostępu i odświeżania Google są szyfrowane (AES-256-GCM) przed zapisaniem. Nazwy subskrybentów i wiadomości z czatu trafiają do nakładek i nie są zapisywane.",
+            "Usuwanie: „Usuń konto” w panelu od razu kasuje dane kanału i tokeny. Dostęp możesz też cofnąć w każdej chwili na https://myaccount.google.com/permissions; funkcje YouTube przestaną wtedy działać do ponownego zalogowania.",
+            "Wykorzystanie i przekazywanie przez {app} informacji otrzymanych z interfejsów API Google do jakiejkolwiek innej aplikacji będzie zgodne z zasadami Google API Services User Data Policy (https://developers.google.com/terms/api-services-user-data-policy), w tym z wymogami Limited Use."
           ]
         },
         {
@@ -1110,7 +1137,7 @@
         {
           "title": "Co dzieje się w źródle przeglądarki",
           "body": [
-            "Widgety łączą się z Twojej przeglądarki lub z OBS bezpośrednio z Twitchem, Kickiem, 7TV, BetterTTV i FrankerFaceZ, żeby czytać czat i emotki. Te serwisy widzą adres IP tego komputera i przetwarzają go według własnych polityk prywatności.",
+            "Widgety łączą się z Twojej przeglądarki lub z OBS bezpośrednio z Twitchem, Kickiem, 7TV, BetterTTV i FrankerFaceZ, żeby czytać czat i emotki. Te serwisy widzą adres IP tego komputera i przetwarzają go według własnych polityk prywatności. Czat YouTube, Super Chaty i członkostwa odczytuje nasz serwer z publicznego czatu na żywo podanego kanału i przekazuje je do nakładek.",
             "Czcionki pochodzą z Google Fonts. W aplikacji nie ma analityki, reklam ani skryptów śledzących."
           ]
         },
@@ -1126,6 +1153,12 @@
           "body": [
             "Wszystko możesz zobaczyć, zmienić i usunąć w panelu. Odłączenie połączonego konta usuwa też jego tokeny.",
             "Usunięcie konta w panelu kasuje wszystko naraz: widgety i ich linki, style, wgrane pliki, tablice do rysowania i połączone konta. Dzieje się to od razu i nie da się tego cofnąć."
+          ]
+        },
+        {
+          "title": "Kontakt",
+          "body": [
+            "Pytania o tę politykę, Twoje dane albo usunięcie konta: {email}."
           ]
         }
       ]

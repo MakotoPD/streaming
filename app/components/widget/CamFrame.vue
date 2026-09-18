@@ -4,7 +4,7 @@ import type { Settings } from '#shared/types'
 const props = defineProps<{ settings: Settings, bus?: EventBus }>()
 
 const context = useWidgetContext()
-const label = computed(() => props.settings.frameLabel || context?.channels.value?.twitch?.login || context?.channels.value?.kick?.slug || '')
+const label = computed(() => props.settings.frameLabel || context?.channels.value?.twitch?.login || context?.channels.value?.kick?.slug || context?.channels.value?.youtube?.handle?.replace(/^@/, '') || '')
 </script>
 
 <template>

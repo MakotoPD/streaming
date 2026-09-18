@@ -12,7 +12,7 @@ export const users = pgTable('users', {
 export const accounts = pgTable('accounts', {
   id: uuid().primaryKey().defaultRandom(),
   userId: uuid().notNull().references(() => users.id, { onDelete: 'cascade' }),
-  provider: text().$type<'twitch' | 'kick'>().notNull(),
+  provider: text().$type<'twitch' | 'kick' | 'youtube'>().notNull(),
   providerId: text().notNull(),
   login: text().notNull(),
   displayName: text().notNull(),

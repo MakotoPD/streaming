@@ -3,6 +3,7 @@ import { de, en, es, pl, ru } from '@nuxt/ui/locale'
 
 const { t, locale, setLocale } = useI18n()
 const { loggedIn, clear } = useUserSession()
+const { appName, contactEmail } = useRuntimeConfig().public
 
 async function logout() {
   await clear()
@@ -17,7 +18,7 @@ async function logout() {
       <UContainer class="h-16 flex items-center gap-1 sm:gap-3">
         <NuxtLink to="/" class="flex items-center gap-2 font-bold text-lg">
           <UIcon name="i-lucide-radio" class="size-6 text-primary" />
-          <span class="hidden sm:inline">Streaming</span>
+          <span class="hidden sm:inline">{{ appName }}</span>
         </NuxtLink>
 
         <div class="flex-1" />
@@ -69,7 +70,7 @@ async function logout() {
         <div class="space-y-1">
           <div class="flex items-center gap-2 font-semibold text-default">
             <UIcon name="i-lucide-radio" class="size-5 text-primary" />
-            Streaming
+            {{ appName }}
           </div>
           <p>{{ t('footer.tagline') }}</p>
           <p class="text-dimmed">
@@ -86,6 +87,9 @@ async function logout() {
           <NuxtLink to="/cookies" class="hover:text-default">
             {{ t('nav.cookies') }}
           </NuxtLink>
+          <ULink v-if="contactEmail" :to="`mailto:${contactEmail}`" class="hover:text-default">
+            {{ contactEmail }}
+          </ULink>
           <span class="text-dimmed">{{ t('footer.contribute') }}</span>
         </nav>
       </UContainer>

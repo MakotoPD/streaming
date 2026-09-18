@@ -23,7 +23,8 @@ const categoryTabs = computed(() => ['all', ...WIDGET_CATEGORIES].map(value => (
 const platformTabs = computed(() => ([
   { value: 'all' as const, label: t('dashboard.allPlatforms'), icon: 'i-lucide-layers' },
   { value: 'twitch' as const, label: t('platforms.twitch'), icon: 'i-simple-icons-twitch' },
-  { value: 'kick' as const, label: t('platforms.kick'), icon: 'i-simple-icons-kick' }
+  { value: 'kick' as const, label: t('platforms.kick'), icon: 'i-simple-icons-kick' },
+  { value: 'youtube' as const, label: t('platforms.youtube'), icon: 'i-simple-icons-youtube' }
 ]))
 
 const results = computed(() => {
@@ -47,7 +48,8 @@ watch(open, (value) => {
   const channels = me.value?.channels
   query.value = ''
   category.value = 'all'
-  platform.value = channels?.twitch && !channels?.kick ? 'twitch' : channels?.kick && !channels?.twitch ? 'kick' : 'all'
+  const connected = (['twitch', 'kick', 'youtube'] as const).filter(name => channels?.[name])
+  platform.value = connected.length === 1 ? connected[0]! : 'all'
   creating.value = undefined
 })
 

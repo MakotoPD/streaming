@@ -9,11 +9,12 @@ interface TwitchStats {
 
 export default defineEventHandler(async (event) => {
   const { widget, channels } = await widgetByToken(event)
+  const youtube = channels.youtube?.handle ? await youtubeLive(channels.youtube.handle).catch(() => null) : null
   const twitch = channels.twitch
-  if (!twitch?.login) return { twitch: null }
+  if (!twitch?.login) return { twitch: null, youtube }
 
   const cached = cache.get(widget.userId)
-  if (cached && Date.now() - cached.at < 30_000) return { twitch: cached.value }
+  if (cached && Date.now() - cached.at < 30_000) return { twitch: cached.value, youtube }
 
   const [stream, followers, subs] = await Promise.all([
     helix<{ data: { viewer_count: number }[] }>(`/streams?user_login=${twitch.login}`).catch(() => undefined),
@@ -28,5 +29,5 @@ export default defineEventHandler(async (event) => {
     live: !!stream?.data.length
   }
   cache.set(widget.userId, { at: Date.now(), value })
-  return { twitch: value }
+  return { twitch: value, youtube }
 })

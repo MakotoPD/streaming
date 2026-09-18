@@ -3,11 +3,11 @@ import { WIDGET_TYPES } from '#shared/widgets'
 export default defineEventHandler((event) => {
   const base = siteUrl()
   setHeader(event, 'Content-Type', 'text/plain; charset=utf-8')
-  return `# Streaming
+  return `# ${useRuntimeConfig().public.appName}
 
-> Browser-source widgets for OBS and other streaming software. Chat, alerts, goals, timers, scene screens and a shared drawing canvas for Twitch and Kick, with 7TV, BetterTTV and FrankerFaceZ emotes.
+> Browser-source widgets for OBS and other streaming software. Chat, alerts, goals, timers, scene screens and a shared drawing canvas for Twitch, Kick and YouTube, with 7TV, BetterTTV and FrankerFaceZ emotes.
 
-Every widget is edited in the dashboard and added to OBS as a Browser Source URL. Widgets connect to Twitch and Kick directly from the browser source, so the app stays light on CPU. Users can start with just a channel nickname or sign in with Twitch or Kick to keep their setup across devices.
+Every widget is edited in the dashboard and added to OBS as a Browser Source URL. Widgets connect to Twitch and Kick directly from the browser source (YouTube chat is relayed by the server), so the app stays light on CPU. Users can start with just a channel nickname or sign in with Twitch or Kick to keep their setup across devices.
 
 ## Widgets
 ${WIDGET_TYPES.map(type => `- ${type}`).join('\n')}

@@ -94,6 +94,20 @@
       "title": "Starte mit deinem Nickname",
       "text": "Zum Ausprobieren brauchst du kein Konto. Melde dich später an, wenn du deine Einstellungen auf mehreren Rechnern willst.",
       "button": "Jetzt starten"
+    },
+    "youtubeNeedsLogin": "YouTube braucht eine Google-Anmeldung: dein Kanal wird automatisch erkannt und du bekommst Abonnenten-Alerts. Chat und Super Chats funktionieren auch.",
+    "whatIs": {
+      "title": "Was ist {app}?",
+      "text": "{app} ist eine kostenlose Web-App für Streamer auf Twitch, Kick und YouTube. Du wählst fertige Widgets wie Chat, Alerts, Ziele oder eine Now-Playing-Karte, gestaltest sie im Browser und fügst jedes in OBS als Browserquelle ein. Alles auf dieser Seite kannst du ohne Konto lesen; anmelden musst du dich nur zum Speichern von Widgets und Verbinden von Plattformen."
+    },
+    "google": {
+      "eyebrow": "Google-Anmeldung",
+      "title": "Wie wir dein YouTube-Konto nutzen",
+      "channel": "Wir lesen Kanalname, Handle und Avatar, damit deine Widgets wissen, welchem Kanal sie folgen.",
+      "subscribers": "Wir prüfen deine neuesten öffentlichen Abonnenten, um im Stream einen Danke-Alert zu zeigen.",
+      "chat": "Wir lesen deinen öffentlichen Live-Chat, um Nachrichten, Super Chats und Mitgliedschaften in deinen Widgets zu zeigen.",
+      "never": "Nur Lesezugriff. Wir posten nie, ändern nie deinen Kanal, verkaufen oder teilen deine Daten nie und nutzen sie nie für Werbung oder KI-Training.",
+      "policy": "Datenschutzerklärung lesen"
     }
   },
   "dashboard": {
@@ -130,7 +144,8 @@
     "emptyText": "Füge dein erstes Widget hinzu, passe es im Editor an und füge den Link in OBS als Browserquelle ein.",
     "addFirstWidget": "Erstes Widget hinzufügen",
     "allPlatforms": "Alle Plattformen",
-    "onlyOnPlatform": "Funktioniert nur auf {platform}"
+    "onlyOnPlatform": "Funktioniert nur auf {platform}",
+    "youtubeHint": "Wird nach der Google-Anmeldung automatisch gesetzt"
   },
   "widgets": {
     "chat": {
@@ -526,7 +541,8 @@
     "nowPlayingLayout": "Layout",
     "showCover": "Cover anzeigen",
     "showEqualizer": "Animierter Equalizer",
-    "coverSize": "Cover-Größe"
+    "coverSize": "Cover-Größe",
+    "showYouTube": "YouTube anzeigen"
   },
   "hints": {
     "hideAfter": "0 behält Nachrichten, bis neue sie verdrängen.",
@@ -847,7 +863,7 @@
     "root": "Gesamter Widget-Bereich (enthält alle CSS-Variablen)",
     "chat": "Container der Nachrichtenliste",
     "chatMessage": "Einzelne Chatnachricht (die Blase)",
-    "chatPlatformAttr": "Nachrichten nur von einer Plattform (twitch oder kick)",
+    "chatPlatformAttr": "Nachrichten nur einer Plattform (twitch, kick oder youtube)",
     "chatBadge": "Nutzer-Abzeichen (Abo, Mod, VIP…)",
     "chatPlatform": "Plattform-Symbol vor dem Namen",
     "chatName": "Benutzername",
@@ -1088,7 +1104,7 @@
         {
           "title": "Wer das hier betreibt",
           "body": [
-            "Streaming ist ein kleines Werkzeug für Stream-Widgets und wird vom Betreiber dieser Seite geführt.",
+            "{app} ist eine Web-App für Streamer. Damit richtest du Stream-Widgets ein (Chat, Alerts, Ziele, Timer und mehr) und fügst sie in OBS oder anderer Software als Browserquelle ein.",
             "Wenn etwas unklar ist, frag über das Projekt-Repository nach."
           ]
         },
@@ -1096,8 +1112,19 @@
           "title": "Daten, die du uns gibst",
           "body": [
             "Als Gast zu starten speichert eine zufällige Nutzer-ID und die eingegebenen Kanal-Nicknames. Mehr nicht.",
-            "Die Anmeldung mit Twitch oder Kick speichert zusätzlich Konto-ID, Login, Anzeigename, Avatar-URL und Zugriffstokens. Tokens werden verschlüsselt, bevor sie in die Datenbank kommen, und dienen nur zum Lesen deiner eigenen Kanaldaten: Follower, Abos, Zuschauerzahl, Kanalpunkt-Belohnungen, Umfragen und Hype Trains.",
+            "Die Anmeldung mit Twitch oder Kick speichert zusätzlich Konto-ID, Login, Anzeigename, Avatar-URL und Zugriffstokens. Tokens werden verschlüsselt, bevor sie in die Datenbank kommen, und dienen nur zum Lesen deiner eigenen Kanaldaten: Follower, Abos, Zuschauerzahl, Kanalpunkt-Belohnungen, Umfragen und Hype Trains. Die Google-Anmeldung speichert ID, Name und Avatar deines YouTube-Kanals sowie verschlüsselte Tokens (nur Lesezugriff), die nur genutzt werden, um deinen Kanal zu finden und deine neuesten öffentlichen Abonnenten zu lesen, solange ein Overlay offen ist. Du kannst den Zugriff jederzeit in deinem Google-Konto widerrufen.",
             "Wenn du einen Spendendienst verbindest (StreamElements, Tipply, Streamlabs), wird sein Token oder Widget-Link verschlüsselt gespeichert und nur vom Server zum Empfang deiner Spenden genutzt. Name, Betrag und Nachricht des Spenders gehen an deine Overlays und werden nicht gespeichert; E-Mail-Adressen der Spender werden verworfen."
+          ]
+        },
+        {
+          "title": "Daten von Google und YouTube",
+          "body": [
+            "YouTube-Funktionen gibt es erst nach der Anmeldung mit Google. Wir fordern nur einen Lesezugriff an, youtube.readonly, sowie dein Google-Basisprofil für die Anmeldung.",
+            "Was wir lesen: ID, Name, Handle und Avatar deines YouTube-Kanals (damit wir wissen, zu welchem Kanal deine Widgets gehören) und die Namen deiner neuesten Abonnenten mit öffentlichen Abos (für Abonnenten-Alerts im Stream). Außerdem lesen wir den öffentlichen Live-Chat deines Kanals, um Nachrichten, Super Chats und Mitgliedschaften in deinen Widgets zu zeigen.",
+            "Wie wir sie nutzen: nur damit deine eingerichteten Widgets funktionieren und in deinem Stream erscheinen. Wir nutzen sie nicht für Werbung, verkaufen sie nicht, geben sie nicht an Dritte weiter und nutzen sie nicht zum Training von KI- oder Machine-Learning-Modellen. Deine Einstellungen siehst nur du; im Stream erscheint, was YouTube in deinem Chat ohnehin öffentlich zeigt.",
+            "Wie wir sie speichern: Kanaldaten liegen in unserer Datenbank auf unserem eigenen Server; Google-Zugriffs- und Aktualisierungstokens werden vor dem Speichern verschlüsselt (AES-256-GCM). Abonnentennamen und Chatnachrichten gehen an deine Overlays und werden nicht gespeichert.",
+            "Löschen: „Konto löschen“ im Dashboard entfernt Kanaldaten und Tokens sofort. Du kannst den Zugriff auch jederzeit unter https://myaccount.google.com/permissions widerrufen; die YouTube-Funktionen stoppen dann bis zur nächsten Anmeldung.",
+            "Die Nutzung und Weitergabe von Informationen, die {app} von Google-APIs erhält, an andere Apps erfolgt gemäß der Google API Services User Data Policy (https://developers.google.com/terms/api-services-user-data-policy), einschließlich der Limited-Use-Anforderungen."
           ]
         },
         {
@@ -1110,7 +1137,7 @@
         {
           "title": "Was in der Browserquelle passiert",
           "body": [
-            "Widgets verbinden sich aus deinem Browser oder aus OBS direkt mit Twitch, Kick, 7TV, BetterTTV und FrankerFaceZ, um Chat und Emotes zu lesen. Diese Dienste sehen die IP-Adresse dieses Rechners und verarbeiten sie nach ihren eigenen Richtlinien.",
+            "Widgets verbinden sich aus deinem Browser oder aus OBS direkt mit Twitch, Kick, 7TV, BetterTTV und FrankerFaceZ, um Chat und Emotes zu lesen. Diese Dienste sehen die IP-Adresse dieses Rechners und verarbeiten sie nach ihren eigenen Richtlinien. YouTube-Chat, Super Chats und Mitgliedschaften liest unser Server aus dem öffentlichen Live-Chat des angegebenen Kanals und gibt sie an deine Overlays weiter.",
             "Schriften kommen von Google Fonts. In der App gibt es keine Analyse, keine Werbung und keine Tracking-Skripte."
           ]
         },
@@ -1126,6 +1153,12 @@
           "body": [
             "Du kannst alles im Dashboard sehen, ändern und löschen. Wird ein verknüpftes Konto getrennt, verschwinden auch seine Tokens.",
             "Das Löschen des Kontos im Dashboard entfernt alles auf einmal: Widgets und ihre Links, Stile, hochgeladene Dateien, Zeichenflächen und verbundene Konten. Das passiert sofort und lässt sich nicht rückgängig machen."
+          ]
+        },
+        {
+          "title": "Kontakt",
+          "body": [
+            "Fragen zu dieser Richtlinie, deinen Daten oder zum Löschen deines Kontos: {email}."
           ]
         }
       ]

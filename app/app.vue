@@ -3,12 +3,13 @@ import * as uiLocales from '@nuxt/ui/locale'
 
 const { locale, t } = useI18n()
 const uiLocale = computed(() => uiLocales[locale.value as keyof typeof uiLocales] ?? uiLocales.en)
-const site = useRuntimeConfig().public.siteUrl.replace(/\/$/, '')
+const { siteUrl, appName } = useRuntimeConfig().public
+const site = siteUrl.replace(/\/$/, '')
 const route = useRoute()
 
 useHead({
   htmlAttrs: { lang: locale },
-  titleTemplate: title => (title ? `${title} · Streaming` : 'Streaming · Stream widgets for OBS'),
+  titleTemplate: title => (title ? `${title} · ${appName}` : `${appName} · Stream widgets for OBS`),
   link: [
     { rel: 'icon', href: '/favicon.ico', sizes: 'any' },
     { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32.png' },
@@ -22,7 +23,7 @@ useSeoMeta({
   ogTitle: () => t('seo.title'),
   ogDescription: () => t('seo.description'),
   ogType: 'website',
-  ogSiteName: 'Streaming',
+  ogSiteName: appName,
   ogUrl: () => `${site}${route.path === '/' ? '' : route.path}`,
   ogImage: `${site}/og.png`,
   ogImageWidth: 1200,

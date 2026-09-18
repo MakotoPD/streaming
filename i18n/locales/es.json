@@ -94,6 +94,20 @@
       "title": "Empieza con tu nick",
       "text": "No hace falta cuenta para probarlo. Inicia sesión más tarde si quieres tu configuración en varios ordenadores.",
       "button": "Empezar ahora"
+    },
+    "youtubeNeedsLogin": "YouTube requiere iniciar sesión con Google: tu canal se detecta solo y recibes alertas de nuevos suscriptores. El chat y los Super Chats también funcionan.",
+    "whatIs": {
+      "title": "¿Qué es {app}?",
+      "text": "{app} es una aplicación web gratuita para streamers de Twitch, Kick y YouTube. Eliges widgets listos como chat, alertas, metas o la tarjeta de canción actual, les das estilo en el navegador y añades cada uno a OBS como fuente de navegador. Puedes leer todo en esta página sin cuenta; iniciar sesión solo hace falta para guardar widgets y conectar plataformas."
+    },
+    "google": {
+      "eyebrow": "Inicio de sesión con Google",
+      "title": "Cómo usamos tu cuenta de YouTube",
+      "channel": "Leemos el nombre, identificador y avatar de tu canal para que los widgets sepan qué canal seguir.",
+      "subscribers": "Consultamos tus suscriptores públicos más recientes para mostrar una alerta de agradecimiento en directo.",
+      "chat": "Leemos tu chat en directo público para mostrar mensajes, Super Chats y membresías en tus widgets.",
+      "never": "Acceso de solo lectura. Nunca publicamos, nunca cambiamos tu canal, nunca vendemos ni compartimos tus datos y nunca los usamos para anuncios ni para entrenar IA.",
+      "policy": "Leer la política de privacidad"
     }
   },
   "dashboard": {
@@ -130,7 +144,8 @@
     "emptyText": "Añade tu primer widget, ajústalo en el editor y pega su enlace en OBS como fuente de Navegador.",
     "addFirstWidget": "Añade tu primer widget",
     "allPlatforms": "Todas las plataformas",
-    "onlyOnPlatform": "Solo funciona en {platform}"
+    "onlyOnPlatform": "Solo funciona en {platform}",
+    "youtubeHint": "Se configura solo al iniciar sesión con Google"
   },
   "widgets": {
     "chat": {
@@ -526,7 +541,8 @@
     "nowPlayingLayout": "Diseño",
     "showCover": "Mostrar portada",
     "showEqualizer": "Ecualizador animado",
-    "coverSize": "Tamaño de portada"
+    "coverSize": "Tamaño de portada",
+    "showYouTube": "Mostrar YouTube"
   },
   "hints": {
     "hideAfter": "0 mantiene los mensajes hasta que los nuevos los desplacen.",
@@ -847,7 +863,7 @@
     "root": "Área completa del widget (contiene todas las variables CSS)",
     "chat": "Contenedor de la lista de mensajes",
     "chatMessage": "Un mensaje del chat (la burbuja)",
-    "chatPlatformAttr": "Mensajes de una sola plataforma (twitch o kick)",
+    "chatPlatformAttr": "Mensajes de una sola plataforma (twitch, kick o youtube)",
     "chatBadge": "Insignias del usuario (sub, mod, VIP…)",
     "chatPlatform": "Icono de plataforma antes del nombre",
     "chatName": "Nombre de usuario",
@@ -1088,7 +1104,7 @@
         {
           "title": "Quién gestiona esto",
           "body": [
-            "Streaming es una herramienta pequeña para crear widgets de directo, gestionada por el propietario de este sitio.",
+            "{app} es una aplicación web para streamers. Permite configurar widgets de directo (chat, alertas, metas, temporizadores y más) y añadirlos a OBS u otro software como fuente de navegador.",
             "Si algo no queda claro, pregunta a través del repositorio del proyecto."
           ]
         },
@@ -1096,8 +1112,19 @@
           "title": "Datos que nos das",
           "body": [
             "Empezar como invitado guarda un identificador de usuario aleatorio y los nicks de canal que escribiste. Nada más.",
-            "Iniciar sesión con Twitch o Kick guarda además el identificador de la cuenta, el login, el nombre visible, la URL del avatar y los tokens de acceso. Los tokens se cifran antes de llegar a la base de datos y solo se usan para leer los datos de tu canal: seguidores, suscripciones, número de espectadores, recompensas de puntos, encuestas y hype trains.",
+            "Iniciar sesión con Twitch o Kick guarda además el identificador de la cuenta, el login, el nombre visible, la URL del avatar y los tokens de acceso. Los tokens se cifran antes de llegar a la base de datos y solo se usan para leer los datos de tu canal: seguidores, suscripciones, número de espectadores, recompensas de puntos, encuestas y hype trains. Iniciar sesión con Google guarda el id, nombre y avatar de tu canal de YouTube y tokens cifrados (solo lectura), usados únicamente para encontrar tu canal y leer tus últimos suscriptores públicos mientras hay un overlay abierto. Puedes revocar el acceso en cualquier momento desde tu cuenta de Google.",
             "Si conectas un servicio de donaciones (StreamElements, Tipply, Streamlabs), su token o enlace se guarda cifrado y solo lo usa el servidor para recibir tus donaciones. El nombre, el importe y el mensaje del donante pasan a tus overlays y no se guardan; los e-mails de los donantes se descartan."
+          ]
+        },
+        {
+          "title": "Datos de Google y YouTube",
+          "body": [
+            "Las funciones de YouTube solo están disponibles tras iniciar sesión con Google. Pedimos un único permiso de solo lectura, youtube.readonly, y tu perfil básico de Google necesario para iniciar sesión.",
+            "Qué leemos: el ID, nombre, identificador y avatar de tu canal de YouTube (para saber a qué canal pertenecen tus widgets) y los nombres de tus suscriptores más recientes con suscripciones públicas (para mostrar alertas de nuevos suscriptores). También leemos el chat en directo público de tu canal para mostrar mensajes, Super Chats y membresías en tus widgets.",
+            "Cómo lo usamos: solo para que funcionen los widgets que configuras y se vean en tu directo. No lo usamos para publicidad, no lo vendemos, no lo compartimos con terceros y no lo usamos para entrenar modelos de IA o aprendizaje automático. Solo tú ves tu configuración; en el directo aparece lo que YouTube ya muestra públicamente en tu chat.",
+            "Cómo lo guardamos: los datos del canal se guardan en nuestra base de datos en nuestro propio servidor; los tokens de acceso y actualización de Google se cifran (AES-256-GCM) antes de guardarse. Los nombres de suscriptores y los mensajes del chat se envían a tus overlays y no se guardan.",
+            "Eliminación: \"Eliminar la cuenta\" en el panel borra al instante los datos del canal y los tokens. También puedes revocar el acceso en cualquier momento en https://myaccount.google.com/permissions; las funciones de YouTube dejarán de funcionar hasta que vuelvas a iniciar sesión.",
+            "El uso y la transferencia por parte de {app} de la información recibida de las API de Google a cualquier otra aplicación cumplirán la Google API Services User Data Policy (https://developers.google.com/terms/api-services-user-data-policy), incluidos los requisitos de uso limitado (Limited Use)."
           ]
         },
         {
@@ -1110,7 +1137,7 @@
         {
           "title": "Qué ocurre en la fuente de navegador",
           "body": [
-            "Los widgets se conectan desde tu navegador o desde OBS directamente a Twitch, Kick, 7TV, BetterTTV y FrankerFaceZ para leer el chat y los emotes. Esos servicios ven la IP de ese equipo y la tratan según sus propias políticas.",
+            "Los widgets se conectan desde tu navegador o desde OBS directamente a Twitch, Kick, 7TV, BetterTTV y FrankerFaceZ para leer el chat y los emotes. Esos servicios ven la IP de ese equipo y la tratan según sus propias políticas. El chat de YouTube, los Super Chats y las membresías los lee nuestro servidor del chat en directo público del canal indicado y los pasa a tus overlays.",
             "Las fuentes vienen de Google Fonts. En la aplicación no hay analíticas, ni anuncios, ni scripts de seguimiento."
           ]
         },
@@ -1126,6 +1153,12 @@
           "body": [
             "Puedes ver, cambiar y borrar todo desde el panel. Desconectar una cuenta vinculada también elimina sus tokens.",
             "Eliminar la cuenta desde el panel borra todo de golpe: widgets y sus enlaces, estilos, archivos subidos, lienzos y cuentas conectadas. Ocurre al instante y no se puede deshacer."
+          ]
+        },
+        {
+          "title": "Contacto",
+          "body": [
+            "Preguntas sobre esta política, tus datos o la eliminación de tu cuenta: {email}."
           ]
         }
       ]

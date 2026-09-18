@@ -9,6 +9,7 @@ export const viewers: WidgetDefinition = {
     languageField(),
     { key: 'showTwitch', section: 'general', type: 'toggle', default: true },
     { key: 'showKick', section: 'general', type: 'toggle', default: true },
+    { key: 'showYouTube', section: 'general', type: 'toggle', default: true },
     { key: 'combine', section: 'general', type: 'toggle', default: false },
     { key: 'showLabel', section: 'general', type: 'toggle', default: true },
     { key: 'hideWhenOffline', section: 'general', type: 'toggle', default: false },

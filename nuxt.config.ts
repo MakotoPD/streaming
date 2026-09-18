@@ -11,7 +11,9 @@ export default defineNuxtConfig({
     piperUrl: '',
     lastfmApiKey: '',
     public: {
-      siteUrl: 'http://localhost:3000'
+      siteUrl: 'http://localhost:3000',
+      appName: 'Streaming Tools',
+      contactEmail: ''
     }
   },
 

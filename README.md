@@ -22,9 +22,12 @@ The app runs at http://localhost:3000. Database migrations run automatically whe
 |---|---|
 | `NUXT_DATABASE_URL` | Postgres URL, locally `postgres://stream:stream@localhost:5432/stream` |
 | `NUXT_SESSION_PASSWORD` | At least 32 characters. Generate: `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"` |
+| `NUXT_PUBLIC_APP_NAME` | App name shown in the header, titles and legal pages (default `Streaming Tools`). Must match the name on the Google OAuth consent screen |
+| `NUXT_PUBLIC_CONTACT_EMAIL` | Contact address shown in the footer and the privacy policy (required for Google verification) |
 | `NUXT_PUBLIC_SITE_URL` | Public app URL. Must be `https://` in production (Twitch webhooks) |
 | `NUXT_OAUTH_TWITCH_CLIENT_ID` / `_SECRET` | App from https://dev.twitch.tv/console/apps, redirect: `<SITE_URL>/auth/twitch` |
 | `NUXT_TWITCH_WEBHOOK_SECRET` | Random 10–100 character string, signs EventSub webhooks (follow alerts) |
+| `NUXT_OAUTH_GOOGLE_CLIENT_ID` / `_SECRET` | Google OAuth client for YouTube, redirect: `<SITE_URL>/auth/youtube` (see YouTube below) |
 | `NUXT_OAUTH_KICK_CLIENT_ID` / `_SECRET` | App from https://kick.com/settings/developer, redirect: `<SITE_URL>/auth/kick` |
 | `NUXT_LASTFM_API_KEY` | Optional. Free key from https://www.last.fm/api/account/create, enables the Last.fm source of the Now playing widget |
 | `NUXT_PIPER_URL` | Piper TTS server, set automatically in `docker-compose.yml` |
@@ -48,7 +51,7 @@ Database data and uploaded sounds live in the `pgdata` and `uploads` volumes.
 |---|---|---|
 | Twitch | chat, subs, gifts, raids, bits (anonymous IRC), viewer count | follows, channel point rewards, Hype Train, polls and predictions (EventSub webhooks), follower and sub totals (Helix) |
 | Kick | chat, subs, gifts, raids, bans, follows (Pusher), viewer and follower counts | — |
-| YouTube | planned | planned |
+| YouTube | — | chat, Super Chats, Super Stickers, memberships and gifted memberships (live chat relayed by the server), viewer count; new subscribers (YouTube Data API, polled every 60 s while an overlay is open) |
 
 The overlay connects to Twitch and Kick directly from the OBS browser. The server stores settings, accounts and sounds,
 and pushes setting changes and follow alerts over SSE.
@@ -86,6 +89,16 @@ In the alerts widget the alert sound plays first and the speech starts when it e
 Every alert type except follows can have tiers (`<type>.variants`): from an amount, number of months, bits, gifts or raiders, and for subs and gifts optionally a specific tier. The highest matching tier replaces the text, image, sound and colour, and the alert gets `data-variant="<name>"` for custom CSS.
 
 Moderation (`shared/utils/moderation.ts`) applies to names and messages on screen and to TTS: a built-in list of slurs banned on Twitch and Kick in all five languages (toggle), the user's own word list (`word*` also matches longer forms), link removal, and a choice between masking the word and dropping the whole message. Matching ignores case, diacritics, repeated letters, l33t and spaced-out letters.
+
+## YouTube
+
+YouTube is only available after signing in with Google (`/auth/youtube`); the channel is read from the account (`channels.list mine=true`), so users never type it.
+
+- **Chat, Super Chats, stickers and memberships** come from YouTube's public live chat, the same way popular chat tools read it (no quota, unofficial, may break if YouTube changes it). The server keeps one poller per live video (`server/utils/youtube.ts`, parsing in `youtube-parse.ts`) and overlays fetch only new items from `GET /api/youtube/chat?channel=…&after=<seq>`, so ten overlays still mean one poller.
+- **New subscribers** use the official API (`subscriptions.list myRecentSubscribers`, 1 quota unit per call, every 60 s only while an overlay of that user is open). Only subscribers with public subscriptions are visible to the API.
+- **Viewer count** is read from the channel's live page.
+
+Google Cloud setup: create a project, enable **YouTube Data API v3**, configure the OAuth consent screen with the `youtube.readonly` scope, create an OAuth client (Web application) with the redirect URI `<SITE_URL>/auth/youtube` and put its id and secret into `NUXT_OAUTH_GOOGLE_CLIENT_ID` / `NUXT_OAUTH_GOOGLE_CLIENT_SECRET`. `youtube.readonly` is a sensitive scope: until Google verifies the app, only test users added on the consent screen can sign in (up to 100) and they see an "unverified app" warning. The default quota is 10,000 units per day per project.
 
 ## Now playing
 

@@ -4,7 +4,7 @@ import { widgetTexts } from '#shared/widgets'
 
 const props = defineProps<{ settings: Settings, bus?: EventBus }>()
 
-const BRAND: Record<string, string> = { twitch: '#9146ff', kick: '#53fc18' }
+const BRAND: Record<string, string> = { twitch: '#9146ff', kick: '#53fc18', youtube: '#ff0033' }
 
 const stats = useChannelStats(30_000)
 const context = useWidgetContext()
@@ -12,9 +12,10 @@ const texts = computed(() => widgetTexts(props.settings.language).viewers)
 
 const platforms = computed(() => {
   const channels = context?.channels.value
-  const list: { platform: 'twitch' | 'kick', live: boolean, viewers: number }[] = []
+  const list: { platform: 'twitch' | 'kick' | 'youtube', live: boolean, viewers: number }[] = []
   if (props.settings.showTwitch && channels?.twitch) list.push({ platform: 'twitch', live: !!stats.value.twitch?.live, viewers: stats.value.twitch?.viewers ?? 0 })
   if (props.settings.showKick && channels?.kick) list.push({ platform: 'kick', live: !!stats.value.kick?.live, viewers: stats.value.kick?.viewers ?? 0 })
+  if (props.settings.showYouTube && channels?.youtube) list.push({ platform: 'youtube', live: !!stats.value.youtube?.live, viewers: stats.value.youtube?.viewers ?? 0 })
   return list
 })
 

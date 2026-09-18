@@ -4,7 +4,7 @@ export interface Me {
   id: string
   channels: Channels
   expiresAt: string | null
-  accounts: { provider: 'twitch' | 'kick', login: string, displayName: string, avatar: string | null, needsReconnect: boolean }[]
+  accounts: { provider: 'twitch' | 'kick' | 'youtube', login: string, displayName: string, avatar: string | null, needsReconnect: boolean }[]
 }
 
 export function useMe() {

@@ -10,6 +10,7 @@ import { donationToAlert, parseSocketIoPacket, streamElementsChannel, streamElem
 import { fillTemplate } from '../shared/utils/template.ts'
 import { filterText, speakable } from '../shared/utils/moderation.ts'
 import { lastfmTrack, listenBrainzTrack } from '../server/utils/now-playing.ts'
+import { parseAmount, youtubeActionsToEvents, youtubeChannelPath, youtubeLiveChatContinuation, youtubeLiveFromPage } from '../server/utils/youtube-parse.ts'
 import { formatColor, parseColor } from '../app/utils/color.ts'
 import { tokenizeCss } from '../app/utils/css-highlight.ts'
 import { applyOps, canvasPath, sanitizeOps, sanitizeScene } from '../shared/canvas.ts'
@@ -225,4 +226,49 @@ test('now playing parses Last.fm and ListenBrainz', () => {
   const lb = { payload: { listens: [{ track_metadata: { track_name: 'Some Resolve', artist_name: 'Röyksopp', release_name: 'The Understanding', additional_info: { release_mbid: 'f1418001-7f1e-46af-bfdb-95faeded8841' } } }], playing_now: true } }
   assert.equal(listenBrainzTrack(lb)?.cover, 'https://coverartarchive.org/release/f1418001-7f1e-46af-bfdb-95faeded8841/front-250')
   assert.equal(listenBrainzTrack({ payload: { listens: [], playing_now: true } }), null)
+})
+
+test('youtube chat actions become stream events', () => {
+  const events = youtubeActionsToEvents([
+    { addChatItemAction: { item: { liveChatTextMessageRenderer: { id: 'm1', authorName: { simpleText: '@Ania' }, authorExternalChannelId: 'UCa', authorBadges: [{ liveChatAuthorBadgeRenderer: { icon: { iconType: 'MODERATOR' } } }], message: { runs: [{ text: 'hej ' }, { emoji: { emojiId: 'x', shortcuts: [':cat:'], isCustomEmoji: true, image: { thumbnails: [{ url: 'https://yt3.ggpht.com/cat=w24' }, { url: 'https://yt3.ggpht.com/cat=w48' }] } } }, { emoji: { emojiId: '😀', shortcuts: [':grin:'] } }] } } } } },
+    { addChatItemAction: { item: { liveChatPaidMessageRenderer: { id: 'p1', authorName: { simpleText: 'Bob' }, purchaseAmountText: { simpleText: 'PLN 20.00' }, message: { runs: [{ text: 'gg' }] } } } } },
+    { addChatItemAction: { item: { liveChatMembershipItemRenderer: { id: 'b1', authorName: { simpleText: 'Cid' }, headerPrimaryText: { runs: [{ text: 'Member for ' }, { text: '6' }, { text: ' months' }] } } } } },
+    { addChatItemAction: { item: { liveChatSponsorshipsGiftPurchaseAnnouncementRenderer: { header: { liveChatSponsorshipsHeaderRenderer: { authorName: { simpleText: 'Dee' }, primaryText: { runs: [{ text: 'Gifted ' }, { text: '5' }, { text: ' memberships' }] } } } } } } },
+    { removeChatItemAction: { targetItemId: 'm1' } }
+  ])
+  const chat = events[0]
+  assert.ok(chat?.kind === 'chat' && chat.platform === 'youtube' && chat.name === 'Ania' && chat.roles.includes('moderator'))
+  assert.deepEqual(chat.parts, [{ type: 'text', text: 'hej ' }, { type: 'emote', name: ':cat:', url: 'https://yt3.ggpht.com/cat=w48' }, { type: 'text', text: '😀' }])
+  assert.deepEqual(events.filter(e => e.kind === 'alert').map(e => e.kind === 'alert' && [e.type, e.amount ?? e.months ?? e.count, e.currency]), [['donation', 20, 'PLN'], ['sub', 6, undefined], ['gifts', 5, undefined]])
+  assert.deepEqual(events.at(-1), { kind: 'delete', platform: 'youtube', id: 'm1' })
+})
+
+test('youtube amounts, channel paths and live detection', () => {
+  assert.deepEqual(parseAmount('$4.99'), { amount: 4.99, currency: 'USD' })
+  assert.deepEqual(parseAmount('20,00 zł'), { amount: 20, currency: 'PLN' })
+  assert.deepEqual(parseAmount('€1.234,50'), { amount: 1234.5, currency: 'EUR' })
+  assert.deepEqual(parseAmount('¥1,000'), { amount: 1000, currency: 'JPY' })
+  assert.equal(youtubeChannelPath('@LofiGirl'), '/@LofiGirl')
+  assert.equal(youtubeChannelPath('https://www.youtube.com/@LofiGirl/streams'), '/@LofiGirl')
+  assert.equal(youtubeChannelPath('UCSJ4gkVC6NrvII8umztf0Ow'), '/channel/UCSJ4gkVC6NrvII8umztf0Ow')
+  assert.equal(youtubeChannelPath('../etc'), undefined)
+  assert.equal(youtubeLiveFromPage('<link rel="canonical" href="https://www.youtube.com/watch?v=3PFJ9SETS4M">"isLive":true'), '3PFJ9SETS4M')
+  assert.equal(youtubeLiveFromPage('<link rel="canonical" href="https://www.youtube.com/@x">'), undefined)
+})
+
+test('locale strings avoid vue-i18n special characters', () => {
+  const dir = new URL('../i18n/locales/', import.meta.url)
+  const values = (obj: object): string[] => Object.values(obj).flatMap(v => (v && typeof v === 'object' ? values(v) : [String(v)]))
+  for (const file of readdirSync(dir)) {
+    const bad = values(JSON.parse(readFileSync(new URL(file, dir), 'utf8'))).filter(text => /@|\|/.test(text.replaceAll("{'@'}", '').replaceAll("{'|'}", '')) && !/\{count\|/.test(text))
+    assert.deepEqual(bad, [], file)
+  }
+})
+
+test('youtube chat uses the Live chat view, not Top chat', () => {
+  const data = { contents: { liveChatRenderer: { header: { liveChatHeaderRenderer: { viewSelector: { sortFilterSubMenuRenderer: { subMenuItems: [
+    { title: 'Top chat', selected: true, continuation: { reloadContinuationData: { continuation: 'TOP' } } },
+    { title: 'Live chat', selected: false, continuation: { reloadContinuationData: { continuation: 'ALL' } } }
+  ] } } } } } } }
+  assert.equal(youtubeLiveChatContinuation(`<script>window["ytInitialData"] = ${JSON.stringify(data)};</script>`), 'ALL')
 })

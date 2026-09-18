@@ -7,11 +7,13 @@ export default defineEventHandler(async (event) => {
     stream.push(JSON.stringify(msg))
   })
   const releaseDonations = retainDonations(widget.userId)
+  const releaseSubscribers = retainYouTubeSubscribers(widget.userId)
   const keepAlive = setInterval(() => stream.push({ event: 'ping', data: '' }), 25_000)
 
   stream.onClosed(async () => {
     clearInterval(keepAlive)
     releaseDonations()
+    releaseSubscribers()
     unsubscribe()
     await stream.close()
   })

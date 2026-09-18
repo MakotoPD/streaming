@@ -50,7 +50,7 @@ export async function updateChannels(userId: string, patch: Channels) {
 }
 
 export async function linkAccount(event: H3Event, account: {
-  provider: 'twitch' | 'kick'
+  provider: 'twitch' | 'kick' | 'youtube'
   providerId: string
   login: string
   displayName: string

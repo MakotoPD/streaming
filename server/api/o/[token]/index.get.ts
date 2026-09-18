@@ -10,7 +10,8 @@ export default defineEventHandler(async (event) => {
     settings: sanitizeSettings(def, widget.settings),
     channels: {
       twitch: channels.twitch ? { login: channels.twitch.login } : undefined,
-      kick: channels.kick
+      kick: channels.kick,
+      youtube: channels.youtube
     }
   }
 })

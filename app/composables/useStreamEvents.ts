@@ -28,7 +28,7 @@ export function useStreamEvents(channels: MaybeRefOrGetter<Channels | undefined>
     emoteStore.value = undefined
   }
 
-  watch(() => [toValue(channels)?.twitch?.login, toValue(channels)?.kick?.slug, toValue(enabled)] as const, ([twitchLogin, kickSlug, on]) => {
+  watch(() => [toValue(channels)?.twitch?.login, toValue(channels)?.kick?.slug, toValue(channels)?.youtube?.handle, toValue(enabled)] as const, ([twitchLogin, kickSlug, youtubeHandle, on]) => {
     stop()
     if (!on) return
 
@@ -69,6 +69,8 @@ export function useStreamEvents(channels: MaybeRefOrGetter<Channels | undefined>
         })
         .catch(err => console.warn('[kick] failed to load channel', kickSlug, err))
     }
+
+    if (youtubeHandle) cleanup.push(connectYouTube(youtubeHandle, emit).close)
 
     if (!twitchLogin && !kickSlug) emotes.load(ids)
   }, { immediate: true })

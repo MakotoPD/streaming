@@ -75,7 +75,8 @@ const { copyObsUrl } = useObsUrl()
       :description="t('guest.text')"
       :actions="[
         { label: t('dashboard.connect', { platform: 'Twitch' }), icon: 'i-simple-icons-twitch', to: '/auth/twitch', external: true, color: 'neutral', variant: 'outline' },
-        { label: t('dashboard.connect', { platform: 'Kick' }), icon: 'i-simple-icons-kick', to: '/auth/kick', external: true, color: 'neutral', variant: 'outline' }
+        { label: t('dashboard.connect', { platform: 'Kick' }), icon: 'i-simple-icons-kick', to: '/auth/kick', external: true, color: 'neutral', variant: 'outline' },
+        { label: t('dashboard.connect', { platform: 'YouTube' }), icon: 'i-simple-icons-youtube', to: '/auth/youtube', external: true, color: 'neutral', variant: 'outline' }
       ]"
     />
 
@@ -147,6 +148,10 @@ const { copyObsUrl } = useObsUrl()
           <UFormField :label="t('platforms.kick')" name="kick">
             <UInput v-model="channels.kick" icon="i-simple-icons-kick" class="w-full" />
           </UFormField>
+          <UFormField :label="t('platforms.youtube')" name="youtube" :hint="t('dashboard.youtubeHint')">
+            <UInput v-if="me?.channels.youtube" :model-value="me.channels.youtube.handle" icon="i-simple-icons-youtube" disabled class="w-full" />
+            <UButton v-else to="/auth/youtube" external icon="i-simple-icons-youtube" color="neutral" variant="outline" block :label="t('dashboard.connect', { platform: 'YouTube' })" />
+          </UFormField>
           <UButton type="submit" :loading="savingChannels" icon="i-lucide-save" :label="t('common.save')" />
         </UForm>
       </UCard>
@@ -186,6 +191,7 @@ const { copyObsUrl } = useObsUrl()
           <div class="flex flex-wrap gap-2">
             <UButton v-if="!linked.has('twitch')" to="/auth/twitch" external icon="i-simple-icons-twitch" color="neutral" variant="outline" :label="t('dashboard.connect', { platform: 'Twitch' })" />
             <UButton v-if="!linked.has('kick')" to="/auth/kick" external icon="i-simple-icons-kick" color="neutral" variant="outline" :label="t('dashboard.connect', { platform: 'Kick' })" />
+            <UButton v-if="!linked.has('youtube')" to="/auth/youtube" external icon="i-simple-icons-youtube" color="neutral" variant="outline" :label="t('dashboard.connect', { platform: 'YouTube' })" />
           </div>
         </div>
       </UCard>

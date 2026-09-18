@@ -1,8 +1,9 @@
-export type Platform = 'twitch' | 'kick'
+export type Platform = 'twitch' | 'kick' | 'youtube'
 
 export interface Channels {
   twitch?: { login: string, id?: string }
   kick?: { slug: string }
+  youtube?: { handle: string, id?: string }
 }
 
 export interface Badge {

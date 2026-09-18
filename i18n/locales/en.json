@@ -94,6 +94,20 @@
       "title": "Start with your nickname",
       "text": "No account needed to try it. Sign in later if you want your setup on more than one computer.",
       "button": "Start now"
+    },
+    "youtubeNeedsLogin": "YouTube needs a Google sign-in: your channel is picked up automatically and you get subscriber alerts. Chat and Super Chats work too.",
+    "whatIs": {
+      "title": "What is {app}?",
+      "text": "{app} is a free web app for Twitch, Kick and YouTube streamers. You pick ready-made widgets such as chat, alerts, goals or a now playing card, style them in the browser and add each one to OBS as a Browser Source. You can look around and read everything on this page without an account; signing in is only needed to save widgets and connect platforms."
+    },
+    "google": {
+      "eyebrow": "Google sign-in",
+      "title": "How we use your YouTube account",
+      "channel": "We read your channel name, handle and avatar so your widgets know which channel to follow.",
+      "subscribers": "We check your newest public subscribers to show a thank-you alert on stream.",
+      "chat": "We read your public live chat to show messages, Super Chats and memberships in your widgets.",
+      "never": "Read-only access. We never post, never change your channel, never sell or share your data and never use it for ads or AI training.",
+      "policy": "Read the privacy policy"
     }
   },
   "dashboard": {
@@ -130,7 +144,8 @@
     "emptyText": "Add your first widget, style it in the editor and paste its link into OBS as a Browser source.",
     "addFirstWidget": "Add your first widget",
     "allPlatforms": "All platforms",
-    "onlyOnPlatform": "Works only on {platform}"
+    "onlyOnPlatform": "Works only on {platform}",
+    "youtubeHint": "Set automatically after signing in with Google"
   },
   "widgets": {
     "chat": {
@@ -526,7 +541,8 @@
     "nowPlayingLayout": "Layout",
     "showCover": "Show album cover",
     "showEqualizer": "Animated equalizer",
-    "coverSize": "Cover size"
+    "coverSize": "Cover size",
+    "showYouTube": "Show YouTube"
   },
   "hints": {
     "hideAfter": "0 keeps messages until new ones push them out.",
@@ -847,7 +863,7 @@
     "root": "Whole widget area (holds all CSS variables)",
     "chat": "Message list container",
     "chatMessage": "Single chat message (the bubble)",
-    "chatPlatformAttr": "Messages from one platform only (twitch or kick)",
+    "chatPlatformAttr": "Messages from one platform only (twitch, kick or youtube)",
     "chatBadge": "User badges (sub, mod, VIP…)",
     "chatPlatform": "Platform icon before the name",
     "chatName": "Username",
@@ -1088,7 +1104,7 @@
         {
           "title": "Who runs this",
           "body": [
-            "Streaming is a small tool for making stream widgets, run by the owner of this site.",
+            "{app} is a web app for live streamers. It lets you configure stream widgets (chat, alerts, goals, timers and more) and add them to OBS or other streaming software as a Browser Source.",
             "If anything here is unclear, ask through the project repository."
           ]
         },
@@ -1096,8 +1112,19 @@
           "title": "Data you give us",
           "body": [
             "Starting as a guest stores a random user id and the channel nicknames you typed. Nothing else.",
-            "Signing in with Twitch or Kick also stores your account id, login, display name, avatar URL and access tokens. Tokens are encrypted before they reach the database and are only used to read your own channel data: followers, subscriptions, viewer count, channel point rewards, polls and hype trains.",
+            "Signing in with Twitch or Kick also stores your account id, login, display name, avatar URL and access tokens. Tokens are encrypted before they reach the database and are only used to read your own channel data: followers, subscriptions, viewer count, channel point rewards, polls and hype trains. Signing in with Google stores your YouTube channel id, name, avatar and encrypted access tokens (read-only YouTube scope), used only to find your channel and read your latest public subscribers while an overlay is open. You can revoke access at any time in your Google account settings.",
             "If you connect a donation service (StreamElements, Tipply, Streamlabs), its token or widget link is stored encrypted and used only by the server to receive your donations. Donor names, amounts and messages are passed to your overlays and not stored; donor e-mails are discarded."
+          ]
+        },
+        {
+          "title": "Google and YouTube data",
+          "body": [
+            "YouTube features are only available after you sign in with Google. We request a single read-only scope, youtube.readonly, plus your basic Google profile needed to sign in.",
+            "What we read: your YouTube channel ID, channel name, handle and avatar (to know which channel your widgets belong to), and the names of your most recent subscribers who made their subscriptions public (to show new subscriber alerts on your stream). We also read the public live chat of your own channel to show chat messages, Super Chats and memberships in your widgets.",
+            "How we use it: only to run the widgets you set up and show them on your own stream. We do not use it for advertising, we do not sell it, we do not share it with third parties and we do not use it to train AI or machine learning models. Only you see your settings; what appears on stream is what YouTube already shows publicly in your chat.",
+            "How we store it: the channel details are stored in our database on our own server; Google access and refresh tokens are encrypted (AES-256-GCM) before they are saved. Subscriber names and chat messages are passed to your overlays and are not stored.",
+            "Deleting it: \"Delete account\" in the dashboard removes your channel details and tokens immediately. You can also revoke access at any time at https://myaccount.google.com/permissions; the YouTube features then stop working until you sign in again.",
+            "{app}'s use and transfer of information received from Google APIs to any other app will adhere to the Google API Services User Data Policy (https://developers.google.com/terms/api-services-user-data-policy), including the Limited Use requirements."
           ]
         },
         {
@@ -1110,7 +1137,7 @@
         {
           "title": "What happens in the browser source",
           "body": [
-            "Widgets connect from your browser or from OBS straight to Twitch, Kick, 7TV, BetterTTV and FrankerFaceZ to read chat and emotes. Those services see the IP address of that machine and handle it under their own privacy policies.",
+            "Widgets connect from your browser or from OBS straight to Twitch, Kick, 7TV, BetterTTV and FrankerFaceZ to read chat and emotes. Those services see the IP address of that machine and handle it under their own privacy policies. YouTube chat, Super Chats and memberships are read by our server from the public live chat of the channel you entered and passed on to your overlays.",
             "Fonts come from Google Fonts. There are no analytics, no ads and no tracking scripts anywhere in the app."
           ]
         },
@@ -1126,6 +1153,12 @@
           "body": [
             "You can see, change and delete everything from the dashboard. Disconnecting a linked account also removes its tokens.",
             "Deleting the account in the dashboard removes everything at once: widgets and their links, styles, uploaded files, drawing boards and connected accounts. It happens immediately and cannot be undone."
+          ]
+        },
+        {
+          "title": "Contact",
+          "body": [
+            "Questions about this policy, your data or deleting your account: {email}."
           ]
         }
       ]

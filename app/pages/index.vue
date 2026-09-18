@@ -5,6 +5,7 @@ const { t } = useI18n()
 const toast = useToast()
 const route = useRoute()
 const { loggedIn, fetch: refreshSession } = useUserSession()
+const { appName } = useRuntimeConfig().public
 
 useHead({ title: () => t('landing.title') })
 
@@ -56,12 +57,18 @@ function backToTop() {
       <UContainer class="relative py-14 lg:py-20">
         <div class="grid items-start gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,26rem)]">
           <div>
+            <p class="mb-4 font-mono text-sm font-semibold uppercase tracking-widest text-primary">
+              {{ appName }}
+            </p>
             <div class="flex flex-wrap items-center gap-2 text-xs font-medium text-muted">
               <span class="inline-flex items-center gap-1.5 rounded-full border border-default px-2.5 py-1">
                 <UIcon name="i-simple-icons-twitch" class="size-3.5" /> Twitch
               </span>
               <span class="inline-flex items-center gap-1.5 rounded-full border border-default px-2.5 py-1">
                 <UIcon name="i-simple-icons-kick" class="size-3.5" /> Kick
+              </span>
+              <span class="inline-flex items-center gap-1.5 rounded-full border border-default px-2.5 py-1">
+                <UIcon name="i-simple-icons-youtube" class="size-3.5" /> YouTube
               </span>
               <span class="rounded-full border border-default px-2.5 py-1">7TV</span>
               <span class="rounded-full border border-default px-2.5 py-1">BetterTTV</span>
@@ -111,9 +118,6 @@ function backToTop() {
                 <UFormField :label="t('platforms.kick')" name="kick">
                   <UInput v-model="form.kick" icon="i-simple-icons-kick" placeholder="nick" class="w-full" />
                 </UFormField>
-                <UFormField :label="t('platforms.youtube')" name="youtube" :hint="t('common.soon')">
-                  <UInput icon="i-simple-icons-youtube" disabled class="w-full" />
-                </UFormField>
                 <UButton type="submit" block size="lg" :loading="loading" :label="t('landing.continue')" trailing-icon="i-lucide-arrow-right" />
               </UForm>
 
@@ -125,9 +129,43 @@ function backToTop() {
                 </p>
                 <UButton to="/auth/twitch" external icon="i-simple-icons-twitch" color="neutral" variant="outline" block :label="t('landing.loginWith', { platform: 'Twitch' })" />
                 <UButton to="/auth/kick" external icon="i-simple-icons-kick" color="neutral" variant="outline" block :label="t('landing.loginWith', { platform: 'Kick' })" />
+                <UButton to="/auth/youtube" external icon="i-simple-icons-youtube" color="neutral" variant="outline" block :label="t('landing.loginWith', { platform: 'YouTube' })" />
+                <p class="text-xs text-dimmed">
+                  {{ t('landing.youtubeNeedsLogin') }}
+                </p>
               </div>
             </template>
           </UCard>
+        </div>
+      </UContainer>
+    </section>
+
+    <section class="border-b border-default">
+      <UContainer class="py-14 lg:py-20">
+        <div class="grid gap-10 lg:grid-cols-2">
+          <div>
+            <h2 class="text-3xl font-bold tracking-tight text-highlighted">
+              {{ t('landing.whatIs.title', { app: appName }) }}
+            </h2>
+            <p class="mt-4 text-lg text-muted">
+              {{ t('landing.whatIs.text', { app: appName }) }}
+            </p>
+          </div>
+          <div class="rounded-xl border border-default p-6">
+            <span class="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-primary">
+              <UIcon name="i-simple-icons-youtube" class="size-4" /> {{ t('landing.google.eyebrow') }}
+            </span>
+            <h3 class="mt-2 text-xl font-semibold text-highlighted">
+              {{ t('landing.google.title') }}
+            </h3>
+            <ul class="mt-4 space-y-3 text-sm text-muted">
+              <li v-for="item in ['channel', 'subscribers', 'chat', 'never']" :key="item" class="flex gap-2">
+                <UIcon :name="item === 'never' ? 'i-lucide-shield-check' : 'i-lucide-check'" class="mt-0.5 size-4 shrink-0 text-primary" />
+                {{ t(`landing.google.${item}`) }}
+              </li>
+            </ul>
+            <UButton to="/privacy" variant="link" class="mt-3 -ms-2.5" trailing-icon="i-lucide-arrow-right" :label="t('landing.google.policy')" />
+          </div>
         </div>
       </UContainer>
     </section>
