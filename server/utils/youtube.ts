@@ -15,6 +15,7 @@ let clientVersion = '2.20260917.01.00'
 interface Found {
   videoId: string
   viewers: number
+  method: 'innertube' | 'official API' | 'channel page'
 }
 
 interface Lookup {
@@ -63,7 +64,7 @@ async function viaInnertube(path: string): Promise<Found | 'offline' | undefined
   const videoId = resolved.endpoint.watchEndpoint?.videoId
   if (typeof videoId !== 'string') return 'offline'
   const info = await watchInfo(videoId)
-  return info ? { videoId, ...info } : 'offline'
+  return info ? { videoId, ...info, method: 'innertube' } : 'offline'
 }
 
 async function viaOfficialApi(path: string): Promise<Found | 'offline' | undefined> {
@@ -77,7 +78,8 @@ async function viaOfficialApi(path: string): Promise<Found | 'offline' | undefin
   const videoId = list.items?.[0]?.id
   if (!videoId) return 'offline'
   const info = await watchInfo(videoId)
-  return { videoId, viewers: info?.viewers ?? 0 }
+  console.info(`[youtube] ${path}: innertube failed, used the official API (liveBroadcasts, 1 unit, ${youtubeQuotaToday()} today)`)
+  return { videoId, viewers: info?.viewers ?? 0, method: 'official API' }
 }
 
 async function viaPage(path: string): Promise<Found | undefined> {
@@ -85,7 +87,7 @@ async function viaPage(path: string): Promise<Found | undefined> {
     .then(response => (response.ok ? response.text() : ''))
     .catch(() => '')
   const videoId = youtubeLiveFromPage(html)
-  return videoId ? { videoId, viewers: youtubeViewersFromPage(html) } : undefined
+  return videoId ? { videoId, viewers: youtubeViewersFromPage(html), method: 'channel page' } : undefined
 }
 
 async function find(path: string): Promise<Found | undefined> {
@@ -106,7 +108,9 @@ async function lookup(path: string): Promise<Lookup> {
   const cached = lookups.get(path)
   if (cached && Date.now() - cached.at < (cached.videoId ? 60_000 : 30_000)) return cached
   const found = await find(path)
-  const result: Lookup = found ? { at: Date.now(), ...found } : { at: Date.now(), videoId: null, viewers: 0 }
+  if (found && found.videoId !== cached?.videoId) console.info(`[youtube] ${path} is live: video ${found.videoId}, found via ${found.method}`)
+  if (!found && cached?.videoId) console.info(`[youtube] ${path} is no longer live`)
+  const result: Lookup = found ? { at: Date.now(), videoId: found.videoId, viewers: found.viewers } : { at: Date.now(), videoId: null, viewers: 0 }
   lookups.set(path, result)
   if (lookups.size > 2000) lookups.delete(lookups.keys().next().value!)
   return result
@@ -119,13 +123,14 @@ export async function youtubeLive(channel: string) {
   return { live: !!result.videoId, viewers: result.videoId ? result.viewers : 0 }
 }
 
-function closeFeed(feed: Feed) {
+function closeFeed(feed: Feed, reason: string) {
+  console.info(`[youtube] chat ${feed.videoId} closed: ${reason} (${feed.seq} items relayed)`)
   clearTimeout(feed.timer)
   feeds.delete(feed.videoId)
 }
 
 async function poll(feed: Feed) {
-  if (Date.now() - feed.lastAsked > IDLE_MS) return closeFeed(feed)
+  if (Date.now() - feed.lastAsked > IDLE_MS) return closeFeed(feed, 'no overlay asked for 60 s')
   let wait = 3000
   try {
     const body = await innertube('live_chat/get_live_chat', { continuation: feed.continuation })
@@ -134,7 +139,7 @@ async function poll(feed: Feed) {
     const continuation = next?.invalidationContinuationData ?? next?.timedContinuationData ?? next?.reloadContinuationData
     if (!continuation?.continuation) {
       for (const [path, entry] of lookups) if (entry.videoId === feed.videoId) lookups.delete(path)
-      return closeFeed(feed)
+      return closeFeed(feed, 'stream ended')
     }
     feed.continuation = continuation.continuation
     feed.failures = 0
@@ -143,7 +148,7 @@ async function poll(feed: Feed) {
     wait = Math.min(4000, Math.max(1500, Number(continuation.timeoutMs) || 3000))
   }
   catch {
-    if (++feed.failures >= 5) return closeFeed(feed)
+    if (++feed.failures >= 5) return closeFeed(feed, '5 failed requests in a row')
     wait = 2000 * feed.failures
   }
   feed.timer = setTimeout(() => poll(feed), wait)
@@ -160,6 +165,7 @@ async function openFeed(videoId: string) {
   }
   const feed: Feed = { videoId, continuation, events: [], seq: 0, lastAsked: Date.now(), failures: 0 }
   feeds.set(videoId, feed)
+  console.info(`[youtube] chat ${videoId} opened via the live chat page, polled through innertube (no API quota)`)
   feed.timer = setTimeout(() => poll(feed), 500)
   return feed
 }

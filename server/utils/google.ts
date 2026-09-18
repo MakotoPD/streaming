@@ -1,5 +1,23 @@
 import { and, eq } from 'drizzle-orm'
 
+const quota = { day: '', total: 0, byPath: {} as Record<string, number>, reported: 0 }
+
+function countQuota(path: string) {
+  const day = new Date().toISOString().slice(0, 10)
+  if (quota.day !== day) Object.assign(quota, { day, total: 0, byPath: {} })
+  quota.total++
+  quota.byPath[path] = (quota.byPath[path] ?? 0) + 1
+  if (Date.now() - quota.reported > 3_600_000) {
+    quota.reported = Date.now()
+    console.info(`[youtube] quota used today (UTC): ${quota.total} of 10000 units (${Object.entries(quota.byPath).map(([name, units]) => `${name} ${units}`).join(', ')})`)
+  }
+  return quota.total
+}
+
+export function youtubeQuotaToday() {
+  return quota.total
+}
+
 export const YOUTUBE_SCOPES = ['openid', 'profile', 'https://www.googleapis.com/auth/youtube.readonly']
 
 function credentials() {
@@ -40,6 +58,7 @@ export async function youtubeApi<T>(userId: string, path: string, query: Record<
   }
   if (!token) return undefined
 
+  countQuota(path)
   const request = (bearer: string) => $fetch<T>(`https://www.googleapis.com/youtube/v3${path}`, { query, headers: { authorization: `Bearer ${bearer}` }, timeout: 10_000 })
   try {
     return await request(token)
