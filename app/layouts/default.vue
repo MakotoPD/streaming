@@ -18,7 +18,7 @@ async function logout() {
       <UContainer class="h-16 flex items-center gap-1 sm:gap-3">
         <NuxtLink to="/" class="flex items-center gap-2 font-bold text-lg">
           <UIcon name="i-lucide-radio" class="size-6 text-primary" />
-          <span class="hidden sm:inline">{{ appName }}</span>
+          <span class="truncate">{{ appName }}</span>
         </NuxtLink>
 
         <div class="flex-1" />

@@ -7,7 +7,7 @@ const route = useRoute()
 const { loggedIn, fetch: refreshSession } = useUserSession()
 const { appName } = useRuntimeConfig().public
 
-useHead({ title: () => t('landing.title') })
+useHead({ title: () => `${appName} — ${t('landing.title')}`, titleTemplate: title => title ?? appName })
 
 const form = reactive({ twitch: '', kick: '' })
 const loading = ref(false)
