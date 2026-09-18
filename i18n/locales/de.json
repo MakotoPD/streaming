@@ -582,8 +582,8 @@
     "ttsSource": "Tipply schickt bei jeder Spende eine eigene Aufnahme. StreamElements und Streamlabs nicht, die liest Piper.",
     "blockSlurs": "Eingebaute Liste rassistischer, homophober und ähnlicher Beleidigungen in allen fünf Sprachen, auch mit Leerzeichen und l33t.",
     "bannedWords": "Nach jedem Wort Enter. Ein * am Ende erfasst längere Formen (idiot* erfasst Idioten). Groß-/Kleinschreibung, Umlaute und l33t werden ignoriert.",
-    "musicSource": "Spotify schickt Songs selbst an Last.fm (Spotify-Einstellungen → Social → Last.fm). Für SoundCloud, YouTube Music, Deezer, Tidal, Bandcamp oder Apple Music im Browser installiere die kostenlose Erweiterung Web Scrobbler und verbinde sie mit Last.fm oder ListenBrainz.",
-    "musicUser": "Dein Last.fm- oder ListenBrainz-Name. Dein Hörverlauf muss öffentlich sein."
+    "musicSource": "Spotify: auf Last.fm unter Settings → Applications → Spotify → Connect. SoundCloud, YouTube Music, Deezer, Tidal, Bandcamp oder Apple Music im Browser: die kostenlose Erweiterung Web Scrobbler installieren und bei Last.fm oder ListenBrainz anmelden. Änderungen erscheinen nach etwa 10–30 Sekunden.",
+    "musicUser": "Dein Last.fm- oder ListenBrainz-Name. Der Hörverlauf darf nicht versteckt sein (Last.fm → Settings → Privacy)."
   },
   "options": {
     "direction": {

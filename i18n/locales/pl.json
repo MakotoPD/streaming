@@ -582,8 +582,8 @@
     "ttsSource": "Tipply wysyła z każdym donejtem własne nagranie. StreamElements i Streamlabs nie, więc te czyta Piper.",
     "blockSlurs": "Wbudowana lista obelg rasistowskich, homofobicznych i podobnych w pięciu językach, także pisanych ze spacjami i l33t.",
     "bannedWords": "Enter po każdym słowie. Gwiazdka na końcu łapie też dłuższe formy (np. idiot* złapie idiota, idioci). Wielkość liter, polskie znaki i l33t są ignorowane.",
-    "musicSource": "Spotify sam wysyła utwory do Last.fm (ustawienia Spotify → Społeczność → Last.fm). Dla SoundCloud, YouTube Music, Deezer, Tidal, Bandcamp albo Apple Music w przeglądarce zainstaluj darmowe rozszerzenie Web Scrobbler i połącz je z Last.fm albo ListenBrainz.",
-    "musicUser": "Twoja nazwa na Last.fm albo ListenBrainz. Historia słuchania musi być publiczna."
+    "musicSource": "Spotify: na Last.fm wejdź w Settings → Applications → Spotify → Connect. SoundCloud, YouTube Music, Deezer, Tidal, Bandcamp albo Apple Music w przeglądarce: zainstaluj darmowe rozszerzenie Web Scrobbler i zaloguj je do Last.fm albo ListenBrainz. Zmiana utworu pojawia się po ok. 10–30 sekundach.",
+    "musicUser": "Twoja nazwa na Last.fm albo ListenBrainz. Historia słuchania nie może być ukryta (Last.fm → Settings → Privacy)."
   },
   "options": {
     "direction": {

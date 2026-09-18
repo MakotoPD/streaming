@@ -582,8 +582,8 @@
     "ttsSource": "Tipply присылает свою запись с каждым донатом. StreamElements и Streamlabs — нет, их читает Piper.",
     "blockSlurs": "Встроенный список расистских, гомофобных и подобных оскорблений на пяти языках, в том числе через пробелы и l33t.",
     "bannedWords": "Enter после каждого слова. * в конце ловит и длинные формы (идиот* поймает идиоты). Регистр, диакритика и l33t не учитываются.",
-    "musicSource": "Spotify сам отправляет треки в Last.fm (настройки Spotify → Социальные сети → Last.fm). Для SoundCloud, YouTube Music, Deezer, Tidal, Bandcamp или Apple Music в браузере установите бесплатное расширение Web Scrobbler и подключите его к Last.fm или ListenBrainz.",
-    "musicUser": "Ваше имя на Last.fm или ListenBrainz. История прослушивания должна быть открытой."
+    "musicSource": "Spotify: на Last.fm откройте Settings → Applications → Spotify → Connect. SoundCloud, YouTube Music, Deezer, Tidal, Bandcamp или Apple Music в браузере: установите бесплатное расширение Web Scrobbler и войдите в Last.fm или ListenBrainz. Смена трека появляется примерно через 10–30 секунд.",
+    "musicUser": "Ваше имя на Last.fm или ListenBrainz. История прослушивания не должна быть скрыта (Last.fm → Settings → Privacy)."
   },
   "options": {
     "direction": {

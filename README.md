@@ -89,7 +89,7 @@ Moderation (`shared/utils/moderation.ts`) applies to names and messages on scree
 
 ## Now playing
 
-The `now-playing` widget shows the current song from **Last.fm** or **ListenBrainz**. Neither SoundCloud nor most players expose what is playing, but both services collect it: Spotify scrobbles to Last.fm natively, and the Web Scrobbler browser extension covers SoundCloud, YouTube Music, Deezer, Tidal, Bandcamp and Apple Music on the web. Overlays poll `GET /api/o/<token>/now-playing` (cached 8 s per user); Last.fm needs `NUXT_LASTFM_API_KEY`, ListenBrainz needs nothing. Cover art comes from Last.fm or the Cover Art Archive.
+The `now-playing` widget shows the current song from **Last.fm** or **ListenBrainz**. Neither SoundCloud nor most players expose what is playing, but both services collect it: Spotify scrobbles to Last.fm once connected on Last.fm (Settings → Applications), and the Web Scrobbler browser extension covers SoundCloud, YouTube Music, Deezer, Tidal, Bandcamp and Apple Music on the web. Overlays poll `GET /api/o/<token>/now-playing` (cached 8 s per user); Last.fm needs `NUXT_LASTFM_API_KEY`, ListenBrainz needs nothing. Cover art comes from Last.fm or the Cover Art Archive.
 
 ## Drawing canvas
 

@@ -582,8 +582,8 @@
     "ttsSource": "Tipply sends its own recording with each donation. StreamElements and Streamlabs do not, so Piper reads those.",
     "blockSlurs": "A built-in list of racist, homophobic and similar slurs in all five languages, including spaced-out and l33t spellings.",
     "bannedWords": "Press Enter after each word. End a word with * to also catch longer forms (e.g. idiot* catches idiots). Case, Polish letters and l33t are ignored.",
-    "musicSource": "Spotify sends songs to Last.fm on its own (Spotify settings → Social → Last.fm). For SoundCloud, YouTube Music, Deezer, Tidal, Bandcamp or Apple Music on the web install the free Web Scrobbler extension and connect it to Last.fm or ListenBrainz.",
-    "musicUser": "Your Last.fm or ListenBrainz username. Your recent listening must be public."
+    "musicSource": "Spotify: on Last.fm go to Settings → Applications → Spotify → Connect. SoundCloud, YouTube Music, Deezer, Tidal, Bandcamp or Apple Music on the web: install the free Web Scrobbler extension and log it in to Last.fm or ListenBrainz. Changes show up after about 10–30 seconds.",
+    "musicUser": "Your Last.fm or ListenBrainz username. Recent listening must not be hidden (Last.fm → Settings → Privacy)."
   },
   "options": {
     "direction": {
