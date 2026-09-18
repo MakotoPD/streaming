@@ -97,7 +97,15 @@ onMounted(() => {
       if (e.origin === location.origin && e.data?.kind) handle(e.data)
     }
     addEventListener('message', onMessage)
-    disconnect = () => removeEventListener('message', onMessage)
+    const donations = new EventSource(`/api/o/${token}/events`)
+    donations.onmessage = (e) => {
+      const msg = JSON.parse(e.data) as OverlayMessage
+      if (live.value && msg.kind === 'event' && !msg.widgetId && msg.event.kind === 'alert' && msg.event.type === 'donation') bus.emit(msg.event)
+    }
+    disconnect = () => {
+      removeEventListener('message', onMessage)
+      donations.close()
+    }
     parent.postMessage({ kind: 'ready' }, location.origin)
     return
   }
