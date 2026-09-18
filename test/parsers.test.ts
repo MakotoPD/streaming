@@ -10,7 +10,7 @@ import { donationToAlert, parseSocketIoPacket, streamElementsChannel, streamElem
 import { fillTemplate } from '../shared/utils/template.ts'
 import { filterText, speakable } from '../shared/utils/moderation.ts'
 import { lastfmTrack, listenBrainzTrack } from '../server/utils/now-playing.ts'
-import { parseAmount, youtubeActionsToEvents, youtubeChannelPath, youtubeLiveChatContinuation, youtubeLiveFromPage } from '../server/utils/youtube-parse.ts'
+import { parseAmount, youtubeActionsToEvents, youtubeChannelPath, youtubeLiveChatContinuation, youtubeLiveFromPage, youtubeWatchInfo } from '../server/utils/youtube-parse.ts'
 import { formatColor, parseColor } from '../app/utils/color.ts'
 import { tokenizeCss } from '../app/utils/css-highlight.ts'
 import { applyOps, canvasPath, sanitizeOps, sanitizeScene } from '../shared/canvas.ts'
@@ -271,4 +271,11 @@ test('youtube chat uses the Live chat view, not Top chat', () => {
     { title: 'Live chat', selected: false, continuation: { reloadContinuationData: { continuation: 'ALL' } } }
   ] } } } } } } }
   assert.equal(youtubeLiveChatContinuation(`<script>window["ytInitialData"] = ${JSON.stringify(data)};</script>`), 'ALL')
+})
+
+test('youtube watch info detects live chat and viewers from innertube next', () => {
+  const next = (chat: object) => ({ contents: { twoColumnWatchNextResults: { conversationBar: { liveChatRenderer: chat }, results: { results: { contents: [{ videoPrimaryInfoRenderer: { viewCount: { videoViewCountRenderer: { isLive: true, originalViewCount: '2091' } } } }] } } } } })
+  assert.deepEqual(youtubeWatchInfo(next({})), { viewers: 2091 })
+  assert.equal(youtubeWatchInfo(next({ isReplay: true })), undefined)
+  assert.equal(youtubeWatchInfo({ contents: {} }), undefined)
 })

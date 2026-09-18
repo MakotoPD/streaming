@@ -1,5 +1,6 @@
+import { and, eq, or } from 'drizzle-orm'
 import type { StreamEvent } from '#shared/types'
-import { youtubeActionsToEvents, youtubeChannelPath, youtubeLiveChatContinuation, youtubeLiveFromPage, youtubeViewersFromPage } from './youtube-parse'
+import { youtubeActionsToEvents, youtubeChannelPath, youtubeLiveChatContinuation, youtubeLiveFromPage, youtubeViewersFromPage, youtubeWatchInfo } from './youtube-parse'
 
 const HEADERS = {
   'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0 Safari/537.36',
@@ -9,9 +10,21 @@ const HEADERS = {
 const MAX_FEEDS = 150
 const IDLE_MS = 60_000
 
+let clientVersion = '2.20260917.01.00'
+
+interface Found {
+  videoId: string
+  viewers: number
+}
+
+interface Lookup {
+  at: number
+  videoId: string | null
+  viewers: number
+}
+
 interface Feed {
   videoId: string
-  clientVersion: string
   continuation: string
   events: { seq: number, event: StreamEvent }[]
   seq: number
@@ -20,17 +33,80 @@ interface Feed {
   timer?: ReturnType<typeof setTimeout>
 }
 
-const lookups = new Map<string, { at: number, videoId: string | null, viewers: number }>()
+const lookups = new Map<string, Lookup>()
 const feeds = new Map<string, Feed>()
 const opening = new Map<string, Promise<Feed | undefined>>()
+const warned = new Map<string, number>()
 
-async function lookup(path: string) {
-  const cached = lookups.get(path)
-  if (cached && Date.now() - cached.at < (cached.videoId ? 60_000 : 30_000)) return cached
+async function innertube(endpoint: string, body: object) {
+  const response = await fetch(`https://www.youtube.com/youtubei/v1/${endpoint}?prettyPrint=false`, {
+    method: 'POST',
+    headers: { ...HEADERS, 'content-type': 'application/json' },
+    body: JSON.stringify({ context: { client: { clientName: 'WEB', clientVersion, hl: 'en', gl: 'US' } }, ...body }),
+    signal: AbortSignal.timeout(10_000)
+  })
+  const data = await response.json() as any
+  const version = (data?.responseContext?.serviceTrackingParams ?? [])
+    .flatMap((service: any) => service.params ?? [])
+    .find((param: any) => param.key === 'cver')?.value
+  if (typeof version === 'string' && /^2\.\d{8}/.test(version)) clientVersion = version
+  return data
+}
+
+async function watchInfo(videoId: string) {
+  return youtubeWatchInfo(await innertube('next', { videoId }).catch(() => undefined))
+}
+
+async function viaInnertube(path: string): Promise<Found | 'offline' | undefined> {
+  const resolved = await innertube('navigation/resolve_url', { url: `https://www.youtube.com${path}/live` }).catch(() => undefined)
+  if (!resolved?.endpoint) return undefined
+  const videoId = resolved.endpoint.watchEndpoint?.videoId
+  if (typeof videoId !== 'string') return 'offline'
+  const info = await watchInfo(videoId)
+  return info ? { videoId, ...info } : 'offline'
+}
+
+async function viaOfficialApi(path: string): Promise<Found | 'offline' | undefined> {
+  const key = path.startsWith('/channel/') ? path.slice('/channel/'.length) : path.slice(1)
+  const [account] = await useDb().select({ userId: tables.accounts.userId }).from(tables.accounts)
+    .where(and(eq(tables.accounts.provider, 'youtube'), or(eq(tables.accounts.providerId, key), eq(tables.accounts.login, key))))
+    .limit(1)
+  if (!account) return undefined
+  const list = await youtubeApi<{ items?: { id: string }[] }>(account.userId, '/liveBroadcasts', { part: 'id', broadcastStatus: 'active', broadcastType: 'all', mine: 'true' })
+  if (!list) return undefined
+  const videoId = list.items?.[0]?.id
+  if (!videoId) return 'offline'
+  const info = await watchInfo(videoId)
+  return { videoId, viewers: info?.viewers ?? 0 }
+}
+
+async function viaPage(path: string): Promise<Found | undefined> {
   const html = await fetch(`https://www.youtube.com${path}/live`, { headers: HEADERS, signal: AbortSignal.timeout(10_000) })
     .then(response => (response.ok ? response.text() : ''))
     .catch(() => '')
-  const result = { at: Date.now(), videoId: youtubeLiveFromPage(html) ?? null, viewers: youtubeViewersFromPage(html) }
+  const videoId = youtubeLiveFromPage(html)
+  return videoId ? { videoId, viewers: youtubeViewersFromPage(html) } : undefined
+}
+
+async function find(path: string): Promise<Found | undefined> {
+  const innertubeResult = await viaInnertube(path)
+  if (typeof innertubeResult === 'object') return innertubeResult
+  const officialResult = await viaOfficialApi(path)
+  if (typeof officialResult === 'object') return officialResult
+  if (innertubeResult === 'offline' || officialResult === 'offline') return undefined
+  const pageResult = await viaPage(path)
+  if (!pageResult && Date.now() - (warned.get(path) ?? 0) > 600_000) {
+    warned.set(path, Date.now())
+    console.warn(`[youtube] could not check ${path}: innertube, the official API and the channel page all failed`)
+  }
+  return pageResult
+}
+
+async function lookup(path: string): Promise<Lookup> {
+  const cached = lookups.get(path)
+  if (cached && Date.now() - cached.at < (cached.videoId ? 60_000 : 30_000)) return cached
+  const found = await find(path)
+  const result: Lookup = found ? { at: Date.now(), ...found } : { at: Date.now(), videoId: null, viewers: 0 }
   lookups.set(path, result)
   if (lookups.size > 2000) lookups.delete(lookups.keys().next().value!)
   return result
@@ -52,18 +128,12 @@ async function poll(feed: Feed) {
   if (Date.now() - feed.lastAsked > IDLE_MS) return closeFeed(feed)
   let wait = 3000
   try {
-    const response = await fetch('https://www.youtube.com/youtubei/v1/live_chat/get_live_chat?prettyPrint=false', {
-      method: 'POST',
-      headers: { ...HEADERS, 'content-type': 'application/json' },
-      body: JSON.stringify({ context: { client: { clientName: 'WEB', clientVersion: feed.clientVersion } }, continuation: feed.continuation }),
-      signal: AbortSignal.timeout(10_000)
-    })
-    const body = await response.json() as any
+    const body = await innertube('live_chat/get_live_chat', { continuation: feed.continuation })
     const data = body?.continuationContents?.liveChatContinuation
     const next = data?.continuations?.[0]
     const continuation = next?.invalidationContinuationData ?? next?.timedContinuationData ?? next?.reloadContinuationData
     if (!continuation?.continuation) {
-      for (const [path, lookup] of lookups) if (lookup.videoId === feed.videoId) lookups.delete(path)
+      for (const [path, entry] of lookups) if (entry.videoId === feed.videoId) lookups.delete(path)
       return closeFeed(feed)
     }
     feed.continuation = continuation.continuation
@@ -81,13 +151,14 @@ async function poll(feed: Feed) {
 
 async function openFeed(videoId: string) {
   if (feeds.size >= MAX_FEEDS) return
-  const html = await fetch(`https://www.youtube.com/live_chat?is_popout=1&v=${videoId}`, { headers: HEADERS, signal: AbortSignal.timeout(10_000) })
-    .then(response => (response.ok ? response.text() : ''))
-    .catch(() => '')
-  const clientVersion = html.match(/"INNERTUBE_CLIENT_VERSION":"([^"]+)"/)?.[1]
+  const response = await fetch(`https://www.youtube.com/live_chat?is_popout=1&v=${videoId}`, { headers: HEADERS, signal: AbortSignal.timeout(10_000) }).catch(() => undefined)
+  const html = response?.ok ? await response.text() : ''
   const continuation = youtubeLiveChatContinuation(html)
-  if (!clientVersion || !continuation) return
-  const feed: Feed = { videoId, clientVersion, continuation, events: [], seq: 0, lastAsked: Date.now(), failures: 0 }
+  if (!continuation) {
+    console.warn(`[youtube] no live chat for ${videoId}: HTTP ${response?.status ?? 'error'}, ${response?.url ?? ''}, ${html.length} bytes${/not a bot|consent\.youtube/.test(html + (response?.url ?? '')) ? ', blocked by YouTube' : ''}`)
+    return
+  }
+  const feed: Feed = { videoId, continuation, events: [], seq: 0, lastAsked: Date.now(), failures: 0 }
   feeds.set(videoId, feed)
   feed.timer = setTimeout(() => poll(feed), 500)
   return feed

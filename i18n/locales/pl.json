@@ -146,7 +146,12 @@
     "allPlatforms": "Wszystkie platformy",
     "onlyOnPlatform": "Działa tylko na {platform}",
     "youtubeHint": "Ustawiany automatycznie po zalogowaniu przez Google",
-    "changeChannel": "Zmień kanał"
+    "changeChannel": "Zmień kanał",
+    "unlink": "Odłącz konto",
+    "unlinkConfirm": "Odłączyć {platform} ({name})? Dostęp zostanie cofnięty, a alerty z tej platformy przestaną działać, dopóki nie połączysz jej ponownie.",
+    "unlinked": "Konto odłączone",
+    "unlinkLast": "To Twoje jedyne logowanie. Najpierw połącz inne konto albo usuń całe konto na dole strony.",
+    "unlinkFailed": "Nie udało się odłączyć konta."
   },
   "widgets": {
     "chat": {

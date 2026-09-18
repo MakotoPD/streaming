@@ -38,6 +38,23 @@ async function saveChannels() {
 
 const linked = computed(() => new Set(me.value?.accounts.map(a => a.provider)))
 
+const unlinking = ref<string>()
+async function unlink(provider: string, name: string) {
+  if (!confirm(t('dashboard.unlinkConfirm', { platform: t(`platforms.${provider}`), name }))) return
+  unlinking.value = provider
+  try {
+    await $fetch(`/api/me/accounts/${provider}`, { method: 'DELETE' })
+    await refreshMe()
+    toast.add({ title: t('dashboard.unlinked'), color: 'success', icon: 'i-lucide-check' })
+  }
+  catch (err: any) {
+    toast.add({ title: t(err?.data?.message === 'last_account' ? 'dashboard.unlinkLast' : 'dashboard.unlinkFailed'), color: 'error' })
+  }
+  finally {
+    unlinking.value = undefined
+  }
+}
+
 const expiresAt = computed(() => me.value?.expiresAt
   ? new Intl.DateTimeFormat(locale.value, { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(me.value.expiresAt))
   : undefined)
@@ -197,6 +214,18 @@ const { copyObsUrl } = useObsUrl()
               icon="i-lucide-repeat"
               :label="t('dashboard.changeChannel')"
             />
+            <UTooltip :text="(me?.accounts.length ?? 0) > 1 ? t('dashboard.unlink') : t('dashboard.unlinkLast')">
+              <UButton
+                size="xs"
+                color="error"
+                variant="ghost"
+                icon="i-lucide-unlink"
+                :loading="unlinking === account.provider"
+                :disabled="(me?.accounts.length ?? 0) <= 1"
+                :aria-label="t('dashboard.unlink')"
+                @click="unlink(account.provider, account.displayName)"
+              />
+            </UTooltip>
           </div>
           <div class="flex flex-wrap gap-2">
             <UButton v-if="!linked.has('twitch')" to="/auth/twitch" external icon="i-simple-icons-twitch" color="neutral" variant="outline" :label="t('dashboard.connect', { platform: 'Twitch' })" />

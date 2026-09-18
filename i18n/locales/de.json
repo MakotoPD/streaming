@@ -146,7 +146,12 @@
     "allPlatforms": "Alle Plattformen",
     "onlyOnPlatform": "Funktioniert nur auf {platform}",
     "youtubeHint": "Wird nach der Google-Anmeldung automatisch gesetzt",
-    "changeChannel": "Kanal wechseln"
+    "changeChannel": "Kanal wechseln",
+    "unlink": "Konto trennen",
+    "unlinkConfirm": "{platform} ({name}) trennen? Der Zugriff wird widerrufen und die Alerts dieser Plattform funktionieren erst nach erneutem Verbinden wieder.",
+    "unlinked": "Konto getrennt",
+    "unlinkLast": "Das ist deine einzige Anmeldung. Verbinde zuerst ein anderes Konto oder lösche unten das ganze Konto.",
+    "unlinkFailed": "Konto konnte nicht getrennt werden."
   },
   "widgets": {
     "chat": {

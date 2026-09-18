@@ -154,6 +154,15 @@ export function youtubeLiveFromPage(html: string) {
   return videoId
 }
 
+export function youtubeWatchInfo(next: any) {
+  const results = next?.contents?.twoColumnWatchNextResults
+  const chat = results?.conversationBar?.liveChatRenderer
+  if (!chat || chat.isReplay) return
+  const primary = (results?.results?.results?.contents ?? []).find((item: any) => item?.videoPrimaryInfoRenderer)?.videoPrimaryInfoRenderer
+  const viewers = Number(primary?.viewCount?.videoViewCountRenderer?.originalViewCount)
+  return { viewers: Number.isFinite(viewers) ? viewers : 0 }
+}
+
 export function youtubeLiveChatContinuation(html: string) {
   const raw = html.match(/window\["ytInitialData"\] = (\{.*?\});\s*<\/script>/s)?.[1] ?? html.match(/ytInitialData = (\{.*?\});\s*<\/script>/s)?.[1]
   try {

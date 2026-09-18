@@ -43,7 +43,7 @@ async function getAppToken() {
   return appToken.value
 }
 
-function request<T>(token: string, path: string, init: { method?: 'GET' | 'POST', body?: object } = {}) {
+function request<T>(token: string, path: string, init: { method?: 'GET' | 'POST' | 'DELETE', body?: object } = {}) {
   return $fetch<T>(`https://api.twitch.tv/helix${path}`, {
     method: init.method ?? 'GET',
     body: init.body,
@@ -51,7 +51,7 @@ function request<T>(token: string, path: string, init: { method?: 'GET' | 'POST'
   })
 }
 
-export async function helix<T>(path: string, init: { method?: 'GET' | 'POST', body?: object } = {}): Promise<T | undefined> {
+export async function helix<T>(path: string, init: { method?: 'GET' | 'POST' | 'DELETE', body?: object } = {}): Promise<T | undefined> {
   const token = await getAppToken()
   return token ? request<T>(token, path, init) : undefined
 }
@@ -121,4 +121,11 @@ export async function subscribeTwitchEvents(broadcasterId: string) {
       if (err?.statusCode !== 409) console.error('[twitch] EventSub', type, err?.data ?? err)
     }
   }))
+}
+
+export async function unsubscribeTwitchEvents(broadcasterId: string) {
+  const list = await helix<{ data: { id: string, condition: { broadcaster_user_id?: string } }[] }>(`/eventsub/subscriptions?user_id=${broadcasterId}`).catch(() => undefined)
+  await Promise.all((list?.data ?? [])
+    .filter(subscription => subscription.condition.broadcaster_user_id === broadcasterId)
+    .map(subscription => helix(`/eventsub/subscriptions?id=${subscription.id}`, { method: 'DELETE' }).catch(() => undefined)))
 }

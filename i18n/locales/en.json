@@ -146,7 +146,12 @@
     "allPlatforms": "All platforms",
     "onlyOnPlatform": "Works only on {platform}",
     "youtubeHint": "Set automatically after signing in with Google",
-    "changeChannel": "Change channel"
+    "changeChannel": "Change channel",
+    "unlink": "Disconnect account",
+    "unlinkConfirm": "Disconnect {platform} ({name})? Its access is revoked and its alerts stop working until you connect it again.",
+    "unlinked": "Account disconnected",
+    "unlinkLast": "This is your only sign-in. Connect another account first, or delete the whole account below.",
+    "unlinkFailed": "Could not disconnect the account."
   },
   "widgets": {
     "chat": {
