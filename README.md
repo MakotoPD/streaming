@@ -63,6 +63,8 @@ Videos (MP4, WebM, up to 25 MB) are accepted for the drawing canvas and the Libr
 
 The dashboard has a **Library** page listing uploaded images, videos and sounds with the widgets and fields that use them. Replacing a file keeps its URL (widgets using it reload), and deleting one also clears it from those widgets.
 
+Guest users (nickname only, no linked Twitch or Kick account) expire 48 hours after they are created: `server/plugins/guests.ts` runs every 10 minutes and deletes them with all their widgets. Linking an account before that turns the guest into a normal user. The dashboard shows guests when their widgets will disappear.
+
 Deleting the account (dashboard, bottom of the page, `DELETE /api/me`) removes the user row — widgets, styles, linked accounts and files cascade with it, and uploaded files are removed from disk.
 
 ## Drawing canvas

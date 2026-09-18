@@ -4,7 +4,7 @@ import { WIDGETS } from '#shared/widgets'
 
 definePageMeta({ middleware: 'auth' })
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 const toast = useToast()
 
 useHead({ title: () => t('nav.dashboard') })
@@ -38,6 +38,10 @@ async function saveChannels() {
 
 const linked = computed(() => new Set(me.value?.accounts.map(a => a.provider)))
 
+const expiresAt = computed(() => me.value?.expiresAt
+  ? new Intl.DateTimeFormat(locale.value, { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(me.value.expiresAt))
+  : undefined)
+
 const addOpen = ref(false)
 
 async function addWidget(type: string) {
@@ -62,6 +66,19 @@ const { copyObsUrl } = useObsUrl()
 
 <template>
   <UContainer class="py-10 space-y-10">
+    <UAlert
+      v-if="expiresAt"
+      icon="i-lucide-clock"
+      color="warning"
+      variant="subtle"
+      :title="t('guest.title', { date: expiresAt })"
+      :description="t('guest.text')"
+      :actions="[
+        { label: t('dashboard.connect', { platform: 'Twitch' }), icon: 'i-simple-icons-twitch', to: '/auth/twitch', external: true, color: 'neutral', variant: 'outline' },
+        { label: t('dashboard.connect', { platform: 'Kick' }), icon: 'i-simple-icons-kick', to: '/auth/kick', external: true, color: 'neutral', variant: 'outline' }
+      ]"
+    />
+
     <section>
       <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
         <div>

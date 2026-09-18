@@ -31,7 +31,7 @@
     "description": "Chat, alertas, metas, pantallas de escena y un lienzo que puedes ceder a un amigo. Eliges un estilo, ajustas la animación y pegas un enlace en OBS.",
     "welcomeBack": "Has iniciado sesión. Tus widgets te esperan.",
     "guestTitle": "Empieza con tu nombre de usuario",
-    "guestDescription": "Sin cuenta. Tus widgets se guardan en este navegador.",
+    "guestDescription": "Sin cuenta. Los widgets de invitado funcionan 48 horas; inicia sesión para conservarlos.",
     "continue": "Continuar",
     "or": "o",
     "loginDescription": "Inicia sesión para tener tus widgets en cualquier dispositivo, subir sonidos y recibir alertas de follows.",
@@ -1020,7 +1020,7 @@
         {
           "title": "Cuánto tiempo lo guardamos",
           "body": [
-            "Los datos se quedan hasta que los borres. Borrar un widget elimina sus ajustes y sus enlaces. Borrar un archivo de la Biblioteca lo elimina del servidor y de todos los widgets que lo usaban.",
+            "Los datos se quedan hasta que los borres. Borrar un widget elimina sus ajustes y sus enlaces. Borrar un archivo de la Biblioteca lo elimina del servidor y de todos los widgets que lo usaban. Las cuentas de invitado (solo un nick, sin iniciar sesión con Twitch o Kick) se borran con todos sus widgets 48 horas después de crearse.",
             "Las imágenes y vídeos subidos en el lienzo se borran del servidor automáticamente cuando dejan de estar en él."
           ]
         },
@@ -1133,5 +1133,9 @@
     "confirmLabel": "Escribe {word} para confirmar",
     "confirmWord": "BORRAR",
     "failed": "No se pudo eliminar la cuenta. Inténtalo de nuevo."
+  },
+  "guest": {
+    "title": "Los widgets de invitado se eliminarán el {date}",
+    "text": "Sin iniciar sesión, tus widgets funcionan durante 48 horas y después se borran junto con sus enlaces de OBS. Conecta Twitch o Kick para conservarlos."
   }
 }

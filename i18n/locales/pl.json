@@ -31,7 +31,7 @@
     "description": "Czat, alerty, cele, ekrany przerwy i tablica do rysowania, którą oddasz znajomemu. Wybierasz styl, dobierasz animację i wklejasz jeden link do OBS.",
     "welcomeBack": "Jesteś zalogowany. Twoje widgety czekają.",
     "guestTitle": "Zacznij od nicku",
-    "guestDescription": "Bez zakładania konta. Widgety zostają zapisane w tej przeglądarce.",
+    "guestDescription": "Bez konta. Widgety gościa działają przez 48 godzin — zaloguj się, żeby je zachować.",
     "continue": "Dalej",
     "or": "lub",
     "loginDescription": "Zaloguj się, żeby mieć widgety na każdym urządzeniu, wgrywać dźwięki i dostawać alerty o obserwacjach.",
@@ -1020,7 +1020,7 @@
         {
           "title": "Jak długo to trzymamy",
           "body": [
-            "Dane zostają, dopóki ich nie usuniesz. Usunięcie widgetu kasuje jego ustawienia i linki. Usunięcie pliku w Bibliotece kasuje go z serwera i ze wszystkich widgetów, które go używały.",
+            "Dane zostają, dopóki ich nie usuniesz. Usunięcie widgetu kasuje jego ustawienia i linki. Usunięcie pliku w Bibliotece kasuje go z serwera i ze wszystkich widgetów, które go używały. Konta gości (sam nick, bez logowania przez Twitch lub Kick) są usuwane razem ze wszystkimi widgetami 48 godzin po utworzeniu.",
             "Obrazy i wideo wgrane na tablicy do rysowania są automatycznie kasowane z serwera, gdy znikną z tablicy."
           ]
         },
@@ -1133,5 +1133,9 @@
     "confirmLabel": "Wpisz {word}, żeby potwierdzić",
     "confirmWord": "USUŃ",
     "failed": "Nie udało się usunąć konta. Spróbuj ponownie."
+  },
+  "guest": {
+    "title": "Widgety gościa znikną {date}",
+    "text": "Bez logowania widgety działają przez 48 godzin, potem są usuwane razem z linkami do OBS. Połącz Twitcha albo Kicka, żeby je zachować."
   }
 }

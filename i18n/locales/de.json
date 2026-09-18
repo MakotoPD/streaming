@@ -31,7 +31,7 @@
     "description": "Chat, Alerts, Ziele, Szenenbilder und eine Zeichenfläche, die du weitergeben kannst. Stil wählen, Animation anpassen, einen Link in OBS einfügen.",
     "welcomeBack": "Du bist angemeldet. Deine Widgets warten.",
     "guestTitle": "Starte mit deinem Namen",
-    "guestDescription": "Kein Konto nötig. Deine Widgets bleiben in diesem Browser gespeichert.",
+    "guestDescription": "Kein Konto nötig. Gast-Widgets laufen 48 Stunden – melde dich an, um sie zu behalten.",
     "continue": "Weiter",
     "or": "oder",
     "loginDescription": "Melde dich an, um deine Widgets auf allen Geräten zu haben, Sounds hochzuladen und Follow-Alerts zu bekommen.",
@@ -1020,7 +1020,7 @@
         {
           "title": "Wie lange wir das behalten",
           "body": [
-            "Daten bleiben, bis du sie löschst. Ein gelöschtes Widget nimmt seine Einstellungen und Links mit. Eine gelöschte Datei in der Bibliothek verschwindet vom Server und aus allen Widgets, die sie genutzt haben.",
+            "Daten bleiben, bis du sie löschst. Ein gelöschtes Widget nimmt seine Einstellungen und Links mit. Eine gelöschte Datei in der Bibliothek verschwindet vom Server und aus allen Widgets, die sie genutzt haben. Gastkonten (nur ein Nickname, ohne Twitch- oder Kick-Anmeldung) werden 48 Stunden nach dem Anlegen samt aller Widgets gelöscht.",
             "Bilder und Videos, die auf der Zeichenfläche hochgeladen wurden, werden automatisch vom Server gelöscht, sobald sie nicht mehr auf der Fläche liegen."
           ]
         },
@@ -1133,5 +1133,9 @@
     "confirmLabel": "Tippe {word} zum Bestätigen",
     "confirmWord": "LÖSCHEN",
     "failed": "Konto konnte nicht gelöscht werden. Versuch es erneut."
+  },
+  "guest": {
+    "title": "Gast-Widgets werden am {date} gelöscht",
+    "text": "Ohne Anmeldung bleiben deine Widgets 48 Stunden aktiv und werden danach samt OBS-Links gelöscht. Verbinde Twitch oder Kick, um sie zu behalten."
   }
 }

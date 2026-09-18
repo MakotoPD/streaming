@@ -18,6 +18,7 @@ export default defineEventHandler(async (event) => {
   return {
     id: user.id,
     channels: user.channels,
+    expiresAt: accounts.length ? null : guestExpiresAt(user.createdAt).toISOString(),
     accounts: accounts.map(({ scopes, ...account }) => ({
       ...account,
       needsReconnect: account.provider === 'twitch' && TWITCH_SCOPES.some(scope => !scopes.includes(scope))

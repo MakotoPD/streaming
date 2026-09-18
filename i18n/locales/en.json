@@ -31,7 +31,7 @@
     "description": "Chat, alerts, goals, scene screens and a drawing board you can hand to a friend. Pick a style, tweak the animation, paste one link into OBS.",
     "welcomeBack": "You're signed in. Your widgets are waiting.",
     "guestTitle": "Start with your nickname",
-    "guestDescription": "No account needed. Your widgets are kept in this browser.",
+    "guestDescription": "No account needed. Guest widgets work for 48 hours, sign in to keep them.",
     "continue": "Continue",
     "or": "or",
     "loginDescription": "Sign in to keep your widgets on every device, upload sounds and get follow alerts.",
@@ -1020,7 +1020,7 @@
         {
           "title": "How long we keep it",
           "body": [
-            "Data stays until you delete it. Deleting a widget removes its settings and its links. Deleting a file in the Library removes it from the server and from every widget that used it.",
+            "Data stays until you delete it. Deleting a widget removes its settings and its links. Deleting a file in the Library removes it from the server and from every widget that used it. Guest accounts (a nickname only, no Twitch or Kick sign-in) are deleted with all their widgets 48 hours after they were created.",
             "Images and videos uploaded on a drawing board are deleted from the server automatically once they are no longer on the board."
           ]
         },
@@ -1133,5 +1133,9 @@
     "confirmLabel": "Type {word} to confirm",
     "confirmWord": "DELETE",
     "failed": "Could not delete the account. Try again."
+  },
+  "guest": {
+    "title": "Guest widgets are removed on {date}",
+    "text": "Without signing in, your widgets stay active for 48 hours and are then deleted together with their OBS links. Connect Twitch or Kick to keep them."
   }
 }
