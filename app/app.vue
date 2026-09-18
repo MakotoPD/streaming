@@ -19,6 +19,7 @@ useHead({
 })
 
 useSeoMeta({
+  applicationName: appName,
   description: () => t('seo.description'),
   ogTitle: () => t('seo.title'),
   ogDescription: () => t('seo.description'),

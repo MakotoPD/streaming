@@ -57,9 +57,6 @@ function backToTop() {
       <UContainer class="relative py-14 lg:py-20">
         <div class="grid items-start gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,26rem)]">
           <div>
-            <p class="mb-4 font-mono text-sm font-semibold uppercase tracking-widest text-primary">
-              {{ appName }}
-            </p>
             <div class="flex flex-wrap items-center gap-2 text-xs font-medium text-muted">
               <span class="inline-flex items-center gap-1.5 rounded-full border border-default px-2.5 py-1">
                 <UIcon name="i-simple-icons-twitch" class="size-3.5" /> Twitch
@@ -75,6 +72,7 @@ function backToTop() {
             </div>
 
             <h1 class="mt-5 text-4xl font-bold leading-[1.05] tracking-tight text-highlighted sm:text-5xl lg:text-6xl">
+              <span class="mb-3 block text-2xl text-primary sm:text-3xl">{{ appName }}</span>
               {{ t('landing.headline') }}
             </h1>
             <p class="mt-5 max-w-xl text-lg text-muted">

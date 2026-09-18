@@ -76,6 +76,9 @@ async function logout() {
           <p class="text-dimmed">
             {{ t('footer.rights') }}
           </p>
+          <p class="text-dimmed">
+            © {{ new Date().getFullYear() }} {{ appName }}
+          </p>
         </div>
         <nav class="flex flex-col gap-2 sm:items-end">
           <NuxtLink to="/privacy" class="hover:text-default">
